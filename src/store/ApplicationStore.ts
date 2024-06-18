@@ -1,15 +1,15 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable } from "mobx";
 
 class ApplicationStore {
-	drawerIsOpen = false;
+  drawerIsOpen = false;
 
-	constructor() {
-		makeAutoObservable(this);
-	}
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-	toggleDrawer() {
-		this.drawerIsOpen = !this.drawerIsOpen;
-	}
+  toggleDrawer() {
+    this.drawerIsOpen = !this.drawerIsOpen;
+  }
 }
 
 export default ApplicationStore;
