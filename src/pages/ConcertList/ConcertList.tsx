@@ -1,51 +1,45 @@
-import { useStore } from '../../store/StoreContext';
-import { useEffect } from 'react';
-import { observer } from 'mobx-react-lite';
-import { toJS } from 'mobx';
-import { Box, Container, Typography, Grid } from '@mui/material';
-import Card from '../../components/Card/Card';
+import { useStore } from "../../store/StoreContext";
+import { useEffect } from "react";
+import { observer } from "mobx-react-lite";
+import { toJS } from "mobx";
+import { Box, Container, Typography, Grid } from "@mui/material";
+import { headerStyle, headerTitleStyle } from "./styles";
+import { Card } from "../../components/Card/card.tsx";
 
 function ConcertListPage() {
-	const { concertStore } = useStore();
+  const { concertStore } = useStore();
 
-	useEffect(() => {
-		concertStore.fetchAllConcerts();
-	}, [concertStore]);
+  useEffect(() => {
+    concertStore.fetchAllConcerts();
+  }, [concertStore]);
 
-	const handleConcertCreation = () => {
-		concertStore.addConcert({
-			band: 'The Band',
-			url: 'https://i.pinimg.com/736x/8b/9a/cc/8b9accffb72cd44f2144d93800b3694d--rammstein-concert-rammstein-till-lindemann.jpg',
-			year: 2025,
-		});
-	};
+  if (concertStore.loading) {
+    return <div>Loading...</div>;
+  }
 
-	if (concertStore.loading) {
-		return <div>Loading...</div>;
-	}
+  if (concertStore.error) {
+    return <div>Error: {concertStore.error}</div>;
+  }
 
-	if (concertStore.error) {
-		return <div>Error: {concertStore.error}</div>;
-	}
-
-	return (
-		<>
-			<Box>
-				<Container maxWidth="md" component="section">
-					<Typography variant="h3">This is Concerts List page</Typography>
-				</Container>
-				<Container maxWidth="md" component="section">
-					<Grid container spacing={2}>
-						{toJS(concertStore.concerts).map((concert) => (
-							<Card key={concert.id} {...concert} />
-						))}
-					</Grid>
-
-					<button onClick={handleConcertCreation}>ADD HARDCODED CONCERT</button>
-				</Container>
-			</Box>
-		</>
-	);
+  return (
+    <>
+      <Box>
+        <Container sx={headerStyle} maxWidth="md" component="section">
+          <Typography sx={headerTitleStyle}>The List of Concerts</Typography>
+        </Container>
+        <Container
+          maxWidth="md"
+          component="section"
+        >
+          <Grid container spacing={1}>
+            {toJS(concertStore.concerts).map((concert) => (
+              <Card key={concert.id} {...concert} />
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+    </>
+  );
 }
 
 export default observer(ConcertListPage);

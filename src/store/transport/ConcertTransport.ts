@@ -3,6 +3,7 @@ import { makeAutoObservable } from "mobx";
 
 interface Concert {
   band: string;
+  city: string;
   year?: number;
   url: string;
 }
