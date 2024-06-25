@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import { headerStyle, headerTitleStyle } from "./styles";
-import { Card } from "../../components/Card/card.tsx";
+import { Card } from "../../components/Card/card";
 
 function ConcertListPage() {
   const { concertStore } = useStore();
@@ -27,10 +27,7 @@ function ConcertListPage() {
         <Container sx={headerStyle} maxWidth="md" component="section">
           <Typography sx={headerTitleStyle}>The List of Concerts</Typography>
         </Container>
-        <Container
-          maxWidth="md"
-          component="section"
-        >
+        <Container maxWidth="md" component="section">
           <Grid container spacing={1}>
             {toJS(concertStore.concerts).map((concert) => (
               <Card key={concert.id} {...concert} />

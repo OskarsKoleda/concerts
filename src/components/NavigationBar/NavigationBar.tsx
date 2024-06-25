@@ -1,7 +1,7 @@
 import { Drawer, List, Box } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../store/StoreContext";
-import NavListItem from "../NavigationListItem/NavigationListItem";
+import NavListItem from "../NavigationListItem/navigationListItem";
 
 export const NavigationBar = observer(function NavigationBar(): JSX.Element {
   const { applicationStore } = useStore();

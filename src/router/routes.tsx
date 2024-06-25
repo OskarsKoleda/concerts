@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "../pages/Home/Home";
-import ConcertListPage from "../pages/ConcertList/ConcertList";
-import NewConcertPage from "../pages/NewConcert/NewConcert";
-import Layout from "../pages/Layout/Layout";
+import ConcertListPage from "../pages/ConcertList/concertList";
+import NewConcertPage from "../pages/NewConcert/newConcert";
+import Layout from "../pages/Layout/layout";
 
 const AppRoutes = () => {
   return (

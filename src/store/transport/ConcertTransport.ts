@@ -1,16 +1,6 @@
 import { Database, onValue, ref, set, push, remove } from "firebase/database";
 import { makeAutoObservable } from "mobx";
-
-interface Concert {
-  band: string;
-  city: string;
-  year?: number;
-  url: string;
-}
-
-interface ConcertData {
-  [key: string]: Concert;
-}
+import { ConcertData, ConcertRawData } from "../../common/types/concert";
 
 export class ConcertTransport {
   db: Database;
@@ -20,11 +10,11 @@ export class ConcertTransport {
     makeAutoObservable(this);
   }
 
-  fetchAllConcerts = async (): Promise<ConcertData | null> => {
+  fetchAllConcerts = async (): Promise<ConcertRawData | null> => {
     return new Promise((res, rej) => {
       const concertsRef = ref(this.db, "/concerts");
       onValue(concertsRef, (snapshot) => {
-        const data: ConcertData = snapshot.val();
+        const data: ConcertRawData = snapshot.val();
         if (data) {
           res(data);
         } else {
@@ -34,8 +24,8 @@ export class ConcertTransport {
     });
   };
 
-  addConcert = async (concert: Concert) => {
-    const newConcertRef = push(ref(this.db, "/concerts"));
+  addConcert = async (concert: ConcertData) => {
+    const newConcertRef = push(ref(this.db, `/concerts`));
     await set(newConcertRef, concert);
   };
 

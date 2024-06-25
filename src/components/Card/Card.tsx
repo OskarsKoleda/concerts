@@ -2,15 +2,14 @@ import { Grid, Paper, Typography, Box, ButtonBase } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { posterImageStyle, concertInformationSectionStyle, cardStyle } from "./styles";
 import { useStore } from "../../store/StoreContext";
+import { ConcertFormattedData } from "../../common/types/concert";
 
-interface ConcertProps {
-  id: string;
-  band: string;
-  year?: number;
-  url: string;
-}
-
-export const Card = observer(function Card({ id, band, year, url }: ConcertProps): JSX.Element {
+export const Card: React.FC<ConcertFormattedData> = observer(function Card({
+  id,
+  band,
+  year,
+  url,
+}: ConcertFormattedData): JSX.Element {
   const { concertStore } = useStore();
 
   function handleDeletion(concertId: string) {

@@ -28,9 +28,6 @@ export default function NewConcertPage() {
   const { getValues, reset, handleSubmit, trigger, setFocus } = methods;
 
   const submitConcertData = (data: ConcertPageInputs) => {
-    // ... store data in firebase
-    console.log("MY DATA: ", data);
-
     concertStore.addConcert({
       band: data.band,
       city: data.city,

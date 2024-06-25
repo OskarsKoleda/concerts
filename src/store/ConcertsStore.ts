@@ -1,17 +1,11 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { ConcertTransport } from "./transport/ConcertTransport";
 import { Database } from "firebase/database";
-
-interface Concert {
-  id: string;
-  band: string;
-  city: string;
-  year?: number;
-  url: string;
-}
+import { ConcertData, ConcertFormattedData } from "../common/types/concert";
+import { transformFirebaseObject } from "../common/utils/utility";
 
 class ConcertStore {
-  concerts: Concert[] = [];
+  concerts: ConcertFormattedData[] = [];
   concertTransport: ConcertTransport;
   loading: boolean = false;
   error: string | null = null;
@@ -28,18 +22,15 @@ class ConcertStore {
       const data = await this.concertTransport.fetchAllConcerts();
       runInAction(() => {
         if (data) {
-          this.setConcerts(
-            Object.keys(data).map((key) => ({
-              ...data[key],
-              id: key,
-            })),
-          );
+          const formattedConcerts: ConcertFormattedData[] = transformFirebaseObject(data);
+          this.setConcerts(formattedConcerts);
         } else {
           this.concerts = [];
         }
         this.loading = false;
       });
     } catch (error: any) {
+      // what is this function?
       runInAction(() => {
         this.error = error.message;
         this.loading = false;
@@ -48,14 +39,13 @@ class ConcertStore {
     }
   };
 
-  setConcerts = (concerts: Concert[]) => {
+  setConcerts = (concerts: ConcertFormattedData[]) => {
     this.concerts = concerts;
   };
 
-  addConcert = async (concert: Concert) => {
+  addConcert = async (concert: ConcertData) => {
     try {
-      const data = await this.concertTransport.addConcert(concert);
-      console.log("created: ", data);
+      await this.concertTransport.addConcert(concert);
       this.fetchAllConcerts();
     } catch (error) {
       console.error("Error adding concert:", error);
