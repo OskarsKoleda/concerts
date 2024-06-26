@@ -1,7 +1,7 @@
 import { Container, Box, Typography, Grid, Paper } from "@mui/material";
-import NavLinkButton from "../../components/NavButton/navButton";
+import { NavLinkButton } from "../../components/NavButton/navButton_new";
 
-const HomePage = () => {
+export const HomePage = (): JSX.Element => {
   return (
     <Container maxWidth="md" sx={{ mt: 8 }}>
       <Box textAlign="center" mb={4}>
@@ -43,5 +43,3 @@ const HomePage = () => {
     </Container>
   );
 };
-
-export default HomePage;

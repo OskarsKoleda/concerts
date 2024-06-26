@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import { headerStyle, headerTitleStyle } from "./styles";
-import { Card } from "../../components/Card/card";
+import { Card } from "../../components/Card/card_new";
 
 function ConcertListPage() {
   const { concertStore } = useStore();

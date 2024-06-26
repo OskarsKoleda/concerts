@@ -3,7 +3,7 @@ import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../store/StoreContext";
 
-const Header: React.FC = () => {
+export const Header = observer(function Header(): JSX.Element {
   const { applicationStore } = useStore();
 
   return (
@@ -16,6 +16,4 @@ const Header: React.FC = () => {
       </Toolbar>
     </AppBar>
   );
-};
-
-export default observer(Header);
+});

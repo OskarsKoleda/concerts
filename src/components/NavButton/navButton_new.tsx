@@ -1,5 +1,3 @@
-// NavLinkButton.tsx
-
 import React, { ReactNode } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import Button, { ButtonProps } from "@mui/material/Button";
@@ -9,7 +7,7 @@ interface NavLinkButtonProps extends ButtonProps {
   children: ReactNode;
 }
 
-const NavLinkButton: React.FC<NavLinkButtonProps> = ({
+export const NavLinkButton: React.FC<NavLinkButtonProps> = ({
   to,
   children,
   color = "primary",
@@ -17,15 +15,8 @@ const NavLinkButton: React.FC<NavLinkButtonProps> = ({
   ...rest
 }) => {
   return (
-    <Button 
-    component={RouterLink} 
-    to={to} 
-    color={color} 
-    variant={variant} 
-    {...rest}>
+    <Button component={RouterLink} to={to} color={color} variant={variant} {...rest}>
       {children}
     </Button>
   );
 };
-
-export default NavLinkButton;

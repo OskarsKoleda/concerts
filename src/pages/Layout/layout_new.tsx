@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Header from "../../components/Header/header";
-import { NavigationBar } from "../../components/NavigationBar/navigationBar";
+import { Header } from "../../components/Header/header_new";
+import { NavigationBar } from "../../components/NavigationBar/navigationBar_new";
 
 function Layout() {
   return (
