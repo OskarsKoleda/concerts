@@ -1,5 +1,5 @@
 import { Container, Box, Typography, Grid, Paper } from "@mui/material";
-import { NavLinkButton } from "../../components/NavButton/navButton_new";
+import { NavLinkButton } from "../../components/NavButton/navButton";
 
 export const HomePage = (): JSX.Element => {
   return (

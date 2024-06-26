@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { Grid, Button, Box } from "@mui/material";
-import InputField from "../../../../components/InputField/inputField_new";
+import InputField from "../../../../components/InputField/inputField";
 
 export const ConcertCreationForm: React.FC = observer(function ConcertCreationForm(): JSX.Element {
   return (
