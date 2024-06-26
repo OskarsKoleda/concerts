@@ -2,7 +2,7 @@ import { useStore } from "../../store/StoreContext";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
-import { Box, Container, Typography, Grid, Button } from "@mui/material";
+import { Box, Container, Typography, Grid } from "@mui/material";
 import { headerStyle, headerTitleStyle } from "./styles";
 import { Card } from "../../components/Card/card";
 import { concertsLoadingBox } from "./styles";
@@ -36,23 +36,20 @@ function ConcertListPage() {
 
   return (
     <>
-      <Box>
-        <Container sx={headerStyle} maxWidth="md" component="section">
+      <Container>
+        <Container sx={headerStyle} component="section">
           <Typography sx={headerTitleStyle}>The List of Concerts</Typography>
         </Container>
-        <Container maxWidth="md" component="section">
+        <Container component="section">
           <Grid container spacing={1.5}>
             {toJS(concertStore.concerts).map((concert) => (
-              <Card key={concert.id} {...concert}>
-                <Box sx={{ display: "flex", direction: "row", justifyContent: "space-between" }}>
-                  <Button color="info">Edit</Button>
-                  <Button color="warning" onClick={() => handleConcertDeletion(concert.id)}>Delete</Button>
-                </Box>
-              </Card>
+              <Grid item md={3} key={concert.id}>
+                <Card onDelete={() => handleConcertDeletion(concert.id)} {...concert} />
+              </Grid>
             ))}
           </Grid>
         </Container>
-      </Box>
+      </Container>
     </>
   );
 }

@@ -1,34 +1,39 @@
-import { Grid, Paper, Typography, Box, ButtonBase } from "@mui/material";
+import { Paper, Typography, Box, IconButton } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { posterImageStyle, concertInformationSectionStyle, cardStyle } from "./styles";
+import { posterImageStyle, concertInformationSectionStyle, cardStyle, buttonContainerStyle } from "./styles";
 import { ConcertFormattedData } from "../../common/types/concert";
-import { ReactNode } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
-type CardProps = ConcertFormattedData & { children?: ReactNode };
+type CardProps = ConcertFormattedData & { onDelete?: () => void };
 
 export const Card: React.FC<CardProps> = observer(function Card({
   band,
   year,
   url,
-  children,
+  onDelete,
 }: CardProps): JSX.Element {
-
   return (
     <>
-      <Grid item xs={3}>
-        <ButtonBase disableRipple>
-          <Paper sx={cardStyle} elevation={3}>
-            <Box sx={posterImageStyle} component="img" src={url} alt={`${band} poster`} />
-            <Box sx={concertInformationSectionStyle}>
-              <Typography variant="h6">
-                {band} - {year}
-              </Typography>
-              <Typography variant="body1">Some description is here</Typography>
-            </Box>
-            {children}
-          </Paper>
-        </ButtonBase>
-      </Grid>
+      <Paper sx={cardStyle} elevation={3}>
+        <Box>
+          <Box sx={posterImageStyle} component="img" src={url} alt={`${band} poster`} />
+          <Box sx={concertInformationSectionStyle}>
+            <Typography variant="h6" gutterBottom>
+              {band} - {year}
+            </Typography>
+            <Typography variant="body2">Some description is here</Typography>
+          </Box>
+          <Box sx={buttonContainerStyle}>
+            <IconButton size="large">
+              <EditIcon />
+            </IconButton>
+            <IconButton size="large" onClick={onDelete}>
+              <DeleteIcon />
+            </IconButton>
+          </Box>
+        </Box>
+      </Paper>
     </>
   );
 });
