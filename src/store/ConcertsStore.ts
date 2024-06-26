@@ -62,10 +62,6 @@ class ConcertStore {
       });
     }
   };
-
-  clearConcerts = () => {
-    this.concerts = [];
-  };
 }
 
 export default ConcertStore;

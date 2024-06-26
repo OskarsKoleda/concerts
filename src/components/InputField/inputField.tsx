@@ -1,46 +1,43 @@
-import { TextField } from "@mui/material";
-import { Controller, RegisterOptions, useFormContext } from "react-hook-form";
+import { TextField, TextFieldProps } from "@mui/material";
+import { Controller } from "react-hook-form";
+import { WithValidationWrapperProps, ReadonlyControl } from "../../common/types/appTypes";
+import { ChangeEvent } from "react";
+import { getInputErrorText } from "../../common/utils/utility";
 
-interface InputFieldProps {
-  name: string;
-  label: string;
-  disabled?: boolean;
-  rules?: RegisterOptions;
-  type: string;
-  fullWidth: boolean;
-}
+type TextFieldWithValidationProps = Omit<TextFieldProps, "onChange"> &
+  WithValidationWrapperProps &
+  ReadonlyControl & { onChange?: (value: string) => void };
 
-const InputField: React.FC<InputFieldProps> = ({
-  name,
-  label,
-  rules,
-  disabled = false,
-  fullWidth,
-  type = "text",
-}) => {
-  const { control } = useFormContext();
+export function InputField(props: TextFieldWithValidationProps) {
+  const { label, type, control, controlName, rules, sx, fullWidth, onChange } = props;
 
   return (
     <Controller
-      name={name}
       control={control}
+      name={controlName}
       rules={rules}
       render={({ field, fieldState: { error } }) => {
+        const handleChangeEvent = (event: ChangeEvent<HTMLInputElement>) => {
+          const { value } = event.target;
+          field.onChange(value);
+          onChange && onChange(value); // this will call external callback on value change
+        };
+
         return (
           <TextField
-            {...field}
             label={label}
-            disabled={disabled}
             type={type}
-            error={!!error}
+            value={field.value || ""}
+            sx={sx}
+            error={Boolean(error)}
             fullWidth={fullWidth}
-            helperText={error ? error.message : ""}
-            variant="outlined"
+            onChange={handleChangeEvent}
+            helperText={error ? getInputErrorText(error) : ""}
+            // variant="outlined"
+            // disabled={disabled}
           />
         );
       }}
     />
   );
-};
-
-export default InputField;
+}

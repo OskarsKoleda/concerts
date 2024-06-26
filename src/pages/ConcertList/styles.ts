@@ -13,3 +13,10 @@ export const headerTitleStyle: SxProps = {
   fontSize: "50px",
   fontWeight: "700",
 };
+
+export const concertsLoadingBox: SxProps = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100vh",
+};

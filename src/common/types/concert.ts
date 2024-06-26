@@ -1,4 +1,4 @@
-export type ConcertData = {
+export interface ConcertData {
   band: string;
   city: string;
   year?: number;
@@ -9,6 +9,6 @@ export type ConcertFormattedData = ConcertData & {
   id: string;
 };
 
-export type ConcertRawData = {
+export interface ConcertRawData {
   [key: string]: ConcertData;
 };
