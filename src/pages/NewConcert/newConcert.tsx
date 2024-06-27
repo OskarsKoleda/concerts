@@ -3,7 +3,7 @@ import { Container, Box, Paper, Typography } from "@mui/material";
 import { ConcertCreationForm } from "./formContent/concertCreationForm/concertCreationForm";
 import React from "react";
 import { formContainerStyle } from "./styles";
-import { useStore } from "../../store/StoreContext";
+import { useRootStore } from "../../store/StoreContext";
 import { useNavigate } from "react-router-dom";
 import { ConcertData } from "../../common/types/concert";
 import { ROUTE_LIST } from "../../router/routes";
@@ -11,7 +11,7 @@ import useCustomSnackbar from "../../hooks/useCustomSnackbar";
 import { SNACKBAR_TEXT } from "../../common/constants/appConstant";
 
 export default function NewConcertPage() {
-  const { concertStore } = useStore();
+  const { concerts } = useRootStore();
   const { showSnackbar } = useCustomSnackbar();
   const navigate = useNavigate();
   const methods = useForm<ConcertData>({
@@ -27,7 +27,7 @@ export default function NewConcertPage() {
   const { getValues, reset, handleSubmit, trigger, setFocus } = methods;
 
   const submitConcertData = (data: ConcertData) => {
-    concertStore.addConcert({
+    concerts.addConcert({
       band: data.band,
       city: data.city,
       year: data.year,

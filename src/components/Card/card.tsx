@@ -19,7 +19,7 @@ export const Card: React.FC<CardProps> = observer(function Card({
         <Box>
           <Box sx={posterImageStyle} component="img" src={url} alt={`${band} poster`} />
           <Box sx={concertInformationSectionStyle}>
-            <Typography variant="h6" gutterBottom>
+            <Typography gutterBottom>
               {band} - {year}
             </Typography>
             <Typography variant="body2">Some description is here</Typography>

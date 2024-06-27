@@ -14,7 +14,7 @@ export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
 	);
 };
 
-export const useStore = () => {
+export const useRootStore = () => {
 	const store = useContext(StoreContext);
 	if (!store) {
 		throw new Error('useStore must be used within a StoreProvider');

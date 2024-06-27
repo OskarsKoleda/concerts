@@ -1,17 +1,17 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { ConcertTransport } from "./transport/ConcertTransport";
-import { Database } from "firebase/database";
+import { ConcertTransport } from "./transport/concertTransport/ConcertTransport";
 import { ConcertData, ConcertFormattedData } from "../common/types/concert";
 import { transformFirebaseObject } from "../common/utils/utility";
 
 class ConcertStore {
   concerts: ConcertFormattedData[] = [];
-  concertTransport: ConcertTransport;
   loading: boolean = false;
   error: string | null = null;
 
-  constructor(db: Database) {
-    this.concertTransport = new ConcertTransport(db);
+  concertTransport: ConcertTransport;
+
+  constructor(concertTransport: ConcertTransport) {
+    this.concertTransport = concertTransport;
     makeAutoObservable(this);
   }
 
@@ -19,7 +19,7 @@ class ConcertStore {
     this.loading = true;
     this.error = null;
     try {
-      const data = await this.concertTransport.fetchAllConcerts();
+      const data = await this.concertTransport.fetchConcertsData();
       runInAction(() => {
         if (data) {
           const formattedConcerts: ConcertFormattedData[] = transformFirebaseObject(data);
