@@ -7,8 +7,8 @@ export type ProcessError = (error: unknown, defaultErrorMessage?: string) => voi
 
 export type InitRequest = (requestName: string) => AppRequest;
 export type GetRequestStatus = (requestName: string) => RequestStatus | undefined;
-// export type CheckRequestStatus = (requestName: string, status: RequestStatus) => boolean;
-// export type IsProcessingRequest = (requestName: string) => boolean;
+export type CheckRequestStatus = (requestName: string, status: RequestStatus) => boolean;
+export type IsProcessingRequest = (requestName: string) => boolean;
 // export type AreProcessingRequests = (requestNames: Array<string>) => boolean;
 // export type IsSuccessfulRequest = (requestName: string) => boolean;
 // export type AreSuccessfulRequests = (requestNames: Array<string>) => boolean;
@@ -18,8 +18,8 @@ export type GetRequestStatus = (requestName: string) => RequestStatus | undefine
 export interface IRequestHandler {
     readonly initRequest: InitRequest;
     readonly getRequestStatus: GetRequestStatus;
-    // readonly checkRequestStatus: CheckRequestStatus;
-    // readonly isProcessingRequest: IsProcessingRequest;
+    readonly checkRequestStatus: CheckRequestStatus;
+    readonly isProcessingRequest: IsProcessingRequest;
     // readonly areProcessingRequests: AreProcessingRequests;
     // readonly isSuccessfulRequest: IsSuccessfulRequest;
     // readonly areSuccessfulRequests: AreSuccessfulRequests;

@@ -1,9 +1,16 @@
-import { Paper, Typography, Box, IconButton } from "@mui/material";
+import { Paper, Typography, Box, IconButton, ButtonBase } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { posterImageStyle, concertInformationSectionStyle, cardStyle, buttonContainerStyle } from "./styles";
+import {
+  posterImageStyle,
+  concertInformationSectionStyle,
+  cardStyle,
+  buttonContainerStyle,
+} from "./styles";
 import { ConcertFormattedData } from "../../common/types/concert";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { Link } from "react-router-dom";
 
 type CardProps = ConcertFormattedData & { onDelete?: () => void };
 
@@ -11,6 +18,7 @@ export const Card: React.FC<CardProps> = observer(function Card({
   band,
   year,
   url,
+  id,
   onDelete,
 }: CardProps): JSX.Element {
   return (
@@ -25,6 +33,11 @@ export const Card: React.FC<CardProps> = observer(function Card({
             <Typography variant="body2">Some description is here</Typography>
           </Box>
           <Box sx={buttonContainerStyle}>
+            <ButtonBase component={Link} to={`/concert/${id}`}>
+              <IconButton size="large">
+                <ArrowForwardIosIcon />
+              </IconButton>
+            </ButtonBase>
             <IconButton size="large">
               <EditIcon />
             </IconButton>

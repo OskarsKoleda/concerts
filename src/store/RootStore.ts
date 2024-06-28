@@ -1,5 +1,5 @@
 import ApplicationStore from "./ApplicationStore";
-import ConcertStore from "./ConcertsStore";
+import ConcertStore from "./concertList/ConcertsStore";
 import { Transport } from "./transport/rootTransport/Transport";
 
 class RootStore {

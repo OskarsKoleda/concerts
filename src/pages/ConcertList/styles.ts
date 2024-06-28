@@ -14,9 +14,8 @@ export const headerTitleStyle: SxProps = {
   fontWeight: "700",
 };
 
-export const concertsLoadingBox: SxProps = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  height: "100vh",
+export const appContainerStyles: SxProps = {
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
 };

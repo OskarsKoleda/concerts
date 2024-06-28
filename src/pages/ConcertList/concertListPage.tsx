@@ -3,15 +3,15 @@ import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
 import { Box, Container, Typography, Grid } from "@mui/material";
-import { headerStyle, headerTitleStyle } from "./styles";
+import { appContainerStyles, headerStyle, headerTitleStyle } from "./styles";
 import { Card } from "../../components/Card/card";
-import { concertsLoadingBox } from "./styles";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar";
 import { SNACKBAR_TEXT } from "../../common/constants/appConstant";
+import { ContentLoader } from "../../components/ContentLoader/contentLoader";
 
 function ConcertListPage() {
   const {
-    concerts: { fetchAllConcerts, deleteConcert, loading, error, concerts },
+    concerts: { fetchAllConcerts, deleteConcert, concerts, isLoading },
   } = useRootStore();
   const { showSnackbar } = useCustomSnackbar();
 
@@ -24,24 +24,13 @@ function ConcertListPage() {
     showSnackbar({ message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_DELETION, variant: "success" });
   }
 
-  if (loading) {
-    return (
-      <Box sx={concertsLoadingBox}>
-        <Typography variant="h4">Loading...</Typography>
-      </Box>
-    );
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   return (
-    <>
-      <Container>
-        <Container sx={headerStyle} component="section">
-          <Typography sx={headerTitleStyle}>The List of Concerts</Typography>
-        </Container>
+    <Box sx={appContainerStyles}>
+      <Container sx={headerStyle} component="section">
+        <Typography sx={headerTitleStyle}>The List of Concerts</Typography>
+      </Container>
+      <ContentLoader isLoading={isLoading}>
         <Container component="section">
           <Grid container spacing={1.5}>
             {toJS(concerts).map((concert) => (
@@ -51,8 +40,8 @@ function ConcertListPage() {
             ))}
           </Grid>
         </Container>
-      </Container>
-    </>
+      </ContentLoader>
+    </Box>
   );
 }
 

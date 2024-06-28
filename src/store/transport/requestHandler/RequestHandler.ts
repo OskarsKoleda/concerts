@@ -1,14 +1,17 @@
 import { makeAutoObservable } from "mobx";
 import { AppStateHandler } from "../appState/types";
 import {
+  CheckRequestStatus,
   GetRequestStatus,
   IRequestHandler,
   InitRequest,
+  IsProcessingRequest,
   ProcessError,
   TransferRequests,
 } from "./types";
 import { AppRequest } from "./appRequest/AppRequest";
 import { getErrorMessage } from "../../../common/utils/appUtils";
+import { RequestStatus } from "../../../common/enums/appEnums";
 
 export class RequestHandler implements IRequestHandler {
   private readonly requests: TransferRequests = {};
@@ -30,7 +33,6 @@ export class RequestHandler implements IRequestHandler {
   private createRequest = (name: string): AppRequest => {
     const request = new AppRequest(name, { processError: this.proceedError });
     this.requests[name] = request;
-    console.log(this.requests);
 
     return request;
   };
@@ -51,5 +53,13 @@ export class RequestHandler implements IRequestHandler {
 
   getRequestStatus: GetRequestStatus = (requestName) => {
     return this.requests[requestName]?.getStatus();
+  };
+
+  checkRequestStatus: CheckRequestStatus = (requestName, status) => {
+    return this.getRequestStatus(requestName) === status;
+  };
+
+  isProcessingRequest: IsProcessingRequest = (requestName) => {
+    return this.checkRequestStatus(requestName, RequestStatus.IN_PROGRESS);
   };
 }
