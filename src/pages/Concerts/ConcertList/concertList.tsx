@@ -1,15 +1,15 @@
-import { useRootStore } from "../../store/StoreContext";
+import { useRootStore } from "../../../store/StoreContext";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import { appContainerStyles, headerStyle, headerTitleStyle } from "./styles";
-import { Card } from "../../components/Card/card";
-import useCustomSnackbar from "../../hooks/useCustomSnackbar";
-import { SNACKBAR_TEXT } from "../../common/constants/appConstant";
-import { ContentLoader } from "../../components/ContentLoader/contentLoader";
+import { Card } from "../../../components/Card/card";
+import useCustomSnackbar from "../../../hooks/useCustomSnackbar";
+import { SNACKBAR_TEXT } from "../../../common/constants/appConstant";
+import { ContentLoader } from "../../../components/ContentLoader/contentLoader";
 
-function ConcertListPage() {
+function ConcertList() {
   const {
     concerts: { fetchAllConcerts, deleteConcert, concerts, isLoading },
   } = useRootStore();
@@ -23,7 +23,6 @@ function ConcertListPage() {
     deleteConcert(concertId);
     showSnackbar({ message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_DELETION, variant: "success" });
   }
-
 
   return (
     <Box sx={appContainerStyles}>
@@ -45,4 +44,4 @@ function ConcertListPage() {
   );
 }
 
-export default observer(ConcertListPage);
+export default observer(ConcertList);

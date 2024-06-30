@@ -1,5 +1,6 @@
 import { Container, Box, Typography, Grid, Paper } from "@mui/material";
 import { NavLinkButton } from "../../components/NavButton/navButton";
+import { ROUTE_LIST } from "../../router/routes";
 
 export const HomePage = (): JSX.Element => {
   return (
@@ -16,12 +17,12 @@ export const HomePage = (): JSX.Element => {
       <Box textAlign="center" mb={4}>
         <Grid container spacing={2} justifyContent="center">
           <Grid item>
-            <NavLinkButton variant="contained" color="primary" to="concert-list">
+            <NavLinkButton variant="contained" color="primary" to="concerts">
               {"View Concerts"}
             </NavLinkButton>
           </Grid>
           <Grid item>
-            <NavLinkButton variant="contained" color="secondary" to="/concert/new">
+            <NavLinkButton variant="contained" color="secondary" to={`/${ROUTE_LIST.NEW_CONCERT}`}>
               {"Add Concert"}
             </NavLinkButton>
           </Grid>
