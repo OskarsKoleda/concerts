@@ -11,6 +11,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Link } from "react-router-dom";
+import { DeleteButton } from "../DeleteButton/DeleteButton";
 
 type CardProps = ConcertFormattedData & { onDelete?: () => void };
 
@@ -41,9 +42,7 @@ export const Card: React.FC<CardProps> = observer(function Card({
             <IconButton size="large">
               <EditIcon />
             </IconButton>
-            <IconButton size="large" onClick={onDelete}>
-              <DeleteIcon />
-            </IconButton>
+            <DeleteButton concert={`${band} - ${year}`}/>
           </Box>
         </Box>
       </Paper>
