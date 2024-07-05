@@ -1,5 +1,4 @@
 import { useRootStore } from "../../../store/StoreContext";
-import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
 import { Box, Container, Typography, Grid } from "@mui/material";
@@ -12,10 +11,6 @@ function ConcertList() {
   const {
     concerts: { fetchAllConcerts, concerts, isLoading },
   } = useRootStore();
-
-  useEffect(() => {
-    fetchAllConcerts();
-  }, [fetchAllConcerts]);
 
   return (
     <Box sx={appContainerStyles}>
