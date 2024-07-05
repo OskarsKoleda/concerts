@@ -5,6 +5,7 @@ import {
   GetRequestStatus,
   IRequestHandler,
   InitRequest,
+  IsFailedRequest,
   IsProcessingRequest,
   ProcessError,
   TransferRequests,
@@ -61,5 +62,9 @@ export class RequestHandler implements IRequestHandler {
 
   isProcessingRequest: IsProcessingRequest = (requestName) => {
     return this.checkRequestStatus(requestName, RequestStatus.IN_PROGRESS);
+  };
+
+  isFailedRequest: IsFailedRequest = (requestName) => {
+    return this.checkRequestStatus(requestName, RequestStatus.FAILED);
   };
 }

@@ -1,15 +1,26 @@
-import { ButtonProps } from "@mui/material/Button";
 import { useState } from "react";
 import { CustomDialog } from "../CustomDialog/customDialog";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useRootStore } from "../../store/StoreContext";
+import useCustomSnackbar from "../../hooks/useCustomSnackbar";
+import { SNACKBAR_TEXT } from "../../common/constants/appConstant";
 
-// type CustomButtonProps = ButtonProps & {
-//   children: React.ReactNode;
-// };
-
-export const DeleteButton: React.FC<{ concert: string }> = ({ concert }) => {
+export const DeleteButton: React.FC<{ concertId: string }> = ({ concertId }) => {
   const [showConfirmationDialogue, setShowConfirmationDialogue] = useState(false);
+
+  const {
+    concerts: { deleteConcert, isDeletionSuccessful },
+  } = useRootStore();
+
+  const { showSnackbar } = useCustomSnackbar();
+
+  function handleConcertDeletion(concertId: string) {
+    deleteConcert(concertId);
+    if (isDeletionSuccessful) {
+      showSnackbar({ message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_DELETION, variant: "success" });
+    }
+  }
 
   const handleDeletion = () => {
     setShowConfirmationDialogue(true);
@@ -23,11 +34,12 @@ export const DeleteButton: React.FC<{ concert: string }> = ({ concert }) => {
         setShow={setShowConfirmationDialogue}
         show={showConfirmationDialogue}
         title="Are you sure?"
-        description={`You are about to delete ${concert}`}
+        description={"You are about to delete the concert permanently. Proceed?"}
+        onConfirm={() => handleConcertDeletion(concertId)}
       />
       <Tooltip title="Delete">
         <Box marginLeft="1rem">
-          <IconButton size="large" onClick={handleDeletion}>
+          <IconButton size="small" onClick={handleDeletion}>
             <DeleteIcon />
           </IconButton>
         </Box>

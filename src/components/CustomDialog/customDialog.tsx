@@ -12,6 +12,7 @@ type LockConfirmDialogProps = {
   show: boolean;
   title: string;
   description: string;
+  onConfirm: () => void;
 };
 
 export const CustomDialog: React.FC<LockConfirmDialogProps> = ({
@@ -19,6 +20,7 @@ export const CustomDialog: React.FC<LockConfirmDialogProps> = ({
   setShow,
   title,
   description,
+  onConfirm,
 }) => {
   return (
     <Dialog open={show}>
@@ -27,8 +29,12 @@ export const CustomDialog: React.FC<LockConfirmDialogProps> = ({
         <DialogContentText>{description}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button color="error" variant="outlined" >Delete</Button>
-        <Button variant="contained" onClick={() => setShow(false)}>Cancel</Button>
+        <Button color="error" variant="outlined" onClick={onConfirm}>
+          Delete
+        </Button>
+        <Button variant="contained" onClick={() => setShow(false)}>
+          Cancel
+        </Button>
       </DialogActions>
     </Dialog>
   );

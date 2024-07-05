@@ -33,7 +33,7 @@ export const NewConcertPage: React.FC = () => {
       year: data.year,
       url: data.url,
     });
-    navigate(`/${ROUTE_LIST.CONCERTS}`);
+    // navigate(`/${ROUTE_LIST.CONCERTS}`);
     showSnackbar({ message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_CREATION, variant: "success" });
   };
 

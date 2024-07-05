@@ -12,7 +12,7 @@ export type IsProcessingRequest = (requestName: string) => boolean;
 // export type AreProcessingRequests = (requestNames: Array<string>) => boolean;
 // export type IsSuccessfulRequest = (requestName: string) => boolean;
 // export type AreSuccessfulRequests = (requestNames: Array<string>) => boolean;
-// export type IsFailedRequest = (requestName: string) => boolean;
+export type IsFailedRequest = (requestName: string) => boolean;
 // export type ResetRequests = (requestNameList: Array<string>) => void;
 
 export interface IRequestHandler {
@@ -23,6 +23,6 @@ export interface IRequestHandler {
     // readonly areProcessingRequests: AreProcessingRequests;
     // readonly isSuccessfulRequest: IsSuccessfulRequest;
     // readonly areSuccessfulRequests: AreSuccessfulRequests;
-    // readonly isFailedRequest: IsFailedRequest;
+    readonly isFailedRequest: IsFailedRequest;
     // readonly resetRequests: ResetRequests;
 }

@@ -5,24 +5,17 @@ import { toJS } from "mobx";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import { appContainerStyles, headerStyle, headerTitleStyle } from "./styles";
 import { Card } from "../../../components/Card/card";
-import useCustomSnackbar from "../../../hooks/useCustomSnackbar";
-import { SNACKBAR_TEXT } from "../../../common/constants/appConstant";
 import { ContentLoader } from "../../../components/ContentLoader/contentLoader";
+import { CardButtons } from "../../../components/CardButtons/CardButtons";
 
 function ConcertList() {
   const {
-    concerts: { fetchAllConcerts, deleteConcert, concerts, isLoading },
+    concerts: { fetchAllConcerts, concerts, isLoading },
   } = useRootStore();
-  const { showSnackbar } = useCustomSnackbar();
 
   useEffect(() => {
     fetchAllConcerts();
   }, [fetchAllConcerts]);
-
-  function handleConcertDeletion(concertId: string) {
-    deleteConcert(concertId);
-    showSnackbar({ message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_DELETION, variant: "success" });
-  }
 
   return (
     <Box sx={appContainerStyles}>
@@ -34,7 +27,9 @@ function ConcertList() {
           <Grid container spacing={1.5}>
             {toJS(concerts).map((concert) => (
               <Grid item md={2} key={concert.id}>
-                <Card onDelete={() => handleConcertDeletion(concert.id)} {...concert} />
+                <Card {...concert}>
+                  <CardButtons concertId={concert.id} />
+                </Card>
               </Grid>
             ))}
           </Grid>

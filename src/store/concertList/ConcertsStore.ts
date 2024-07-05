@@ -22,6 +22,12 @@ class ConcertStore {
     return isProcessingRequest(ConcertRequests.getConcertData);
   }
 
+  get isDeletionSuccessful(): boolean {
+    const {isProcessingRequest} = this.transport.requestHandler;
+
+    return isProcessingRequest(ConcertRequests.deleteConcert)
+  }
+
   fetchAllConcerts = async () => {
     const data: ConcertRawData | undefined = await this.transport.fetchConcertsData();
     runInAction(() => {

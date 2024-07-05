@@ -3,11 +3,13 @@ import type { SxProps } from "@mui/material";
 export const cardStyle: SxProps = {
   display: "flex",
   flexDirection: "column",
-  height: '100%',
+  // height: '100%',
   maxWidth: "185px",
-  padding: 1,
-  backgroundColor: "rgba(150,150,170)",
+  // padding: 1,
+  backgroundColor: "rgba(120,110,140)",
+  borderRadius: "0",
   transition: "transform 0.3s ease",
+  border: '1px solid black',
   "&:hover": {
     transform: "scale(1.02)",
   },
@@ -23,18 +25,6 @@ export const posterImageStyle: SxProps = {
 export const concertInformationSectionStyle: SxProps = {
   padding: "8px",
   flexGrow: 1, // Ensure this section grows to fill available space
-};
-
-export const buttonContainerStyle: SxProps = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  width: "100%",
-  flexWrap: "nowrap", // Prevent icons from wrapping
-  overflow: "hidden",
-  "& > *": {
-    flexShrink: 1, // Allow icons to shrink
-  },
 };
 
 export const buttonBaseStyle: SxProps = {
