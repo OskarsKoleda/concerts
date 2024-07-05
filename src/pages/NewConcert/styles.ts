@@ -1,11 +1,11 @@
 import { SxProps } from "@mui/material";
 
 export const formContainerStyle: SxProps = {
-  height: "100%",
-  marginTop: 25,
+  height: "80vh",
+  width: '50%',
   display: "flex",
   flexDirection: "column",
-  justifyContent: "flex-start",
+  justifyContent: "center",
 };
 
 

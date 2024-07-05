@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { Grid, Button, Box } from "@mui/material";
 import { useFormContext } from "react-hook-form";
-import { InputField } from "../../../../../components/InputField/inputField";
+import { InputField } from "../../../components/InputField/inputField";
 import { POSTER_URL_VALIDATION_RULES } from "./constants";
 import { formContainerStyle } from "./styles";
 import { useNavigate } from "react-router-dom";

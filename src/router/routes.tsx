@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "../pages/Home/home";
 import { ConcertsPage } from "../pages/Concerts/concertsPage";
-import { NewConcertPage } from "../pages/NewConcert/newConcertPage";
+import { NewConcertPage } from "../pages/NewConcert/newConcert";
 import Layout from "../pages/Layout/layout";
 import { ROUTE_LIST } from "./routes";
 import { ConcertDetailsPage } from "../pages/ConcertDetails/concertDetailsPage";
