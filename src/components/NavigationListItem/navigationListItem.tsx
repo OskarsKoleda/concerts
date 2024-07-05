@@ -9,7 +9,7 @@ interface NavListItemProps {
 
 const NavListItem: React.FC<NavListItemProps> = ({ label, path }: NavListItemProps) => {
   return (
-    <NavLink to={path} className={({ isActive }) => (isActive ? "active" : "inactive")}>
+    <NavLink to={path} end className={({ isActive }) => (isActive ? "active" : "inactive")}>
       <ListItemButton>
         <ListItem disablePadding>
           <ListItemText primary={label} />

@@ -1,7 +1,14 @@
-import type { SxProps } from "@mui/material";
+import { SxProps } from "@mui/material";
 
 export const formContainerStyle: SxProps = {
-  marginTop: 4,
-  padding: 4,
-  // backgroundColor: "rgb(120,120,120)",
+  height: "80vh",
+  width: '50%',
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+};
+
+
+export const formStyle: SxProps = {
+  padding: 2,
 };

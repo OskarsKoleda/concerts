@@ -1,16 +1,16 @@
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { Container, Box, Paper, Typography } from "@mui/material";
-import { ConcertCreationForm } from "./formContent/concertCreationForm/concertCreationForm";
+import { ConcertCreationForm } from "./formContent/concertCreationForm";
 import React from "react";
-import { formContainerStyle } from "./styles";
 import { useRootStore } from "../../store/StoreContext";
 import { useNavigate } from "react-router-dom";
 import { ConcertData } from "../../common/types/concert";
 import { ROUTE_LIST } from "../../router/routes";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar";
 import { SNACKBAR_TEXT } from "../../common/constants/appConstant";
+import { formContainerStyle, formStyle } from "./styles";
 
-export default function NewConcertPage() {
+export const NewConcertPage: React.FC = () => {
   const { concerts } = useRootStore();
   const { showSnackbar } = useCustomSnackbar();
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export default function NewConcertPage() {
       year: data.year,
       url: data.url,
     });
-    navigate(`/${ROUTE_LIST.CONCERT_LIST}`);
+    navigate(`/${ROUTE_LIST.CONCERTS}`);
     showSnackbar({ message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_CREATION, variant: "success" });
   };
 
@@ -48,21 +48,19 @@ export default function NewConcertPage() {
   };
 
   return (
-    <>
-      <Container maxWidth="sm">
-        <Paper elevation={2}>
-          <Box sx={formContainerStyle}>
-            <Typography variant="h4" component="h1" gutterBottom>
-              Add a Concert
-            </Typography>
-            <FormProvider {...methods}>
-              <form onSubmit={submitFormHandler}>
-                <ConcertCreationForm />
-              </form>
-            </FormProvider>
-          </Box>
-        </Paper>
-      </Container>
-    </>
+    <Container sx={formContainerStyle}>
+      <Paper elevation={2} >
+        <Box sx={formStyle}>
+          <Typography variant="h4" component="h1" gutterBottom>
+            Add a Concert
+          </Typography>
+          <FormProvider {...methods}>
+            <form onSubmit={submitFormHandler}>
+              <ConcertCreationForm />
+            </form>
+          </FormProvider>
+        </Box>
+      </Paper>
+    </Container>
   );
-}
+};
