@@ -1,8 +1,9 @@
 export interface ConcertData {
   band: string;
   city: string;
-  year?: number;
   url: string;
+  eventType: string;
+  year?: number;
 };
 
 export type ConcertFormattedData = ConcertData & {
