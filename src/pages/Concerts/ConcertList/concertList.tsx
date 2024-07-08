@@ -9,7 +9,7 @@ import { CardButtons } from "../../../components/CardButtons/CardButtons";
 
 function ConcertList() {
   const {
-    concerts: { fetchAllConcerts, concerts, isLoading },
+    concerts: { concerts, isLoading },
   } = useRootStore();
 
   return (

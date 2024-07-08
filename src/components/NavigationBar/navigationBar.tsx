@@ -1,23 +1,37 @@
-import { Drawer, List, Box } from "@mui/material";
+import { Drawer, List, Box, Divider } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../store/StoreContext";
-import NavListItem from "../NavigationListItem/navigationListItem";
-import { ROUTE_LIST } from "../../router/routes";
+import { NavListItem } from "../NavigationListItem/navigationListItem";
+import { menuItems } from "./constants";
 
 export const NavigationBar: React.FC = observer(() => {
   const {
-    applicationStore: { drawerIsOpen, toggleDrawer },
+    applicationStore: { drawerIsOpen, toggleDrawer, selectMenuItem, whatIsSelectedMenuItem },
   } = useRootStore();
+
+  const handleListItemClick = (index: number) => {
+    selectMenuItem(index);
+  };
 
   return (
     <Drawer variant="temporary" onClose={toggleDrawer} open={drawerIsOpen} anchor="left">
-      <Box sx={{ width: 150 }} onClick={toggleDrawer}>
+      <Box width={210} onClick={toggleDrawer}>
         <List>
-          <NavListItem path={ROUTE_LIST.HOMEPAGE} label="Home" />
-          <NavListItem path={`/${ROUTE_LIST.CONCERTS}`} label="Concerts" />
-          <NavListItem path={`/${ROUTE_LIST.NEW_CONCERT}`} label="Add Concert" />
+          {menuItems.map((item, index) => {
+            return (
+              <NavListItem
+                key={index}
+                selected={whatIsSelectedMenuItem === index}
+                onClick={() => handleListItemClick(index)}
+                to={item.path}
+                label={item.label}
+                icon={item.icon}
+              />
+            );
+          })}
         </List>
       </Box>
+      <Divider />
     </Drawer>
   );
 });

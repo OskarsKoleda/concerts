@@ -3,10 +3,16 @@ import { Grid, Button, Box } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import { InputField } from "../../../components/InputField/inputField";
 import { POSTER_URL_VALIDATION_RULES } from "./constants";
-import { formContainerStyle } from "./styles";
+import { buttonsContainerStyle, formContainerStyle } from "./styles";
 import { useNavigate } from "react-router-dom";
 
-export const ConcertCreationForm: React.FC = observer(function ConcertCreationForm(): JSX.Element {
+type FormProps = {
+  onReset: () => void;
+};
+
+export const ConcertCreationForm: React.FC<FormProps> = observer(function ConcertCreationForm({
+  onReset,
+}): JSX.Element {
   const { control } = useFormContext();
   const navigate = useNavigate();
 
@@ -55,14 +61,14 @@ export const ConcertCreationForm: React.FC = observer(function ConcertCreationFo
           />
         </Grid>
       </Grid>
-      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3 }}>
+      <Box sx={buttonsContainerStyle}>
         <Button type="submit" variant="contained" color="primary">
           Add
         </Button>
-        <Button type="button" variant="contained" color="secondary">
+        <Button type="button" variant="outlined" color="primary" onClick={onReset}>
           Reset
         </Button>
-        <Button type="button" variant="text" onClick={goBack}>
+        <Button type="button" variant="outlined" onClick={goBack}>
           Cancel
         </Button>
       </Box>

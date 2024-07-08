@@ -1,8 +1,11 @@
 import { SxProps } from "@mui/material";
 
 export const dataGridWrapperStyles: SxProps = {
-  width: "80%",
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   marginTop: "2rem",
+
   ".cell div": {
     boxSizing: "border-box",
   },

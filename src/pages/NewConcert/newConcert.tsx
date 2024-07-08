@@ -24,7 +24,7 @@ export const NewConcertPage: React.FC = () => {
     mode: "onChange",
   });
 
-  const { getValues, reset, handleSubmit, trigger, setFocus } = methods;
+  const { getValues, reset, handleSubmit } = methods;
 
   const submitConcertData = (data: ConcertData) => {
     concerts.addConcert({
@@ -47,16 +47,20 @@ export const NewConcertPage: React.FC = () => {
     handleSubmit(handleComplete)();
   };
 
+  const resetHandler = () => {
+    reset();
+  };
+
   return (
     <Container sx={formContainerStyle}>
-      <Paper elevation={2} >
+      <Paper elevation={2}>
         <Box sx={formStyle}>
           <Typography variant="h4" component="h1" gutterBottom>
             Add a Concert
           </Typography>
           <FormProvider {...methods}>
             <form onSubmit={submitFormHandler}>
-              <ConcertCreationForm />
+              <ConcertCreationForm onReset={resetHandler} />
             </form>
           </FormProvider>
         </Box>

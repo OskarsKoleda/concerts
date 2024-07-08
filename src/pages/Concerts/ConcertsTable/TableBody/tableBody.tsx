@@ -14,23 +14,35 @@ export const TableBody = observer(function TableBody() {
     {
       field: "band",
       headerName: "Band",
-      width: 150,
+      // width: 150,
     },
     {
       field: "year",
       headerName: "Year",
-      width: 100,
+      // width: 100,
     },
     {
-        field: "city",
-        headerName: "City",
-        width: 100,
-      },
+      field: "city",
+      headerName: "City",
+      // width: 100,
+    },
   ];
 
   return (
     <Box sx={dataGridWrapperStyles}>
-      <DataGrid columns={columns} rows={concerts}/>
+      <Box>
+        <DataGrid
+          columns={columns}
+          rows={concerts}
+          autosizeOptions={{ columns: ["band", "year", "city"], includeOutliers: true }}
+          rowHeight={35}
+          columnHeaderHeight={35}
+          pageSizeOptions={[5, 10, 15]}
+          initialState={{
+            pagination: { paginationModel: { pageSize: 10 } },
+          }}
+        />
+      </Box>
     </Box>
   );
 });

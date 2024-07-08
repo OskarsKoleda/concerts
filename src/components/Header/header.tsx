@@ -1,8 +1,11 @@
-import { Typography, AppBar, Toolbar, IconButton } from "@mui/material";
-import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import RemoveRedEye from "@mui/icons-material/RemoveRedEye";
+import { Typography, AppBar, Toolbar, IconButton, Box, Tooltip } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../store/StoreContext";
+import { flexCenterStyle, toolbarContainerStyle } from "./styles";
+
+import RemoveRedEye from "@mui/icons-material/RemoveRedEye";
+import MenuIcon from "@mui/icons-material/Menu";
+import PortraitIcon from "@mui/icons-material/Portrait";
 
 export const Header = observer(function Header(): JSX.Element {
   const {
@@ -12,13 +15,25 @@ export const Header = observer(function Header(): JSX.Element {
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton onClick={toggleDrawer} size="large">
-          <MenuOpenIcon />
-        </IconButton>
-        <Typography variant="h6">MY CONCERTS</Typography>
-        <IconButton onClick={toggleConcertsView} size="large">
-          <RemoveRedEye />
-        </IconButton>
+        <Box sx={toolbarContainerStyle}>
+          <Box sx={flexCenterStyle}>
+            <IconButton onClick={toggleDrawer} size="large">
+              <MenuIcon color="action" />
+            </IconButton>
+          </Box>
+          <Typography variant="h4">My Concerts</Typography>
+          <Box sx={flexCenterStyle}>
+            <Tooltip title="Change View">
+              <IconButton onClick={toggleConcertsView} size="large">
+                <RemoveRedEye />
+              </IconButton>
+            </Tooltip>
+
+            <IconButton size="large">
+              <PortraitIcon />
+            </IconButton>
+          </Box>
+        </Box>
       </Toolbar>
     </AppBar>
   );
