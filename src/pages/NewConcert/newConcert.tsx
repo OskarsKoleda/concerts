@@ -1,6 +1,5 @@
-import { useForm, FormProvider, SubmitHandler, useFormContext } from "react-hook-form";
-import { Container, Box, Paper, Typography } from "@mui/material";
-import { ConcertCreationForm } from "./formContent/concertCreationForm";
+import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import { Container, Box, Paper } from "@mui/material";
 import React from "react";
 import { useRootStore } from "../../store/StoreContext";
 import { useNavigate } from "react-router-dom";
@@ -9,10 +8,8 @@ import { ROUTE_LIST } from "../../router/routes";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar";
 import { SNACKBAR_TEXT } from "../../common/constants/appConstant";
 import { formContainerStyle, formStyle } from "./styles";
-import { FormLayout } from "../../components/FormLayout/formLayout";
-import { FormFields } from "../../components/FormLayout/types";
-import { InputType } from "../../components/FormLayout/constants";
 import { ConcertDataForm } from "./concertData/concertDataForm";
+import { NewConcertControlButtons } from "./concertControlButtons/controlButtons";
 
 export const NewConcertPage: React.FC = () => {
   const { concerts } = useRootStore();
@@ -25,12 +22,13 @@ export const NewConcertPage: React.FC = () => {
       city: "Miami",
       year: 2024,
       url: "https://i.pinimg.com/originals/27/10/21/2710217cec4b4a2a356573fb619b2236.jpg",
-      eventType: 'Concert'
+      eventType: "Concert",
     },
     mode: "onChange",
+    shouldUnregister: true,
   });
 
-  const { getValues, reset, handleSubmit } = methods;
+  const { handleSubmit } = methods;
 
   const submitConcertData = (data: ConcertData) => {
     concerts.addConcert({
@@ -38,15 +36,15 @@ export const NewConcertPage: React.FC = () => {
       city: data.city,
       year: data.year,
       url: data.url,
-      eventType: 'Festival'
+      eventType: data.eventType,
     });
-    // navigate(`/${ROUTE_LIST.CONCERTS}`);
+    navigate(`/${ROUTE_LIST.CONCERTS}`);
     showSnackbar({ message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_CREATION, variant: "success" });
   };
 
   const handleComplete: SubmitHandler<ConcertData> = (data) => {
-    console.log(data);
-    
+    console.log();
+
     submitConcertData(data);
   };
 
@@ -56,22 +54,14 @@ export const NewConcertPage: React.FC = () => {
     handleSubmit(handleComplete)();
   };
 
-  const resetHandler = () => {
-    reset();
-  };
-
-
   return (
     <Container sx={formContainerStyle}>
       <Paper elevation={2}>
         <Box sx={formStyle}>
-          <Typography variant="h4" component="h1" gutterBottom>
-            Add a Concert
-          </Typography>
           <FormProvider {...methods}>
             <form onSubmit={submitFormHandler}>
-              <ConcertCreationForm onReset={resetHandler} />
-              <ConcertDataForm/>
+              <ConcertDataForm />
+              <NewConcertControlButtons />
             </form>
           </FormProvider>
         </Box>

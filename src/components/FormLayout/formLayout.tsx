@@ -1,12 +1,12 @@
 import { FC, memo, ReactNode, useCallback } from "react";
 import { FormContent, FormField } from "./types";
-import { Control, useFormContext } from "react-hook-form";
+import { Control } from "react-hook-form";
 import { InputType } from "./constants";
-import { SelectWithValidation } from "../Inputs/reactHookForm/selectWithValidation";
+import { SelectWithValidation } from "../Inputs/reactHookForm/selectFieldWithValidation/selectWithValidation";
 import { Box, Grid, Typography } from "@mui/material";
 import { isFormSection } from "./utils";
 import { gridStyles, layoutWrapperStyles } from "./styles";
-import { TextFieldWithValidation } from "../Inputs/textFieldWithValidation/textFieldWithValidation";
+import { TextFieldWithValidation } from "../Inputs/reactHookForm/textFieldWithValidation/textFieldWithValidation";
 
 export interface FormLayoutProps {
   content: FormContent;
@@ -39,7 +39,7 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
 
       switch (field.inputType) {
         case InputType.text:
-          return <TextFieldWithValidation {...formFieldProps} {...field} />;
+          return <TextFieldWithValidation {...formFieldProps} {...field} sx={{ width: "100%" }} />;
 
         case InputType.select:
           return <SelectWithValidation {...formFieldProps} {...field} />;

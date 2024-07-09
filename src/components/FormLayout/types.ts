@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
-import { SelectWithValidationProps } from "../Inputs/reactHookForm/selectWithValidation";
+import { SelectWithValidationProps } from "../Inputs/reactHookForm/selectFieldWithValidation/selectWithValidation";
 import { InputType } from "./constants";
-import { TextFieldWithValidationProps } from "../Inputs/textFieldWithValidation/textFieldWithValidation";
+import { TextFieldWithValidationProps } from "../Inputs/reactHookForm/textFieldWithValidation/textFieldWithValidation";
 
 export type BaseFieldParams = {
   controlName: string;

@@ -4,4 +4,5 @@ export enum InputType {
   switch = "switch",
   select = "select",
   autocompleteText = "autocompleteText",
+  checkbox = "checkbox",
 }

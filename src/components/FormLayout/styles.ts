@@ -8,8 +8,7 @@ export const layoutWrapperStyles: SxProps<Theme> = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    marginTop: "2rem",
-    "&:last-of-type": {
-        marginBottom: 0,
-    },
+    // "&:last-of-type": {
+    //     marginBottom: 0,
+    // },
 };

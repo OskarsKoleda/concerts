@@ -9,14 +9,14 @@ export function SelectWithValidation(props: SelectWithValidationProps) {
     control,
     controlName,
     children = [],
-    disabled,
-    id,
-    label,
-    multiple = false,
-    placeholder,
-    readonly,
+    // disabled,
+    // id,
+    // label,
+    // multiple = false,
+    // placeholder,
+    // readonly,
     rules,
-    sx,
+    // sx,
     title,
   } = props;
 
@@ -28,13 +28,14 @@ export function SelectWithValidation(props: SelectWithValidationProps) {
       render={({ field, fieldState: { error } }) => {
         return (
           <Box>
-            <InputLabel>{title}</InputLabel>
-            <Select {...field} error={!!error} autoWidth={true}>
-              {children.map((opt: string) => (
-                <MenuItem key={opt} value={opt}>
-                  {opt}
-                </MenuItem>
-              ))}
+            <InputLabel shrink>{title}</InputLabel>
+            <Select {...field} error={!!error} fullWidth={true}>
+              {Array.isArray(children) &&
+                children.map((opt: string) => (
+                  <MenuItem key={opt} value={opt}>
+                    {opt}
+                  </MenuItem>
+                ))}
             </Select>
           </Box>
         );

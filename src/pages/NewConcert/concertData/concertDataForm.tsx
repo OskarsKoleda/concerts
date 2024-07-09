@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import { FormFields } from "../../../components/FormLayout/types";
 import { InputType } from "../../../components/FormLayout/constants";
 import { FormLayout } from "../../../components/FormLayout/formLayout";
@@ -8,24 +8,36 @@ import { ConcertData } from "../../../common/types/concert";
 export const ConcertDataForm = observer(function ConcertDataForm() {
   const { control } = useFormContext<ConcertData>();
 
+  const eventType = useWatch({
+    control,
+    name: "eventType",
+  });
+
   // pass something from BE
   function getNewConcertFields(): FormFields {
     return [
+      eventType === "Concert"
+        ? {
+            inputType: InputType.text,
+            controlName: "band",
+            id: "band",
+            label: "Band",
+          }
+        : {
+            inputType: InputType.text,
+            controlName: "festival",
+            id: "festival",
+            label: "Festival Name",
+          },
       {
         inputType: InputType.text,
-        controlName: "Band",
-        id: "band",
-        label: "Band",
+        controlName: "city",
+        id: "city",
+        label: "City",
       },
       {
         inputType: InputType.text,
-        controlName: "Place",
-        id: "place",
-        label: "Place",
-      },
-      {
-        inputType: InputType.text,
-        controlName: "Year",
+        controlName: "year",
         id: "year",
         label: "Year",
       },
@@ -33,8 +45,27 @@ export const ConcertDataForm = observer(function ConcertDataForm() {
         inputType: InputType.select,
         controlName: "eventType",
         id: "eventType",
-        label: "Even Type",
+        label: "Event Type",
         children: ["Festival", "Concert"],
+        title: "Event Type",
+      },
+      ...(eventType === "Festival" ? getFestivalSpecificFields() : []),
+    ];
+  }
+
+  function getFestivalSpecificFields(): FormFields {
+    return [
+      {
+        inputType: InputType.text,
+        controlName: "dates",
+        id: "dates",
+        label: "Dates",
+      },
+      {
+        inputType: InputType.text,
+        controlName: "bands",
+        id: "bands",
+        label: "Bands",
       },
     ];
   }

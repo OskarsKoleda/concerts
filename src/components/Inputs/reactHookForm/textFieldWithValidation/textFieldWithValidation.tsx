@@ -3,7 +3,7 @@ import {
   ReadonlyControl,
   WithTooltip,
   WithValidationWrapperProps,
-} from "../../../common/types/appTypes";
+} from "../../../../common/types/appTypes";
 import { Controller } from "react-hook-form";
 import { ChangeEvent } from "react";
 
@@ -20,11 +20,11 @@ export function TextFieldWithValidation(props: TextFieldWithValidationProps) {
     id,
     label,
     placeholder,
-    readonly,
+    // readonly,
     rules = {},
     sx,
     type,
-    onChange,
+    // onChange,
     inputProps,
     tooltipText,
   } = props;
