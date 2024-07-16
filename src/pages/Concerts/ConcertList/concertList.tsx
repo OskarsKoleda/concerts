@@ -5,7 +5,7 @@ import { Box, Container, Typography, Grid } from "@mui/material";
 import { appContainerStyles, headerStyle, headerTitleStyle } from "./styles";
 import { Card } from "../../../components/Card/card";
 import { ContentLoader } from "../../../components/ContentLoader/contentLoader";
-import { CardButtons } from "../../../components/CardButtons/CardButtons";
+import { ConcertControlButtons } from "../../../components/ConcertControlButtons/ConcertControlButtons";
 
 function ConcertList() {
   const {
@@ -22,8 +22,8 @@ function ConcertList() {
           <Grid container spacing={1.5}>
             {toJS(concerts).map((concert) => (
               <Grid item md={2} key={concert.id}>
-                <Card {...concert}>
-                  <CardButtons concertId={concert.id} />
+                <Card imageUrl={concert.posterUrl} title={concert.title} description="test">
+                  <ConcertControlButtons concertId={concert.id} />
                 </Card>
               </Grid>
             ))}

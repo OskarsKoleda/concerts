@@ -46,12 +46,12 @@ export const NewConcertControlButtons: React.FC = observer(function NewConcertCo
       variant: "contained",
     },
     {
-        id: 'log',
-        color: 'error',
-        onClick: logData,
-        text:'Log Data',
-        variant: 'outlined'
-    }
+      id: "log",
+      color: "error",
+      onClick: logData,
+      text: "Log Data",
+      variant: "outlined",
+    },
   ];
 
   return <ButtonsLayout controls={controls} />;

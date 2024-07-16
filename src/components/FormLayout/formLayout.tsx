@@ -38,8 +38,9 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
       };
 
       switch (field.inputType) {
-        case InputType.text:
+        case InputType.text: {
           return <TextFieldWithValidation {...formFieldProps} {...field} sx={{ width: "100%" }} />;
+        }
 
         case InputType.select:
           return <SelectWithValidation {...formFieldProps} {...field} />;

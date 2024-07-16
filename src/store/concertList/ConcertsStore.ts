@@ -7,7 +7,7 @@ import { ConcertRequests } from "../transport/concertTransport/constants";
 class ConcertStore {
   concerts: ConcertFormattedData[] = [];
 
-  currentConcert: ConcertData | undefined;
+  currentlyViewedConcert: ConcertData | undefined;
 
   transport: ConcertTransport;
 
@@ -44,8 +44,8 @@ class ConcertStore {
     this.concerts = concerts;
   };
 
-  setCurrentConcert = (currentConcert: ConcertData) => {
-    this.currentConcert = currentConcert;
+  setCurrentlyViewedConcert = (currentConcert: ConcertData) => {
+    this.currentlyViewedConcert = currentConcert;
   };
 
   addConcert = async (concert: ConcertData) => {
@@ -56,7 +56,7 @@ class ConcertStore {
   getConcert = async (id: string | undefined) => {
     if (id) {
       const concert: ConcertData = await this.transport.getConcert(id);
-      this.setCurrentConcert(concert);
+      this.setCurrentlyViewedConcert(concert);
     }
   };
 

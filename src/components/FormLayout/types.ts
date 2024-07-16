@@ -26,6 +26,7 @@ type CommonInputFieldProps = Omit<TextFieldWithValidationProps, "control" | "typ
 export type TextField = CommonInputFieldProps & {
   inputType: InputType.text;
 };
+
 export type FormField = SelectField | TextField;
 export type FormFields = Array<FormField>;
 

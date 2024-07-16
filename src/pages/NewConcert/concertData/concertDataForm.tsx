@@ -16,24 +16,20 @@ export const ConcertDataForm = observer(function ConcertDataForm() {
   // pass something from BE
   function getNewConcertFields(): FormFields {
     return [
-      eventType === "Concert"
-        ? {
-            inputType: InputType.text,
-            controlName: "band",
-            id: "band",
-            label: "Band",
-          }
-        : {
-            inputType: InputType.text,
-            controlName: "festival",
-            id: "festival",
-            label: "Festival Name",
-          },
+      {
+        inputType: InputType.select,
+        controlName: "eventType",
+        id: "eventType",
+        label: "Event Type",
+        children: ["Festival", "Concert"],
+        title: "Event Type",
+      },
+
       {
         inputType: InputType.text,
-        controlName: "city",
-        id: "city",
-        label: "City",
+        controlName: "title",
+        id: "title",
+        label: eventType === "Concert" ? "Band" : "Festival",
       },
       {
         inputType: InputType.text,
@@ -42,12 +38,16 @@ export const ConcertDataForm = observer(function ConcertDataForm() {
         label: "Year",
       },
       {
-        inputType: InputType.select,
-        controlName: "eventType",
-        id: "eventType",
-        label: "Event Type",
-        children: ["Festival", "Concert"],
-        title: "Event Type",
+        inputType: InputType.text,
+        controlName: "city",
+        id: "city",
+        label: "City",
+      },
+      {
+        inputType: InputType.text,
+        controlName: "posterUrl",
+        id: "posterUrl",
+        label: "Poster URL",
       },
       ...(eventType === "Festival" ? getFestivalSpecificFields() : []),
     ];
