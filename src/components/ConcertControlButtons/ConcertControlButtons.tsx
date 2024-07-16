@@ -10,7 +10,7 @@ import { ROUTE_LIST } from "../../router/routes";
 
 export const ConcertControlButtons: React.FC<{ concertId: string }> = ({ concertId }) => {
   const {
-    concerts: { getConcert },
+    concertsStore: { getConcert },
   } = useRootStore();
   const navigate = useNavigate();
 

@@ -8,7 +8,7 @@ import { useEffect } from "react";
 export const ConcertsPage: React.FC = observer(function ConcertsPage() {
   const {
     applicationStore: { listViewIsSelected },
-    concerts: { fetchAllConcerts },
+    concertsStore: { fetchAllConcerts },
   } = useRootStore();
 
   useEffect(() => {

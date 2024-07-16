@@ -1,5 +1,5 @@
 import { Box, InputLabel, MenuItem, Select, SelectProps } from "@mui/material";
-import { ReadonlyControl, WithValidationWrapperProps } from "../../../common/types/appTypes";
+import { ReadonlyControl, WithValidationWrapperProps } from "../../../../common/types/appTypes";
 import { Controller } from "react-hook-form";
 
 export type SelectWithValidationProps = ReadonlyControl & SelectProps & WithValidationWrapperProps;
@@ -9,16 +9,17 @@ export function SelectWithValidation(props: SelectWithValidationProps) {
     control,
     controlName,
     children = [],
-    // disabled,
     // id,
     // label,
     // multiple = false,
     // placeholder,
-    // readonly,
     rules,
     // sx,
     title,
+    inputProps,
   } = props;
+
+  console.log(inputProps);
 
   return (
     <Controller
@@ -29,7 +30,8 @@ export function SelectWithValidation(props: SelectWithValidationProps) {
         return (
           <Box>
             <InputLabel shrink>{title}</InputLabel>
-            <Select {...field} error={!!error} fullWidth={true}>
+
+            <Select {...field} error={!!error} fullWidth>
               {Array.isArray(children) &&
                 children.map((opt: string) => (
                   <MenuItem key={opt} value={opt}>

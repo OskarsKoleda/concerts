@@ -1,6 +1,6 @@
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { Container, Box, Paper } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRootStore } from "../../store/StoreContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { ConcertData } from "../../common/types/concert";
@@ -12,22 +12,20 @@ import { ConcertDataForm } from "./concertData/concertDataForm";
 import { NewConcertControlButtons } from "./concertControlButtons/controlButtons";
 
 export const NewConcertPage: React.FC = () => {
-  const { concerts } = useRootStore();
+  const {
+    concertsStore: { addConcert, getConcert },
+  } = useRootStore();
   const { id } = useParams();
   const navigate = useNavigate();
   const { showSnackbar } = useCustomSnackbar();
-
-  if (id) {
-    console.log(id);
-  }
-
+  const [isReadOnly, setIsReadOnly] = useState<boolean>(!!id);
 
   const methods = useForm<ConcertData>({
     defaultValues: {
-      title: "The Band",
-      city: "Miami",
-      year: 2024,
-      posterUrl: "https://i.pinimg.com/originals/27/10/21/2710217cec4b4a2a356573fb619b2236.jpg",
+      title: "",
+      city: "",
+      year: 2000,
+      posterUrl: "",
       eventType: "Concert",
       date: "",
     },
@@ -35,17 +33,30 @@ export const NewConcertPage: React.FC = () => {
     shouldUnregister: true,
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, reset } = methods;
+
+  useEffect(() => {
+    if (id) {
+      const fetchConcertData = async () => {
+        const concert = await getConcert(id);
+        if (concert) {
+          reset(concert);
+        }
+      };
+
+      fetchConcertData();
+    }
+  }, [id, reset, getConcert]);
 
   const submitConcertData = (data: ConcertData) => {
-    concerts.addConcert(data);
+    // add check if ID exists, to UPDATE instead of add. Add update function in transport?
+    addConcert(data);
     navigate(`/${ROUTE_LIST.CONCERTS}`);
     showSnackbar({ message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_CREATION, variant: "success" });
   };
 
   const handleComplete: SubmitHandler<ConcertData> = (data) => {
-    console.log(data);
-
+    console.log(data); // TODO: remove later
     submitConcertData(data);
   };
 
@@ -55,13 +66,18 @@ export const NewConcertPage: React.FC = () => {
     handleSubmit(handleComplete)();
   };
 
+  const toggleEditMode = () => {
+    setIsReadOnly((isReadOnly) => !isReadOnly);
+  };
+
   return (
     <Container sx={formContainerStyle}>
       <Paper elevation={2}>
         <Box sx={formStyle}>
           <FormProvider {...methods}>
-            <form onSubmit={submitFormHandler}>
-              <ConcertDataForm />
+            <form onSubmit={submitFormHandler} >
+              <ConcertDataForm readOnly={isReadOnly} />
+              {/* <NewConcertControlButtons readonly={isReadOnly} onEditClick={toggleEditMode}/> */}
               <NewConcertControlButtons />
             </form>
           </FormProvider>

@@ -6,7 +6,7 @@ import { dataGridWrapperStyles } from "./styles";
 
 export const TableBody = observer(function TableBody() {
   const {
-    concerts: { concerts },
+    concertsStore: { concerts },
   } = useRootStore();
 
   // can be specified separately in the columns.tsx

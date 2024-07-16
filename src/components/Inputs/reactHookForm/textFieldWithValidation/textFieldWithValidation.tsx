@@ -20,13 +20,13 @@ export function TextFieldWithValidation(props: TextFieldWithValidationProps) {
     id,
     label,
     placeholder,
-    // readonly,
     rules = {},
     sx,
     type,
     // onChange,
-    inputProps,
+    // inputProps, // what is this?
     tooltipText,
+    InputProps,
   } = props;
 
   return (
@@ -42,6 +42,27 @@ export function TextFieldWithValidation(props: TextFieldWithValidationProps) {
           /** call external callback on value change */
           // onChange && onChange(value);
         };
+
+        if (InputProps?.readOnly) {
+          return (
+            <Tooltip title={tooltipText || ""}>
+              <Box>
+                <TextField
+                  {...field}
+                  id={id}
+                  label={label}
+                  name={field.name}
+                  sx={sx}
+                  type={type}
+                  value={field.value || ""}
+                  disabled={true}
+                  InputProps={{ readOnly: true }}
+                />
+              </Box>
+            </Tooltip>
+          );
+        }
+
         return (
           <Tooltip title={tooltipText || ""}>
             <Box>
@@ -58,7 +79,6 @@ export function TextFieldWithValidation(props: TextFieldWithValidationProps) {
                 sx={sx}
                 type={type}
                 value={field.value || ""}
-                inputProps={inputProps}
               />
             </Box>
           </Tooltip>

@@ -5,13 +5,13 @@ import { Transport } from "./transport/rootTransport/Transport";
 class RootStore {
   public readonly transport: Transport;
 
-  public readonly concerts: ConcertStore;
+  public readonly concertsStore: ConcertStore;
   public readonly applicationStore: ApplicationStore;
 
   constructor() {
     this.transport = new Transport();
 
-    this.concerts = new ConcertStore(this.transport.concertTransport);
+    this.concertsStore = new ConcertStore(this.transport.concertTransport);
     this.applicationStore = new ApplicationStore();
   }
 }

@@ -10,7 +10,7 @@ export const DeleteButton: React.FC<{ concertId: string }> = ({ concertId }) => 
   const [showConfirmationDialogue, setShowConfirmationDialogue] = useState(false);
 
   const {
-    concerts: { deleteConcert, isDeletionSuccessful },
+    concertsStore: { deleteConcert, isDeletionSuccessful },
   } = useRootStore();
 
   const { showSnackbar } = useCustomSnackbar();

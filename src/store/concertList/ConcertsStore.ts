@@ -7,7 +7,7 @@ import { ConcertRequests } from "../transport/concertTransport/constants";
 class ConcertStore {
   concerts: ConcertFormattedData[] = [];
 
-  currentlyViewedConcert: ConcertData | undefined;
+  // currentlyViewedConcert: ConcertData | undefined;
 
   transport: ConcertTransport;
 
@@ -23,9 +23,9 @@ class ConcertStore {
   }
 
   get isDeletionSuccessful(): boolean {
-    const {isProcessingRequest} = this.transport.requestHandler;
+    const { isProcessingRequest } = this.transport.requestHandler;
 
-    return isProcessingRequest(ConcertRequests.deleteConcert)
+    return isProcessingRequest(ConcertRequests.deleteConcert);
   }
 
   fetchAllConcerts = async () => {
@@ -44,19 +44,20 @@ class ConcertStore {
     this.concerts = concerts;
   };
 
-  setCurrentlyViewedConcert = (currentConcert: ConcertData) => {
-    this.currentlyViewedConcert = currentConcert;
-  };
+  // setCurrentlyViewedConcert = (currentConcert: ConcertData) => {
+  //   this.currentlyViewedConcert = currentConcert;
+  // };
 
   addConcert = async (concert: ConcertData) => {
     await this.transport.addConcert(concert);
     this.fetchAllConcerts();
   };
 
-  getConcert = async (id: string | undefined) => {
+  getConcert = async (id: string): Promise<ConcertData | undefined> => {
     if (id) {
       const concert: ConcertData = await this.transport.getConcert(id);
-      this.setCurrentlyViewedConcert(concert);
+      // this.setCurrentlyViewedConcert(concert);
+      return concert;
     }
   };
 

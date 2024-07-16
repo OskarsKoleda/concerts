@@ -9,7 +9,7 @@ import { ConcertControlButtons } from "../../../components/ConcertControlButtons
 
 function ConcertList() {
   const {
-    concerts: { concerts, isLoading },
+    concertsStore: { concerts, isLoading },
   } = useRootStore();
 
   return (
