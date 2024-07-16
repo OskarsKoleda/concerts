@@ -15,4 +15,9 @@ export type WithValidationWrapperProps = {
 
 export type ReadonlyControl = {
   readonly?: boolean;
+  maskReadonlyValue?: boolean;
+};
+
+export type WithTooltip = {
+  tooltipText?: string;
 };

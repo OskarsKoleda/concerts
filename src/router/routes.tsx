@@ -4,7 +4,6 @@ import { ConcertsPage } from "../pages/Concerts/concertsPage";
 import { NewConcertPage } from "../pages/NewConcert/newConcert";
 import Layout from "../pages/Layout/layout";
 import { ROUTE_LIST } from "./routes";
-import { ConcertDetailsPage } from "../pages/ConcertDetails/concertDetailsPage";
 
 const AppRoutes = () => {
   return (
@@ -14,7 +13,7 @@ const AppRoutes = () => {
           <Route index element={<HomePage />} />
           <Route path="concerts" element={<ConcertsPage />} />
           <Route path="concerts/new" element={<NewConcertPage />} />
-          <Route path="concerts/:id" element={<ConcertDetailsPage />} />
+          <Route path="concerts/:id" element={<NewConcertPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

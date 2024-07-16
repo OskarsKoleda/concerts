@@ -1,27 +1,35 @@
 import { Paper, Typography, Box, Tooltip } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { posterImageStyle, concertInformationSectionStyle, cardStyle, titleStyle } from "./styles";
-import { ConcertFormattedData } from "../../common/types/concert";
 
-type CardProps = React.PropsWithChildren<ConcertFormattedData>;
+interface CardProps {
+  title: string;
+  description: string;
+  imageUrl: string;
+  children?: React.ReactNode;
+}
 
 export const Card: React.FC<CardProps> = observer(function Card({
-  band,
-  year,
-  url,
+  title,
+  description,
+  imageUrl,
   children,
 }): JSX.Element {
   return (
     <Paper sx={cardStyle} elevation={3}>
       <Box>
-        <Box sx={posterImageStyle} component="img" src={url} alt={`${band} poster`} />
+        <Box sx={posterImageStyle} component="img" src={imageUrl} alt={`${title} poster`} />
         <Box sx={concertInformationSectionStyle}>
-          <Tooltip title={`${band} - ${year}`} placement="top">
-            <Typography gutterBottom variant="subtitle1" sx={titleStyle}>
-              {band} - {year}
+          <Tooltip title={`${title}`} placement="top">
+            <Typography gutterBottom variant="body1" sx={titleStyle}>
+              {title}
             </Typography>
           </Tooltip>
-          <Typography variant="body2">Some description is here</Typography>
+          {description && (
+            <Typography gutterBottom variant="caption">
+              {description}
+            </Typography>
+          )}
         </Box>
         {children}
       </Box>

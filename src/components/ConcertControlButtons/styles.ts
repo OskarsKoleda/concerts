@@ -6,7 +6,6 @@ export const buttonContainerStyle: SxProps = {
     padding: '1px',
     // alignItems: "center",
     width: "100%",
-    backgroundColor: 'rgb(120,120,120)',
     flexWrap: "nowrap", // Prevent icons from wrapping
     overflow: "hidden",
     "& > *": {

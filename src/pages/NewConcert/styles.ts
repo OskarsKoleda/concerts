@@ -1,8 +1,8 @@
 import { SxProps } from "@mui/material";
 
 export const formContainerStyle: SxProps = {
-  height: "80vh",
-  width: '70%',
+  mt: '50px',
+  width: '60%',
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
