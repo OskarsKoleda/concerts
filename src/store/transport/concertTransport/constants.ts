@@ -4,6 +4,7 @@ export enum ConcertRequests {
   getConcertData = "getConcertData",
   addConcert = "addConcert",
   deleteConcert = "deleteConcert",
+  updateConcert = "updatecConcert",
 }
 
 export const requestErrorMessages: RequestErrorMessages<ConcertRequests> = {
@@ -18,5 +19,9 @@ export const requestErrorMessages: RequestErrorMessages<ConcertRequests> = {
   [ConcertRequests.deleteConcert]: {
     incorrectResponse: "Incorrect...",
     unexpectedError: "Unable to delete a concert",
+  },
+  [ConcertRequests.updateConcert]: {
+    incorrectResponse: "Incorrect...",
+    unexpectedError: "Unable to update a concert",
   },
 };

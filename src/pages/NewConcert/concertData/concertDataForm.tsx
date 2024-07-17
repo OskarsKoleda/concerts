@@ -21,15 +21,12 @@ export const ConcertDataForm = ({ readOnly }: { readOnly: boolean }) => {
         id: "eventType",
         label: "Event Type",
         children: ["Festival", "Concert"],
-        title: "Event Type",
-        inputProps: { readOnly },
       },
       {
         inputType: InputType.text,
         controlName: "title",
         id: "title",
         label: eventType === "Concert" ? "Band" : "Festival",
-        InputProps: { readOnly },
       },
 
       {
@@ -37,21 +34,18 @@ export const ConcertDataForm = ({ readOnly }: { readOnly: boolean }) => {
         controlName: "year",
         id: "year",
         label: "Year",
-        InputProps: { readOnly },
       },
       {
         inputType: InputType.text,
         controlName: "city",
         id: "city",
         label: "City",
-        InputProps: { readOnly },
       },
       {
         inputType: InputType.text,
         controlName: "posterUrl",
         id: "posterUrl",
         label: "Poster URL",
-        InputProps: { readOnly },
       },
       ...(eventType === "Festival" ? getFestivalSpecificFields() : []),
     ];
@@ -76,5 +70,12 @@ export const ConcertDataForm = ({ readOnly }: { readOnly: boolean }) => {
     ];
   }
 
-  return <FormLayout content={getNewConcertFields()} control={control} title="Concert Details" />;
+  return (
+    <FormLayout
+      content={getNewConcertFields()}
+      control={control}
+      readonly={readOnly}
+      title="Concert Details"
+    />
+  );
 };

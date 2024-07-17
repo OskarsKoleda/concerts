@@ -1,5 +1,4 @@
 import { Box, IconButton } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { DeleteButton } from "../DeleteButton/DeleteButton";
 import { buttonContainerStyle } from "./styles";
@@ -24,9 +23,6 @@ export const ConcertControlButtons: React.FC<{ concertId: string }> = ({ concert
     <Box sx={buttonContainerStyle}>
       <IconButton size="small" onClick={() => handleOpenConcert(concertId)}>
         <ArrowForwardIosIcon />
-      </IconButton>
-      <IconButton size="small">
-        <EditIcon />
       </IconButton>
       <DeleteButton concertId={concertId} />
     </Box>

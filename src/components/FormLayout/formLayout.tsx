@@ -37,12 +37,16 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
         readonly,
       };
 
-      console.log(field);
-      
-
       switch (field.inputType) {
         case InputType.text: {
-          return <TextFieldWithValidation {...formFieldProps} {...field} sx={{ width: "100%" }} />;
+          return (
+            <TextFieldWithValidation
+              {...formFieldProps}
+              {...field}
+              sx={{ width: "100%" }}
+              type="text"
+            />
+          );
         }
 
         case InputType.select:
@@ -70,7 +74,7 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
 
   return (
     <Box sx={layoutWrapperStyles}>
-      <Typography variant="h6">{title}</Typography>
+      <Typography variant="h5">{title}</Typography>
       {isFormSection(content) ? (
         content.map((formSection) => (
           <Box key={formSection.id}>

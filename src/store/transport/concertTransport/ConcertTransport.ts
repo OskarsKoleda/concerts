@@ -1,4 +1,4 @@
-import { Database, onValue, ref, set, push, remove, get, child } from "firebase/database";
+import { Database, onValue, ref, set, push, remove, get, child, update } from "firebase/database";
 import { makeAutoObservable } from "mobx";
 import { ConcertData, ConcertRawData } from "../../../common/types/concert";
 import { RequestHandler } from "../requestHandler/RequestHandler";
@@ -46,7 +46,7 @@ export class ConcertTransport implements ChildTransport {
     }
   };
 
-  // add handling
+  // add error handling
   getConcert = async (id: string) => {
     const dbRef = ref(this.db);
     const result = await get(child(dbRef, `/concerts/${id}`));
@@ -55,6 +55,18 @@ export class ConcertTransport implements ChildTransport {
       return result.val();
     } else {
       throw new Error("No data available");
+    }
+  };
+
+  updateConcert = async (concert: ConcertData, id: string) => {
+    const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.updateConcert);
+
+    try {
+      request.inProgress();
+      const concertRef = ref(this.db, `/concerts/${id}`);
+      await update(concertRef, concert);
+    } catch (error) {
+      request.fail(error, errorTexts.unexpectedError);
     }
   };
 

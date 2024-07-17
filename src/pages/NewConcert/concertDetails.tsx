@@ -2,7 +2,7 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { Container, Box, Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useRootStore } from "../../store/StoreContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ConcertData } from "../../common/types/concert";
 import { ROUTE_LIST } from "../../router/routes";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar";
@@ -11,14 +11,19 @@ import { formContainerStyle, formStyle } from "./styles";
 import { ConcertDataForm } from "./concertData/concertDataForm";
 import { NewConcertControlButtons } from "./concertControlButtons/controlButtons";
 
-export const NewConcertPage: React.FC = () => {
+export const ConcertDetailsPage: React.FC = () => {
   const {
-    concertsStore: { addConcert, getConcert },
+    concertsStore: { addConcert, getConcert, updateConcert },
   } = useRootStore();
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { showSnackbar } = useCustomSnackbar();
-  const [isReadOnly, setIsReadOnly] = useState<boolean>(!!id);
+  const isEditPage = location.pathname.includes("/edit");
+  const [isEditMode, setIsEditMode] = useState<boolean>(isEditPage);
+  const [isReadOnly, setIsReadOnly] = useState<boolean>(
+    !!id && !isEditPage,
+  );
 
   const methods = useForm<ConcertData>({
     defaultValues: {
@@ -36,6 +41,14 @@ export const NewConcertPage: React.FC = () => {
   const { handleSubmit, reset } = methods;
 
   useEffect(() => {
+    setIsReadOnly(!!id && !isEditPage);
+  }, [id, location.pathname]);
+
+  useEffect(() => {
+    setIsEditMode(isEditPage);
+  }, [location.pathname]);
+
+  useEffect(() => {
     if (id) {
       const fetchConcertData = async () => {
         const concert = await getConcert(id);
@@ -48,26 +61,44 @@ export const NewConcertPage: React.FC = () => {
     }
   }, [id, reset, getConcert]);
 
-  const submitConcertData = (data: ConcertData) => {
-    // add check if ID exists, to UPDATE instead of add. Add update function in transport?
+  const handleCreate: SubmitHandler<ConcertData> = (data) => {
     addConcert(data);
+    showSnackbar({
+      message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_CREATION,
+      variant: "success",
+    });
     navigate(`/${ROUTE_LIST.CONCERTS}`);
-    showSnackbar({ message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_CREATION, variant: "success" });
   };
 
-  const handleComplete: SubmitHandler<ConcertData> = (data) => {
-    console.log(data); // TODO: remove later
-    submitConcertData(data);
+  const handleUpdate: SubmitHandler<ConcertData> = (data) => {
+    if (id) {
+      updateConcert(data, id);
+      showSnackbar({
+        message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_UPDATE,
+        variant: "info",
+      });
+      navigate(`/${ROUTE_LIST.CONCERTS}/${id}`);
+    }
   };
 
   const submitFormHandler = (event: React.SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
     event.preventDefault();
-    // const controlName = event.nativeEvent.submitter?.id;
-    handleSubmit(handleComplete)();
+    const controlName = event.nativeEvent.submitter?.id;
+
+    switch (controlName) {
+      case "btnAdd": {
+        handleSubmit(handleCreate)();
+        break;
+      }
+      case "btnUpdate": {
+        handleSubmit(handleUpdate)();
+        break;
+      }
+    }
   };
 
-  const toggleEditMode = () => {
-    setIsReadOnly((isReadOnly) => !isReadOnly);
+  const openConcertEditView = () => {
+    navigate(`/${ROUTE_LIST.CONCERTS}/${id}/edit`);
   };
 
   return (
@@ -75,10 +106,13 @@ export const NewConcertPage: React.FC = () => {
       <Paper elevation={2}>
         <Box sx={formStyle}>
           <FormProvider {...methods}>
-            <form onSubmit={submitFormHandler} >
+            <form onSubmit={submitFormHandler}>
               <ConcertDataForm readOnly={isReadOnly} />
-              {/* <NewConcertControlButtons readonly={isReadOnly} onEditClick={toggleEditMode}/> */}
-              <NewConcertControlButtons />
+              <NewConcertControlButtons
+                readOnly={isReadOnly}
+                isEditMode={isEditMode}
+                onEditClick={openConcertEditView}
+              />
             </form>
           </FormProvider>
         </Box>

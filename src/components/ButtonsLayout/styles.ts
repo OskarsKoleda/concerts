@@ -7,4 +7,5 @@ export const controlButtonsContainerStyles: SxProps<Theme> = {
   justifyContent: "flex-start",
   alignSelf: "flex-end",
   marginTop: "1rem",
+  flexWrap: "nowrap",
 };

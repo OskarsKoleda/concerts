@@ -6,28 +6,37 @@ import {
 } from "../../../../common/types/appTypes";
 import { Controller } from "react-hook-form";
 import { ChangeEvent } from "react";
+import { ReadonlyField } from "../../readonly/readonly";
 
-export type TextFieldWithValidationProps = TextFieldProps &
+export type TextFieldWithValidationProps = Omit<
+  TextFieldProps,
+  "onChange" | "value" | "required" | "InputProps"
+> &
   WithValidationWrapperProps &
-  ReadonlyControl &
-  WithTooltip;
+  ReadonlyControl & {
+    onChange?: (value: string) => void;
+  } & WithTooltip;
 
 export function TextFieldWithValidation(props: TextFieldWithValidationProps) {
   const {
     control,
     controlName,
     disabled,
-    id,
     label,
     placeholder,
+    readonly,
     rules = {},
     sx,
     type,
-    // onChange,
-    // inputProps, // what is this?
     tooltipText,
-    InputProps,
+    inputProps,
   } = props;
+
+  const processedInputProps = {
+    inputProps: {
+      ...(inputProps && inputProps),
+    },
+  };
 
   return (
     <Controller
@@ -43,23 +52,13 @@ export function TextFieldWithValidation(props: TextFieldWithValidationProps) {
           // onChange && onChange(value);
         };
 
-        if (InputProps?.readOnly) {
+        if (readonly) {
           return (
-            <Tooltip title={tooltipText || ""}>
-              <Box>
-                <TextField
-                  {...field}
-                  id={id}
-                  label={label}
-                  name={field.name}
-                  sx={sx}
-                  type={type}
-                  value={field.value || ""}
-                  disabled={true}
-                  InputProps={{ readOnly: true }}
-                />
-              </Box>
-            </Tooltip>
+            <ReadonlyField
+              label={label}
+              value={field.value || ""}
+              tooltipText={field.value || ""}
+            />
           );
         }
 
@@ -67,9 +66,8 @@ export function TextFieldWithValidation(props: TextFieldWithValidationProps) {
           <Tooltip title={tooltipText || ""}>
             <Box>
               <TextField
-                {...field}
+                InputProps={processedInputProps}
                 error={Boolean(error)}
-                id={id}
                 label={label}
                 name={field.name}
                 onChange={handleChangeEvent}

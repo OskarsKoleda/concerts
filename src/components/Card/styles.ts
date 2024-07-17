@@ -3,11 +3,9 @@ import type { SxProps } from "@mui/material";
 export const cardStyle: SxProps = {
   display: "flex",
   flexDirection: "column",
-  // height: '100%',
-  maxWidth: "185px",
   padding: 0.5,
   backgroundColor: "rgba(200,210,200)",
-  borderRadius: "0",
+  borderRadius: "5px",
   transition: "transform 0.3s ease",
   border: "1px solid black",
   "&:hover": {
@@ -23,7 +21,7 @@ export const posterImageStyle: SxProps = {
 };
 
 export const concertInformationSectionStyle: SxProps = {
-  padding: "8px",
+  padding: "4px",
   flexGrow: 1, // Ensure this section grows to fill available space
 };
 
@@ -35,6 +33,7 @@ export const buttonBaseStyle: SxProps = {
 };
 
 export const titleStyle: SxProps = {
+  margin: 0,
   maxWidth: "100%", // Limit the maximum width of the text
   whiteSpace: "nowrap", // Prevent text from wrapping
   overflow: "hidden", // Hide overflow text

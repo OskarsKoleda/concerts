@@ -1,7 +1,7 @@
 import { ButtonProps } from "@mui/material";
 
 export type ControlPayload = ButtonProps & {
-  id: string;
+  id?: string;
   text: string;
   visible?: boolean;
 };

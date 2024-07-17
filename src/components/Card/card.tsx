@@ -21,12 +21,12 @@ export const Card: React.FC<CardProps> = observer(function Card({
         <Box sx={posterImageStyle} component="img" src={imageUrl} alt={`${title} poster`} />
         <Box sx={concertInformationSectionStyle}>
           <Tooltip title={`${title}`} placement="top">
-            <Typography gutterBottom variant="body1" sx={titleStyle}>
+            <Typography  gutterBottom variant="body1" sx={titleStyle}>
               {title}
             </Typography>
           </Tooltip>
           {description && (
-            <Typography gutterBottom variant="caption">
+            <Typography variant="caption">
               {description}
             </Typography>
           )}
