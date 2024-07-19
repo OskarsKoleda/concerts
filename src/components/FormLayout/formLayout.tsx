@@ -7,6 +7,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import { isFormSection } from "./utils";
 import { gridStyles, layoutWrapperStyles } from "./styles";
 import { TextFieldWithValidation } from "../Inputs/reactHookForm/textFieldWithValidation/textFieldWithValidation";
+import { AutocompleteTextField } from "../Inputs/reactHookForm/autocompleteTextField/autocompleteTextField";
 
 export interface FormLayoutProps {
   content: FormContent;
@@ -51,6 +52,9 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
 
         case InputType.select:
           return <SelectWithValidation {...formFieldProps} {...field} />;
+
+        case InputType.autocompleteText:
+          return <AutocompleteTextField {...formFieldProps} {...field} />;
 
         default:
           return null;

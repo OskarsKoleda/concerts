@@ -20,10 +20,8 @@ export const ConcertDetailsPage: React.FC = () => {
   const location = useLocation();
   const { showSnackbar } = useCustomSnackbar();
   const isEditPage = location.pathname.includes("/edit");
-  const [isEditMode, setIsEditMode] = useState<boolean>(isEditPage);
-  const [isReadOnly, setIsReadOnly] = useState<boolean>(
-    !!id && !isEditPage,
-  );
+  const [isEditMode, setIsEditMode] = useState(isEditPage);
+  const [isReadOnly, setIsReadOnly] = useState(!!id && !isEditPage);
 
   const methods = useForm<ConcertData>({
     defaultValues: {

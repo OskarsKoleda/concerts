@@ -61,7 +61,7 @@ export const ConcertDataForm = ({ readOnly }: { readOnly: boolean }) => {
         readonly: readOnly,
       },
       {
-        inputType: InputType.text,
+        inputType: InputType.autocompleteText,
         controlName: "bands",
         id: "bands",
         label: "Bands",

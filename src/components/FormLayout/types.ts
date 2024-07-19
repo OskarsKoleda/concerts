@@ -27,7 +27,11 @@ export type TextField = CommonInputFieldProps & {
   inputType: InputType.text;
 };
 
-export type FormField = SelectField | TextField;
+export type AutocompleteTextField = CommonInputFieldProps & {
+  inputType: InputType.autocompleteText;
+}
+
+export type FormField = SelectField | TextField | AutocompleteTextField;
 export type FormFields = Array<FormField>;
 
 export type FormSection = {
