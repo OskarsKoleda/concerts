@@ -56,6 +56,17 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
         case InputType.autocompleteText:
           return <AutocompleteTextField {...formFieldProps} {...field} />;
 
+        case InputType.number: {
+          return (
+            <TextFieldWithValidation
+              {...formFieldProps}
+              {...field}
+              sx={{ width: "100%" }}
+              type="number"
+            />
+          );
+        }
+
         default:
           return null;
       }
@@ -78,7 +89,9 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
 
   return (
     <Box sx={layoutWrapperStyles}>
-      <Typography variant="h5">{title}</Typography>
+      <Typography mt={1} variant="body2">
+        {title}
+      </Typography>
       {isFormSection(content) ? (
         content.map((formSection) => (
           <Box key={formSection.id}>

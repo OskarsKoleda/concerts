@@ -17,7 +17,13 @@ export function ChipsReadonlyField({ label, sx, values }: ReadonlyFieldProps): J
         <Grid container direction="row" spacing={1}>
           {values.map((text) => (
             <Grid key={text} item>
-              <Chip label={text} variant="outlined" size="small" />
+              <Chip
+                label={text}
+                variant="filled"
+                size="medium"
+                color="secondary"
+                sx={{ fontWeight: 500 }}
+              />
             </Grid>
           ))}
         </Grid>

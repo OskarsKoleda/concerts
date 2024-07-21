@@ -4,7 +4,7 @@ import { InputType } from "../../../components/FormLayout/constants";
 import { FormLayout } from "../../../components/FormLayout/formLayout";
 import { ConcertData } from "../../../common/types/concert";
 
-export const ConcertDataForm = ({ readOnly }: { readOnly: boolean }) => {
+export const ConcertMainDataForm = ({ readOnly }: { readOnly: boolean }) => {
   const { control } = useFormContext<ConcertData>();
 
   const eventType = useWatch({
@@ -13,7 +13,7 @@ export const ConcertDataForm = ({ readOnly }: { readOnly: boolean }) => {
   });
 
   // pass something from BE
-  function getNewConcertFields(): FormFields {
+  function getConcertFields(): FormFields {
     return [
       {
         inputType: InputType.select,
@@ -26,39 +26,7 @@ export const ConcertDataForm = ({ readOnly }: { readOnly: boolean }) => {
         inputType: InputType.text,
         controlName: "title",
         id: "title",
-        label: eventType === "Concert" ? "Band" : "Festival",
-      },
-
-      {
-        inputType: InputType.text,
-        controlName: "year",
-        id: "year",
-        label: "Year",
-      },
-      {
-        inputType: InputType.text,
-        controlName: "city",
-        id: "city",
-        label: "City",
-      },
-      {
-        inputType: InputType.text,
-        controlName: "posterUrl",
-        id: "posterUrl",
-        label: "Poster URL",
-      },
-      ...(eventType === "Festival" ? getFestivalSpecificFields() : []),
-    ];
-  }
-
-  function getFestivalSpecificFields(): FormFields {
-    return [
-      {
-        inputType: InputType.text,
-        controlName: "dates",
-        id: "dates",
-        label: "Dates",
-        readonly: readOnly,
+        label: eventType === "Concert" ? "Concert Title" : "Festival Title",
       },
       {
         inputType: InputType.autocompleteText,
@@ -67,12 +35,36 @@ export const ConcertDataForm = ({ readOnly }: { readOnly: boolean }) => {
         label: "Bands",
         readonly: readOnly,
       },
+      {
+        inputType: InputType.text,
+        controlName: "city",
+        id: "city",
+        label: "City",
+        xs: 6
+      },
+
+      {
+        inputType: InputType.number,
+        controlName: "ticketPrice",
+        id: "price",
+        label: "Ticket Price",
+        readonly: readOnly,
+        xs: 6
+      },
+      {
+        inputType: InputType.text,
+        controlName: "posterUrl",
+        id: "posterUrl",
+        label: "Poster URL",
+      },
     ];
   }
 
+
+
   return (
     <FormLayout
-      content={getNewConcertFields()}
+      content={getConcertFields()}
       control={control}
       readonly={readOnly}
       title="Concert Details"

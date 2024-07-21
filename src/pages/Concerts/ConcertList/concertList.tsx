@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import { appContainerStyles, headerStyle, headerTitleStyle } from "./styles";
-import { Card } from "../../../components/Card/card";
+import { Card } from "../../../components/CardWithImage/cardWithImage";
 import { ContentLoader } from "../../../components/ContentLoader/contentLoader";
 import { ConcertControlButtons } from "../../../components/ConcertControlButtons/ConcertControlButtons";
 
@@ -22,7 +22,7 @@ function ConcertList() {
           <Grid container spacing={1.5}>
             {toJS(concerts).map((concert) => (
               <Grid item md={2} key={concert.id}>
-                <Card imageUrl={concert.posterUrl} title={concert.title} description="test">
+                <Card imageUrl={concert.posterUrl} title={concert.title}>
                   <ConcertControlButtons concertId={concert.id} />
                 </Card>
               </Grid>

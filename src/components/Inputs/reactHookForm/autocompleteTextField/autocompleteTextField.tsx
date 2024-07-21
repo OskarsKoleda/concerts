@@ -15,7 +15,7 @@ type AutocompleteTextFieldProps = Pick<
   ReadonlyControl &
   WithTooltip;
 
-const bands = ["Alestorm", "Rammstein", "Slipknot"];
+// const bands = ["Alestorm", "Rammstein", "Slipknot"];
 
 export function AutocompleteTextField(props: AutocompleteTextFieldProps) {
   const { control, controlName, label, placeholder, readonly, sx, tooltipText } = props;
@@ -26,22 +26,14 @@ export function AutocompleteTextField(props: AutocompleteTextFieldProps) {
       name={controlName}
       render={({ field }) => {
         if (readonly) {
-          console.log(field.value);
-
-          return (
-            <ChipsReadonlyField
-              label={label}
-              sx={sx}
-              values={field.value.split(", ")}
-            />
-          );
+          return <ChipsReadonlyField label={label} sx={sx} values={field.value} />;
         }
 
         return (
           <Autocomplete
             multiple
             freeSolo
-            options={bands}
+            options={[]}
             // getOptionLabel={(option) => option}
             value={field.value || []}
             onChange={(event, newValue) => {

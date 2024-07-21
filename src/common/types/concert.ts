@@ -1,11 +1,12 @@
 export interface ConcertData {
-  title: string;
-  bands?: string[];
-  city: string;
-  posterUrl: string;
   eventType: string;
-  year?: number;
+  title: string;
+  bands: string[];
+  city: string;
   date: string;
+  endDate?: string;
+  ticketPrice: number;
+  posterUrl: string;
 };
 
 export type ConcertFormattedData = ConcertData & {

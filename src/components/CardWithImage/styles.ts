@@ -13,14 +13,14 @@ export const cardStyle: SxProps = {
   },
 };
 
-export const posterImageStyle: SxProps = {
+export const imageStyle: SxProps = {
   width: "100%",
   display: "block",
   height: "200px",
   objectFit: "cover", // Ensure image covers the entire area
 };
 
-export const concertInformationSectionStyle: SxProps = {
+export const informationSectionStyle: SxProps = {
   padding: "4px",
   flexGrow: 1, // Ensure this section grows to fill available space
 };

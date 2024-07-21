@@ -9,7 +9,6 @@ export type BaseFieldParams = {
   label: string;
   tooltipText?: string;
   xs?: number;
-  maskReadonlyValue?: boolean;
   hide?: boolean;
 };
 
@@ -31,7 +30,11 @@ export type AutocompleteTextField = CommonInputFieldProps & {
   inputType: InputType.autocompleteText;
 }
 
-export type FormField = SelectField | TextField | AutocompleteTextField;
+export type NumberField = CommonInputFieldProps & {
+  inputType: InputType.number;
+}
+
+export type FormField = SelectField | TextField | AutocompleteTextField | NumberField;
 export type FormFields = Array<FormField>;
 
 export type FormSection = {
