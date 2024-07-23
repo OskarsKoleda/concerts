@@ -3,8 +3,8 @@ export interface ConcertData {
   title: string;
   bands: string[];
   city: string;
-  date: string;
-  endDate?: string;
+  startDate: Date;
+  endDate?: Date;
   ticketPrice: number;
   posterUrl: string;
 };

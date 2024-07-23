@@ -57,8 +57,6 @@ export const ConcertDetailsPage: React.FC = () => {
 
   const handleCreate: SubmitHandler<ConcertData> = (data) => {
     addConcert(data);
-    console.log(data);
-
     showSnackbar({
       message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_CREATION,
       variant: "success",

@@ -1,6 +1,6 @@
 import { FC, memo, ReactNode, useCallback } from "react";
 import { FormContent, FormField } from "./types";
-import { Control } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 import { InputType } from "./constants";
 import { SelectWithValidation } from "../Inputs/reactHookForm/selectFieldWithValidation/selectWithValidation";
 import { Box, Grid, Typography } from "@mui/material";
@@ -8,6 +8,9 @@ import { isFormSection } from "./utils";
 import { gridStyles, layoutWrapperStyles } from "./styles";
 import { TextFieldWithValidation } from "../Inputs/reactHookForm/textFieldWithValidation/textFieldWithValidation";
 import { AutocompleteTextField } from "../Inputs/reactHookForm/autocompleteTextField/autocompleteTextField";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 export interface FormLayoutProps {
   content: FormContent;
@@ -63,6 +66,27 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
               {...field}
               sx={{ width: "100%" }}
               type="number"
+            />
+          );
+        }
+
+        case InputType.date: {
+          return (
+            <Controller
+              name={field.controlName}
+              control={control}
+              render={({ field: controllerField }) => (
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    label={field.label}
+                    value={new Date(controllerField.value)}
+                    onChange={controllerField.onChange}
+                    readOnly={readonly}
+                    disabled={disabled}
+                    format="dd.MM.yyyy"
+                  />
+                </LocalizationProvider>
+              )}
             />
           );
         }

@@ -36,11 +36,16 @@ export class ConcertTransport implements ChildTransport {
 
   addConcert = async (concert: ConcertData) => {
     const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.addConcert);
+    const newConcert = {
+      ...concert,
+      startDate: concert.startDate.toISOString(),
+      endDate: concert.endDate ? concert.endDate.toISOString() : null,
+    };
 
     try {
       request.inProgress();
       const newConcertRef = push(ref(this.db, `/concerts`));
-      await set(newConcertRef, concert);
+      await set(newConcertRef, newConcert);
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
     }
@@ -60,11 +65,15 @@ export class ConcertTransport implements ChildTransport {
 
   updateConcert = async (concert: ConcertData, id: string) => {
     const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.updateConcert);
-
+    const updatedConcert = {
+      ...concert,
+      startDate: concert.startDate.toISOString(),
+      endDate: concert.endDate ? concert.endDate.toISOString() : null,
+    };
     try {
       request.inProgress();
       const concertRef = ref(this.db, `/concerts/${id}`);
-      await update(concertRef, concert);
+      await update(concertRef, updatedConcert);
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
     }

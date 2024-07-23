@@ -26,6 +26,12 @@ export type TextField = CommonInputFieldProps & {
   inputType: InputType.text;
 };
 
+export type DateField = CommonInputFieldProps & {
+  inputType: InputType.date;
+  // value: Date | null;
+  // onChange: (date: Date | null) => void;
+}
+
 export type AutocompleteTextField = CommonInputFieldProps & {
   inputType: InputType.autocompleteText;
 }
@@ -34,7 +40,7 @@ export type NumberField = CommonInputFieldProps & {
   inputType: InputType.number;
 }
 
-export type FormField = SelectField | TextField | AutocompleteTextField | NumberField;
+export type FormField = SelectField | TextField | AutocompleteTextField | NumberField | DateField;
 export type FormFields = Array<FormField>;
 
 export type FormSection = {

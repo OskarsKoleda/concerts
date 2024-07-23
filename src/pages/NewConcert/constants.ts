@@ -3,7 +3,8 @@ export const defaultValues = {
   title: "",
   bands: [],
   city: "",
-  date: "",
+  startDate: new Date(),
+  endDate: new Date(),
   ticketPrice: 0,
   posterUrl: "",
 };

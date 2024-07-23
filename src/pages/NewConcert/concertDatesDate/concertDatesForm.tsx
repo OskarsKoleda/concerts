@@ -15,12 +15,12 @@ export const ConcertDatesForm = ({ readOnly }: { readOnly: boolean }) => {
   function getConcertDateFields(): FormFields {
     return [
       {
-        inputType: InputType.text,
+        inputType: InputType.date,
         controlName: "startDate",
         id: "date",
         label: eventType === "Concert" ? "Date" : "Start Date",
         readonly: readOnly,
-        xs: eventType === "Festival" ? 6 : 12 
+        xs: eventType === "Festival" ? 6 : 12 ,
       },
       ...(eventType === "Festival" ? getFestivalSpecificFields() : []),
     ];
@@ -29,12 +29,12 @@ export const ConcertDatesForm = ({ readOnly }: { readOnly: boolean }) => {
   function getFestivalSpecificFields(): FormFields {
     return [
       {
-        inputType: InputType.text,
+        inputType: InputType.date,
         controlName: "endDate",
         id: "endDate",
         label: "End Date",
         readonly: readOnly,
-        xs: 6
+        xs: 6,
       },
     ];
   }
