@@ -1,5 +1,6 @@
-import { Autocomplete, TextField, TextFieldProps, Tooltip } from "@mui/material";
-import {
+import type { TextFieldProps } from "@mui/material";
+import { Autocomplete, TextField, Tooltip } from "@mui/material";
+import type {
   ReadonlyControl,
   WithTooltip,
   WithValidationWrapperProps,

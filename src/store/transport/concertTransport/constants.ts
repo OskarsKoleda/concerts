@@ -1,16 +1,21 @@
-import { RequestErrorMessages } from "../rootTransport/types";
+import type { RequestErrorMessages } from "../rootTransport/types";
 
 export enum ConcertRequests {
-  getConcertData = "getConcertData",
+  getConcertsData = "getConcertsData",
+  getConcert = "getConcert",
   addConcert = "addConcert",
   deleteConcert = "deleteConcert",
   updateConcert = "updatecConcert",
 }
 
 export const requestErrorMessages: RequestErrorMessages<ConcertRequests> = {
-  [ConcertRequests.getConcertData]: {
+  [ConcertRequests.getConcertsData]: {
+    incorrectResponse: "Incorrect concerts data was received",
+    unexpectedError: "Unable to retrieve concerts data",
+  },
+  [ConcertRequests.getConcert]: {
     incorrectResponse: "Incorrect concert data was received",
-    unexpectedError: "Unable to retrieve concert data",
+    unexpectedError: "Unable to retrieve a concert data",
   },
   [ConcertRequests.addConcert]: {
     incorrectResponse: "Incorrect...",

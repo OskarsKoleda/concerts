@@ -27,13 +27,12 @@
 //     }
 // };
 
-
 export function getErrorMessage(error: unknown, defaultMessage = "Error occurred"): string {
   let message: string | undefined;
 
   /*if (axios.isAxiosError(error)) {
     message = getHTTPErrorMessage(error.response, defaultMessage);
-  } else */if (error instanceof Error) {
+  } else */ if (error instanceof Error) {
     message = error.message;
   } else if (typeof error === "string") {
     message = error;

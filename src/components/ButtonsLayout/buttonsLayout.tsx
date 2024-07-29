@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { ButtonLayoutProps } from "./types";
+import type { ButtonLayoutProps } from "./types";
 import { controlButtonsContainerStyles } from "./styles";
 import { Box, Button, Grid } from "@mui/material";
 import { toVisibleControl } from "./utils";

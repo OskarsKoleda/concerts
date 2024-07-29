@@ -1,6 +1,6 @@
-import { ConcertTransport } from "../concertTransport/ConcertTransport";
-import { AppRequest } from "../requestHandler/appRequest/AppRequest";
-import { IRequestHandler } from "../requestHandler/types";
+import type { ConcertTransport } from "../concertTransport/ConcertTransport";
+import type { AppRequest } from "../requestHandler/appRequest/AppRequest";
+import type { IRequestHandler } from "../requestHandler/types";
 
 export interface ChildTransport {
   requestHandler: IRequestHandler;

@@ -1,8 +1,9 @@
-import { Database, onValue, ref, set, push, remove, get, child, update } from "firebase/database";
+import type { Database } from "firebase/database";
+import { onValue, ref, set, push, remove, get, child, update } from "firebase/database";
 import { makeAutoObservable } from "mobx";
-import { ConcertData, ConcertRawData } from "../../../common/types/concert";
-import { RequestHandler } from "../requestHandler/RequestHandler";
-import { ChildTransport, RequestContext } from "../rootTransport/types";
+import type { ConcertData, ConcertRawData } from "../../../common/types/concert";
+import type { RequestHandler } from "../requestHandler/RequestHandler";
+import type { ChildTransport, RequestContext } from "../rootTransport/types";
 import { getRequestContext } from "../rootTransport/utils";
 import { ConcertRequests, requestErrorMessages } from "./constants";
 
@@ -17,11 +18,12 @@ export class ConcertTransport implements ChildTransport {
   };
 
   fetchConcertsData = async (): Promise<ConcertRawData | undefined> => {
-    const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.getConcertData);
+    const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.getConcertsData);
 
     try {
       request.inProgress();
       const concertsRef = ref(this.db, "/concerts");
+
       return new Promise((res) => {
         onValue(concertsRef, (snapshot) => {
           const data: ConcertRawData = snapshot.val();
@@ -51,15 +53,20 @@ export class ConcertTransport implements ChildTransport {
     }
   };
 
-  // add error handling
   getConcert = async (id: string) => {
     const dbRef = ref(this.db);
-    const result = await get(child(dbRef, `/concerts/${id}`));
+    const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.getConcert);
 
-    if (result.exists()) {
-      return result.val();
-    } else {
-      throw new Error("No data available");
+    try {
+      request.inProgress();
+      const result = await get(child(dbRef, `/concerts/${id}`));
+      if (result.exists()) {
+        return result.val();
+      } else {
+        throw new Error("No data available");
+      }
+    } catch (error) {
+      request.fail(error, errorTexts.unexpectedError);
     }
   };
 
@@ -67,9 +74,9 @@ export class ConcertTransport implements ChildTransport {
     const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.updateConcert);
     const updatedConcert = {
       ...concert,
-      startDate: concert.startDate.toISOString(),
-      endDate: concert.endDate ? concert.endDate.toISOString() : null,
+      endDate: concert.endDate || null,
     };
+
     try {
       request.inProgress();
       const concertRef = ref(this.db, `/concerts/${id}`);

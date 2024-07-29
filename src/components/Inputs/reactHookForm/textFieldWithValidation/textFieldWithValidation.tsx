@@ -1,12 +1,14 @@
-import { Box, TextField, TextFieldProps, Tooltip } from "@mui/material";
-import {
+import type { TextFieldProps } from "@mui/material";
+import { Box, TextField, Tooltip } from "@mui/material";
+import type {
   ReadonlyControl,
   WithTooltip,
   WithValidationWrapperProps,
 } from "../../../../common/types/appTypes";
 import { Controller } from "react-hook-form";
-import { ChangeEvent } from "react";
+import type { ChangeEvent } from "react";
 import { ReadonlyField } from "../../readonly/readonly";
+import { getInputErrorText } from "../../../../common/utils/utility";
 
 export type TextFieldWithValidationProps = Omit<
   TextFieldProps,
@@ -74,6 +76,7 @@ export function TextFieldWithValidation(props: TextFieldWithValidationProps) {
                 disabled={disabled}
                 placeholder={placeholder}
                 required={Boolean(rules.required)}
+                helperText={error ? getInputErrorText(error) : null}
                 sx={sx}
                 type={type}
                 value={field.value || ""}

@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { headerStyles } from "./styles";
 
 export interface DataGridHeaderProps {

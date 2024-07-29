@@ -1,5 +1,5 @@
-import { SxProps } from "@mui/material";
-import { Control, UseControllerProps } from "react-hook-form";
+import type { SxProps } from "@mui/material";
+import type { Control, UseControllerProps } from "react-hook-form";
 
 export type ArrowFunction<T extends unknown> = () => T;
 export type VoidArrowFunction = ArrowFunction<void>;

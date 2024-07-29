@@ -1,4 +1,5 @@
-import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { Container, Box, Paper, Typography } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
 import { useRootStore } from "../../store/StoreContext";
@@ -9,7 +10,7 @@ import { SNACKBAR_TEXT } from "../../common/constants/appConstant";
 import { formContainerStyle, formStyle, paperStyle } from "./styles";
 import { ConcertMainDataForm } from "./concertMainData/concertMainDataForm";
 import { NewConcertControlButtons } from "./concertControlButtons/controlButtons";
-import { ConcertData } from "../../common/types/concert";
+import type { ConcertData } from "../../common/types/concert";
 import { ConcertDatesForm } from "./concertDatesDate/concertDatesForm";
 import { defaultValues } from "./constants";
 
@@ -30,16 +31,12 @@ export const ConcertDetailsPage: React.FC = () => {
     mode: "onChange",
     shouldUnregister: true,
   });
-
   const { handleSubmit, reset } = methods;
 
   useEffect(() => {
     setIsReadOnly(!!id && !isEditPage);
-  }, [id, location.pathname]);
-
-  useEffect(() => {
     setIsEditMode(isEditPage);
-  }, [location.pathname]);
+  }, [id, location.pathname]);
 
   useEffect(() => {
     if (id) {
@@ -96,7 +93,7 @@ export const ConcertDetailsPage: React.FC = () => {
   };
 
   const getFormTitle = useMemo(() => {
-    return isEditMode ? "Edit" : isReadOnly ? "Concert Details" : "New Concert";
+    return isEditMode ? "Edit Event" : isReadOnly ? "Concert Details" : "New Concert";
   }, [isReadOnly, isEditMode]);
 
   return (

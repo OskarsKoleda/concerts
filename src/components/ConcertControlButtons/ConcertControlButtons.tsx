@@ -13,10 +13,9 @@ export const ConcertControlButtons: React.FC<{ concertId: string }> = ({ concert
   } = useRootStore();
   const navigate = useNavigate();
 
-
   function handleOpenConcert(concertId: string) {
     getConcert(concertId);
-    navigate(`/${ROUTE_LIST.CONCERTS}/${concertId}`)
+    navigate(`/${ROUTE_LIST.CONCERTS}/${concertId}`);
   }
 
   return (

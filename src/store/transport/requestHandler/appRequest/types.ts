@@ -1,6 +1,6 @@
-import { RequestStatus } from "../../../../common/enums/appEnums";
-import { ArrowFunction, VoidArrowFunction } from "../../../../common/types/appTypes";
-import { ProcessError } from "../types";
+import type { RequestStatus } from "../../../../common/enums/appEnums";
+import type { ArrowFunction, VoidArrowFunction } from "../../../../common/types/appTypes";
+import type { ProcessError } from "../types";
 
 export interface RequestService {
     processError: ProcessError;
@@ -12,7 +12,6 @@ export type InProgress = VoidArrowFunction;
 export type Fail = (error: unknown, defaultErrorMessage?: string) => void;
 export type Reset = VoidArrowFunction;
 // export type Cancel = VoidArrowFunction;
-
 
 export interface RequestController {
   getStatus: GetStatus;

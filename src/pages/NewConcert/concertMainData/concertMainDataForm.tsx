@@ -1,8 +1,9 @@
 import { useFormContext, useWatch } from "react-hook-form";
-import { FormFields } from "../../../components/FormLayout/types";
+import type { FormFields } from "../../../components/FormLayout/types";
 import { InputType } from "../../../components/FormLayout/constants";
 import { FormLayout } from "../../../components/FormLayout/formLayout";
-import { ConcertData } from "../../../common/types/concert";
+import type { ConcertData } from "../../../common/types/concert";
+import { EVENT_TITLE_RULES } from "../../../common/constants/appConstant";
 
 export const ConcertMainDataForm = ({ readOnly }: { readOnly: boolean }) => {
   const { control } = useFormContext<ConcertData>();
@@ -27,6 +28,7 @@ export const ConcertMainDataForm = ({ readOnly }: { readOnly: boolean }) => {
         controlName: "title",
         id: "title",
         label: eventType === "Concert" ? "Concert Title" : "Festival Title",
+        rules: EVENT_TITLE_RULES,
       },
       {
         inputType: InputType.autocompleteText,
@@ -40,7 +42,7 @@ export const ConcertMainDataForm = ({ readOnly }: { readOnly: boolean }) => {
         controlName: "city",
         id: "city",
         label: "City",
-        xs: 6
+        xs: 6,
       },
 
       {
@@ -49,7 +51,7 @@ export const ConcertMainDataForm = ({ readOnly }: { readOnly: boolean }) => {
         id: "price",
         label: "Ticket Price",
         readonly: readOnly,
-        xs: 6
+        xs: 6,
       },
       {
         inputType: InputType.text,
@@ -59,8 +61,6 @@ export const ConcertMainDataForm = ({ readOnly }: { readOnly: boolean }) => {
       },
     ];
   }
-
-
 
   return (
     <FormLayout

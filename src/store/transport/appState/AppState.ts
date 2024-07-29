@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { AppStateStorage, SetAppActiveError } from "./types";
+import type { AppStateStorage, SetAppActiveError } from "./types";
 
 export class AppState implements AppStateStorage {
   public activeError = { message: "" };

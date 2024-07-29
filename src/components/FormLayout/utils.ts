@@ -1,4 +1,4 @@
-import { FormContent, FormSections } from "./types";
+import type { FormContent, FormSections } from "./types";
 
 export function isFormSection(fields: FormContent): fields is FormSections {
   const [head] = fields;

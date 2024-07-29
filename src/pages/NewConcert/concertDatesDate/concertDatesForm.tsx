@@ -1,6 +1,6 @@
 import { useFormContext, useWatch } from "react-hook-form";
-import { ConcertData } from "../../../common/types/concert";
-import { FormFields } from "../../../components/FormLayout/types";
+import type { ConcertData } from "../../../common/types/concert";
+import type { FormFields } from "../../../components/FormLayout/types";
 import { InputType } from "../../../components/FormLayout/constants";
 import { FormLayout } from "../../../components/FormLayout/formLayout";
 
@@ -20,7 +20,7 @@ export const ConcertDatesForm = ({ readOnly }: { readOnly: boolean }) => {
         id: "date",
         label: eventType === "Concert" ? "Date" : "Start Date",
         readonly: readOnly,
-        xs: eventType === "Festival" ? 6 : 12 ,
+        xs: eventType === "Festival" ? 6 : 12,
       },
       ...(eventType === "Festival" ? getFestivalSpecificFields() : []),
     ];

@@ -1,6 +1,8 @@
-import { FC, memo, ReactNode, useCallback } from "react";
-import { FormContent, FormField } from "./types";
-import { Control, Controller } from "react-hook-form";
+import type { FC, ReactNode } from "react";
+import { memo, useCallback } from "react";
+import type { FormContent, FormField } from "./types";
+import type { Control } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { InputType } from "./constants";
 import { SelectWithValidation } from "../Inputs/reactHookForm/selectFieldWithValidation/selectWithValidation";
 import { Box, Grid, Typography } from "@mui/material";
@@ -28,11 +30,6 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
   readonly,
   title,
 }) {
-  //   const {
-  //     formState: { isDirty },
-  //   } = useFormContext();
-  //   useTabCloseAlert(isDirty);
-
   const renderFieldInput = useCallback(
     (field: FormField) => {
       const formFieldProps = {
@@ -81,8 +78,7 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
                     label={field.label}
                     value={new Date(controllerField.value)}
                     onChange={controllerField.onChange}
-                    readOnly={readonly}
-                    disabled={disabled}
+                    disabled={readonly}
                     format="dd.MM.yyyy"
                   />
                 </LocalizationProvider>

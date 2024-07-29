@@ -1,4 +1,4 @@
-import { SxProps } from "@mui/material";
+import type { SxProps } from "@mui/material";
 
 export const dataGridWrapperStyles: SxProps = {
   display: "flex",
@@ -13,5 +13,4 @@ export const dataGridWrapperStyles: SxProps = {
 
 export const tableStyles: SxProps = {
   boxShadow: 2,
-  border: 1,
 };

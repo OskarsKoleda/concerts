@@ -1,6 +1,6 @@
-import { FieldError } from "react-hook-form";
-import { ConcertFormattedData, ConcertRawData } from "../types/concert";
-import { ERROR_TEXT } from "../constants/appConstant";
+import type { FieldError } from "react-hook-form";
+import type { ConcertFormattedData, ConcertRawData } from "../types/concert";
+import { ERROR_TEXTS } from "../constants/appConstant";
 
 export function transformFirebaseObject(concerts: ConcertRawData): ConcertFormattedData[] {
   return Object.keys(concerts).map((key) => ({
@@ -14,7 +14,7 @@ export const getInputErrorText = (error: FieldError): string | null => {
     return null;
   }
 
-  const supportedText = ERROR_TEXT[error.type];
+  const supportedText = ERROR_TEXTS[error.type];
   const errorText = error.message;
 
   return supportedText || errorText || null;

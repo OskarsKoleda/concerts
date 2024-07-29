@@ -1,6 +1,7 @@
-import { Chip, Grid, SxProps, Typography } from "@mui/material";
+import type { SxProps } from "@mui/material";
+import { Chip, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 interface ReadonlyFieldProps {
   label: ReactNode;

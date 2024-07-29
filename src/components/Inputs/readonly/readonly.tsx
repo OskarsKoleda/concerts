@@ -1,6 +1,7 @@
-import { SxProps, Tooltip, Typography } from "@mui/material";
+import type { SxProps } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { readonlyFieldStyle } from "./styles";
 
 interface ReadonlyFieldProps {

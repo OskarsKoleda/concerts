@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
-import { AppStateHandler } from "../appState/types";
-import {
+import type { AppStateHandler } from "../appState/types";
+import type {
   CheckRequestStatus,
   GetRequestStatus,
   IRequestHandler,
@@ -25,6 +25,7 @@ export class RequestHandler implements IRequestHandler {
     const request: AppRequest | undefined = this.getRequest(requestName);
     if (request) {
       request.reset();
+
       return request;
     } else {
       return this.createRequest(requestName);
@@ -46,7 +47,6 @@ export class RequestHandler implements IRequestHandler {
     try {
       const errorMessage = getErrorMessage(error, defaultErrorMessage);
       this.appStateHandler.setAppActiveError(errorMessage);
-      console.log(error);
     } catch (error) {
       throw new Error("Unable to parse error. Invalid error format.");
     }

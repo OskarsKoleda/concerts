@@ -1,5 +1,6 @@
-import { Box, InputLabel, MenuItem, Select, SelectProps } from "@mui/material";
-import { ReadonlyControl, WithValidationWrapperProps } from "../../../../common/types/appTypes";
+import type { SelectProps } from "@mui/material";
+import { Box, InputLabel, MenuItem, Select } from "@mui/material";
+import type { ReadonlyControl, WithValidationWrapperProps } from "../../../../common/types/appTypes";
 import { Controller } from "react-hook-form";
 import { ReadonlyField } from "../../readonly/readonly";
 

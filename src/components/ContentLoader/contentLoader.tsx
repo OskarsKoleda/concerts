@@ -1,5 +1,7 @@
-import { Box, SxProps, CircularProgress } from "@mui/material";
-import { memo, FC, PropsWithChildren } from "react";
+import type { SxProps } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
+import type { FC, PropsWithChildren } from "react";
+import { memo } from "react";
 import { contentWrapperSyle } from "./styles";
 
 type ContentLoaderProps = PropsWithChildren<{
@@ -18,13 +20,12 @@ export const ContentLoader: FC<ContentLoaderProps> = memo(function ContentLoader
   children,
 }) {
   const contentStyles = getContentStyles(isLoading);
+
   return (
     <Box sx={wrapperStyles}>
       {isLoading ? (
-        <Box
-          sx={contentWrapperSyle}
-        >
-          <CircularProgress thickness={6} size={120}/>
+        <Box sx={contentWrapperSyle}>
+          <CircularProgress thickness={6} size={120} />
         </Box>
       ) : (
         <Box sx={contentStyles}>{children}</Box>

@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
-import { SelectWithValidationProps } from "../Inputs/reactHookForm/selectFieldWithValidation/selectWithValidation";
-import { InputType } from "./constants";
-import { TextFieldWithValidationProps } from "../Inputs/reactHookForm/textFieldWithValidation/textFieldWithValidation";
+import type { ReactNode } from "react";
+import type { SelectWithValidationProps } from "../Inputs/reactHookForm/selectFieldWithValidation/selectWithValidation";
+import type { InputType } from "./constants";
+import type { TextFieldWithValidationProps } from "../Inputs/reactHookForm/textFieldWithValidation/textFieldWithValidation";
 
 export type BaseFieldParams = {
   controlName: string;
@@ -30,15 +30,15 @@ export type DateField = CommonInputFieldProps & {
   inputType: InputType.date;
   // value: Date | null;
   // onChange: (date: Date | null) => void;
-}
+};
 
 export type AutocompleteTextField = CommonInputFieldProps & {
   inputType: InputType.autocompleteText;
-}
+};
 
 export type NumberField = CommonInputFieldProps & {
   inputType: InputType.number;
-}
+};
 
 export type FormField = SelectField | TextField | AutocompleteTextField | NumberField | DateField;
 export type FormFields = Array<FormField>;

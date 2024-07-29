@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { ConcertTransport } from "../transport/concertTransport/ConcertTransport";
-import { ConcertData, ConcertFormattedData, ConcertRawData } from "../../common/types/concert";
+import type { ConcertTransport } from "../transport/concertTransport/ConcertTransport";
+import type { ConcertData, ConcertFormattedData, ConcertRawData } from "../../common/types/concert";
 import { transformFirebaseObject } from "../../common/utils/utility";
 import { ConcertRequests } from "../transport/concertTransport/constants";
 
@@ -17,7 +17,7 @@ class ConcertStore {
   get isLoading(): boolean {
     const { isProcessingRequest } = this.transport.requestHandler;
 
-    return isProcessingRequest(ConcertRequests.getConcertData);
+    return isProcessingRequest(ConcertRequests.getConcertsData);
   }
 
   get isDeletionSuccessful(): boolean {
@@ -50,6 +50,7 @@ class ConcertStore {
   getConcert = async (id: string): Promise<ConcertData | undefined> => {
     if (id) {
       const concert: ConcertData = await this.transport.getConcert(id);
+
       return concert;
     }
   };

@@ -1,4 +1,5 @@
-import { OptionsObject, VariantType, useSnackbar } from "notistack";
+import type { OptionsObject, VariantType } from "notistack";
+import { useSnackbar } from "notistack";
 
 interface CustomSnackbarProps {
   message: string;

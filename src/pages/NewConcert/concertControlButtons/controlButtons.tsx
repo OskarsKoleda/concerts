@@ -1,8 +1,9 @@
-import { ControlPayload } from "../../../components/ButtonsLayout/types";
+import type { ControlPayload } from "../../../components/ButtonsLayout/types";
 import { ButtonsLayout } from "../../../components/ButtonsLayout/buttonsLayout";
 import { useFormContext } from "react-hook-form";
-import { ConcertData } from "../../../common/types/concert";
-import { FC, memo, useCallback } from "react";
+import type { ConcertData } from "../../../common/types/concert";
+import type { FC } from "react";
+import { memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_LIST } from "../../../router/routes";
 
@@ -14,7 +15,11 @@ interface ControlButtonsProps {
 
 export const NewConcertControlButtons: FC<ControlButtonsProps> = memo(
   function NewConcertControlButtons({ onEditClick, readOnly, isEditMode }) {
-    const { reset, getValues } = useFormContext<ConcertData>();
+    const {
+      reset,
+      // getValues,
+      formState: { isDirty },
+    } = useFormContext<ConcertData>();
     const navigate = useNavigate();
 
     const handleReset = useCallback(() => {
@@ -25,9 +30,9 @@ export const NewConcertControlButtons: FC<ControlButtonsProps> = memo(
       navigate(ROUTE_LIST.HOMEPAGE);
     };
 
-    const logData = () => {
-      console.log(getValues());
-    };
+    // const logData = () => {
+    //   console.log(getValues());
+    // };
 
     const controls: ControlPayload[] = [
       {
@@ -37,6 +42,7 @@ export const NewConcertControlButtons: FC<ControlButtonsProps> = memo(
         variant: "contained",
         type: "submit",
         visible: !readOnly,
+        disabled: !isDirty,
       },
       {
         color: "primary",
@@ -53,6 +59,7 @@ export const NewConcertControlButtons: FC<ControlButtonsProps> = memo(
         text: "Reset",
         variant: "contained",
         visible: !readOnly,
+        disabled: !isDirty,
       },
       {
         id: "newConcert.cancelConcertCreation",
@@ -61,14 +68,14 @@ export const NewConcertControlButtons: FC<ControlButtonsProps> = memo(
         text: "Cancel",
         variant: "contained",
       },
-      {
-        id: "log",
-        color: "error",
-        onClick: logData,
-        text: "Log Data",
-        variant: "outlined",
-        visible: false,
-      },
+      // {
+      //   id: "log",
+      //   color: "error",
+      //   onClick: logData,
+      //   text: "Log Data",
+      //   variant: "outlined",
+      //   visible: false,
+      // },
     ];
 
     return <ButtonsLayout controls={controls} />;
