@@ -1,11 +1,13 @@
-import type { ControlPayload } from "../../../components/ButtonsLayout/types";
-import { ButtonsLayout } from "../../../components/ButtonsLayout/buttonsLayout";
 import { useFormContext } from "react-hook-form";
-import type { ConcertData } from "../../../common/types/concert";
-import type { FC } from "react";
 import { memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { ButtonsLayout } from "../../../components/ButtonsLayout/buttonsLayout";
 import { ROUTE_LIST } from "../../../router/routes";
+
+import type { FC } from "react";
+import type { ConcertData } from "../../../common/types/concert";
+import type { ControlPayload } from "../../../components/ButtonsLayout/types";
 
 interface ControlButtonsProps {
   readOnly: boolean;
@@ -17,7 +19,6 @@ export const NewConcertControlButtons: FC<ControlButtonsProps> = memo(
   function NewConcertControlButtons({ onEditClick, readOnly, isEditMode }) {
     const {
       reset,
-      // getValues,
       formState: { isDirty },
     } = useFormContext<ConcertData>();
     const navigate = useNavigate();
@@ -26,13 +27,9 @@ export const NewConcertControlButtons: FC<ControlButtonsProps> = memo(
       reset();
     }, [reset]);
 
-    const handleCancel = () => {
+    const handleCancel = useCallback(() => {
       navigate(ROUTE_LIST.HOMEPAGE);
-    };
-
-    // const logData = () => {
-    //   console.log(getValues());
-    // };
+    }, [navigate]);
 
     const controls: ControlPayload[] = [
       {
@@ -68,14 +65,6 @@ export const NewConcertControlButtons: FC<ControlButtonsProps> = memo(
         text: "Cancel",
         variant: "contained",
       },
-      // {
-      //   id: "log",
-      //   color: "error",
-      //   onClick: logData,
-      //   text: "Log Data",
-      //   variant: "outlined",
-      //   visible: false,
-      // },
     ];
 
     return <ButtonsLayout controls={controls} />;

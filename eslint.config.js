@@ -1,9 +1,8 @@
-import pluginJs from "@eslint/js";
 import tseslint from "@typescript-eslint/eslint-plugin";
 import parserTs from "@typescript-eslint/parser";
 import pluginReact from "eslint-plugin-react";
 import pluginReactHooks from "eslint-plugin-react-hooks";
-// import pluginImport from "npm i eslint-plugin-import";
+import pluginImport from "eslint-plugin-import";
 
 export default [
   {
@@ -16,17 +15,17 @@ export default [
     },
     plugins: {
       "@typescript-eslint": tseslint,
-      // "react-hooks": pluginReactHooks,
-      // "import": pluginImport,
+      "react-hooks": pluginReactHooks,
+      import: pluginImport,
     },
     rules: {
-      // "import/order": [
-      //   "error",
-      //   {
-      //     groups: ["external", "parent", ["sibling", "index"], "type"],
-      //     "newlines-between": "always",
-      //   },
-      // ],
+      "import/order": [
+        "error",
+        {
+          groups: ["external", "parent", ["sibling", "index"], "type"],
+          "newlines-between": "always",
+        },
+      ],
       "@typescript-eslint/consistent-type-imports": "warn",
       "@typescript-eslint/naming-convention": [
         "error",

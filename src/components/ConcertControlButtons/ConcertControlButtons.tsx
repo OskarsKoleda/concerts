@@ -1,11 +1,13 @@
 import { Box, IconButton } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { DeleteButton } from "../DeleteButton/DeleteButton";
-import { buttonContainerStyle } from "./styles";
 import React from "react";
-import { useRootStore } from "../../store/StoreContext";
 import { useNavigate } from "react-router-dom";
+
+import { useRootStore } from "../../store/StoreContext";
+import { DeleteButton } from "../DeleteButton/DeleteButton";
 import { ROUTE_LIST } from "../../router/routes";
+
+import { buttonContainerStyle } from "./styles";
 
 export const ConcertControlButtons: React.FC<{ concertId: string }> = ({ concertId }) => {
   const {

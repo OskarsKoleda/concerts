@@ -1,18 +1,21 @@
-import type { FC, ReactNode } from "react";
 import { memo, useCallback } from "react";
-import type { FormContent, FormField } from "./types";
-import type { Control } from "react-hook-form";
 import { Controller } from "react-hook-form";
-import { InputType } from "./constants";
-import { SelectWithValidation } from "../Inputs/reactHookForm/selectFieldWithValidation/selectWithValidation";
 import { Box, Grid, Typography } from "@mui/material";
-import { isFormSection } from "./utils";
-import { gridStyles, layoutWrapperStyles } from "./styles";
-import { TextFieldWithValidation } from "../Inputs/reactHookForm/textFieldWithValidation/textFieldWithValidation";
-import { AutocompleteTextField } from "../Inputs/reactHookForm/autocompleteTextField/autocompleteTextField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+
+import { AutocompleteTextField } from "../Inputs/reactHookForm/autocompleteTextField/autocompleteTextField";
+import { TextFieldWithValidation } from "../Inputs/reactHookForm/textFieldWithValidation/textFieldWithValidation";
+import { SelectWithValidation } from "../Inputs/reactHookForm/selectFieldWithValidation/selectWithValidation";
+
+import { gridStyles, layoutWrapperStyles } from "./styles";
+import { isFormSection } from "./utils";
+import { InputType } from "./constants";
+
+import type { Control } from "react-hook-form";
+import type { FormContent, FormField } from "./types";
+import type { FC, ReactNode } from "react";
 
 export interface FormLayoutProps {
   content: FormContent;

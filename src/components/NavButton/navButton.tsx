@@ -1,8 +1,9 @@
-import type { ReactNode } from "react";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import type { ButtonProps } from "@mui/material/Button";
 import Button from "@mui/material/Button";
+
+import type { ButtonProps } from "@mui/material/Button";
+import type { ReactNode } from "react";
 
 interface NavLinkButtonProps extends ButtonProps {
   to: string;

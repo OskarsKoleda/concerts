@@ -1,5 +1,7 @@
 import { makeAutoObservable } from "mobx";
+
 import { RequestStatus } from "../../../../common/enums/appEnums";
+
 import type {
   GetStatus,
   InProgress,

@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+
 import type { AppStateStorage, SetAppActiveError } from "./types";
 
 export class AppState implements AppStateStorage {

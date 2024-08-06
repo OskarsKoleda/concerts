@@ -1,12 +1,14 @@
-import type { TextFieldProps } from "@mui/material";
 import { Autocomplete, TextField, Tooltip } from "@mui/material";
+import { Controller } from "react-hook-form";
+
+import { ChipsReadonlyField } from "../../chipsReadonlyField/chipsReadonlyField";
+
 import type {
   ReadonlyControl,
   WithTooltip,
   WithValidationWrapperProps,
 } from "../../../../common/types/appTypes";
-import { Controller } from "react-hook-form";
-import { ChipsReadonlyField } from "../../chipsReadonlyField/chipsReadonlyField";
+import type { TextFieldProps } from "@mui/material";
 
 type AutocompleteTextFieldProps = Pick<
   TextFieldProps,

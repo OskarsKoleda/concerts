@@ -1,18 +1,21 @@
-import type { SubmitHandler } from "react-hook-form";
 import { useForm, FormProvider } from "react-hook-form";
 import { Container, Box, Paper, Typography } from "@mui/material";
-import React, { useEffect, useMemo, useState } from "react";
-import { useRootStore } from "../../store/StoreContext";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+
+import { useRootStore } from "../../store/StoreContext";
 import { ROUTE_LIST } from "../../router/routes";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar";
 import { SNACKBAR_TEXT } from "../../common/constants/appConstant";
+
 import { formContainerStyle, formStyle, paperStyle } from "./styles";
 import { ConcertMainDataForm } from "./concertMainData/concertMainDataForm";
 import { NewConcertControlButtons } from "./concertControlButtons/controlButtons";
-import type { ConcertData } from "../../common/types/concert";
 import { ConcertDatesForm } from "./concertDatesDate/concertDatesForm";
 import { defaultValues } from "./constants";
+
+import type { ConcertData } from "../../common/types/concert";
+import type { SubmitHandler } from "react-hook-form";
 
 export const ConcertDetailsPage: React.FC = () => {
   const {
@@ -36,9 +39,7 @@ export const ConcertDetailsPage: React.FC = () => {
   useEffect(() => {
     setIsReadOnly(!!id && !isEditPage);
     setIsEditMode(isEditPage);
-  }, [id, location.pathname]);
 
-  useEffect(() => {
     if (id) {
       const fetchConcertData = async () => {
         const concert = await getConcert(id);
@@ -50,27 +51,33 @@ export const ConcertDetailsPage: React.FC = () => {
     } else {
       reset(defaultValues);
     }
-  }, [id, reset, getConcert]);
+  }, [id, location.pathname, isEditPage, getConcert, reset]);
 
-  const handleCreate: SubmitHandler<ConcertData> = (data) => {
-    addConcert(data);
-    showSnackbar({
-      message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_CREATION,
-      variant: "success",
-    });
-    navigate(`/${ROUTE_LIST.CONCERTS}`);
-  };
-
-  const handleUpdate: SubmitHandler<ConcertData> = (data) => {
-    if (id) {
-      updateConcert(data, id);
+  const handleCreate: SubmitHandler<ConcertData> = useCallback(
+    (data) => {
+      addConcert(data);
       showSnackbar({
-        message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_UPDATE,
-        variant: "info",
+        message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_CREATION,
+        variant: "success",
       });
-      navigate(`/${ROUTE_LIST.CONCERTS}/${id}`);
-    }
-  };
+      navigate(`/${ROUTE_LIST.CONCERTS}`);
+    },
+    [addConcert, showSnackbar, navigate],
+  );
+
+  const handleUpdate: SubmitHandler<ConcertData> = useCallback(
+    (data) => {
+      if (id) {
+        updateConcert(data, id);
+        showSnackbar({
+          message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_UPDATE,
+          variant: "info",
+        });
+        navigate(`/${ROUTE_LIST.CONCERTS}/${id}`);
+      }
+    },
+    [updateConcert, showSnackbar, navigate],
+  );
 
   const submitFormHandler = (event: React.SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
     event.preventDefault();

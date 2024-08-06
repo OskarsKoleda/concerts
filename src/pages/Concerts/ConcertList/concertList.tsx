@@ -1,11 +1,13 @@
-import { useRootStore } from "../../../store/StoreContext";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
 import { Box, Container, Typography, Grid } from "@mui/material";
-import { appContainerStyles, headerStyle, headerTitleStyle } from "./styles";
+
+import { useRootStore } from "../../../store/StoreContext";
 import { Card } from "../../../components/CardWithImage/cardWithImage";
 import { ContentLoader } from "../../../components/ContentLoader/contentLoader";
 import { ConcertControlButtons } from "../../../components/ConcertControlButtons/ConcertControlButtons";
+
+import { appContainerStyles, headerStyle, headerTitleStyle } from "./styles";
 
 function ConcertList() {
   const {

@@ -1,10 +1,13 @@
 import { Box, Tooltip } from "@mui/material";
-import type { GridColDef } from "@mui/x-data-grid";
 import { DataGrid } from "@mui/x-data-grid";
 import { observer } from "mobx-react-lite";
-import { useRootStore } from "../../../../store/StoreContext";
-import { dataGridWrapperStyles, tableStyles } from "./styles";
 import { format, parseISO } from "date-fns";
+
+import { useRootStore } from "../../../../store/StoreContext";
+
+import { dataGridWrapperStyles, tableStyles } from "./styles";
+
+import type { GridColDef } from "@mui/x-data-grid";
 
 export const TableBody = observer(function TableBody() {
   const {

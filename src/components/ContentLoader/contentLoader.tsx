@@ -1,8 +1,10 @@
-import type { SxProps } from "@mui/material";
 import { Box, CircularProgress } from "@mui/material";
-import type { FC, PropsWithChildren } from "react";
 import { memo } from "react";
+
 import { contentWrapperSyle } from "./styles";
+
+import type { FC, PropsWithChildren } from "react";
+import type { SxProps } from "@mui/material";
 
 type ContentLoaderProps = PropsWithChildren<{
   isLoading: boolean;

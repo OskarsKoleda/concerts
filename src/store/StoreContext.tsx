@@ -1,6 +1,8 @@
-import type { ReactNode } from "react";
 import { createContext, useContext } from "react";
+
 import RootStore from "./RootStore";
+
+import type { ReactNode } from "react";
 
 interface StoreProviderProps {
   children: ReactNode;

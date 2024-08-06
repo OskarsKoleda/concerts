@@ -1,9 +1,11 @@
 import { makeAutoObservable } from "mobx";
+
 import { ConcertTransport } from "../concertTransport/ConcertTransport";
-import type { RootTransport } from "./types";
 import { RequestHandler } from "../requestHandler/RequestHandler";
 import { AppState } from "../appState/AppState";
 import { db } from "../../../firebaseConfig";
+
+import type { RootTransport } from "./types";
 
 export class Transport implements RootTransport {
   public readonly appState: AppState;

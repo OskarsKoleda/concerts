@@ -1,7 +1,9 @@
 import { Drawer, List, Box, Divider } from "@mui/material";
 import { observer } from "mobx-react-lite";
+
 import { useRootStore } from "../../store/StoreContext";
 import { NavListItem } from "../NavigationListItem/navigationListItem";
+
 import { menuItems } from "./constants";
 
 export const NavigationBar: React.FC = observer(() => {

@@ -1,8 +1,10 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import type { ConcertTransport } from "../transport/concertTransport/ConcertTransport";
-import type { ConcertData, ConcertFormattedData, ConcertRawData } from "../../common/types/concert";
+
 import { transformFirebaseObject } from "../../common/utils/utility";
 import { ConcertRequests } from "../transport/concertTransport/constants";
+
+import type { ConcertTransport } from "../transport/concertTransport/ConcertTransport";
+import type { ConcertData, ConcertFormattedData, ConcertRawData } from "../../common/types/concert";
 
 class ConcertStore {
   concerts: ConcertFormattedData[] = [];

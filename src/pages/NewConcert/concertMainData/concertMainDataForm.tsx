@@ -1,9 +1,11 @@
 import { useFormContext, useWatch } from "react-hook-form";
-import type { FormFields } from "../../../components/FormLayout/types";
+
 import { InputType } from "../../../components/FormLayout/constants";
 import { FormLayout } from "../../../components/FormLayout/formLayout";
-import type { ConcertData } from "../../../common/types/concert";
 import { EVENT_TITLE_RULES } from "../../../common/constants/appConstant";
+
+import type { FormFields } from "../../../components/FormLayout/types";
+import type { ConcertData } from "../../../common/types/concert";
 
 export const ConcertMainDataForm = ({ readOnly }: { readOnly: boolean }) => {
   const { control } = useFormContext<ConcertData>();

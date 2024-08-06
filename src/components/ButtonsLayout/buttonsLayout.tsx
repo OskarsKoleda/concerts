@@ -1,8 +1,10 @@
 import { memo } from "react";
-import type { ButtonLayoutProps } from "./types";
-import { controlButtonsContainerStyles } from "./styles";
 import { Box, Button, Grid } from "@mui/material";
+
+import { controlButtonsContainerStyles } from "./styles";
 import { toVisibleControl } from "./utils";
+
+import type { ButtonLayoutProps } from "./types";
 
 export const ButtonsLayout = memo<ButtonLayoutProps>(function ConcertCreationFormControls({
   controls,

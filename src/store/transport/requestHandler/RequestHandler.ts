@@ -1,4 +1,10 @@
 import { makeAutoObservable } from "mobx";
+
+import { getErrorMessage } from "../../../common/utils/appUtils";
+import { RequestStatus } from "../../../common/enums/appEnums";
+
+import { AppRequest } from "./appRequest/AppRequest";
+
 import type { AppStateHandler } from "../appState/types";
 import type {
   CheckRequestStatus,
@@ -10,9 +16,6 @@ import type {
   ProcessError,
   TransferRequests,
 } from "./types";
-import { AppRequest } from "./appRequest/AppRequest";
-import { getErrorMessage } from "../../../common/utils/appUtils";
-import { RequestStatus } from "../../../common/enums/appEnums";
 
 export class RequestHandler implements IRequestHandler {
   private readonly requests: TransferRequests = {};

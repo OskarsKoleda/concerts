@@ -1,13 +1,15 @@
 import { Typography, AppBar, Toolbar, IconButton, Box, Tooltip } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { useRootStore } from "../../store/StoreContext";
-import { flexCenterStyle, toolbarContainerStyle } from "./styles";
 import RemoveRedEye from "@mui/icons-material/RemoveRedEye";
 import MenuIcon from "@mui/icons-material/Menu";
 import PortraitIcon from "@mui/icons-material/Portrait";
 import StadiumIcon from "@mui/icons-material/Stadium";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
+
+import { useRootStore } from "../../store/StoreContext";
+
+import { flexCenterStyle, toolbarContainerStyle } from "./styles";
 
 export const Header = observer(function Header(): JSX.Element {
   const {
