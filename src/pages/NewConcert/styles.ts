@@ -2,7 +2,7 @@ import type { SxProps } from "@mui/material";
 
 export const formContainerStyle: SxProps = {
   mt: "50px",
-  width: { xs: "90%", md: "50%" }, // Responsive width
+  width: { xs: "90%", md: "60%" }, // Responsive width
   display: "flex",
   flexDirection: "column",
   alignItems: "center",

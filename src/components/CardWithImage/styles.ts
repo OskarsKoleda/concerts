@@ -3,9 +3,7 @@ import type { SxProps } from "@mui/material";
 export const cardStyle: SxProps = {
   display: "flex",
   flexDirection: "column",
-  padding: 0.5,
-  backgroundColor: "rgba(200,210,200)",
-  borderRadius: "5px",
+  backgroundColor: "rgba(240,230,230)",
   transition: "transform 0.3s ease",
   border: "1px solid black",
   "&:hover": {

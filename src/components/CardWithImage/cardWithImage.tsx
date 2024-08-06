@@ -17,7 +17,7 @@ export const Card: React.FC<CardProps> = observer(function Card({
   children,
 }): JSX.Element {
   return (
-    <Paper sx={cardStyle} elevation={3}>
+    <Paper sx={cardStyle} elevation={5}>
       <Box>
         <Box sx={imageStyle} component="img" src={imageUrl} alt={`${title} poster`} />
         <Box sx={informationSectionStyle}>
