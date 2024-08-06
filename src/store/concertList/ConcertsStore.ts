@@ -28,7 +28,7 @@ class ConcertStore {
     return isProcessingRequest(ConcertRequests.deleteConcert);
   }
 
-  fetchAllConcerts = async () => {
+  loadConcerts = async () => {
     const data: ConcertRawData | undefined = await this.transport.fetchConcertsData();
     runInAction(() => {
       if (data) {
@@ -46,7 +46,7 @@ class ConcertStore {
 
   addConcert = async (concert: ConcertData) => {
     await this.transport.addConcert(concert);
-    this.fetchAllConcerts();
+    this.loadConcerts();
   };
 
   getConcert = async (id: string): Promise<ConcertData | undefined> => {
@@ -63,7 +63,7 @@ class ConcertStore {
 
   deleteConcert = async (id: string) => {
     await this.transport.deleteConcert(id);
-    this.fetchAllConcerts();
+    this.loadConcerts();
   };
 }
 

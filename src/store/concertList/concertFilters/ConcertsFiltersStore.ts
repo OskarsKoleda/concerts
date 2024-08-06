@@ -1,11 +1,10 @@
 import { makeAutoObservable } from "mobx";
 
 export class ConcertsFiltersStore {
+  // public eventTitle: string;
 
-    // public eventTitle: string;
-
-    constructor() {
-        makeAutoObservable(this);
-        // this.eventTitle
-    }
+  constructor() {
+    makeAutoObservable(this);
+    // this.eventTitle
+  }
 }

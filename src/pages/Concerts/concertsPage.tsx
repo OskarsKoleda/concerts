@@ -1,12 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Container,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Box } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 
@@ -14,13 +6,12 @@ import { useRootStore } from "../../store/StoreContext";
 
 import ConcertListPage from "./concertsGrid/concertsGrid";
 import { ConcertsTable } from "./ConcertsTable/concertsTable";
-import { concertsContainerStyles, headerStyles, headerTitleStyles } from "./styles";
-import { ContentLoader } from "../../components/ContentLoader/contentLoader";
+import { ConcertsFilters } from "./concertsFIlters/concertsFilters";
 
 export const ConcertsPage: React.FC = observer(function ConcertsPage() {
   const {
     applicationStore: { listViewIsSelected },
-    concertsStore: { fetchAllConcerts, isLoading },
+    concertsStore: { loadConcerts: fetchAllConcerts },
   } = useRootStore();
 
   useEffect(() => {
@@ -29,24 +20,8 @@ export const ConcertsPage: React.FC = observer(function ConcertsPage() {
 
   return (
     <Box>
-      <Container sx={headerStyles} component="section">
-        <Typography sx={headerTitleStyles} variant="h3">
-          The List of Concerts
-        </Typography>
-      </Container>
-      
-      <Paper sx={concertsContainerStyles}>
-        <Accordion>
-          <AccordionSummary>Filter By</AccordionSummary>
-          <AccordionDetails>This is details</AccordionDetails>
-        </Accordion>
-      </Paper>
-
-      <ContentLoader isLoading={isLoading}>
-        <Paper elevation={5} sx={concertsContainerStyles}>
-          {listViewIsSelected ? <ConcertListPage /> : <ConcertsTable />}
-        </Paper>
-      </ContentLoader>
+      <ConcertsFilters />
+      {listViewIsSelected ? <ConcertListPage /> : <ConcertsTable />}
     </Box>
   );
 });
