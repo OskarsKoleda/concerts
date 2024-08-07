@@ -1,9 +1,12 @@
 import type { SxProps } from "@mui/material";
 import type { Control, UseControllerProps } from "react-hook-form";
 
+export type Nullable<T> = T | null;
+export type Option<T> = T | undefined;
+export type Maybe<T> = Nullable<T> | Option<T>;
+
 export type ArrowFunction<T extends unknown> = () => T;
 export type VoidArrowFunction = ArrowFunction<void>;
-export type Nullable<T> = T | null;
 
 export type WithValidationWrapperProps = {
   control: Control<any, Record<string, unknown>>;
