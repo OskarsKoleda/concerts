@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -16,12 +16,21 @@ export const DeleteButton: React.FC<{ concertId: string }> = ({ concertId }) => 
 
   const { showSnackbar } = useCustomSnackbar();
 
-  function handleConcertDeletion(concertId: string) {
-    deleteConcert(concertId);
-    if (isDeletionSuccessful) {
-      showSnackbar({ message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_DELETION, variant: "success" });
-    }
-  }
+  const handleConcertDeletion = useCallback(
+    (concertId: string) => {
+      deleteConcert(concertId);
+
+      console.log(" HERE");
+
+      if (isDeletionSuccessful) {
+        console.log(" HERE 222");
+
+        setShowConfirmationDialogue(false);
+        showSnackbar({ message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_DELETION, variant: "success" });
+      }
+    },
+    [deleteConcert, setShowConfirmationDialogue, showSnackbar],
+  );
 
   const handleDeletion = () => {
     setShowConfirmationDialogue(true);

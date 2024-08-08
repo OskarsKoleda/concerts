@@ -12,20 +12,24 @@ class ConcertStore {
   transport: ConcertTransport;
 
   constructor(concertTransport: ConcertTransport) {
-    this.transport = concertTransport;
     makeAutoObservable(this);
+    this.transport = concertTransport;
   }
 
-  get isLoading(): boolean {
+  public get isLoading(): boolean {
+    console.log("isLoading: ");
+
     const { isProcessingRequest } = this.transport.requestHandler;
 
     return isProcessingRequest(ConcertRequests.getConcertsData);
   }
 
-  get isDeletionSuccessful(): boolean {
-    const { isProcessingRequest } = this.transport.requestHandler;
+  public get isDeletionSuccessful(): boolean {
+    console.log("isDeletionSuccessful: ");
+    
+    const { isSuccessfulRequest } = this.transport.requestHandler;
 
-    return isProcessingRequest(ConcertRequests.deleteConcert);
+    return isSuccessfulRequest(ConcertRequests.deleteConcert);
   }
 
   loadConcerts = async () => {
@@ -46,7 +50,7 @@ class ConcertStore {
 
   addConcert = async (concert: ConcertData) => {
     await this.transport.addConcert(concert);
-    this.loadConcerts();
+    // this.loadConcerts();
   };
 
   getConcert = async (id: string): Promise<ConcertData | undefined> => {
@@ -63,7 +67,7 @@ class ConcertStore {
 
   deleteConcert = async (id: string) => {
     await this.transport.deleteConcert(id);
-    this.loadConcerts();
+    // this.loadConcerts();
   };
 }
 

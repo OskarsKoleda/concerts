@@ -10,7 +10,7 @@ export type GetRequestStatus = (requestName: string) => RequestStatus | undefine
 export type CheckRequestStatus = (requestName: string, status: RequestStatus) => boolean;
 export type IsProcessingRequest = (requestName: string) => boolean;
 // export type AreProcessingRequests = (requestNames: Array<string>) => boolean;
-// export type IsSuccessfulRequest = (requestName: string) => boolean;
+export type IsSuccessfulRequest = (requestName: string) => boolean;
 // export type AreSuccessfulRequests = (requestNames: Array<string>) => boolean;
 export type IsFailedRequest = (requestName: string) => boolean;
 // export type ResetRequests = (requestNameList: Array<string>) => void;
@@ -21,7 +21,7 @@ export interface IRequestHandler {
     readonly checkRequestStatus: CheckRequestStatus;
     readonly isProcessingRequest: IsProcessingRequest;
     // readonly areProcessingRequests: AreProcessingRequests;
-    // readonly isSuccessfulRequest: IsSuccessfulRequest;
+    readonly isSuccessfulRequest: IsSuccessfulRequest;
     // readonly areSuccessfulRequests: AreSuccessfulRequests;
     readonly isFailedRequest: IsFailedRequest;
     // readonly resetRequests: ResetRequests;

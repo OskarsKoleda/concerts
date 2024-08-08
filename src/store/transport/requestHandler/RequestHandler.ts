@@ -13,6 +13,7 @@ import type {
   InitRequest,
   IsFailedRequest,
   IsProcessingRequest,
+  IsSuccessfulRequest,
   ProcessError,
   TransferRequests,
 } from "./types";
@@ -63,11 +64,19 @@ export class RequestHandler implements IRequestHandler {
     return this.getRequestStatus(requestName) === status;
   };
 
+  // --------------------------------------------
+
   isProcessingRequest: IsProcessingRequest = (requestName) => {
     return this.checkRequestStatus(requestName, RequestStatus.IN_PROGRESS);
   };
 
   isFailedRequest: IsFailedRequest = (requestName) => {
     return this.checkRequestStatus(requestName, RequestStatus.FAILED);
+  };
+
+  isSuccessfulRequest: IsSuccessfulRequest = (requestName) => {
+    console.log("this.getRequestStatus(requestName): ", this.getRequestStatus(requestName));
+    
+    return this.checkRequestStatus(requestName, RequestStatus.SUCCESS);
   };
 }

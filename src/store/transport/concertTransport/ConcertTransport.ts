@@ -56,6 +56,7 @@ export class ConcertTransport implements ChildTransport {
     }
   };
 
+  // TODO: move promise here from Store
   getConcert = async (id: string) => {
     const dbRef = ref(this.db);
     const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.getConcert);
@@ -89,14 +90,19 @@ export class ConcertTransport implements ChildTransport {
     }
   };
 
-  deleteConcert = async (id: string): Promise<void> => {
+  deleteConcert = async (id: string) => {
     const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.deleteConcert);
 
     try {
       request.inProgress();
       const concertRef = ref(this.db, `/concerts/${id}`);
       await remove(concertRef);
+      request.success();
+      console.log("SUCCESS");
+      
     } catch (error) {
+      console.log("ERROR");
+
       request.fail(error, errorTexts.unexpectedError);
     }
   };
