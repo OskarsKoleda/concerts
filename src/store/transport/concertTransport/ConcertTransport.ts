@@ -6,13 +6,21 @@ import { getRequestContext } from "../rootTransport/utils";
 import { ConcertRequests, requestErrorMessages } from "./constants";
 
 import type { Database } from "firebase/database";
-import type { ConcertData, ConcertRawData } from "../../../common/types/concert";
+import type {
+  ConcertData,
+  ConcertFormattedData,
+  ConcertRawData,
+} from "../../../common/types/concert";
 import type { RequestHandler } from "../requestHandler/RequestHandler";
 import type { ChildTransport, RequestContext } from "../rootTransport/types";
+import { transformFirebaseObject } from "../../../common/utils/utility";
 
 // why need to implement ChildTransport?
 export class ConcertTransport implements ChildTransport {
-  constructor(readonly db: Database, readonly requestHandler: RequestHandler) {
+  constructor(
+    readonly db: Database,
+    readonly requestHandler: RequestHandler,
+  ) {
     makeAutoObservable(this);
   }
 
@@ -90,20 +98,33 @@ export class ConcertTransport implements ChildTransport {
     }
   };
 
-  deleteConcert = async (id: string) => {
+  deleteConcert = async (id: string): Promise<Record<string, string>> => {
     const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.deleteConcert);
 
-    try {
-      request.inProgress();
-      const concertRef = ref(this.db, `/concerts/${id}`);
-      await remove(concertRef);
-      request.success();
-      console.log("SUCCESS");
-      
-    } catch (error) {
-      console.log("ERROR");
+    request.inProgress();
 
-      request.fail(error, errorTexts.unexpectedError);
-    }
+    const concertRef = ref(this.db, `/concerts/${id}`);
+    return remove(concertRef)
+      .then(() => {
+        request.success();
+        return { status: "OK", message: "Data deleted successfully!" };
+      })
+      .catch((error) => {
+        request.fail(error, errorTexts.unexpectedError);
+        throw new Error("Could not delete the record!");
+      });
+  };
+
+  concertsListener = (callback: (concerts: ConcertFormattedData[]) => void) => {
+    const concertsRef = ref(this.db, "/concerts");
+    onValue(concertsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const formattedConcerts: ConcertFormattedData[] = transformFirebaseObject(data);
+        callback(formattedConcerts);
+      } else {
+        callback([]);
+      }
+    });
   };
 }

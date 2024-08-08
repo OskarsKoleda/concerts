@@ -6,27 +6,29 @@ import { CustomDialog } from "../CustomDialog/customDialog";
 import { useRootStore } from "../../store/StoreContext";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar";
 import { SNACKBAR_TEXT } from "../../common/constants/appConstant";
+import { observer } from "mobx-react-lite";
 
-export const DeleteButton: React.FC<{ concertId: string }> = ({ concertId }) => {
+export const DeleteButton: React.FC<{ concertId: string }> = observer(({ concertId }) => {
   const [showConfirmationDialogue, setShowConfirmationDialogue] = useState(false);
 
   const {
-    concertsStore: { deleteConcert, isDeletionSuccessful },
+    concertsStore: { deleteConcert },
   } = useRootStore();
 
   const { showSnackbar } = useCustomSnackbar();
 
   const handleConcertDeletion = useCallback(
-    (concertId: string) => {
-      deleteConcert(concertId);
+    async (concertId: string) => {
+      const { status, message } = await deleteConcert(concertId);
+      setShowConfirmationDialogue(false);
 
-      console.log(" HERE");
-
-      if (isDeletionSuccessful) {
-        console.log(" HERE 222");
-
-        setShowConfirmationDialogue(false);
-        showSnackbar({ message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_DELETION, variant: "success" });
+      if (status === "OK") {
+        showSnackbar({
+          message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_DELETION + message,
+          variant: "success",
+        });
+      } else {
+        showSnackbar({ message: SNACKBAR_TEXT.CONCERT_DELETION_FAILURE, variant: "error" });
       }
     },
     [deleteConcert, setShowConfirmationDialogue, showSnackbar],
@@ -56,4 +58,4 @@ export const DeleteButton: React.FC<{ concertId: string }> = ({ concertId }) => 
       </Tooltip>
     </Box>
   );
-};
+});

@@ -8,25 +8,21 @@ import type { ConcertData, ConcertFormattedData, ConcertRawData } from "../../co
 
 class ConcertStore {
   concerts: ConcertFormattedData[] = [];
-
   transport: ConcertTransport;
 
   constructor(concertTransport: ConcertTransport) {
     makeAutoObservable(this);
     this.transport = concertTransport;
+    this.setupConcertsListener();
   }
 
   public get isLoading(): boolean {
-    console.log("isLoading: ");
-
     const { isProcessingRequest } = this.transport.requestHandler;
 
     return isProcessingRequest(ConcertRequests.getConcertsData);
   }
 
   public get isDeletionSuccessful(): boolean {
-    console.log("isDeletionSuccessful: ");
-    
     const { isSuccessfulRequest } = this.transport.requestHandler;
 
     return isSuccessfulRequest(ConcertRequests.deleteConcert);
@@ -50,7 +46,6 @@ class ConcertStore {
 
   addConcert = async (concert: ConcertData) => {
     await this.transport.addConcert(concert);
-    // this.loadConcerts();
   };
 
   getConcert = async (id: string): Promise<ConcertData | undefined> => {
@@ -65,9 +60,16 @@ class ConcertStore {
     await this.transport.updateConcert(concert, id);
   };
 
-  deleteConcert = async (id: string) => {
-    await this.transport.deleteConcert(id);
-    // this.loadConcerts();
+  deleteConcert = async (id: string): Promise<Record<string, string>> => {
+    return this.transport.deleteConcert(id);
+  };
+
+  private setupConcertsListener = () => {
+    this.transport.concertsListener((concerts: ConcertFormattedData[]) => {
+      runInAction(() => {
+        this.setConcerts(concerts);
+      });
+    });
   };
 }
 
