@@ -75,8 +75,6 @@ export class RequestHandler implements IRequestHandler {
   };
 
   isSuccessfulRequest: IsSuccessfulRequest = (requestName) => {
-    console.log("this.getRequestStatus(requestName): ", this.getRequestStatus(requestName));
-    
     return this.checkRequestStatus(requestName, RequestStatus.SUCCESS);
   };
 }

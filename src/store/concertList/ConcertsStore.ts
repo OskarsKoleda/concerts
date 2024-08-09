@@ -3,6 +3,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { transformFirebaseObject } from "../../common/utils/utility";
 import { ConcertRequests } from "../transport/concertTransport/constants";
 
+import type { FirebaseResponse } from "../types";
 import type { ConcertTransport } from "../transport/concertTransport/ConcertTransport";
 import type { ConcertData, ConcertFormattedData, ConcertRawData } from "../../common/types/concert";
 
@@ -22,13 +23,19 @@ class ConcertStore {
     return isProcessingRequest(ConcertRequests.getConcertsData);
   }
 
-  public get isDeletionSuccessful(): boolean {
+  // public get isDeletionSuccessful(): boolean {
+  //   const { isSuccessfulRequest } = this.transport.requestHandler;
+
+  //   return isSuccessfulRequest(ConcertRequests.deleteConcert);
+  // }
+
+  public get isConcertUpdateSuccessful(): boolean {
     const { isSuccessfulRequest } = this.transport.requestHandler;
 
-    return isSuccessfulRequest(ConcertRequests.deleteConcert);
+    return isSuccessfulRequest(ConcertRequests.updateConcert);
   }
 
-  loadConcerts = async () => {
+  public loadConcerts = async () => {
     const data: ConcertRawData | undefined = await this.transport.fetchConcertsData();
     runInAction(() => {
       if (data) {
@@ -40,31 +47,29 @@ class ConcertStore {
     });
   };
 
-  setConcerts = (concerts: ConcertFormattedData[]) => {
+  private setConcerts = (concerts: ConcertFormattedData[]): void => {
     this.concerts = concerts;
   };
 
-  addConcert = async (concert: ConcertData) => {
+  public addConcert = async (concert: ConcertData): Promise<void> => {
     await this.transport.addConcert(concert);
   };
 
-  getConcert = async (id: string): Promise<ConcertData | undefined> => {
-    if (id) {
-      const concert: ConcertData = await this.transport.getConcert(id);
+  public getConcert = async (id: string): Promise<ConcertData | undefined> => {
+    const concert: ConcertData = await this.transport.getConcert(id);
 
-      return concert;
-    }
+    return concert;
   };
 
-  updateConcert = async (concert: ConcertData, id: string) => {
+  public updateConcert = async (concert: ConcertData, id: string): Promise<void> => {
     await this.transport.updateConcert(concert, id);
   };
 
-  deleteConcert = async (id: string): Promise<Record<string, string>> => {
+  public deleteConcert = async (id: string): Promise<FirebaseResponse> => {
     return this.transport.deleteConcert(id);
   };
 
-  private setupConcertsListener = () => {
+  private setupConcertsListener = (): void => {
     this.transport.concertsListener((concerts: ConcertFormattedData[]) => {
       runInAction(() => {
         this.setConcerts(concerts);

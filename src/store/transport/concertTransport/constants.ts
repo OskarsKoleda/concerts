@@ -30,3 +30,8 @@ export const requestErrorMessages: RequestErrorMessages<ConcertRequests> = {
     unexpectedError: "Unable to update a concert",
   },
 };
+
+export enum ResponseStatuses {
+  OK = "OK",
+  ERROR = "ERROR",
+}

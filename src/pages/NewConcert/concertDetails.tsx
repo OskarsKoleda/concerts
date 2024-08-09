@@ -2,11 +2,12 @@ import { useForm, FormProvider } from "react-hook-form";
 import { Container, Box, Paper, Typography } from "@mui/material";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
 import { useRootStore } from "../../store/StoreContext";
 import { ROUTE_LIST } from "../../router/routes";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar";
-import { SNACKBAR_TEXT } from "../../common/constants/appConstant";
+import { SnackbarText } from "../../common/constants/appConstant";
 
 import { formContainerStyle, formStyle, paperStyle } from "./styles";
 import { ConcertMainDataForm } from "./concertMainData/concertMainDataForm";
@@ -17,9 +18,9 @@ import { defaultValues } from "./constants";
 import type { ConcertData } from "../../common/types/concert";
 import type { SubmitHandler } from "react-hook-form";
 
-export const ConcertDetailsPage: React.FC = () => {
+export const ConcertDetailsPage: React.FC = observer(() => {
   const {
-    concertsStore: { addConcert, getConcert, updateConcert },
+    concertsStore: { addConcert, getConcert, updateConcert, isConcertUpdateSuccessful },
   } = useRootStore();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ export const ConcertDetailsPage: React.FC = () => {
     (data) => {
       addConcert(data);
       showSnackbar({
-        message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_CREATION,
+        message: SnackbarText.CONCERT_SUCCESSFUL_CREATION,
         variant: "success",
       });
       navigate(`/${ROUTE_LIST.CONCERTS}`);
@@ -66,17 +67,25 @@ export const ConcertDetailsPage: React.FC = () => {
   );
 
   const handleUpdate: SubmitHandler<ConcertData> = useCallback(
-    (data) => {
+    async (data) => {
       if (id) {
-        updateConcert(data, id);
-        showSnackbar({
-          message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_UPDATE,
-          variant: "info",
-        });
-        navigate(`/${ROUTE_LIST.CONCERTS}/${id}`);
+        await updateConcert(data, id);
+
+        if (isConcertUpdateSuccessful) {
+          showSnackbar({
+            message: SnackbarText.CONCERT_SUCCESSFUL_UPDATE,
+            variant: "info",
+          });
+          navigate(`/${ROUTE_LIST.CONCERTS}/${id}`);
+        } else {
+          showSnackbar({
+            message: "sadness",
+            variant: "error",
+          });
+        }
       }
     },
-    [updateConcert, showSnackbar, navigate],
+    [updateConcert, showSnackbar, navigate, isConcertUpdateSuccessful, id],
   );
 
   const submitFormHandler = (event: React.SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -123,4 +132,4 @@ export const ConcertDetailsPage: React.FC = () => {
       </Paper>
     </Container>
   );
-};
+});

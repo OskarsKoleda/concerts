@@ -1,12 +1,11 @@
 import { useCallback, useState } from "react";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { observer } from "mobx-react-lite";
 
 import { CustomDialog } from "../CustomDialog/customDialog";
 import { useRootStore } from "../../store/StoreContext";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar";
-import { SNACKBAR_TEXT } from "../../common/constants/appConstant";
-import { observer } from "mobx-react-lite";
 
 export const DeleteButton: React.FC<{ concertId: string }> = observer(({ concertId }) => {
   const [showConfirmationDialogue, setShowConfirmationDialogue] = useState(false);
@@ -24,11 +23,11 @@ export const DeleteButton: React.FC<{ concertId: string }> = observer(({ concert
 
       if (status === "OK") {
         showSnackbar({
-          message: SNACKBAR_TEXT.CONCERT_SUCCESSFUL_DELETION + message,
+          message,
           variant: "success",
         });
       } else {
-        showSnackbar({ message: SNACKBAR_TEXT.CONCERT_DELETION_FAILURE, variant: "error" });
+        showSnackbar({ message, variant: "error" });
       }
     },
     [deleteConcert, setShowConfirmationDialogue, showSnackbar],

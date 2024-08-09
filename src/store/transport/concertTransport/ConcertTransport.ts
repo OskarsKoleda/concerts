@@ -2,9 +2,12 @@ import { onValue, ref, set, push, remove, get, child, update } from "firebase/da
 import { makeAutoObservable } from "mobx";
 
 import { getRequestContext } from "../rootTransport/utils";
+import { transformFirebaseObject } from "../../../common/utils/utility";
+import { SnackbarText } from "../../../common/constants/appConstant";
 
-import { ConcertRequests, requestErrorMessages } from "./constants";
+import { ConcertRequests, requestErrorMessages, ResponseStatuses } from "./constants";
 
+import type { FirebaseResponse } from "../../types";
 import type { Database } from "firebase/database";
 import type {
   ConcertData,
@@ -13,19 +16,28 @@ import type {
 } from "../../../common/types/concert";
 import type { RequestHandler } from "../requestHandler/RequestHandler";
 import type { ChildTransport, RequestContext } from "../rootTransport/types";
-import { transformFirebaseObject } from "../../../common/utils/utility";
 
 // why need to implement ChildTransport?
 export class ConcertTransport implements ChildTransport {
-  constructor(
-    readonly db: Database,
-    readonly requestHandler: RequestHandler,
-  ) {
+  constructor(readonly db: Database, readonly requestHandler: RequestHandler) {
     makeAutoObservable(this);
   }
 
   private getRequestContextHelper = (requestName: ConcertRequests): RequestContext => {
     return getRequestContext(requestName, this.requestHandler, requestErrorMessages);
+  };
+
+  concertsListener = (callback: (concerts: ConcertFormattedData[]) => void) => {
+    const concertsRef = ref(this.db, "/concerts");
+    onValue(concertsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const formattedConcerts: ConcertFormattedData[] = transformFirebaseObject(data);
+        callback(formattedConcerts);
+      } else {
+        callback([]);
+      }
+    });
   };
 
   fetchConcertsData = async (): Promise<ConcertRawData | undefined> => {
@@ -82,7 +94,7 @@ export class ConcertTransport implements ChildTransport {
     }
   };
 
-  updateConcert = async (concert: ConcertData, id: string) => {
+  updateConcert = async (concert: ConcertData, id: string): Promise<FirebaseResponse> => {
     const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.updateConcert);
     const updatedConcert = {
       ...concert,
@@ -93,38 +105,32 @@ export class ConcertTransport implements ChildTransport {
       request.inProgress();
       const concertRef = ref(this.db, `/concerts/${id}`);
       await update(concertRef, updatedConcert);
+      request.success();
+
+      return { status: ResponseStatuses.OK, message: SnackbarText.CONCERT_SUCCESSFUL_UPDATE };
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
+
+      return { status: ResponseStatuses.ERROR, message: SnackbarText.CONCERT_UPDATE_FAILURE };
     }
   };
 
-  deleteConcert = async (id: string): Promise<Record<string, string>> => {
+  deleteConcert = async (id: string): Promise<FirebaseResponse> => {
     const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.deleteConcert);
+    const concertRef = ref(this.db, `/concerts/${id}`);
 
     request.inProgress();
 
-    const concertRef = ref(this.db, `/concerts/${id}`);
-    return remove(concertRef)
-      .then(() => {
-        request.success();
-        return { status: "OK", message: "Data deleted successfully!" };
-      })
-      .catch((error) => {
-        request.fail(error, errorTexts.unexpectedError);
-        throw new Error("Could not delete the record!");
-      });
-  };
+    try {
+      request.inProgress();
+      await remove(concertRef);
+      request.success();
 
-  concertsListener = (callback: (concerts: ConcertFormattedData[]) => void) => {
-    const concertsRef = ref(this.db, "/concerts");
-    onValue(concertsRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const formattedConcerts: ConcertFormattedData[] = transformFirebaseObject(data);
-        callback(formattedConcerts);
-      } else {
-        callback([]);
-      }
-    });
+      return { status: ResponseStatuses.OK, message: SnackbarText.CONCERT_SUCCESSFUL_DELETION };
+    } catch (error) {
+      request.fail(error, errorTexts.unexpectedError);
+
+      return { status: ResponseStatuses.ERROR, message: SnackbarText.CONCERT_DELETION_FAILURE };
+    }
   };
 }
