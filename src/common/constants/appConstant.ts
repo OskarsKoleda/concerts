@@ -5,12 +5,14 @@ export const URL_VALIDATION_PATTERN_PROTOCOL_OPTIONAL =
 
 export const NOT_ALL_WHITESPACE_PATTERN = /^\S\S*/;
 
-export enum SnackbarText {
+export enum ResponseMessages {
   CONCERT_SUCCESSFUL_CREATION = "The concert was successfully CREATED!",
   CONCERT_SUCCESSFUL_DELETION = "The concert was successfully REMOVED!",
   CONCERT_SUCCESSFUL_UPDATE = "The concert was successfully UPDATED!",
   CONCERT_UPDATE_FAILURE = "Couldn't update the concert. Something went wrong!",
   CONCERT_DELETION_FAILURE = "Couldn't delete the concert. Something went wrong!",
+  CONCERT_NOT_FOUND = "The concert was not found!",
+  CONCERT_RETRIEVE_FAILED = "Could not retrieve the concert. Unknown problem.",
 }
 
 export const EVENT_TITLE_RULES: UseControllerProps["rules"] = {

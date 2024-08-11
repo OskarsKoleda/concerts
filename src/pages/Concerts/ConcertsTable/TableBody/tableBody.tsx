@@ -14,11 +14,17 @@ export const TableBody = observer(function TableBody() {
     concertsStore: { concerts },
   } = useRootStore();
 
-  const renderBandsCell = (params: GridRenderCellParams) => (
-    <Tooltip title={params.value.join(", ")}>
-      <span>{params.value.join(", ")}</span>
-    </Tooltip>
-  );
+  const renderBandsCell = (params: GridRenderCellParams) => {
+    if (!params.value) {
+      return <span>-</span>;
+    } else {
+      return (
+        <Tooltip title={params.value.join(", ")}>
+          <span>{params.value.join(", ")}</span>
+        </Tooltip>
+      );
+    }
+  };
 
   const renderDateCell = (params: GridRenderCellParams) => {
     if (!params.value) {

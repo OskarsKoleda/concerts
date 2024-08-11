@@ -25,15 +25,8 @@ class ConcertStore {
 
   // public get isDeletionSuccessful(): boolean {
   //   const { isSuccessfulRequest } = this.transport.requestHandler;
-
   //   return isSuccessfulRequest(ConcertRequests.deleteConcert);
   // }
-
-  public get isConcertUpdateSuccessful(): boolean {
-    const { isSuccessfulRequest } = this.transport.requestHandler;
-
-    return isSuccessfulRequest(ConcertRequests.updateConcert);
-  }
 
   public loadConcerts = async () => {
     const data: ConcertRawData | undefined = await this.transport.fetchConcertsData();
@@ -55,14 +48,12 @@ class ConcertStore {
     await this.transport.addConcert(concert);
   };
 
-  public getConcert = async (id: string): Promise<ConcertData | undefined> => {
-    const concert: ConcertData = await this.transport.getConcert(id);
-
-    return concert;
+  public getConcert = async (id: string): Promise<FirebaseResponse> => {
+    return this.transport.getConcert(id);
   };
 
-  public updateConcert = async (concert: ConcertData, id: string): Promise<void> => {
-    await this.transport.updateConcert(concert, id);
+  public updateConcert = async (concert: ConcertData, id: string): Promise<FirebaseResponse> => {
+    return this.transport.updateConcert(concert, id);
   };
 
   public deleteConcert = async (id: string): Promise<FirebaseResponse> => {

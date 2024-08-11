@@ -3,7 +3,7 @@ import { makeAutoObservable } from "mobx";
 
 import { getRequestContext } from "../rootTransport/utils";
 import { transformFirebaseObject } from "../../../common/utils/utility";
-import { SnackbarText } from "../../../common/constants/appConstant";
+import { ResponseMessages } from "../../../common/constants/appConstant";
 
 import { ConcertRequests, requestErrorMessages, ResponseStatuses } from "./constants";
 
@@ -76,8 +76,7 @@ export class ConcertTransport implements ChildTransport {
     }
   };
 
-  // TODO: move promise here from Store
-  getConcert = async (id: string) => {
+  getConcert = async (id: string): Promise<FirebaseResponse> => {
     const dbRef = ref(this.db);
     const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.getConcert);
 
@@ -85,12 +84,21 @@ export class ConcertTransport implements ChildTransport {
       request.inProgress();
       const result = await get(child(dbRef, `/concerts/${id}`));
       if (result.exists()) {
-        return result.val();
+        return {
+          status: ResponseStatuses.ERROR,
+          message: ResponseMessages.CONCERT_NOT_FOUND,
+          concert: result.val(),
+        };
       } else {
-        throw new Error("No data available");
+        return { status: ResponseStatuses.ERROR, message: ResponseMessages.CONCERT_NOT_FOUND };
       }
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
+
+      return {
+        status: ResponseStatuses.ERROR,
+        message: ResponseMessages.CONCERT_RETRIEVE_FAILED,
+      };
     }
   };
 
@@ -107,11 +115,11 @@ export class ConcertTransport implements ChildTransport {
       await update(concertRef, updatedConcert);
       request.success();
 
-      return { status: ResponseStatuses.OK, message: SnackbarText.CONCERT_SUCCESSFUL_UPDATE };
+      return { status: ResponseStatuses.OK, message: ResponseMessages.CONCERT_SUCCESSFUL_UPDATE };
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
 
-      return { status: ResponseStatuses.ERROR, message: SnackbarText.CONCERT_UPDATE_FAILURE };
+      return { status: ResponseStatuses.ERROR, message: ResponseMessages.CONCERT_UPDATE_FAILURE };
     }
   };
 
@@ -126,11 +134,11 @@ export class ConcertTransport implements ChildTransport {
       await remove(concertRef);
       request.success();
 
-      return { status: ResponseStatuses.OK, message: SnackbarText.CONCERT_SUCCESSFUL_DELETION };
+      return { status: ResponseStatuses.OK, message: ResponseMessages.CONCERT_SUCCESSFUL_DELETION };
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
 
-      return { status: ResponseStatuses.ERROR, message: SnackbarText.CONCERT_DELETION_FAILURE };
+      return { status: ResponseStatuses.ERROR, message: ResponseMessages.CONCERT_DELETION_FAILURE };
     }
   };
 }
