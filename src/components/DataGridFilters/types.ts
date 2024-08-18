@@ -1,6 +1,6 @@
-import { ButtonProps } from "@mui/material";
-import { Maybe } from "../../common/types/appTypes";
-import { FilterInputType } from "./constants";
+import type { ButtonProps } from "@mui/material";
+import type { Maybe } from "../../common/types/appTypes";
+import type { FilterInputType } from "./constants";
 
 export type FilterInputProps = {
   label?: string;

@@ -1,7 +1,9 @@
 import { Box, Select, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+
 import { FilterInputType } from "./constants";
-import { FilterInputsConfigItem } from "./types";
 import { toggleButtonContainerStyles, toggleButtonLabelStyles } from "./styles";
+
+import type { FilterInputsConfigItem } from "./types";
 
 export const generateFilterFields = (input: FilterInputsConfigItem) => {
   const type = input.inputType;

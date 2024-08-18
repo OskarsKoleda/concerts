@@ -1,9 +1,7 @@
 import { memo, useCallback } from "react";
 import { Controller } from "react-hook-form";
 import { Box, Grid, Typography } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 import { AutocompleteTextField } from "../Inputs/reactHookForm/autocompleteTextField/autocompleteTextField";
 import { TextFieldWithValidation } from "../Inputs/reactHookForm/textFieldWithValidation/textFieldWithValidation";
@@ -76,15 +74,13 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
               name={field.controlName}
               control={control}
               render={({ field: controllerField }) => (
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    label={field.label}
-                    value={new Date(controllerField.value)}
-                    onChange={controllerField.onChange}
-                    disabled={readonly}
-                    format="dd.MM.yyyy"
-                  />
-                </LocalizationProvider>
+                <DatePicker
+                  label={field.label}
+                  value={new Date(controllerField.value)}
+                  onChange={controllerField.onChange}
+                  disabled={readonly}
+                  format="dd.MM.yyyy"
+                />
               )}
             />
           );

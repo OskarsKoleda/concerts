@@ -1,5 +1,6 @@
-export enum concertsPageIds {
+export enum ConcertsPageIds {
   eventTitleFilter = "eventTitleFilter",
+  cityFilter = "cityFilter",
   filterButton = "filterButton",
 }
 
@@ -9,6 +10,10 @@ export const concertsPageText = {
       eventTitle: {
         label: "Event Title",
         placeholder: "Enter event title",
+      },
+      city: {
+        label: "City",
+        placeholder: "Enter city",
       },
     },
     buttons: {

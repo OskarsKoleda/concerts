@@ -1,4 +1,4 @@
-import { SxProps } from "@mui/material";
+import type { SxProps } from "@mui/material";
 
 export const inputLabelColor = "#4D5769";
 export const toggleButtonLabelStyles: SxProps = {
@@ -7,4 +7,7 @@ export const toggleButtonLabelStyles: SxProps = {
   fontSize: 12,
 };
 
-export const toggleButtonContainerStyles: SxProps = { display: "flex", flexDirection: "column" };
+export const toggleButtonContainerStyles: SxProps = {
+  display: "flex",
+  flexDirection: "column",
+};
