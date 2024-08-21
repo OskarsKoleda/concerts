@@ -1,0 +1,36 @@
+{
+	"explorer.confirmDelete": false,
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"explorer.confirmDragAndDrop": false,
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"workbench.iconTheme": "eq-material-theme-icons",
+	"[html]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+	"prettier.singleQuote": true,
+	"editor.formatOnSave": true,
+	"prettier.useTabs": true,
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"editor.tabSize": 2,
+	"editor.detectIndentation": false,
+	"git.autofetch": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "eslint.run": "onSave",
+  "eslint.nodePath": "C:\\Users\\oskar\\AppData\\Roaming\\npm\\node_modules\\eslint",
+  "files.autoSave": "afterDelay",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "eslint.validate": ["javascript"]
+}
