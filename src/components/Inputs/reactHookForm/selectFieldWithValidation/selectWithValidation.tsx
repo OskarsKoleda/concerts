@@ -3,20 +3,24 @@ import { Controller } from "react-hook-form";
 
 import { ReadonlyField } from "../../readonly/readonly";
 
-import type { ReadonlyControl, WithValidationWrapperProps } from "../../../../common/types/appTypes";
+import type { ReactElement } from "react";
+import type {
+  ReadonlyControl,
+  WithValidationWrapperProps,
+} from "../../../../common/types/appTypes";
 import type { SelectProps } from "@mui/material";
 
-export type SelectWithValidationProps = ReadonlyControl & SelectProps & WithValidationWrapperProps;
+type AdditionalProperties = {
+  readonlyChip?: ReactElement;
+};
+
+export type SelectWithValidationProps = ReadonlyControl &
+  SelectProps &
+  WithValidationWrapperProps &
+  AdditionalProperties;
 
 export function SelectWithValidation(props: SelectWithValidationProps) {
-  const {
-    control,
-    controlName,
-    children = [],
-    rules,
-    readonly,
-    label,
-  } = props;
+  const { control, controlName, children = [], rules, readonly, label, readonlyChip } = props;
 
   return (
     <Controller
@@ -24,6 +28,10 @@ export function SelectWithValidation(props: SelectWithValidationProps) {
       name={controlName}
       rules={rules}
       render={({ field, fieldState: { error } }) => {
+        if (readonlyChip) {
+          return <>{readonlyChip}</>;
+        }
+
         if (readonly) {
           return <ReadonlyField label={label} value={field.value || ""} />;
         }

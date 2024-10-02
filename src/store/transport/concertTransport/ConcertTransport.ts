@@ -40,7 +40,7 @@ export class ConcertTransport implements ChildTransport {
     });
   };
 
-  fetchConcertsData = async (): Promise<ConcertRawData | undefined> => {
+  fetchConcerts = async (): Promise<ConcertRawData | undefined> => {
     const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.getConcertsData);
 
     try {
@@ -84,6 +84,8 @@ export class ConcertTransport implements ChildTransport {
       request.inProgress();
       const result = await get(child(dbRef, `/concerts/${id}`));
       if (result.exists()) {
+        request.success();
+
         return {
           status: ResponseStatuses.ERROR,
           message: ResponseMessages.CONCERT_NOT_FOUND,

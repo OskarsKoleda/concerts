@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Grid } from "@mui/material";
 
 import { generateFilterFields } from "./utils";
-import { toggleButtonContainerStyles } from "./styles";
+import { filterButtonsContainerStyles } from "./styles";
 
 import type { FilterInputsConfig } from "./types";
 
@@ -17,14 +17,14 @@ export const DataGridFilters = React.memo<DataGridFilterProps>(function DataGrid
     <Grid container>
       <Grid container item>
         {inputs.map((input) => (
-          <Grid item xs={2} key={input.id}>
+          <Grid item xl={2} key={input.id}>
             {generateFilterFields(input)}
           </Grid>
         ))}
       </Grid>
-      <Grid container sx={toggleButtonContainerStyles}>
-        <Grid item>
-          {buttons.map((button) => (
+      <Grid container sx={filterButtonsContainerStyles}>
+        {buttons.map((button) => (
+          <Grid sx={{ mr: "1rem" }} key={button.id} item>
             <Button
               key={button.id}
               color={button.color}
@@ -36,8 +36,8 @@ export const DataGridFilters = React.memo<DataGridFilterProps>(function DataGrid
             >
               {button.label}
             </Button>
-          ))}
-        </Grid>
+          </Grid>
+        ))}
       </Grid>
     </Grid>
   );

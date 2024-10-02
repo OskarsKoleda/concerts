@@ -7,7 +7,8 @@ export const toggleButtonLabelStyles: SxProps = {
   fontSize: 12,
 };
 
-export const toggleButtonContainerStyles: SxProps = {
+export const filterButtonsContainerStyles: SxProps = {
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "row",
+  marginTop: "1rem",
 };

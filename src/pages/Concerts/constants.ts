@@ -2,6 +2,8 @@ export enum ConcertsPageIds {
   eventTitleFilter = "eventTitleFilter",
   cityFilter = "cityFilter",
   filterButton = "filterButton",
+  resetButton = "resetButton",
+  eventTypeToggle = "eventTypeToggle",
 }
 
 export const concertsPageText = {

@@ -5,15 +5,27 @@ import { useMemo } from "react";
 import { FilterInputType } from "../../../components/DataGridFilters/constants";
 import { ConcertsPageIds, concertsPageText } from "../constants";
 import { DataGridFilters } from "../../../components/DataGridFilters/dataGridFilters";
+import { useRootStore } from "../../../store/StoreContext";
 
 import { filterContainerStyles, filterSummaryStyles } from "./styles";
 
 import type { FilterInputsConfig } from "../../../components/DataGridFilters/types";
 
 export const ConcertsFilters: React.FC = observer(function ConcertsFilters() {
-  // here filter store update functions extracted
-
   const { inputs, buttons } = concertsPageText.filters;
+  const {
+    concertsStore: {
+      concertsFilters: {
+        setEventTitle,
+        setCity,
+        setEventType,
+        eventTitle,
+        city,
+        eventType,
+        resetFilters,
+      },
+    },
+  } = useRootStore();
 
   const concertsFilterInputConfig: FilterInputsConfig = useMemo(() => {
     return {
@@ -23,27 +35,37 @@ export const ConcertsFilters: React.FC = observer(function ConcertsFilters() {
           id: ConcertsPageIds.eventTitleFilter,
           label: inputs.eventTitle.label,
           placeholder: inputs.eventTitle.placeholder,
-          // onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEventTitle(e.target.value),
-          onChange: () => {},
-          value: "nothing",
+          onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEventTitle(e.target.value),
+          value: eventTitle,
         },
         {
           inputType: FilterInputType.text,
           id: ConcertsPageIds.cityFilter,
           label: inputs.city.label,
           placeholder: inputs.city.placeholder,
-          // onChange: (e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value),
-          onChange: () => {},
-          value: "nothing",
+          onChange: (e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value),
+          value: city,
+        },
+        {
+          inputType: FilterInputType.toggleButton,
+          id: ConcertsPageIds.eventTypeToggle,
+          label: "Event Type",
+          value: eventType,
+          options: ["Concert", "Festival", "All"],
+          onChange: (_: React.MouseEvent<HTMLElement>, newFestivalType: string) => {
+            if (newFestivalType !== null) {
+              setEventType(newFestivalType);
+            }
+          },
         },
       ],
       buttons: [
         {
           disabled: false, // isResetFiltersDisabled
-          id: ConcertsPageIds.filterButton,
+          id: ConcertsPageIds.resetButton,
           label: buttons.reset.label,
           // onClick: () => resetConcertsFilters(),
-          onClick: () => {},
+          onClick: resetFilters,
           color: "primary",
           size: "medium",
           variant: "outlined",
@@ -59,7 +81,7 @@ export const ConcertsFilters: React.FC = observer(function ConcertsFilters() {
         },
       ],
     };
-  }, []);
+  }, [eventType, eventTitle, city]);
 
   return (
     <Paper sx={filterContainerStyles}>

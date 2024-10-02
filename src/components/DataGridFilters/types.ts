@@ -24,7 +24,7 @@ export type SelectFilterProps = {
 export type ToggleButtonFilterProps = {
   inputType: FilterInputType.toggleButton;
   onChange: (_: React.MouseEvent<HTMLElement>, value: string) => void;
-  value: string;
+  value: string | null;
   options: Array<string>;
 } & FilterInputProps;
 

@@ -10,7 +10,9 @@ export class ConcertsFiltersStore implements IConcertFilters {
     makeAutoObservable(this);
     this.eventTitle = options.concertTitle ?? "";
     this.city = options.city ?? "";
+    this.eventType = "Concert";
   }
+  eventType: string;
 
   setEventTitle = (eventTitle: EventTitleFilter): void => {
     this.eventTitle = eventTitle;
@@ -18,6 +20,10 @@ export class ConcertsFiltersStore implements IConcertFilters {
 
   setCity = (city: CityFilter): void => {
     this.city = city;
+  };
+
+  setEventType = (eventType: string): void => {
+    this.eventType = eventType;
   };
 
   resetFilters = (): void => {

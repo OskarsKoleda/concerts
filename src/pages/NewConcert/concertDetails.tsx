@@ -8,6 +8,8 @@ import { useRootStore } from "../../store/StoreContext";
 import { ROUTE_LIST } from "../../router/routes";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar";
 import { ResponseMessages } from "../../common/constants/appConstant";
+import { ContentLoader } from "../../components/ContentLoader/contentLoader";
+import { ConcertRequests } from "../../store/transport/concertTransport/constants";
 
 import { formContainerStyle, formStyle, paperStyle } from "./styles";
 import { ConcertMainDataForm } from "./concertMainData/concertMainDataForm";
@@ -20,7 +22,14 @@ import type { SubmitHandler } from "react-hook-form";
 
 export const ConcertDetailsPage: React.FC = observer(() => {
   const {
-    concertsStore: { addConcert, getConcert, updateConcert },
+    concertsStore: {
+      addConcert,
+      getConcert,
+      updateConcert,
+      transport: {
+        requestHandler: { isSuccessfulRequest },
+      },
+    },
   } = useRootStore();
 
   const { id } = useParams();
@@ -36,6 +45,7 @@ export const ConcertDetailsPage: React.FC = observer(() => {
     shouldUnregister: true,
   });
   const { handleSubmit, reset } = methods;
+  const concertIsLoaded = isSuccessfulRequest(ConcertRequests.getConcert);
 
   const fetchConcertData = useCallback(async () => {
     if (id) {
@@ -51,22 +61,6 @@ export const ConcertDetailsPage: React.FC = observer(() => {
       reset(defaultValues);
     }
   }, [id, getConcert, reset]);
-
-  useEffect(() => {
-    fetchConcertData();
-  }, [fetchConcertData]);
-
-  const handleCreate: SubmitHandler<ConcertData> = useCallback(
-    (data) => {
-      addConcert(data);
-      showSnackbar({
-        message: ResponseMessages.CONCERT_SUCCESSFUL_CREATION,
-        variant: "success",
-      });
-      navigate(`/${ROUTE_LIST.CONCERTS}`);
-    },
-    [addConcert, showSnackbar, navigate],
-  );
 
   const handleUpdate: SubmitHandler<ConcertData> = useCallback(
     async (data) => {
@@ -100,6 +94,18 @@ export const ConcertDetailsPage: React.FC = observer(() => {
     }
   };
 
+  const handleCreate: SubmitHandler<ConcertData> = useCallback(
+    (data) => {
+      addConcert(data);
+      showSnackbar({
+        message: ResponseMessages.CONCERT_SUCCESSFUL_CREATION,
+        variant: "success",
+      });
+      navigate(`/${ROUTE_LIST.CONCERTS}`);
+    },
+    [addConcert, showSnackbar, navigate],
+  );
+
   const openConcertEditView = () => {
     navigate(`/${ROUTE_LIST.CONCERTS}/${id}/edit`);
   };
@@ -108,24 +114,30 @@ export const ConcertDetailsPage: React.FC = observer(() => {
     return isEditPage ? "Edit Event" : isReadOnly ? "Concert Details" : "New Concert";
   }, [isReadOnly, isEditPage]);
 
+  useEffect(() => {
+    fetchConcertData();
+  }, [fetchConcertData]);
+
   return (
-    <Container sx={formContainerStyle}>
-      <Paper sx={paperStyle} elevation={2}>
-        <Box sx={formStyle}>
-          <FormProvider {...methods}>
-            <form onSubmit={submitFormHandler}>
-              <Typography variant="h5">{getFormTitle}</Typography>
-              <ConcertMainDataForm readOnly={isReadOnly} />
-              <ConcertDatesForm readOnly={isReadOnly} />
-              <NewConcertControlButtons
-                readOnly={isReadOnly}
-                isEditMode={isEditPage}
-                onEditClick={openConcertEditView}
-              />
-            </form>
-          </FormProvider>
-        </Box>
-      </Paper>
-    </Container>
+    <ContentLoader isLoading={!concertIsLoaded}>
+      <Container sx={formContainerStyle}>
+        <Paper sx={paperStyle} elevation={2}>
+          <Box sx={formStyle}>
+            <FormProvider {...methods}>
+              <form onSubmit={submitFormHandler}>
+                <Typography variant="h5">{getFormTitle}</Typography>
+                <ConcertMainDataForm readOnly={isReadOnly} />
+                <ConcertDatesForm readOnly={isReadOnly} />
+                <NewConcertControlButtons
+                  readOnly={isReadOnly}
+                  isEditMode={isEditPage}
+                  onEditClick={openConcertEditView}
+                />
+              </form>
+            </FormProvider>
+          </Box>
+        </Paper>
+      </Container>
+    </ContentLoader>
   );
 });
