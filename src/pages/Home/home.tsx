@@ -3,15 +3,25 @@ import { Container, Box, Typography, Grid, Paper } from "@mui/material";
 import { NavLinkButton } from "../../components/NavButton/navButton";
 import { ROUTE_LIST } from "../../router/routes";
 
-export const HomePage = (): JSX.Element => {
+import { homepageText } from "./constants";
+
+export const HomePage: React.FC = () => {
+  const {
+    ENGLISH: {
+      titleSection,
+      navigationSection: { addButton, viewButton },
+      contentSection,
+    },
+  } = homepageText;
+
   return (
     <Container maxWidth="md" sx={{ mt: 8 }}>
       <Box textAlign="center" mb={4}>
         <Typography variant="h2" component="h1" gutterBottom>
-          Welcome to Our Website
+          {titleSection.mainTitle}
         </Typography>
         <Typography variant="h6" component="p" color="textSecondary">
-          Discover amazing features and content designed to help you.
+          {titleSection.subTitle}
         </Typography>
       </Box>
 
@@ -19,26 +29,24 @@ export const HomePage = (): JSX.Element => {
         <Grid container spacing={2} justifyContent="center">
           <Grid item>
             <NavLinkButton variant="contained" color="primary" to="concerts">
-              {"View Concerts"}
+              {viewButton.label}
             </NavLinkButton>
           </Grid>
           <Grid item>
             <NavLinkButton variant="contained" color="secondary" to={`/${ROUTE_LIST.NEW_CONCERT}`}>
-              {"Add Concert"}
+              {addButton.label}
             </NavLinkButton>
           </Grid>
         </Grid>
       </Box>
 
-      <Box mb={4}>
+      <Box>
         <Typography variant="h4" component="h2" gutterBottom>
-          About Our Site
+          {contentSection.contentTitle}
         </Typography>
         <Paper elevation={3} sx={{ p: 3 }}>
           <Typography variant="body1" component="p">
-            Our site offers a variety of features to help you manage your tasks efficiently. Whether
-            you're looking for productivity tools, informative articles, or community support, we
-            have it all.
+            {contentSection.content}
           </Typography>
         </Paper>
       </Box>

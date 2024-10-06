@@ -6,7 +6,7 @@ import { NavListItem } from "../NavigationListItem/navigationListItem";
 
 import { menuItems } from "./constants";
 
-export const NavigationBar: React.FC = observer(() => {
+export const DrawerNavigation: React.FC = observer(() => {
   const {
     applicationStore: { drawerIsOpen, toggleDrawer, selectMenuItem, whatIsSelectedMenuItem },
   } = useRootStore();
@@ -32,8 +32,8 @@ export const NavigationBar: React.FC = observer(() => {
             );
           })}
         </List>
+        <Divider />
       </Box>
-      <Divider />
     </Drawer>
   );
 });

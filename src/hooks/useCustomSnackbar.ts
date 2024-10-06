@@ -2,26 +2,24 @@ import { useSnackbar } from "notistack";
 
 import type { OptionsObject, VariantType } from "notistack";
 
-interface CustomSnackbarProps {
+type CustomSnackbarProps = {
   message: string;
   variant?: VariantType;
   anchorOrigin?: OptionsObject["anchorOrigin"];
   autoHideDuration?: number;
-}
+};
 
-const useCustomSnackbar = () => {
+export const useCustomSnackbar = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const showSnackbar = ({
     message,
     variant = "default",
-    anchorOrigin = { horizontal: "right", vertical: "top" },
-    autoHideDuration = 3000,
+    anchorOrigin = { horizontal: "center", vertical: "bottom" },
+    autoHideDuration = 2000,
   }: CustomSnackbarProps) => {
     enqueueSnackbar(message, { variant, anchorOrigin, autoHideDuration });
   };
 
   return { showSnackbar };
 };
-
-export default useCustomSnackbar;

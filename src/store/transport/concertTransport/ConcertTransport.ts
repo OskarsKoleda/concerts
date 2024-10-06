@@ -50,8 +50,8 @@ export class ConcertTransport implements ChildTransport {
       return new Promise((res) => {
         onValue(concertsRef, (snapshot) => {
           const data: ConcertRawData = snapshot.val();
-          request.success();
           res(data);
+          request.success();
         });
       });
     } catch (error) {

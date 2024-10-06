@@ -7,7 +7,7 @@ import { ConcertsPageIds, concertsPageText } from "../constants";
 import { DataGridFilters } from "../../../components/DataGridFilters/dataGridFilters";
 import { useRootStore } from "../../../store/StoreContext";
 
-import { filterContainerStyles, filterSummaryStyles } from "./styles";
+import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
 
 import type { FilterInputsConfig } from "../../../components/DataGridFilters/types";
 
@@ -87,7 +87,7 @@ export const ConcertsFilters: React.FC = observer(function ConcertsFilters() {
     <Paper sx={filterContainerStyles}>
       <Accordion>
         <AccordionSummary sx={filterSummaryStyles}>Filter By</AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails sx={filterDetailsStyles}>
           <DataGridFilters filterProps={concertsFilterInputConfig} />
         </AccordionDetails>
       </Accordion>

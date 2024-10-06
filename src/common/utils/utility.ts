@@ -33,9 +33,15 @@ export const concertsFilteringEngine = (
   } = userFilters;
 
   const filteredConcerts = _.filter(concerts, (concert: ConcertFormattedData) => {
+    let matchesEventType: boolean;
     const matchesCity = city ? concert.city.includes(city) : true;
     const matchesEventTitle = eventTitle ? concert.title.includes(eventTitle) : true;
-    const matchesEventType = eventType ? concert.eventType === eventType : true;
+
+    if (eventType !== "All") {
+      matchesEventType = eventType ? concert.eventType === eventType : true;
+    } else {
+      matchesEventType = true;
+    }
 
     return matchesCity && matchesEventTitle && matchesEventType;
   });

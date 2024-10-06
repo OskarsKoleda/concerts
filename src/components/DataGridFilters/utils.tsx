@@ -17,6 +17,8 @@ export const generateFilterFields = (input: FilterInputsConfigItem) => {
           onChange={input.onChange}
           placeholder={input.placeholder}
           value={input.value}
+          sx={{ backgroundColor: "#FFF" }}
+          variant="standard"
         />
       );
     }
@@ -38,7 +40,7 @@ export const generateFilterFields = (input: FilterInputsConfigItem) => {
           <ToggleButtonGroup
             id={input.id}
             onChange={input.onChange}
-            size="medium"
+            size="small"
             sx={toggleButtonLabelStyles}
             value={input.value}
             exclusive

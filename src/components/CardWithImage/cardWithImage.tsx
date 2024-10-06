@@ -18,18 +18,16 @@ export const Card: React.FC<CardProps> = observer(function Card({
 }): JSX.Element {
   return (
     <Paper sx={cardStyle} elevation={5}>
-      <Box>
-        <Box sx={imageStyle} component="img" src={imageUrl} alt={`${title} poster`} />
-        <Box sx={informationSectionStyle}>
-          <Tooltip title={`${title}`} placement="top">
-            <Typography gutterBottom variant="body1" sx={titleStyle}>
-              {title}
-            </Typography>
-          </Tooltip>
-          {description && <Typography variant="caption">{description}</Typography>}
-        </Box>
-        {children}
+      <Box sx={imageStyle} component="img" src={imageUrl} alt={`${title} poster`} />
+      <Box sx={informationSectionStyle}>
+        <Tooltip title={`${title}`} placement="top">
+          <Typography gutterBottom variant="body1" sx={titleStyle}>
+            {title}
+          </Typography>
+        </Tooltip>
+        {description && <Typography variant="caption">{description}</Typography>}
       </Box>
+      {children}
     </Paper>
   );
 });

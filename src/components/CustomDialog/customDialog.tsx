@@ -30,7 +30,7 @@ export const CustomDialog: React.FC<LockConfirmDialogProps> = ({
       </DialogContent>
       <DialogActions>
         <Button color="error" variant="outlined" onClick={onConfirm}>
-          Delete
+          Proceed
         </Button>
         <Button variant="contained" onClick={() => setShow(false)}>
           Cancel

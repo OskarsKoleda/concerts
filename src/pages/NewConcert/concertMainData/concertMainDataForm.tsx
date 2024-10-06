@@ -1,17 +1,14 @@
 import { useFormContext, useWatch } from "react-hook-form";
+import React from "react";
 
 import { InputType } from "../../../components/FormLayout/constants";
 import { FormLayout } from "../../../components/FormLayout/formLayout";
 import { EVENT_TITLE_RULES } from "../../../common/constants/appConstant";
-import {
-  DecoratedReadonlyField,
-  MaterialColors,
-} from "../../../components/Inputs/decoratedReadonly/decoratedReadonly";
 
 import type { FormFields } from "../../../components/FormLayout/types";
 import type { ConcertData } from "../../../common/types/concert";
 
-export const ConcertMainDataForm = ({ readOnly }: { readOnly: boolean }) => {
+export const ConcertMainDataForm = React.memo(({ readOnly }: { readOnly: boolean }) => {
   const { control } = useFormContext<ConcertData>();
 
   const eventType = useWatch({
@@ -28,13 +25,6 @@ export const ConcertMainDataForm = ({ readOnly }: { readOnly: boolean }) => {
         id: "eventType",
         label: "Event Type",
         children: ["Festival", "Concert"],
-        readonlyChip: (
-          <DecoratedReadonlyField
-            label="Event Type"
-            value={eventType}
-            color={MaterialColors.success}
-          />
-        ),
       },
       {
         inputType: InputType.text,
@@ -83,4 +73,4 @@ export const ConcertMainDataForm = ({ readOnly }: { readOnly: boolean }) => {
       title="Concert Details"
     />
   );
-};
+});

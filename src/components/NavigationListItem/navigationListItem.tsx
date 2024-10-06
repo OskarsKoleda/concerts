@@ -19,17 +19,15 @@ export const NavListItem: React.FC<ListItemLinkProps> = ({
   onClick,
 }: ListItemLinkProps) => {
   return (
-    <li>
-      <ListItemButton
-        component={Link}
-        selected={selected}
-        to={to}
-        onClick={onClick}
-        sx={listItemStyle}
-      >
-        {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
-        <ListItemText primary={label} />
-      </ListItemButton>
-    </li>
+    <ListItemButton
+      component={Link}
+      selected={selected}
+      to={to}
+      onClick={onClick}
+      sx={listItemStyle}
+    >
+      {icon && <ListItemIcon>{icon}</ListItemIcon>}
+      <ListItemText primary={label} />
+    </ListItemButton>
   );
 };

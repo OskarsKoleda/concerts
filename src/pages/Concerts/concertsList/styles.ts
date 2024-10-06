@@ -1,6 +1,7 @@
 import type { SxProps } from "@mui/material";
 
 export const concertsContainerStyles: SxProps = {
+  width: "75%",
   marginLeft: "3rem",
   marginRight: "3rem",
   marginBottom: "3rem",

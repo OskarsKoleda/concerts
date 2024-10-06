@@ -9,9 +9,14 @@ import { Link } from "react-router-dom";
 
 import { useRootStore } from "../../store/StoreContext";
 
-import { flexCenterStyle, toolbarContainerStyle } from "./styles";
+import {
+  flexCenterStyle,
+  headerTitleStyles,
+  homepageIconStyles,
+  toolbarContainerStyle,
+} from "./styles";
 
-export const Header = observer(function Header(): JSX.Element {
+export const Header = observer(function Header() {
   const {
     applicationStore: { toggleDrawer, toggleConcertsView },
   } = useRootStore();
@@ -20,14 +25,22 @@ export const Header = observer(function Header(): JSX.Element {
     <AppBar position="sticky">
       <Toolbar>
         <Box sx={toolbarContainerStyle}>
-
           <Box sx={flexCenterStyle}>
             <IconButton onClick={toggleDrawer} size="large">
               <MenuIcon color="action" />
             </IconButton>
-          </Box>
 
-          <Typography variant="h4">My Concerts</Typography>
+            <Link style={{ display: "flex", alignItems: "center", textDecoration: "none" }} to="/">
+              <Box
+                component="img"
+                src="src/assets/homepage2.png"
+                alt="homepage"
+                sx={homepageIconStyles}
+              />
+
+              <Typography sx={headerTitleStyles}>My Concerts</Typography>
+            </Link>
+          </Box>
 
           <Box sx={flexCenterStyle}>
             <Link to="/concerts/new">
@@ -37,6 +50,7 @@ export const Header = observer(function Header(): JSX.Element {
                 </IconButton>
               </Tooltip>
             </Link>
+
             <Link to="/concerts">
               <Tooltip title="View Concerts">
                 <IconButton size="large">
@@ -44,6 +58,7 @@ export const Header = observer(function Header(): JSX.Element {
                 </IconButton>
               </Tooltip>
             </Link>
+
             <Tooltip title="Change View">
               <IconButton onClick={toggleConcertsView} size="large">
                 <RemoveRedEye />

@@ -40,10 +40,16 @@ class ConcertStore {
     );
   }
 
-  public get isLoading(): boolean {
-    const { isProcessingRequest } = this.transport.requestHandler;
+  // public get isLoading(): boolean {
+  //   const { isProcessingRequest } = this.transport.requestHandler;
 
-    return isProcessingRequest(ConcertRequests.getConcertsData);
+  //   return isProcessingRequest(ConcertRequests.getConcertsData);
+  // }
+
+  public get concertsCompletedLoading(): boolean {
+    const { isSuccessfulRequest } = this.transport.requestHandler;
+
+    return isSuccessfulRequest(ConcertRequests.getConcertsData);
   }
 
   // public get isDeletionSuccessful(): boolean {

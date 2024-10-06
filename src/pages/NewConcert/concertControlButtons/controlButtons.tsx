@@ -19,9 +19,10 @@ export const NewConcertControlButtons: FC<ControlButtonsProps> = memo(
   function NewConcertControlButtons({ onEditClick, readOnly, isEditMode }) {
     const {
       reset,
-      formState: { isDirty },
+      formState: { dirtyFields },
     } = useFormContext<ConcertData>();
     const navigate = useNavigate();
+    const isFormReallyDirty = Object.keys(dirtyFields).length > 0;
 
     const handleReset = useCallback(() => {
       reset();
@@ -39,7 +40,7 @@ export const NewConcertControlButtons: FC<ControlButtonsProps> = memo(
         variant: "contained",
         type: "submit",
         visible: !readOnly,
-        disabled: !isDirty,
+        disabled: !isFormReallyDirty,
       },
       {
         color: "primary",
@@ -56,7 +57,7 @@ export const NewConcertControlButtons: FC<ControlButtonsProps> = memo(
         text: "Reset",
         variant: "contained",
         visible: !readOnly,
-        disabled: !isDirty,
+        disabled: !isFormReallyDirty,
       },
       {
         id: "newConcert.cancelConcertCreation",

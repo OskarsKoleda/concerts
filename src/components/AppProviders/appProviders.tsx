@@ -9,8 +9,6 @@ import { theme } from "./theme";
 
 import type { PropsWithChildren } from "react";
 
-// move to somewhere else
-
 export const AppProviders: React.FC<PropsWithChildren> = function AppProviders({ children }) {
   return (
     <StoreProvider>

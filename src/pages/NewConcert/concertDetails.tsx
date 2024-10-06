@@ -1,81 +1,89 @@
 import { useForm, FormProvider } from "react-hook-form";
-import { Container, Box, Paper, Typography } from "@mui/material";
+import { Container, Paper, Typography } from "@mui/material";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
 import { useRootStore } from "../../store/StoreContext";
 import { ROUTE_LIST } from "../../router/routes";
-import useCustomSnackbar from "../../hooks/useCustomSnackbar";
+import { useCustomSnackbar } from "../../hooks/useCustomSnackbar";
 import { ResponseMessages } from "../../common/constants/appConstant";
 import { ContentLoader } from "../../components/ContentLoader/contentLoader";
 import { ConcertRequests } from "../../store/transport/concertTransport/constants";
+import { SnackbarVariantType } from "../../common/enums/appEnums";
 
-import { formContainerStyle, formStyle, paperStyle } from "./styles";
+import { formContainerStyle, paperStyle } from "./styles";
 import { ConcertMainDataForm } from "./concertMainData/concertMainDataForm";
-import { NewConcertControlButtons } from "./concertControlButtons/controlButtons";
 import { ConcertDatesForm } from "./concertDatesDate/concertDatesForm";
-import { defaultValues } from "./constants";
+import { concertText, defaultValues } from "./constants";
+import { NewConcertControlButtons } from "./concertControlButtons/controlButtons";
 
 import type { ConcertData } from "../../common/types/concert";
 import type { SubmitHandler } from "react-hook-form";
 
 export const ConcertDetailsPage: React.FC = observer(() => {
+  const { id: concertId } = useParams();
+  const location = useLocation();
+  const {
+    ENGLISH: {
+      form: { title },
+    },
+  } = concertText;
   const {
     concertsStore: {
       addConcert,
       getConcert,
       updateConcert,
       transport: {
-        requestHandler: { isSuccessfulRequest },
+        requestHandler: { isSuccessfulRequest, resetRequest },
       },
     },
   } = useRootStore();
 
-  const { id } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
   const { showSnackbar } = useCustomSnackbar();
   const isEditPage = useMemo(() => location.pathname.includes("/edit"), [location.pathname]);
-  const isReadOnly = useMemo(() => !!id && !isEditPage, [id, isEditPage]);
+  const isReadOnly = useMemo(() => !!concertId && !isEditPage, [concertId, isEditPage]);
 
   const methods = useForm<ConcertData>({
     defaultValues,
     mode: "onChange",
     shouldUnregister: true,
   });
+
   const { handleSubmit, reset } = methods;
-  const concertIsLoaded = isSuccessfulRequest(ConcertRequests.getConcert);
+  const displayLoader =
+    isReadOnly && !!concertId && !isSuccessfulRequest(ConcertRequests.getConcert);
 
   const fetchConcertData = useCallback(async () => {
-    if (id) {
-      const { message, concert } = await getConcert(id);
+    if (concertId) {
+      const { message, concert } = await getConcert(concertId);
 
       if (concert) {
         reset(concert);
       } else {
-        showSnackbar({ message, variant: "error" });
+        showSnackbar({ message, variant: SnackbarVariantType.ERROR });
         navigate(`/${ROUTE_LIST.CONCERTS}`);
       }
     } else {
       reset(defaultValues);
     }
-  }, [id, getConcert, reset]);
+  }, [concertId, getConcert, reset]);
 
   const handleUpdate: SubmitHandler<ConcertData> = useCallback(
     async (data) => {
-      if (id) {
-        const { status, message } = await updateConcert(data, id);
+      if (concertId) {
+        const { status, message } = await updateConcert(data, concertId);
 
         if (status === "OK") {
-          showSnackbar({ message, variant: "info" });
-          navigate(`/${ROUTE_LIST.CONCERTS}/${id}`);
+          showSnackbar({ message, variant: SnackbarVariantType.INFO });
+          navigate(`/${ROUTE_LIST.CONCERTS}/${concertId}`);
         } else {
-          showSnackbar({ message, variant: "error" });
+          showSnackbar({ message, variant: SnackbarVariantType.ERROR });
         }
       }
     },
-    [updateConcert, showSnackbar, navigate, id],
+    [updateConcert, showSnackbar, navigate, concertId],
   );
 
   const submitFormHandler = (event: React.SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -99,7 +107,7 @@ export const ConcertDetailsPage: React.FC = observer(() => {
       addConcert(data);
       showSnackbar({
         message: ResponseMessages.CONCERT_SUCCESSFUL_CREATION,
-        variant: "success",
+        variant: SnackbarVariantType.SUCCESS,
       });
       navigate(`/${ROUTE_LIST.CONCERTS}`);
     },
@@ -107,35 +115,39 @@ export const ConcertDetailsPage: React.FC = observer(() => {
   );
 
   const openConcertEditView = () => {
-    navigate(`/${ROUTE_LIST.CONCERTS}/${id}/edit`);
+    navigate(`/${ROUTE_LIST.CONCERTS}/${concertId}/edit`);
   };
 
   const getFormTitle = useMemo(() => {
-    return isEditPage ? "Edit Event" : isReadOnly ? "Concert Details" : "New Concert";
+    return isEditPage ? title.editForm : isReadOnly ? title.detailsForm : title.newForm;
   }, [isReadOnly, isEditPage]);
 
   useEffect(() => {
     fetchConcertData();
   }, [fetchConcertData]);
 
+  useEffect(() => {
+    return () => {
+      resetRequest(ConcertRequests.getConcert);
+    };
+  }, []);
+
   return (
-    <ContentLoader isLoading={!concertIsLoaded}>
+    <ContentLoader isLoading={displayLoader}>
       <Container sx={formContainerStyle}>
         <Paper sx={paperStyle} elevation={2}>
-          <Box sx={formStyle}>
-            <FormProvider {...methods}>
-              <form onSubmit={submitFormHandler}>
-                <Typography variant="h5">{getFormTitle}</Typography>
-                <ConcertMainDataForm readOnly={isReadOnly} />
-                <ConcertDatesForm readOnly={isReadOnly} />
-                <NewConcertControlButtons
-                  readOnly={isReadOnly}
-                  isEditMode={isEditPage}
-                  onEditClick={openConcertEditView}
-                />
-              </form>
-            </FormProvider>
-          </Box>
+          <FormProvider {...methods}>
+            <form onSubmit={submitFormHandler}>
+              <Typography variant="h5">{getFormTitle}</Typography>
+              <ConcertMainDataForm readOnly={isReadOnly} />
+              <ConcertDatesForm readOnly={isReadOnly} />
+              <NewConcertControlButtons
+                readOnly={isReadOnly}
+                isEditMode={isEditPage}
+                onEditClick={openConcertEditView}
+              />
+            </form>
+          </FormProvider>
         </Paper>
       </Container>
     </ContentLoader>

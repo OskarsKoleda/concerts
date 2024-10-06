@@ -3,7 +3,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { DeleteButton } from "../DeleteButton/DeleteButton";
+import { DeleteConcertButton } from "../DeleteButton/DeleteButton";
 import { ROUTE_LIST } from "../../router/routes";
 
 import { buttonContainerStyle } from "./styles";
@@ -20,7 +20,7 @@ export const ConcertControlButtons: React.FC<{ concertId: string }> = ({ concert
       <IconButton size="small" onClick={() => handleOpenConcert(concertId)}>
         <ArrowForwardIosIcon />
       </IconButton>
-      <DeleteButton concertId={concertId} />
+      <DeleteConcertButton concertId={concertId} />
     </Box>
   );
 };

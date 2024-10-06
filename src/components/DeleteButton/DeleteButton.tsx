@@ -5,11 +5,15 @@ import { observer } from "mobx-react-lite";
 
 import { CustomDialog } from "../CustomDialog/customDialog";
 import { useRootStore } from "../../store/StoreContext";
-import useCustomSnackbar from "../../hooks/useCustomSnackbar";
+import { useCustomSnackbar } from "../../hooks/useCustomSnackbar";
+import { SnackbarVariantType } from "../../common/enums/appEnums";
 
-export const DeleteButton: React.FC<{ concertId: string }> = observer(({ concertId }) => {
+type DeleteConcertButtonProps = {
+  concertId: string;
+};
+
+export const DeleteConcertButton: React.FC<DeleteConcertButtonProps> = observer(({ concertId }) => {
   const [showConfirmationDialogue, setShowConfirmationDialogue] = useState(false);
-
   const {
     concertsStore: { deleteConcert },
   } = useRootStore();
@@ -24,10 +28,10 @@ export const DeleteButton: React.FC<{ concertId: string }> = observer(({ concert
       if (status === "OK") {
         showSnackbar({
           message,
-          variant: "success",
+          variant: SnackbarVariantType.SUCCESS,
         });
       } else {
-        showSnackbar({ message, variant: "error" });
+        showSnackbar({ message, variant: SnackbarVariantType.ERROR });
       }
     },
     [deleteConcert, setShowConfirmationDialogue, showSnackbar],
@@ -35,8 +39,6 @@ export const DeleteButton: React.FC<{ concertId: string }> = observer(({ concert
 
   const handleDeletion = () => {
     setShowConfirmationDialogue(true);
-
-    return;
   };
 
   return (
@@ -48,7 +50,7 @@ export const DeleteButton: React.FC<{ concertId: string }> = observer(({ concert
         description={"You are about to delete the concert permanently. Proceed?"}
         onConfirm={() => handleConcertDeletion(concertId)}
       />
-      <Tooltip title="Delete">
+      <Tooltip title="Delete Event">
         <Box marginLeft="1rem">
           <IconButton size="small" onClick={handleDeletion}>
             <DeleteIcon />

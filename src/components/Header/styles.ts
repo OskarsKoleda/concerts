@@ -9,5 +9,16 @@ export const toolbarContainerStyle: SxProps = {
 
 export const flexCenterStyle: SxProps = {
   display: "flex",
+  flexDirection: "row",
   alignItems: "center",
+};
+
+export const homepageIconStyles: SxProps = {
+  margin: "0 1rem .5rem 1rem",
+  height: "2rem",
+};
+
+export const headerTitleStyles: SxProps = {
+  fontWeight: "550",
+  fontSize: "1.5rem",
 };

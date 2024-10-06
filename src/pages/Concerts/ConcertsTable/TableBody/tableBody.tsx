@@ -34,7 +34,7 @@ export const TableBody = observer(function TableBody() {
     return <span>{format(parseISO(params.value), "dd.MM.yyyy")}</span>;
   };
 
-  // can be specified separately in the columns.tsx
+  // can be specified separately in the columns.ts
   const columns: GridColDef[] = [
     {
       field: "eventType",

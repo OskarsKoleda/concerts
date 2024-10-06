@@ -15,6 +15,7 @@ import type {
   IsProcessingRequest,
   IsSuccessfulRequest,
   ProcessError,
+  ResetRequest,
   TransferRequests,
 } from "./types";
 
@@ -64,8 +65,6 @@ export class RequestHandler implements IRequestHandler {
     return this.getRequestStatus(requestName) === status;
   };
 
-  // --------------------------------------------
-
   isProcessingRequest: IsProcessingRequest = (requestName) => {
     return this.checkRequestStatus(requestName, RequestStatus.IN_PROGRESS);
   };
@@ -76,5 +75,12 @@ export class RequestHandler implements IRequestHandler {
 
   isSuccessfulRequest: IsSuccessfulRequest = (requestName) => {
     return this.checkRequestStatus(requestName, RequestStatus.SUCCESS);
+  };
+
+  resetRequest: ResetRequest = (requestName: string) => {
+    const request: AppRequest | undefined = this.getRequest(requestName);
+    if (request) {
+      request.reset();
+    }
   };
 }

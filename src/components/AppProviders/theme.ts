@@ -23,4 +23,9 @@ export const theme = createTheme({
     },
     success: { main: "#5BD695" },
   },
+  typography: {
+    allVariants: {
+      color: "#333",
+    },
+  },
 });

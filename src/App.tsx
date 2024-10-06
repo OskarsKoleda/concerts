@@ -2,12 +2,12 @@ import { BrowserRouter } from "react-router-dom";
 
 import AppRoutes from "./router/routes.tsx";
 import { Header } from "./components/Header/header.tsx";
-import { NavigationBar } from "./components/NavigationBar/navigationBar.tsx";
+import { DrawerNavigation } from "./components/DrawerNavigation/drawerNavigation.tsx";
 
 const App: React.FC = () => (
   <BrowserRouter>
     <Header />
-    <NavigationBar />
+    <DrawerNavigation />
     <AppRoutes />
   </BrowserRouter>
 );

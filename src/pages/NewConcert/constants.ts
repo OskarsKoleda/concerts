@@ -8,3 +8,15 @@ export const defaultValues = {
   ticketPrice: 0,
   posterUrl: "",
 };
+
+export const concertText = {
+  ENGLISH: {
+    form: {
+      title: {
+        editForm: "Edit Event",
+        detailsForm: "Event Details",
+        newForm: "New Event",
+      },
+    },
+  },
+};

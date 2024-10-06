@@ -1,7 +1,7 @@
 import type { SxProps } from "@mui/material";
 
 export const formContainerStyle: SxProps = {
-  mt: "50px",
+  mt: "3rem",
   width: { xs: "90%", md: "60%" }, // Responsive width
   display: "flex",
   flexDirection: "column",
@@ -10,12 +10,9 @@ export const formContainerStyle: SxProps = {
 
 export const paperStyle: SxProps = {
   width: "100%",
-  borderRadius: "10px",
-  boxShadow: "0px 3px 6px rgba(0,0,0,0.1)",
+  borderRadius: "0.5rem",
+  boxShadow: "0px .2rem .4rem rgba(0,0,0,0.1)",
   overflow: "hidden", // Ensures no content overflow
-};
-
-export const formStyle: SxProps = {
-  p: 3,
+  padding: "1.5rem",
   backgroundColor: "#f7f7ff",
 };

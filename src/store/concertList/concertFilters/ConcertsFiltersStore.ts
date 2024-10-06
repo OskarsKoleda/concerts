@@ -5,14 +5,14 @@ import type { CityFilter, ConcertsFilterOptions, EventTitleFilter, IConcertFilte
 export class ConcertsFiltersStore implements IConcertFilters {
   eventTitle: EventTitleFilter;
   city: CityFilter;
+  eventType: string;
 
   constructor(options: ConcertsFilterOptions) {
     makeAutoObservable(this);
     this.eventTitle = options.concertTitle ?? "";
     this.city = options.city ?? "";
-    this.eventType = "Concert";
+    this.eventType = "All";
   }
-  eventType: string;
 
   setEventTitle = (eventTitle: EventTitleFilter): void => {
     this.eventTitle = eventTitle;
