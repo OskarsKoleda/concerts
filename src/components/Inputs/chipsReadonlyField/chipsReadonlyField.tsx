@@ -10,7 +10,7 @@ interface ReadonlyFieldProps {
   values?: string[];
 }
 
-export function ChipsReadonlyField({ label, sx, values }: ReadonlyFieldProps): JSX.Element {
+export const ChipsReadonlyField: React.FC<ReadonlyFieldProps> = ({ label, sx, values }) => {
   return (
     <Box display="flex" flexDirection="column" gap="0.375rem" sx={sx}>
       <Typography variant="body2">{label}</Typography>
@@ -34,4 +34,4 @@ export function ChipsReadonlyField({ label, sx, values }: ReadonlyFieldProps): J
       )}
     </Box>
   );
-}
+};

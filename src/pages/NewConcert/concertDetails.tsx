@@ -1,25 +1,25 @@
-import { useForm, FormProvider } from "react-hook-form";
 import { Container, Paper, Typography } from "@mui/material";
-import React, { useCallback, useEffect, useMemo } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { observer } from "mobx-react-lite";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { useRootStore } from "../../store/StoreContext";
-import { ROUTE_LIST } from "../../router/routes";
-import { useCustomSnackbar } from "../../hooks/useCustomSnackbar";
 import { ResponseMessages } from "../../common/constants/appConstant";
-import { ContentLoader } from "../../components/ContentLoader/contentLoader";
-import { ConcertRequests } from "../../store/transport/concertTransport/constants";
 import { SnackbarVariantType } from "../../common/enums/appEnums";
+import { ContentLoader } from "../../components/ContentLoader/contentLoader";
+import { useCustomSnackbar } from "../../hooks/useCustomSnackbar";
+import { ROUTE_LIST } from "../../router/routes";
+import { useRootStore } from "../../store/StoreContext";
+import { ConcertRequests } from "../../store/transport/concertTransport/constants";
 
-import { formContainerStyle, paperStyle } from "./styles";
-import { ConcertMainDataForm } from "./concertMainData/concertMainDataForm";
-import { ConcertDatesForm } from "./concertDatesDate/concertDatesForm";
-import { concertText, defaultValues } from "./constants";
 import { NewConcertControlButtons } from "./concertControlButtons/controlButtons";
+import { ConcertDatesForm } from "./concertDatesDate/concertDatesForm";
+import { ConcertMainDataForm } from "./concertMainData/concertMainDataForm";
+import { concertText, defaultValues } from "./constants";
+import { formContainerStyle, paperStyle } from "./styles";
 
-import type { ConcertData } from "../../common/types/concert";
 import type { SubmitHandler } from "react-hook-form";
+import type { ConcertData } from "../../common/types/concert";
 
 export const ConcertDetailsPage: React.FC = observer(() => {
   const { id: concertId } = useParams();
@@ -68,7 +68,7 @@ export const ConcertDetailsPage: React.FC = observer(() => {
     } else {
       reset(defaultValues);
     }
-  }, [concertId, getConcert, reset]);
+  }, [concertId, getConcert, navigate, reset, showSnackbar]);
 
   const handleUpdate: SubmitHandler<ConcertData> = useCallback(
     async (data) => {
@@ -120,7 +120,7 @@ export const ConcertDetailsPage: React.FC = observer(() => {
 
   const getFormTitle = useMemo(() => {
     return isEditPage ? title.editForm : isReadOnly ? title.detailsForm : title.newForm;
-  }, [isReadOnly, isEditPage]);
+  }, [isEditPage, title.editForm, title.detailsForm, title.newForm, isReadOnly]);
 
   useEffect(() => {
     fetchConcertData();
@@ -130,7 +130,7 @@ export const ConcertDetailsPage: React.FC = observer(() => {
     return () => {
       resetRequest(ConcertRequests.getConcert);
     };
-  }, []);
+  });
 
   return (
     <ContentLoader isLoading={displayLoader}>

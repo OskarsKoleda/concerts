@@ -3,9 +3,9 @@ import { observer } from "mobx-react-lite";
 import { useMemo } from "react";
 
 import { FilterInputType } from "../../../components/DataGridFilters/constants";
-import { ConcertsPageIds, concertsPageText } from "../constants";
 import { DataGridFilters } from "../../../components/DataGridFilters/dataGridFilters";
 import { useRootStore } from "../../../store/StoreContext";
+import { ConcertsPageIds, concertsPageText } from "../constants";
 
 import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
 
@@ -81,7 +81,17 @@ export const ConcertsFilters: React.FC = observer(function ConcertsFilters() {
         },
       ],
     };
-  }, [eventType, eventTitle, city]);
+  }, [
+    inputs,
+    eventTitle,
+    city,
+    eventType,
+    buttons.reset.label,
+    resetFilters,
+    setEventTitle,
+    setCity,
+    setEventType,
+  ]);
 
   return (
     <Paper sx={filterContainerStyles}>

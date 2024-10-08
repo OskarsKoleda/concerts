@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 
-function Layout() {
+export const Layout: React.FC = () => {
   return <Outlet />;
-}
+};
 
 export default Layout;

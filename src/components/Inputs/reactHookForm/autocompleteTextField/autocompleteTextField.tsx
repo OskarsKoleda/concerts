@@ -3,12 +3,12 @@ import { Controller } from "react-hook-form";
 
 import { ChipsReadonlyField } from "../../chipsReadonlyField/chipsReadonlyField";
 
+import type { TextFieldProps } from "@mui/material";
 import type {
   ReadonlyControl,
   WithTooltip,
   WithValidationWrapperProps,
 } from "../../../../common/types/appTypes";
-import type { TextFieldProps } from "@mui/material";
 
 type AutocompleteTextFieldProps = Pick<
   TextFieldProps,
@@ -18,9 +18,7 @@ type AutocompleteTextFieldProps = Pick<
   ReadonlyControl &
   WithTooltip;
 
-// const bands = ["Alestorm", "Rammstein", "Slipknot"];
-
-export function AutocompleteTextField(props: AutocompleteTextFieldProps) {
+export const AutocompleteTextField: React.FC<AutocompleteTextFieldProps> = (props) => {
   const { control, controlName, label, placeholder, readonly, sx, tooltipText } = props;
 
   return (
@@ -39,7 +37,7 @@ export function AutocompleteTextField(props: AutocompleteTextFieldProps) {
             options={[]}
             // getOptionLabel={(option) => option}
             value={field.value || []}
-            onChange={(event, newValue) => {
+            onChange={(_, newValue) => {
               field.onChange(newValue);
             }}
             renderInput={(params) => (
@@ -52,4 +50,4 @@ export function AutocompleteTextField(props: AutocompleteTextFieldProps) {
       }}
     />
   );
-}
+};

@@ -1,16 +1,16 @@
 import { Box, TextField, Tooltip } from "@mui/material";
 import { Controller } from "react-hook-form";
 
-import { ReadonlyField } from "../../readonly/readonly";
 import { getInputErrorText } from "../../../../common/utils/utility";
+import { ReadonlyField } from "../../readonly/readonly";
 
+import type { TextFieldProps } from "@mui/material";
 import type { ChangeEvent } from "react";
 import type {
   ReadonlyControl,
   WithTooltip,
   WithValidationWrapperProps,
 } from "../../../../common/types/appTypes";
-import type { TextFieldProps } from "@mui/material";
 
 export type TextFieldWithValidationProps = Omit<
   TextFieldProps,
@@ -21,7 +21,7 @@ export type TextFieldWithValidationProps = Omit<
     onChange?: (value: string) => void;
   } & WithTooltip;
 
-export function TextFieldWithValidation(props: TextFieldWithValidationProps) {
+export const TextFieldWithValidation: React.FC<TextFieldWithValidationProps> = (props) => {
   const {
     control,
     controlName,
@@ -89,4 +89,4 @@ export function TextFieldWithValidation(props: TextFieldWithValidationProps) {
       }}
     />
   );
-}
+};

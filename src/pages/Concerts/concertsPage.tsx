@@ -2,8 +2,8 @@ import { Box } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 
-import { useRootStore } from "../../store/StoreContext";
 import { ContentLoader } from "../../components/ContentLoader/contentLoader";
+import { useRootStore } from "../../store/StoreContext";
 import { ConcertRequests } from "../../store/transport/concertTransport/constants";
 
 import { ConcertsTable } from "./ConcertsTable/concertsTable";
@@ -28,12 +28,9 @@ export const ConcertsPage: React.FC = observer(function ConcertsPage() {
     fetchAllConcerts();
   }, [fetchAllConcerts]);
 
-  useEffect(
-    () => () => {
-      resetRequest(ConcertRequests.getConcertsData);
-    },
-    [],
-  );
+  useEffect(() => () => {
+    resetRequest(ConcertRequests.getConcertsData);
+  });
 
   return (
     <ContentLoader isLoading={!concertsHaveLoaded}>

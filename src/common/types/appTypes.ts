@@ -5,7 +5,7 @@ export type Nullable<T> = T | null;
 export type Option<T> = T | undefined;
 export type Maybe<T> = Nullable<T> | Option<T>;
 
-export type ArrowFunction<T extends unknown> = () => T;
+export type ArrowFunction<T> = () => T;
 export type VoidArrowFunction = ArrowFunction<void>;
 
 export type WithValidationWrapperProps = {

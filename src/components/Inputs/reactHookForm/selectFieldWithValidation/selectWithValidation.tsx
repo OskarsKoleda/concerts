@@ -3,15 +3,15 @@ import { Controller } from "react-hook-form";
 
 import { ReadonlyField } from "../../readonly/readonly";
 
+import type { SelectProps } from "@mui/material";
 import type {
   ReadonlyControl,
   WithValidationWrapperProps,
 } from "../../../../common/types/appTypes";
-import type { SelectProps } from "@mui/material";
 
 export type SelectWithValidationProps = ReadonlyControl & SelectProps & WithValidationWrapperProps;
 
-export function SelectWithValidation(props: SelectWithValidationProps) {
+export const SelectWithValidation: React.FC<SelectWithValidationProps> = (props) => {
   const { control, controlName, children = [], rules, readonly, label } = props;
 
   return (
@@ -40,4 +40,4 @@ export function SelectWithValidation(props: SelectWithValidationProps) {
       }}
     />
   );
-}
+};

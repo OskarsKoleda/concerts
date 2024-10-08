@@ -1,19 +1,19 @@
-import { memo, useCallback } from "react";
-import { Controller } from "react-hook-form";
 import { Box, Grid, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
+import { memo, useCallback } from "react";
+import { Controller } from "react-hook-form";
 
 import { AutocompleteTextField } from "../Inputs/reactHookForm/autocompleteTextField/autocompleteTextField";
-import { TextFieldWithValidation } from "../Inputs/reactHookForm/textFieldWithValidation/textFieldWithValidation";
 import { SelectWithValidation } from "../Inputs/reactHookForm/selectFieldWithValidation/selectWithValidation";
+import { TextFieldWithValidation } from "../Inputs/reactHookForm/textFieldWithValidation/textFieldWithValidation";
 
+import { InputType } from "./constants";
 import { gridStyles, layoutWrapperStyles } from "./styles";
 import { isFormSection } from "./utils";
-import { InputType } from "./constants";
 
+import type { FC, ReactNode } from "react";
 import type { Control } from "react-hook-form";
 import type { FormContent, FormField } from "./types";
-import type { FC, ReactNode } from "react";
 
 export interface FormLayoutProps {
   content: FormContent;
@@ -34,6 +34,14 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
   const renderFieldInput = useCallback(
     (field: FormField) => {
       const formFieldProps = {
+        settings: {
+          "import/resolver": {
+            node: {
+              extensions: ["tsx", "ts"],
+              moduleDirectory: ["node_modules", "src/"],
+            },
+          },
+        },
         control,
         disabled,
         readonly,

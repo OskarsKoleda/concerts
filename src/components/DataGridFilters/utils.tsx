@@ -1,4 +1,4 @@
-import { Box, Select, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Box, MenuItem, Select, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 import { FilterInputType } from "./constants";
 import { toggleButtonLabelStyles } from "./styles";
@@ -28,10 +28,15 @@ export const generateFilterFields = (input: FilterInputsConfigItem) => {
           id={input.id}
           label={input.label}
           // onChange={input.onChange}
-          children={input.options}
           placeholder={input.placeholder}
           value={input.value}
-        />
+        >
+          {input.options.map((opt: string) => (
+            <MenuItem key={opt} value={opt}>
+              {opt}
+            </MenuItem>
+          ))}
+        </Select>
       );
     }
     case FilterInputType.toggleButton: {
