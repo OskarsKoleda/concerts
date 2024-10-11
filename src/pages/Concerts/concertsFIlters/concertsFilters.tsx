@@ -40,9 +40,17 @@ export const ConcertsFilters: React.FC = observer(function ConcertsFilters() {
         },
         {
           inputType: FilterInputType.text,
-          id: ConcertsPageIds.cityFilter,
+          id: ConcertsPageIds.bandFilter,
           label: inputs.city.label,
           placeholder: inputs.city.placeholder,
+          onChange: (e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value),
+          value: city,
+        },
+        {
+          inputType: FilterInputType.text,
+          id: ConcertsPageIds.cityFilter,
+          label: inputs.band.label,
+          placeholder: inputs.band.placeholder,
           onChange: (e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value),
           value: city,
         },

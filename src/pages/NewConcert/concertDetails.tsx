@@ -21,14 +21,16 @@ import { formContainerStyle, paperStyle } from "./styles";
 import type { SubmitHandler } from "react-hook-form";
 import type { ConcertData } from "../../common/types/concert";
 
-export const ConcertDetailsPage: React.FC = observer(() => {
+const {
+  ENGLISH: {
+    form: { title },
+  },
+} = concertText;
+
+export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage() {
   const { id: concertId } = useParams();
   const location = useLocation();
-  const {
-    ENGLISH: {
-      form: { title },
-    },
-  } = concertText;
+
   const {
     concertsStore: {
       addConcert,
@@ -54,21 +56,6 @@ export const ConcertDetailsPage: React.FC = observer(() => {
   const { handleSubmit, reset } = methods;
   const displayLoader =
     isReadOnly && !!concertId && !isSuccessfulRequest(ConcertRequests.getConcert);
-
-  const fetchConcertData = useCallback(async () => {
-    if (concertId) {
-      const { message, concert } = await getConcert(concertId);
-
-      if (concert) {
-        reset(concert);
-      } else {
-        showSnackbar({ message, variant: SnackbarVariantType.ERROR });
-        navigate(`/${ROUTE_LIST.CONCERTS}`);
-      }
-    } else {
-      reset(defaultValues);
-    }
-  }, [concertId, getConcert, navigate, reset, showSnackbar]);
 
   const handleUpdate: SubmitHandler<ConcertData> = useCallback(
     async (data) => {
@@ -120,17 +107,31 @@ export const ConcertDetailsPage: React.FC = observer(() => {
 
   const getFormTitle = useMemo(() => {
     return isEditPage ? title.editForm : isReadOnly ? title.detailsForm : title.newForm;
-  }, [isEditPage, title.editForm, title.detailsForm, title.newForm, isReadOnly]);
+  }, [isEditPage, isReadOnly]);
 
   useEffect(() => {
+    const fetchConcertData = async () => {
+      if (concertId) {
+        const { message, concert } = await getConcert(concertId);
+
+        if (concert) {
+          reset(concert);
+        } else {
+          showSnackbar({ message, variant: SnackbarVariantType.ERROR });
+          navigate(`/${ROUTE_LIST.CONCERTS}`);
+        }
+      } else {
+        reset(defaultValues);
+      }
+    };
     fetchConcertData();
-  }, [fetchConcertData]);
+  }, [concertId, getConcert, navigate, reset, showSnackbar]);
 
   useEffect(() => {
     return () => {
       resetRequest(ConcertRequests.getConcert);
     };
-  });
+  }, []);
 
   return (
     <ContentLoader isLoading={displayLoader}>

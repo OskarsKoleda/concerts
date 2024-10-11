@@ -5,14 +5,14 @@ import { SnackbarProvider } from "notistack";
 
 import { StoreProvider } from "../../store/StoreContext";
 
-import { theme } from "./theme";
+import { appTheme } from "./theme";
 
 import type { PropsWithChildren } from "react";
 
 export const AppProviders: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <StoreProvider>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={appTheme}>
         <SnackbarProvider>
           <LocalizationProvider dateAdapter={AdapterDateFns}>{children}</LocalizationProvider>
         </SnackbarProvider>

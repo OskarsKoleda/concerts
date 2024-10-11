@@ -5,10 +5,8 @@ import { toggleButtonLabelStyles } from "./styles";
 
 import type { FilterInputsConfigItem } from "./types";
 
-export const generateFilterFields = (input: FilterInputsConfigItem) => {
-  const type = input.inputType;
-
-  switch (type) {
+export function generateFilterFields(input: FilterInputsConfigItem): JSX.Element {
+  switch (input.inputType) {
     case FilterInputType.text: {
       return (
         <TextField
@@ -18,7 +16,8 @@ export const generateFilterFields = (input: FilterInputsConfigItem) => {
           placeholder={input.placeholder}
           value={input.value}
           sx={{ backgroundColor: "#FFF" }}
-          variant="standard"
+          variant="outlined"
+          size="small"
         />
       );
     }
@@ -50,7 +49,7 @@ export const generateFilterFields = (input: FilterInputsConfigItem) => {
             value={input.value}
             exclusive
           >
-            {input.options.map((value) => (
+            {input.options.map((value: string) => (
               <ToggleButton key={value} value={value}>
                 {value}
               </ToggleButton>
@@ -60,4 +59,4 @@ export const generateFilterFields = (input: FilterInputsConfigItem) => {
       );
     }
   }
-};
+}

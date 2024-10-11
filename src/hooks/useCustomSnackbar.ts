@@ -1,4 +1,5 @@
 import { useSnackbar } from "notistack";
+import { useCallback } from "react";
 
 import type { OptionsObject, VariantType } from "notistack";
 
@@ -12,14 +13,17 @@ type CustomSnackbarProps = {
 export const useCustomSnackbar = () => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const showSnackbar = ({
-    message,
-    variant = "default",
-    anchorOrigin = { horizontal: "center", vertical: "bottom" },
-    autoHideDuration = 2000,
-  }: CustomSnackbarProps) => {
-    enqueueSnackbar(message, { variant, anchorOrigin, autoHideDuration });
-  };
+  const showSnackbar = useCallback(
+    ({
+      message,
+      variant = "default",
+      anchorOrigin = { horizontal: "center", vertical: "bottom" },
+      autoHideDuration = 2000,
+    }: CustomSnackbarProps) => {
+      enqueueSnackbar(message, { variant, anchorOrigin, autoHideDuration });
+    },
+    [enqueueSnackbar],
+  );
 
   return { showSnackbar };
 };

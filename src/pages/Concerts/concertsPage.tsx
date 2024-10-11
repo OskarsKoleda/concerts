@@ -28,9 +28,12 @@ export const ConcertsPage: React.FC = observer(function ConcertsPage() {
     fetchAllConcerts();
   }, [fetchAllConcerts]);
 
-  useEffect(() => () => {
-    resetRequest(ConcertRequests.getConcertsData);
-  });
+  useEffect(
+    () => () => {
+      resetRequest(ConcertRequests.getConcertsData);
+    },
+    [],
+  );
 
   return (
     <ContentLoader isLoading={!concertsHaveLoaded}>

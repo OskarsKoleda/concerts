@@ -1,7 +1,13 @@
-import { Paper, Typography, Box, Tooltip } from "@mui/material";
-import { observer } from "mobx-react-lite";
+import { Box, Typography } from "@mui/material";
 
-import { imageStyle, informationSectionStyle, cardStyle, titleStyle } from "./styles";
+import {
+  cardBackStyle,
+  cardContainerStyle,
+  cardContentStyle,
+  cardFrontStyle,
+  cardTitleStyle,
+  imageStyle,
+} from "./styles";
 
 interface CardProps {
   title: string;
@@ -10,24 +16,21 @@ interface CardProps {
   children?: React.ReactNode;
 }
 
-export const Card: React.FC<CardProps> = observer(function Card({
-  title,
-  description,
-  imageUrl,
-  children,
-}): JSX.Element {
+export const Card: React.FC<CardProps> = ({ title, description, imageUrl, children }) => {
   return (
-    <Paper sx={cardStyle} elevation={5}>
-      <Box sx={imageStyle} component="img" src={imageUrl} alt={`${title} poster`} />
-      <Box sx={informationSectionStyle}>
-        <Tooltip title={`${title}`} placement="top">
-          <Typography gutterBottom variant="body1" sx={titleStyle}>
-            {title}
-          </Typography>
-        </Tooltip>
-        {description && <Typography variant="caption">{description}</Typography>}
+      <Box sx={cardContainerStyle}>
+        <Box sx={cardContentStyle}>
+          <Box sx={cardFrontStyle}>
+            <Box sx={imageStyle} component="img" src={imageUrl} alt={`${title} poster`} />
+          </Box>
+          <Box sx={cardBackStyle}>
+            <Typography variant="h6" sx={cardTitleStyle}>
+              {title}
+            </Typography>
+            {description && <Typography variant="body2">{description}</Typography>}
+            {children}
+          </Box>
+        </Box>
       </Box>
-      {children}
-    </Paper>
   );
-});
+};

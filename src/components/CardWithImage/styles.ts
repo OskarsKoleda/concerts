@@ -1,39 +1,55 @@
 import type { SxProps } from "@mui/material";
 
-export const cardStyle: SxProps = {
-  display: "flex",
-  flexDirection: "column",
-  backgroundColor: "rgba(240,230,230)",
-  transition: "transform 0.3s ease",
-  border: "1px solid black",
+export const cardContainerStyle: SxProps = {
+  perspective: "1000px",
+  width: "10rem",
+  height: "15rem",
+  backgroundColor: "#CCC",
+};
+
+export const cardContentStyle: SxProps = {
+  height: "100%",
+  transition: "transform 0.8s ease-out",
+  transformStyle: "preserve-3d",
   "&:hover": {
-    transform: "scale(1.02)",
+    transform: "rotateY(180deg)",
   },
 };
 
+export const cardFrontStyle: SxProps = {
+  position: "absolute",
+  height: "100%",
+  backfaceVisibility: "hidden",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  zIndex: 2, // Ensure front is visible initially
+};
+
 export const imageStyle: SxProps = {
+  height: "100%",
   width: "100%",
-  display: "block",
-  height: "200px",
-  objectFit: "cover", // Ensure image covers the entire area
+  objectFit: "cover", // Ensure image covers the entire card front
 };
 
-export const informationSectionStyle: SxProps = {
-  padding: "4px",
-  flexGrow: 1, // Ensure this section grows to fill available space
+export const cardBackStyle: SxProps = {
+  // position: "absolute",
+  // width: "100%",
+  height: "100%",
+  backgroundColor: "rgba(240, 230, 230)",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: ".5rem",
+  backfaceVisibility: "hidden",
+  transform: "rotateY(180deg)", // Hide the back initially
 };
 
-export const buttonBaseStyle: SxProps = {
-  minWidth: 0, // Prevent button from growing too large
-  flexShrink: 1, // Allow button to shrink
-  display: "flex", // Ensure the icon inside shrinks properly
-  alignItems: "center", // Center the icon
-};
-
-export const titleStyle: SxProps = {
+export const cardTitleStyle: SxProps = {
   margin: 0,
+  textAlign: "center",
   maxWidth: "100%", // Limit the maximum width of the text
-  whiteSpace: "nowrap", // Prevent text from wrapping
   overflow: "hidden", // Hide overflow text
   textOverflow: "ellipsis", // Add ellipsis for overflow text
 };

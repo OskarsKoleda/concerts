@@ -1,11 +1,11 @@
-import { initializeApp, getApps } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { getApps, initializeApp } from "firebase/app";
 import "firebase/database";
+import { getDatabase } from "firebase/database";
 
-import conf from "./configurations";
+import { firebaseConfig } from "./configurations";
 
 if (!getApps().length) {
-  initializeApp(conf);
+  initializeApp(firebaseConfig);
 }
 const db = getDatabase();
 

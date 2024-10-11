@@ -6,25 +6,24 @@ export type FilterInputProps = {
   label?: string;
   placeholder?: string;
   id: string;
+  value: Maybe<string>;
 };
 
 export type TextFilterProps = {
   inputType: FilterInputType.text;
-  value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 } & FilterInputProps;
 
 export type SelectFilterProps = {
   inputType: FilterInputType.select;
   options: Array<string>;
-  value: Maybe<string>;
   onChange: (option: string) => void;
 } & FilterInputProps;
 
+// TODO: exclude redundant props?
 export type ToggleButtonFilterProps = {
   inputType: FilterInputType.toggleButton;
   onChange: (_: React.MouseEvent<HTMLElement>, value: string) => void;
-  value: string | null;
   options: Array<string>;
 } & FilterInputProps;
 

@@ -1,10 +1,10 @@
-import { observer } from "mobx-react-lite";
+import { Box, Grid } from "@mui/material";
 import { toJS } from "mobx";
-import { Grid, Paper } from "@mui/material";
+import { observer } from "mobx-react-lite";
 
-import { useRootStore } from "../../../store/StoreContext";
 import { Card } from "../../../components/CardWithImage/cardWithImage";
 import { ConcertControlButtons } from "../../../components/ConcertControlButtons/ConcertControlButtons";
+import { useRootStore } from "../../../store/StoreContext";
 
 import { concertsContainerStyles } from "./styles";
 
@@ -14,16 +14,16 @@ export const ConcertsList: React.FC = observer(() => {
   } = useRootStore();
 
   return (
-    <Paper elevation={5} sx={concertsContainerStyles}>
-      <Grid container spacing={2}>
+    <Box sx={concertsContainerStyles}>
+      <Grid container direction="row" justifyContent="space-evenly" rowSpacing={1}>
         {toJS(concerts).map((concert) => (
-          <Grid xl={1} md={2} sm={4} item key={concert.id}>
+          <Grid item key={concert.id}>
             <Card imageUrl={concert.posterUrl} title={concert.title}>
               <ConcertControlButtons concertId={concert.id} />
             </Card>
           </Grid>
         ))}
       </Grid>
-    </Paper>
+    </Box>
   );
 });
