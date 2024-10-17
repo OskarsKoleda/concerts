@@ -1,18 +1,21 @@
 import ApplicationStore from "./ApplicationStore";
-import ConcertStore from "./concertList/ConcertsStore";
+import { ConcertDetailsStore } from "./concertDetails/ConcertDetailsStore";
+import ConcertListStore from "./concertList/ConcertListStore";
 import { Transport } from "./transport/rootTransport/Transport";
 
 class RootStore {
   public readonly transport: Transport;
 
-  public readonly concertsStore: ConcertStore;
+  public readonly concertListStore: ConcertListStore;
+  public readonly concertDetailsStore: ConcertDetailsStore;
   public readonly applicationStore: ApplicationStore;
 
   constructor() {
     this.transport = new Transport();
 
-    this.concertsStore = new ConcertStore(this.transport.concertTransport);
     this.applicationStore = new ApplicationStore();
+    this.concertListStore = new ConcertListStore(this.transport.concertListTransport);
+    this.concertDetailsStore = new ConcertDetailsStore(this.transport.concertDetailsTransport);
   }
 }
 

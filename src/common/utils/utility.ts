@@ -2,8 +2,8 @@ import _ from "lodash";
 
 import { ERROR_TEXTS } from "../constants/appConstant";
 
-import type { RequestPayload } from "../../store/transport/concertTransport/types";
 import type { FieldError } from "react-hook-form";
+import type { RequestPayload } from "../../store/transport/concertListTransport/types";
 import type { ConcertFormattedData, ConcertRawData } from "../types/concert";
 
 export function transformFirebaseObject(concerts: ConcertRawData): ConcertFormattedData[] {

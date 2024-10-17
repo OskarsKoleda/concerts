@@ -1,66 +1,27 @@
-import { onValue, ref, set, push, remove, get, child, update } from "firebase/database";
+import { child, get, push, ref, remove, set, update, type Database } from "firebase/database";
 import { makeAutoObservable } from "mobx";
 
-import { getRequestContext } from "../rootTransport/utils";
-import { transformFirebaseObject } from "../../../common/utils/utility";
 import { ResponseMessages } from "../../../common/constants/appConstant";
+import { getRequestContext } from "../rootTransport/utils";
 
-import { ConcertRequests, requestErrorMessages, ResponseStatuses } from "./constants";
+import { ConcertDetailsRequests, requestErrorMessages, ResponseStatuses } from "./constants";
 
+import type { ConcertData } from "../../../common/types/concert";
 import type { FirebaseResponse } from "../../types";
-import type { Database } from "firebase/database";
-import type {
-  ConcertData,
-  ConcertFormattedData,
-  ConcertRawData,
-} from "../../../common/types/concert";
 import type { RequestHandler } from "../requestHandler/RequestHandler";
 import type { ChildTransport, RequestContext } from "../rootTransport/types";
 
-// why need to implement ChildTransport?
-export class ConcertTransport implements ChildTransport {
+export class ConcertDetailsTransport implements ChildTransport {
   constructor(readonly db: Database, readonly requestHandler: RequestHandler) {
     makeAutoObservable(this);
   }
 
-  private getRequestContextHelper = (requestName: ConcertRequests): RequestContext => {
+  private getRequestContextHelper = (requestName: ConcertDetailsRequests): RequestContext => {
     return getRequestContext(requestName, this.requestHandler, requestErrorMessages);
   };
 
-  concertsListener = (callback: (concerts: ConcertFormattedData[]) => void) => {
-    const concertsRef = ref(this.db, "/concerts");
-    onValue(concertsRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const formattedConcerts: ConcertFormattedData[] = transformFirebaseObject(data);
-        callback(formattedConcerts);
-      } else {
-        callback([]);
-      }
-    });
-  };
-
-  fetchConcerts = async (): Promise<ConcertRawData | undefined> => {
-    const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.getConcertsData);
-
-    try {
-      request.inProgress();
-      const concertsRef = ref(this.db, "/concerts");
-
-      return new Promise((res) => {
-        onValue(concertsRef, (snapshot) => {
-          const data: ConcertRawData = snapshot.val();
-          res(data);
-          request.success();
-        });
-      });
-    } catch (error) {
-      request.fail(error, errorTexts.unexpectedError);
-    }
-  };
-
   addConcert = async (concert: ConcertData) => {
-    const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.addConcert);
+    const { errorTexts, request } = this.getRequestContextHelper(ConcertDetailsRequests.addConcert);
     const newConcert = {
       ...concert,
       startDate: concert.startDate.toISOString(),
@@ -78,7 +39,7 @@ export class ConcertTransport implements ChildTransport {
 
   getConcert = async (id: string): Promise<FirebaseResponse> => {
     const dbRef = ref(this.db);
-    const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.getConcert);
+    const { errorTexts, request } = this.getRequestContextHelper(ConcertDetailsRequests.getConcert);
 
     try {
       request.inProgress();
@@ -105,7 +66,9 @@ export class ConcertTransport implements ChildTransport {
   };
 
   updateConcert = async (concert: ConcertData, id: string): Promise<FirebaseResponse> => {
-    const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.updateConcert);
+    const { errorTexts, request } = this.getRequestContextHelper(
+      ConcertDetailsRequests.updateConcert,
+    );
     const updatedConcert = {
       ...concert,
       endDate: concert.endDate || null,
@@ -126,7 +89,9 @@ export class ConcertTransport implements ChildTransport {
   };
 
   deleteConcert = async (id: string): Promise<FirebaseResponse> => {
-    const { errorTexts, request } = this.getRequestContextHelper(ConcertRequests.deleteConcert);
+    const { errorTexts, request } = this.getRequestContextHelper(
+      ConcertDetailsRequests.deleteConcert,
+    );
     const concertRef = ref(this.db, `/concerts/${id}`);
 
     request.inProgress();

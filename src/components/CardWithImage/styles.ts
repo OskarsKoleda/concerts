@@ -1,7 +1,7 @@
 import type { SxProps } from "@mui/material";
 
 export const cardContainerStyle: SxProps = {
-  perspective: "1000px",
+  // perspective: "1000px",
   width: "10rem",
   height: "15rem",
   backgroundColor: "#CCC",
@@ -9,7 +9,7 @@ export const cardContainerStyle: SxProps = {
 
 export const cardContentStyle: SxProps = {
   height: "100%",
-  transition: "transform 0.8s ease-out",
+  // transition: "transform 0.1s ease-out",
   transformStyle: "preserve-3d",
   "&:hover": {
     transform: "rotateY(180deg)",

@@ -14,7 +14,7 @@ import type { FilterInputsConfig } from "../../../components/DataGridFilters/typ
 export const ConcertsFilters: React.FC = observer(function ConcertsFilters() {
   const { inputs, buttons } = concertsPageText.filters;
   const {
-    concertsStore: {
+    concertListStore: {
       concertsFilters: {
         setEventTitle,
         setCity,

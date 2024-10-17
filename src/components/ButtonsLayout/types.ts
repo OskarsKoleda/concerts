@@ -6,6 +6,3 @@ export type ControlPayload = ButtonProps & {
   visible?: boolean;
 };
 
-export type ButtonLayoutProps = {
-  controls: ControlPayload[];
-};

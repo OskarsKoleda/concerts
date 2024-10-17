@@ -34,14 +34,6 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
   const renderFieldInput = useCallback(
     (field: FormField) => {
       const formFieldProps = {
-        settings: {
-          "import/resolver": {
-            node: {
-              extensions: ["tsx", "ts"],
-              moduleDirectory: ["node_modules", "src/"],
-            },
-          },
-        },
         control,
         disabled,
         readonly,

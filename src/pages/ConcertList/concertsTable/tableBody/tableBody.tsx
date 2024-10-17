@@ -11,7 +11,7 @@ import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 
 export const TableBody = observer(function TableBody() {
   const {
-    concertsStore: { concerts },
+    concertListStore: { concerts },
   } = useRootStore();
 
   const renderBandsCell = (params: GridRenderCellParams) => {

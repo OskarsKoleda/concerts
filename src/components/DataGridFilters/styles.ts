@@ -1,7 +1,7 @@
 import type { SxProps } from "@mui/material";
 
 export const toggleButtonLabelStyles: SxProps = {
-  color: "#000",
+  color: "#111",
 };
 
 export const filterButtonsContainerStyles: SxProps = {

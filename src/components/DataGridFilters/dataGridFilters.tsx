@@ -6,15 +6,15 @@ import { generateFilterFields } from "./utils";
 
 import type { FilterInputsConfig } from "./types";
 
-export interface DataGridFilterProps {
+export type DataGridFilterProps = {
   filterProps: FilterInputsConfig;
-}
+};
 
 export const DataGridFilters = React.memo<DataGridFilterProps>(function DataGridFilters({
   filterProps: { inputs, buttons },
 }) {
   return (
-    <Grid container rowSpacing={2} direction="column">
+    <Grid container direction="column">
       <Grid container item direction="row" rowSpacing={2} columnSpacing={4}>
         {inputs.map((input) => (
           <Grid item key={input.id}>

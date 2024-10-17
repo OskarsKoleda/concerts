@@ -1,11 +1,10 @@
-import type { SxProps, Theme } from "@mui/material";
+import type { SxProps } from "@mui/material";
 
-// why theme?
-export const controlButtonsContainerStyles: SxProps<Theme> = {
+export const controlButtonsContainerStyles: SxProps = {
   display: "flex",
   flexDirection: "row",
   justifyContent: "flex-start",
-  alignSelf: "flex-end",
+  // alignSelf: "flex-end",
   marginTop: "1rem",
-  flexWrap: "nowrap",
+  // flexWrap: "nowrap",
 };

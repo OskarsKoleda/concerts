@@ -1,10 +1,16 @@
-import { memo } from "react";
 import { Box, Button, Grid } from "@mui/material";
+import { memo } from "react";
+
+import { DeleteConcertButton } from "../DeleteConcertButton/DeleteConcertButton";
 
 import { controlButtonsContainerStyles } from "./styles";
 import { toVisibleControl } from "./utils";
 
-import type { ButtonLayoutProps } from "./types";
+import type { ControlPayload } from "./types";
+
+export type ButtonLayoutProps = {
+  controls: ControlPayload[];
+};
 
 export const ButtonsLayout = memo<ButtonLayoutProps>(function ConcertCreationFormControls({
   controls,
@@ -20,6 +26,7 @@ export const ButtonsLayout = memo<ButtonLayoutProps>(function ConcertCreationFor
           </Grid>
         ))}
       </Grid>
+      <DeleteConcertButton />
     </Box>
   );
 });

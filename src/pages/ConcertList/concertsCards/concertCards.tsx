@@ -8,9 +8,9 @@ import { useRootStore } from "../../../store/StoreContext";
 
 import { concertsContainerStyles } from "./styles";
 
-export const ConcertsList: React.FC = observer(() => {
+export const ConcertCards: React.FC = observer(() => {
   const {
-    concertsStore: { concerts },
+    concertListStore: { concerts },
   } = useRootStore();
 
   return (

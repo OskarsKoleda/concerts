@@ -10,10 +10,10 @@ import { ContentLoader } from "../../components/ContentLoader/contentLoader";
 import { useCustomSnackbar } from "../../hooks/useCustomSnackbar";
 import { ROUTE_LIST } from "../../router/routes";
 import { useRootStore } from "../../store/StoreContext";
-import { ConcertRequests } from "../../store/transport/concertTransport/constants";
+import { ConcertDetailsRequests } from "../../store/transport/concertDetailsTransport/constants";
 
-import { NewConcertControlButtons } from "./concertControlButtons/controlButtons";
 import { ConcertDatesForm } from "./concertDatesDate/concertDatesForm";
+import { ConcertDetailsButtons } from "./concertDetailsButtons/concertDetailsButtons";
 import { ConcertMainDataForm } from "./concertMainData/concertMainDataForm";
 import { concertText, defaultValues } from "./constants";
 import { formContainerStyle, paperStyle } from "./styles";
@@ -32,11 +32,11 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
   const location = useLocation();
 
   const {
-    concertsStore: {
+    concertDetailsStore: {
       addConcert,
       getConcert,
       updateConcert,
-      transport: {
+      concertDetailsTransport: {
         requestHandler: { isSuccessfulRequest, resetRequest },
       },
     },
@@ -44,8 +44,11 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
 
   const navigate = useNavigate();
   const { showSnackbar } = useCustomSnackbar();
+  // TODO: move to some UI store?
   const isEditPage = useMemo(() => location.pathname.includes("/edit"), [location.pathname]);
   const isReadOnly = useMemo(() => !!concertId && !isEditPage, [concertId, isEditPage]);
+  const displayLoader =
+    isReadOnly && !!concertId && !isSuccessfulRequest(ConcertDetailsRequests.getConcert);
 
   const methods = useForm<ConcertData>({
     defaultValues,
@@ -54,9 +57,6 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
   });
 
   const { handleSubmit, reset } = methods;
-  const displayLoader =
-    isReadOnly && !!concertId && !isSuccessfulRequest(ConcertRequests.getConcert);
-
   const handleUpdate: SubmitHandler<ConcertData> = useCallback(
     async (data) => {
       if (concertId) {
@@ -124,12 +124,13 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
         reset(defaultValues);
       }
     };
+
     fetchConcertData();
   }, [concertId, getConcert, navigate, reset, showSnackbar]);
 
   useEffect(() => {
     return () => {
-      resetRequest(ConcertRequests.getConcert);
+      resetRequest(ConcertDetailsRequests.getConcert);
     };
   }, []);
 
@@ -142,7 +143,7 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
               <Typography variant="h5">{getFormTitle}</Typography>
               <ConcertMainDataForm readOnly={isReadOnly} />
               <ConcertDatesForm readOnly={isReadOnly} />
-              <NewConcertControlButtons
+              <ConcertDetailsButtons
                 readOnly={isReadOnly}
                 isEditMode={isEditPage}
                 onEditClick={openConcertEditView}

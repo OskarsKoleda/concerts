@@ -1,5 +1,4 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import { Box, IconButton, Tooltip } from "@mui/material";
+import { Box, Button, Tooltip } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useCallback, useState } from "react";
 
@@ -8,18 +7,13 @@ import { useCustomSnackbar } from "../../hooks/useCustomSnackbar";
 import { useRootStore } from "../../store/StoreContext";
 import { CustomDialog } from "../CustomDialog/customDialog";
 
-type DeleteConcertButtonProps = {
-  concertId: string;
-};
-
-export const DeleteConcertButton: React.FC<DeleteConcertButtonProps> = observer(({ concertId }) => {
+export const DeleteConcertButton: React.FC = observer(() => {
   const [showConfirmationDialogue, setShowConfirmationDialogue] = useState(false);
   const {
-    concertsStore: { deleteConcert },
+    concertDetailsStore: { deleteConcert, currentConcertId: concertId },
   } = useRootStore();
 
   const { showSnackbar } = useCustomSnackbar();
-
   const handleConcertDeletion = useCallback(
     async (concertId: string) => {
       const { status, message } = await deleteConcert(concertId);
@@ -51,11 +45,19 @@ export const DeleteConcertButton: React.FC<DeleteConcertButtonProps> = observer(
         onConfirm={() => handleConcertDeletion(concertId)}
       />
       <Tooltip title="Delete Event">
-        <Box marginLeft="1rem">
+        {/* <Box marginLeft="1rem">
           <IconButton size="small" onClick={handleDeletion}>
             <DeleteIcon />
           </IconButton>
-        </Box>
+        </Box> */}
+        <Button
+          id="concert.deleteConcert"
+          variant="outlined"
+          color="error"
+          onClick={() => handleDeletion()}
+        >
+          Delete
+        </Button>
       </Tooltip>
     </Box>
   );

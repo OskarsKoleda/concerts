@@ -5,10 +5,10 @@ import { contentWrapperSyle, getContentStyles } from "./styles";
 
 import type { FC } from "react";
 
-interface ContentLoaderProps {
+type ContentLoaderProps = {
   isLoading: boolean;
   children: React.ReactNode;
-}
+};
 
 export const ContentLoader: FC<ContentLoaderProps> = memo(function ContentLoader({
   isLoading,

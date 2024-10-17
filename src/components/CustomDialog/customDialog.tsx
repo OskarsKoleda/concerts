@@ -8,10 +8,10 @@ import {
 } from "@mui/material";
 
 type LockConfirmDialogProps = {
-  setShow: (value: boolean) => void;
   show: boolean;
   title: string;
   description: string;
+  setShow: (value: boolean) => void;
   onConfirm: () => void;
 };
 

@@ -4,25 +4,26 @@ import { useEffect } from "react";
 
 import { ContentLoader } from "../../components/ContentLoader/contentLoader";
 import { useRootStore } from "../../store/StoreContext";
-import { ConcertRequests } from "../../store/transport/concertTransport/constants";
+import { ConcertListRequests } from "../../store/transport/concertListTransport/constants";
 
-import { ConcertsTable } from "./ConcertsTable/concertsTable";
+import { ConcertCards } from "./concertsCards/concertCards";
 import { ConcertsFilters } from "./concertsFIlters/concertsFilters";
-import { ConcertsList } from "./concertsList/concertsList";
+import { ConcertsTable } from "./concertsTable/concertsTable";
 import { contentContainer } from "./styles";
 
-export const ConcertsPage: React.FC = observer(function ConcertsPage() {
+export const ConcertList: React.FC = observer(function ConcertList() {
   const {
     applicationStore: { listViewIsSelected },
-    concertsStore: {
+    concertListStore: {
       loadConcerts: fetchAllConcerts,
-      transport: {
+
+      concertListTransport: {
         requestHandler: { resetRequest, isSuccessfulRequest },
       },
     },
   } = useRootStore();
 
-  const concertsHaveLoaded: boolean = isSuccessfulRequest(ConcertRequests.getConcertsData);
+  const concertsHaveLoaded: boolean = isSuccessfulRequest(ConcertListRequests.getConcertsData);
 
   useEffect(() => {
     fetchAllConcerts();
@@ -30,7 +31,7 @@ export const ConcertsPage: React.FC = observer(function ConcertsPage() {
 
   useEffect(
     () => () => {
-      resetRequest(ConcertRequests.getConcertsData);
+      resetRequest(ConcertListRequests.getConcertsData);
     },
     [],
   );
@@ -39,7 +40,7 @@ export const ConcertsPage: React.FC = observer(function ConcertsPage() {
     <ContentLoader isLoading={!concertsHaveLoaded}>
       <Box sx={contentContainer}>
         <ConcertsFilters />
-        {listViewIsSelected ? <ConcertsList /> : <ConcertsTable />}
+        {listViewIsSelected ? <ConcertCards /> : <ConcertsTable />}
       </Box>
     </ContentLoader>
   );
