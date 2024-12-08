@@ -1,12 +1,13 @@
-import { Typography, AppBar, Toolbar, IconButton, Box, Tooltip } from "@mui/material";
-import { observer } from "mobx-react-lite";
-import RemoveRedEye from "@mui/icons-material/RemoveRedEye";
+import AddIcon from "@mui/icons-material/Add";
 import MenuIcon from "@mui/icons-material/Menu";
 import PortraitIcon from "@mui/icons-material/Portrait";
+import RemoveRedEye from "@mui/icons-material/RemoveRedEye";
 import StadiumIcon from "@mui/icons-material/Stadium";
-import AddIcon from "@mui/icons-material/Add";
+import { AppBar, Box, IconButton, Toolbar, Tooltip, Typography } from "@mui/material";
+import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 
+import homepage from "../../assets/homepage2.png";
 import { useRootStore } from "../../store/StoreContext";
 
 import {
@@ -18,7 +19,7 @@ import {
 
 export const Header = observer(function Header() {
   const {
-    applicationStore: { toggleDrawer, toggleConcertsView },
+    applicationStore: { toggleDrawer, toggleConcertsView, setActiveMenuItem },
   } = useRootStore();
 
   return (
@@ -30,31 +31,29 @@ export const Header = observer(function Header() {
               <MenuIcon color="action" />
             </IconButton>
 
-            <Link style={{ display: "flex", alignItems: "center", textDecoration: "none" }} to="/">
-              <Box
-                component="img"
-                src="src/assets/homepage2.png"
-                alt="homepage"
-                sx={homepageIconStyles}
-              />
-
+            <Link
+              onClick={() => setActiveMenuItem("Home")}
+              style={{ display: "flex", alignItems: "center", textDecoration: "none" }}
+              to="/"
+            >
+              <Box component="img" src={homepage} alt="homepage" sx={homepageIconStyles} />
               <Typography sx={headerTitleStyles}>My Concerts</Typography>
             </Link>
           </Box>
 
           <Box sx={flexCenterStyle}>
-            <Link to="/concerts/new">
-              <Tooltip title="Add Concert">
+            <Link onClick={() => setActiveMenuItem("View Concerts")} to="/concerts">
+              <Tooltip title="View Concerts">
                 <IconButton size="large">
-                  <AddIcon />
+                  <StadiumIcon />
                 </IconButton>
               </Tooltip>
             </Link>
 
-            <Link to="/concerts">
-              <Tooltip title="View Concerts">
+            <Link onClick={() => setActiveMenuItem("Add Concert")} to="/concerts/new">
+              <Tooltip title="Add Concert">
                 <IconButton size="large">
-                  <StadiumIcon />
+                  <AddIcon />
                 </IconButton>
               </Tooltip>
             </Link>

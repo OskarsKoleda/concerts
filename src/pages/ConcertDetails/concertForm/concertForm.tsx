@@ -8,7 +8,7 @@ import { FormLayout } from "../../../components/FormLayout/formLayout";
 import type { ConcertData } from "../../../common/types/concert";
 import type { FormFields } from "../../../components/FormLayout/types";
 
-export const ConcertMainDataForm = React.memo(({ readOnly }: { readOnly: boolean }) => {
+export const ConcertForm = React.memo(({ readOnly }: { readOnly: boolean }) => {
   const { control } = useFormContext<ConcertData>();
 
   const eventType = useWatch({

@@ -3,30 +3,38 @@ import { memo } from "react";
 
 import { DeleteConcertButton } from "../DeleteConcertButton/DeleteConcertButton";
 
-import { controlButtonsContainerStyles } from "./styles";
+import { controlButtonLeftContainersStyles, controlButtonsTopContainerStyles } from "./styles";
 import { toVisibleControl } from "./utils";
 
 import type { ControlPayload } from "./types";
 
 export type ButtonLayoutProps = {
   controls: ControlPayload[];
+  showDelete: boolean;
 };
 
 export const ButtonsLayout = memo<ButtonLayoutProps>(function ConcertCreationFormControls({
   controls,
+  showDelete,
 }) {
   return (
     <Box>
-      <Grid container columnSpacing={1} sx={controlButtonsContainerStyles}>
-        {controls.flatMap(toVisibleControl).map((control) => (
-          <Grid key={control.text} item>
-            <Button id={control.id} {...control}>
-              {control.text}
-            </Button>
+      <Grid container sx={controlButtonsTopContainerStyles}>
+        <Grid item sx={controlButtonLeftContainersStyles}>
+          {controls.flatMap(toVisibleControl).map((control) => (
+            <Grid item key={control.text} mr={1}>
+              <Button id={control.id} {...control}>
+                {control.text}
+              </Button>
+            </Grid>
+          ))}
+        </Grid>
+        {showDelete && (
+          <Grid item>
+            <DeleteConcertButton />
           </Grid>
-        ))}
+        )}
       </Grid>
-      <DeleteConcertButton />
     </Box>
   );
 });

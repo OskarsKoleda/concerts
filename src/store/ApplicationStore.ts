@@ -3,7 +3,7 @@ import { makeAutoObservable } from "mobx";
 class ApplicationStore {
   private drawerOpen = false;
   private concertsListView = true;
-  private selectedMenuItem = 0;
+  private activeMenuItem: string = "Home";
 
   constructor() {
     makeAutoObservable(this);
@@ -17,8 +17,8 @@ class ApplicationStore {
     return this.concertsListView;
   }
 
-  get whatIsSelectedMenuItem(): number {
-    return this.selectedMenuItem;
+  get currentMenuItem(): string {
+    return this.activeMenuItem;
   }
 
   toggleDrawer = () => {
@@ -29,8 +29,8 @@ class ApplicationStore {
     this.concertsListView = !this.concertsListView;
   };
 
-  selectMenuItem = (itemNumber: number) => {
-    this.selectedMenuItem = itemNumber;
+  setActiveMenuItem = (menuItemLabel: string) => {
+    this.activeMenuItem = menuItemLabel;
   };
 }
 

@@ -3,12 +3,11 @@ import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 
 import { Card } from "../../../components/CardWithImage/cardWithImage";
-import { ConcertControlButtons } from "../../../components/ConcertControlButtons/ConcertControlButtons";
 import { useRootStore } from "../../../store/StoreContext";
 
 import { concertsContainerStyles } from "./styles";
 
-export const ConcertCards: React.FC = observer(() => {
+export const ConcertCardsList: React.FC = observer(function ConcertCardsList() {
   const {
     concertListStore: { concerts },
   } = useRootStore();
@@ -18,9 +17,7 @@ export const ConcertCards: React.FC = observer(() => {
       <Grid container direction="row" justifyContent="space-evenly" rowSpacing={1}>
         {toJS(concerts).map((concert) => (
           <Grid item key={concert.id}>
-            <Card imageUrl={concert.posterUrl} title={concert.title}>
-              <ConcertControlButtons concertId={concert.id} />
-            </Card>
+            <Card imageUrl={concert.posterUrl} title={concert.title} concertId={concert.id} />
           </Grid>
         ))}
       </Grid>

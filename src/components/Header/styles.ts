@@ -22,3 +22,9 @@ export const headerTitleStyles: SxProps = {
   fontWeight: "550",
   fontSize: "1.5rem",
 };
+
+export const indexLinkStyles: SxProps = {
+  display: "flex",
+  alignItems: "center",
+  textDecoration: "none",
+};

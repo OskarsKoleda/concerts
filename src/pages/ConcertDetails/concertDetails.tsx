@@ -12,9 +12,9 @@ import { ROUTE_LIST } from "../../router/routes";
 import { useRootStore } from "../../store/StoreContext";
 import { ConcertDetailsRequests } from "../../store/transport/concertDetailsTransport/constants";
 
-import { ConcertDatesForm } from "./concertDatesDate/concertDatesForm";
+import { ConcertDatesForm } from "./concertDatesForm/concertDatesForm";
 import { ConcertDetailsButtons } from "./concertDetailsButtons/concertDetailsButtons";
-import { ConcertMainDataForm } from "./concertMainData/concertMainDataForm";
+import { ConcertForm } from "./concertForm/concertForm";
 import { concertText, defaultValues } from "./constants";
 import { formContainerStyle, paperStyle } from "./styles";
 
@@ -29,7 +29,7 @@ const {
 
 export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage() {
   const { id: concertId } = useParams();
-  const location = useLocation();
+  const currentURL = useLocation();
 
   const {
     concertDetailsStore: {
@@ -45,10 +45,25 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
   const navigate = useNavigate();
   const { showSnackbar } = useCustomSnackbar();
   // TODO: move to some UI store?
-  const isEditPage = useMemo(() => location.pathname.includes("/edit"), [location.pathname]);
-  const isReadOnly = useMemo(() => !!concertId && !isEditPage, [concertId, isEditPage]);
+  const concertInEditMode = useMemo(
+    () => currentURL.pathname.includes("/edit"),
+    [currentURL.pathname],
+  );
+  const concertInReadonlyMode = useMemo(
+    () => !!concertId && !concertInEditMode,
+    [concertId, concertInEditMode],
+  );
+
   const displayLoader =
-    isReadOnly && !!concertId && !isSuccessfulRequest(ConcertDetailsRequests.getConcert);
+    concertInReadonlyMode && !!concertId && !isSuccessfulRequest(ConcertDetailsRequests.getConcert);
+
+  const getFormTitle = useMemo(() => {
+    return concertInEditMode
+      ? title.editForm
+      : concertInReadonlyMode
+      ? title.detailsForm
+      : title.newForm;
+  }, [concertInEditMode, concertInReadonlyMode]);
 
   const methods = useForm<ConcertData>({
     defaultValues,
@@ -57,6 +72,7 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
   });
 
   const { handleSubmit, reset } = methods;
+
   const handleUpdate: SubmitHandler<ConcertData> = useCallback(
     async (data) => {
       if (concertId) {
@@ -105,10 +121,6 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
     navigate(`/${ROUTE_LIST.CONCERTS}/${concertId}/edit`);
   };
 
-  const getFormTitle = useMemo(() => {
-    return isEditPage ? title.editForm : isReadOnly ? title.detailsForm : title.newForm;
-  }, [isEditPage, isReadOnly]);
-
   useEffect(() => {
     const fetchConcertData = async () => {
       if (concertId) {
@@ -141,11 +153,11 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
           <FormProvider {...methods}>
             <form onSubmit={submitFormHandler}>
               <Typography variant="h5">{getFormTitle}</Typography>
-              <ConcertMainDataForm readOnly={isReadOnly} />
-              <ConcertDatesForm readOnly={isReadOnly} />
+              <ConcertForm readOnly={concertInReadonlyMode} />
+              <ConcertDatesForm readOnly={concertInReadonlyMode} />
               <ConcertDetailsButtons
-                readOnly={isReadOnly}
-                isEditMode={isEditPage}
+                readOnly={concertInReadonlyMode}
+                isEditMode={concertInEditMode}
                 onEditClick={openConcertEditView}
               />
             </form>

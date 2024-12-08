@@ -1,5 +1,4 @@
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Box, Button, IconButton } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,10 +14,10 @@ export const ConcertControlButtons: React.FC<{ concertId: string }> = ({ concert
 
   return (
     <Box sx={buttonContainerStyle}>
-      <IconButton size="small" onClick={() => handleOpenConcert(concertId)}>
+      {/* <IconButton size="small" onClick={() => handleOpenConcert(concertId)}>
         <ArrowForwardIosIcon />
-      </IconButton>
-      <Button>View</Button>
+      </IconButton> */}
+      <Button variant="outlined" onClick={() => handleOpenConcert(concertId)}>View</Button>
       {/* <DeleteConcertButton concertId={concertId} /> */}
     </Box>
   );

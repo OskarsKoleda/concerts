@@ -32,8 +32,12 @@ export const ConcertDetailsButtons: FC<ControlButtonsProps> = memo(function Conc
     reset();
   }, [reset]);
 
-  const handleCancel = useCallback(() => {
+  const handleReturnFromDetails = useCallback(() => {
     navigate(ROUTE_LIST.HOMEPAGE);
+  }, [navigate]);
+
+  const handleCancelCreation = useCallback(() => {
+    navigate(-1);
   }, [navigate]);
 
   const controls: ControlPayload[] = [
@@ -66,11 +70,20 @@ export const ConcertDetailsButtons: FC<ControlButtonsProps> = memo(function Conc
     {
       id: "concert.cancelConcertCreation",
       color: "primary",
-      onClick: handleCancel,
+      onClick: handleCancelCreation,
       text: "Cancel",
       variant: "outlined",
+      visible: !readOnly,
+    },
+    {
+      id: "concert.returnFromDetails",
+      color: "primary",
+      onClick: handleReturnFromDetails,
+      text: "Back",
+      variant: "outlined",
+      visible: readOnly,
     },
   ];
 
-  return <ButtonsLayout controls={controls} />;
+  return <ButtonsLayout controls={controls} showDelete={isEditMode || readOnly} />;
 });

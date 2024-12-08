@@ -5,6 +5,10 @@ export const cardContainerStyle: SxProps = {
   width: "10rem",
   height: "15rem",
   backgroundColor: "#CCC",
+
+  "&:hover": {
+    cursor: "pointer",
+  },
 };
 
 export const cardContentStyle: SxProps = {

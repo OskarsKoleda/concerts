@@ -1,9 +1,11 @@
 import { Box, Button, Tooltip } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { SnackbarVariantType } from "../../common/enums/appEnums";
 import { useCustomSnackbar } from "../../hooks/useCustomSnackbar";
+import { ROUTE_LIST } from "../../router/routes";
 import { useRootStore } from "../../store/StoreContext";
 import { CustomDialog } from "../CustomDialog/customDialog";
 
@@ -13,6 +15,7 @@ export const DeleteConcertButton: React.FC = observer(() => {
     concertDetailsStore: { deleteConcert, currentConcertId: concertId },
   } = useRootStore();
 
+  const navigate = useNavigate();
   const { showSnackbar } = useCustomSnackbar();
   const handleConcertDeletion = useCallback(
     async (concertId: string) => {
@@ -24,11 +27,12 @@ export const DeleteConcertButton: React.FC = observer(() => {
           message,
           variant: SnackbarVariantType.SUCCESS,
         });
+        navigate(`/${ROUTE_LIST.CONCERTS}`);
       } else {
         showSnackbar({ message, variant: SnackbarVariantType.ERROR });
       }
     },
-    [deleteConcert, setShowConfirmationDialogue, showSnackbar],
+    [deleteConcert, navigate, showSnackbar],
   );
 
   const handleDeletion = () => {
@@ -45,11 +49,6 @@ export const DeleteConcertButton: React.FC = observer(() => {
         onConfirm={() => handleConcertDeletion(concertId)}
       />
       <Tooltip title="Delete Event">
-        {/* <Box marginLeft="1rem">
-          <IconButton size="small" onClick={handleDeletion}>
-            <DeleteIcon />
-          </IconButton>
-        </Box> */}
         <Button
           id="concert.deleteConcert"
           variant="outlined"
