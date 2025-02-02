@@ -1,17 +1,27 @@
 import { makeAutoObservable } from "mobx";
 
-import type { CityFilter, ConcertsFilterOptions, EventTitleFilter, IConcertFilters } from "./types";
+import {
+  EventType,
+  type BandFilter,
+  type CityFilter,
+  type ConcertsFilterOptions,
+  type EventTitleFilter,
+  type EventTypeFilter,
+  type IConcertFilters,
+} from "./types";
 
 export class ConcertsFiltersStore implements IConcertFilters {
   eventTitle: EventTitleFilter;
+  eventType: EventTypeFilter;
   city: CityFilter;
-  eventType: string;
+  band: BandFilter;
 
   constructor(options: ConcertsFilterOptions) {
     makeAutoObservable(this);
     this.eventTitle = options.concertTitle ?? "";
     this.city = options.city ?? "";
-    this.eventType = "All";
+    this.band = options.band ?? "";
+    this.eventType = EventType.all;
   }
 
   setEventTitle = (eventTitle: EventTitleFilter): void => {
@@ -22,12 +32,18 @@ export class ConcertsFiltersStore implements IConcertFilters {
     this.city = city;
   };
 
-  setEventType = (eventType: string): void => {
+  setBand = (band: BandFilter): void => {
+    this.band = band;
+  };
+
+  setEventType = (eventType: EventTypeFilter): void => {
     this.eventType = eventType;
   };
 
   resetFilters = (): void => {
     this.eventTitle = "";
     this.city = "";
+    this.band = "";
+    this.eventType = EventType.all;
   };
 }

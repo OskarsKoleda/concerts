@@ -1,43 +1,48 @@
 import { Button, Grid } from "@mui/material";
 import React from "react";
 
-import { filterButtonsContainerStyles } from "./styles";
+import { filterButtonsContainerStyles, filterFooterStyles } from "./styles";
 import { generateFilterFields } from "./utils";
 
-import type { FilterInputsConfig } from "./types";
+import type { FilterInputsConfig, ToggleButtonFilterProps } from "./types";
 
 export type DataGridFilterProps = {
   filterProps: FilterInputsConfig;
+  filterToggles: ToggleButtonFilterProps;
 };
 
 export const DataGridFilters = React.memo<DataGridFilterProps>(function DataGridFilters({
   filterProps: { inputs, buttons },
+  filterToggles,
 }) {
   return (
     <Grid container direction="column">
-      <Grid container item direction="row" rowSpacing={2} columnSpacing={4}>
+      <Grid container gap={2}>
         {inputs.map((input) => (
           <Grid item key={input.id}>
             {generateFilterFields(input)}
           </Grid>
         ))}
       </Grid>
-      <Grid container sx={filterButtonsContainerStyles}>
-        {buttons.map((button) => (
-          <Grid sx={{ mr: "1rem" }} key={button.id} item>
+
+      <Grid container sx={filterFooterStyles}>
+        <Grid item sx={filterButtonsContainerStyles}>
+          {buttons.map(({ id, label, color, disabled, onClick, size, variant }) => (
             <Button
-              key={button.id}
-              color={button.color}
-              disabled={button.disabled}
-              id={button.id}
-              onClick={button.onClick}
-              size={button.size}
-              variant={button.variant}
+              key={id}
+              color={color}
+              disabled={disabled}
+              id={id}
+              onClick={onClick}
+              size={size}
+              variant={variant}
             >
-              {button.label}
+              {label}
             </Button>
-          </Grid>
-        ))}
+          ))}
+        </Grid>
+
+        <Grid item>{generateFilterFields(filterToggles)}</Grid>
       </Grid>
     </Grid>
   );

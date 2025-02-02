@@ -1,11 +1,15 @@
 import type { SxProps } from "@mui/material";
 
-export const toggleButtonLabelStyles: SxProps = {
-  color: "#111",
-};
-
 export const filterButtonsContainerStyles: SxProps = {
   display: "flex",
   flexDirection: "row",
-  marginTop: "1rem",
+  gap: "1rem",
+};
+
+export const filterFooterStyles: SxProps = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  mt: "1rem",
 };

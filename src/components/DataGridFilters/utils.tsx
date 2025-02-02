@@ -1,7 +1,6 @@
 import { Box, MenuItem, Select, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 import { FilterInputType } from "./constants";
-import { toggleButtonLabelStyles } from "./styles";
 
 import type { FilterInputsConfigItem } from "./types";
 
@@ -45,7 +44,6 @@ export function generateFilterFields(input: FilterInputsConfigItem): JSX.Element
             id={input.id}
             onChange={input.onChange}
             size="small"
-            sx={toggleButtonLabelStyles}
             value={input.value}
             exclusive
           >

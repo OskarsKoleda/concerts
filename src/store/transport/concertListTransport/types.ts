@@ -5,5 +5,6 @@ export interface RequestPayload {
     city: Maybe<string>;
     eventTitle: Maybe<string>;
     eventType: Maybe<string>;
+    band: Maybe<string>;
   };
 }

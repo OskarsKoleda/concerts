@@ -9,7 +9,7 @@ import type { ConcertFormattedData, ConcertRawData } from "../../common/types/co
 import type { ConcertListTransport } from "../transport/concertListTransport/ConcertListTransport";
 import type { RequestPayload } from "../transport/concertListTransport/types";
 
-class ConcertListStore {
+export class ConcertListStore {
   concerts: ConcertFormattedData[] = [];
   concertsFilters: ConcertsFiltersStore;
   concertListTransport: ConcertListTransport;
@@ -22,6 +22,7 @@ class ConcertListStore {
       city: "",
       concertTitle: "",
       eventType: "Concert",
+      band: "",
     });
 
     /*reaction(
@@ -62,6 +63,7 @@ class ConcertListStore {
         city: this.concertsFilters.city,
         eventTitle: this.concertsFilters.eventTitle,
         eventType: this.concertsFilters.eventType,
+        band: this.concertsFilters.band,
       },
     };
   }
@@ -100,5 +102,3 @@ class ConcertListStore {
     });
   };
 }
-
-export default ConcertListStore;
