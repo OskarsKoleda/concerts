@@ -5,11 +5,11 @@ import { EVENT_TITLE_RULES } from "../../../common/constants/appConstant";
 import { InputType } from "../../../components/FormLayout/constants";
 import { FormLayout } from "../../../components/FormLayout/formLayout";
 
-import type { ConcertData } from "../../../common/types/concert";
+import type { LocalEventData } from "../../../common/types/eventTypes.ts";
 import type { FormFields } from "../../../components/FormLayout/types";
 
 export const ConcertForm = React.memo(({ readOnly }: { readOnly: boolean }) => {
-  const { control } = useFormContext<ConcertData>();
+  const { control } = useFormContext<LocalEventData>();
 
   const eventType = useWatch({
     control,
@@ -24,7 +24,7 @@ export const ConcertForm = React.memo(({ readOnly }: { readOnly: boolean }) => {
         controlName: "eventType",
         id: "eventType",
         label: "Event Type",
-        children: ["Festival", "Concert"],
+        children: ["Concert", "Festival", "Theatre", "Creative Evening"],
       },
       {
         inputType: InputType.text,

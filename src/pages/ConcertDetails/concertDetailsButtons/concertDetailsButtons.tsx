@@ -1,12 +1,11 @@
+import type { FC } from "react";
 import { memo, useCallback } from "react";
 import { useFormContext } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { ButtonsLayout } from "../../../components/ButtonsLayout/buttonsLayout";
 import { ROUTE_LIST } from "../../../router/routes";
-
-import type { FC } from "react";
-import type { ConcertData } from "../../../common/types/concert";
+import type { LocalEventData } from "../../../common/types/eventTypes.ts";
 import type { ControlPayload } from "../../../components/ButtonsLayout/types";
 
 type ControlButtonsProps = {
@@ -23,7 +22,7 @@ export const ConcertDetailsButtons: FC<ControlButtonsProps> = memo(function Conc
   const {
     reset,
     formState: { dirtyFields },
-  } = useFormContext<ConcertData>();
+  } = useFormContext<LocalEventData>();
 
   const navigate = useNavigate();
   const isFormReallyDirty = Object.keys(dirtyFields).length > 0;

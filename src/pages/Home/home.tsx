@@ -1,4 +1,4 @@
-import { Container, Box, Typography, Grid, Paper } from "@mui/material";
+import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 
 import { NavLinkButton } from "../../components/NavButton/navButton";
 import { ROUTE_LIST } from "../../router/routes";
@@ -33,7 +33,7 @@ export const HomePage: React.FC = () => {
             </NavLinkButton>
           </Grid>
           <Grid item>
-            <NavLinkButton variant="contained" color="secondary" to={`/${ROUTE_LIST.NEW_CONCERT}`}>
+            <NavLinkButton variant="contained" color="secondary" to={`/${ROUTE_LIST.NEW_EVENT}`}>
               {addButton.label}
             </NavLinkButton>
           </Grid>

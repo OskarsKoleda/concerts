@@ -1,18 +1,18 @@
 import _ from "lodash";
 
+import type { FieldError } from "react-hook-form";
 import { EventType } from "../../store/concertList/concertFilters/types";
 import { ERROR_TEXTS } from "../constants/appConstant";
 
-import type { FieldError } from "react-hook-form";
 import type { RequestPayload } from "../../store/transport/concertListTransport/types";
-import type { ConcertFormattedData, ConcertRawData } from "../types/concert";
+import type { ServerEventData, ServerEventDataWithId } from "../types/eventTypes.ts";
 
-export function transformFirebaseObject(concerts: ConcertRawData): ConcertFormattedData[] {
-  return Object.keys(concerts).map((key) => ({
-    ...concerts[key],
-    id: key,
+export const appendEventIdToServerEvent = (events: ServerEventData): ServerEventDataWithId[] => {
+  return Object.entries(events).map(([eventId, event]) => ({
+    ...event,
+    id: eventId,
   }));
-}
+};
 
 export const getInputErrorText = (error: FieldError): string | null => {
   if (!error) {
@@ -25,19 +25,19 @@ export const getInputErrorText = (error: FieldError): string | null => {
   return supportedText || errorText || null;
 };
 
-export const concertsFilteringEngine = (
+export const eventsFilteringEngine = (
   userFilters: RequestPayload,
-  concerts: ConcertFormattedData[],
-): ConcertFormattedData[] => {
+  events: ServerEventDataWithId[],
+): ServerEventDataWithId[] => {
   const {
-    filters: { city, eventTitle, eventType, band },
+    filters: { eventTitle, eventType, city },
   } = userFilters;
 
-  return _.filter(concerts, (concert: ConcertFormattedData) => {
-    let matchesEventType: boolean;
+  return _.filter(events, (concert: ServerEventData) => {
+    const matchesEventTitle = eventTitle ? concert.eventTitle.includes(eventTitle) : true;
     const matchesCity = city ? concert.city.includes(city) : true;
-    const matchesEventTitle = eventTitle ? concert.title.includes(eventTitle) : true;
-    const matchesBand = band ? concert.bands.some((singleBand) => singleBand.includes(band)) : true;
+    // const matchesBand = band ? concert.bands.some((singleBand) => singleBand.includes(band)) : true;
+    let matchesEventType: boolean;
 
     if (eventType !== EventType.all) {
       matchesEventType = eventType ? concert.eventType === eventType : true;
@@ -45,6 +45,6 @@ export const concertsFilteringEngine = (
       matchesEventType = true;
     }
 
-    return matchesCity && matchesEventTitle && matchesEventType && matchesBand;
+    return matchesCity && matchesEventTitle && matchesEventType;
   });
 };

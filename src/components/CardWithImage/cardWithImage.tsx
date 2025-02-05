@@ -21,7 +21,7 @@ type CardProps = {
 export const Card: React.FC<CardProps> = ({ title, imageUrl, concertId }: CardProps) => {
   const navigate = useNavigate();
   const handleOpenConcert = (concertId: string) => {
-    navigate(`/${ROUTE_LIST.CONCERTS}/${concertId}`);
+    navigate(`/${ROUTE_LIST.EVENTS}/${concertId}`);
   };
 
   return (

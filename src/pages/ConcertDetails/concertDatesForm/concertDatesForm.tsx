@@ -3,11 +3,11 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { InputType } from "../../../components/FormLayout/constants";
 import { FormLayout } from "../../../components/FormLayout/formLayout";
 
-import type { ConcertData } from "../../../common/types/concert";
+import type { LocalEventData } from "../../../common/types/eventTypes.ts";
 import type { FormFields } from "../../../components/FormLayout/types";
 
 export const ConcertDatesForm = ({ readOnly }: { readOnly: boolean }) => {
-  const { control } = useFormContext<ConcertData>();
+  const { control } = useFormContext<LocalEventData>();
 
   const eventType = useWatch({
     control,

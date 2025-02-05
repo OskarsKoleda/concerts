@@ -1,6 +1,7 @@
 import { Container, Paper, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import React, { useCallback, useEffect, useMemo } from "react";
+import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
@@ -10,16 +11,14 @@ import { ContentLoader } from "../../components/ContentLoader/contentLoader";
 import { useCustomSnackbar } from "../../hooks/useCustomSnackbar";
 import { ROUTE_LIST } from "../../router/routes";
 import { useRootStore } from "../../store/StoreContext";
-import { ConcertDetailsRequests } from "../../store/transport/concertDetailsTransport/constants";
+import { EventDetailsRequests } from "../../store/transport/eventDetailsTransport/constants";
 
 import { ConcertDatesForm } from "./concertDatesForm/concertDatesForm";
 import { ConcertDetailsButtons } from "./concertDetailsButtons/concertDetailsButtons";
 import { ConcertForm } from "./concertForm/concertForm";
 import { concertText, defaultValues } from "./constants";
 import { formContainerStyle, paperStyle } from "./styles";
-
-import type { SubmitHandler } from "react-hook-form";
-import type { ConcertData } from "../../common/types/concert";
+import type { LocalEventData } from "../../common/types/eventTypes.ts";
 
 const {
   ENGLISH: {
@@ -33,10 +32,10 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
 
   const {
     concertDetailsStore: {
-      addConcert,
-      getConcert,
-      updateConcert,
-      concertDetailsTransport: {
+      addEvent,
+      getEvent,
+      updateEvent,
+      eventDetailsTransport: {
         requestHandler: { isSuccessfulRequest, resetRequest },
       },
     },
@@ -55,38 +54,38 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
   );
 
   const displayLoader =
-    concertInReadonlyMode && !!concertId && !isSuccessfulRequest(ConcertDetailsRequests.getConcert);
+    concertInReadonlyMode && !!concertId && !isSuccessfulRequest(EventDetailsRequests.getEvent);
 
   const getFormTitle = useMemo(() => {
     return concertInEditMode
       ? title.editForm
       : concertInReadonlyMode
-      ? title.detailsForm
-      : title.newForm;
+        ? title.detailsForm
+        : title.newForm;
   }, [concertInEditMode, concertInReadonlyMode]);
 
-  const methods = useForm<ConcertData>({
+  const methods = useForm<LocalEventData>({
     defaultValues,
     mode: "onChange",
     shouldUnregister: true,
   });
 
-  const { handleSubmit, reset } = methods;
+  const { handleSubmit, reset, register } = methods;
 
-  const handleUpdate: SubmitHandler<ConcertData> = useCallback(
+  const handleUpdate: SubmitHandler<LocalEventData> = useCallback(
     async (data) => {
       if (concertId) {
-        const { status, message } = await updateConcert(data, concertId);
+        const { status, message } = await updateEvent(data, concertId);
 
         if (status === "OK") {
           showSnackbar({ message, variant: SnackbarVariantType.INFO });
-          navigate(`/${ROUTE_LIST.CONCERTS}/${concertId}`);
+          navigate(`/${ROUTE_LIST.EVENTS}/${concertId}`);
         } else {
           showSnackbar({ message, variant: SnackbarVariantType.ERROR });
         }
       }
     },
-    [updateConcert, showSnackbar, navigate, concertId],
+    [updateEvent, showSnackbar, navigate, concertId],
   );
 
   const submitFormHandler = (event: React.SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -105,32 +104,36 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
     }
   };
 
-  const handleCreate: SubmitHandler<ConcertData> = useCallback(
+  const handleCreate: SubmitHandler<LocalEventData> = useCallback(
     (data) => {
-      addConcert(data);
+      addEvent(data);
+
       showSnackbar({
-        message: ResponseMessages.CONCERT_SUCCESSFUL_CREATION,
+        message: ResponseMessages.EVENT_SUCCESSFUL_CREATION,
         variant: SnackbarVariantType.SUCCESS,
       });
-      navigate(`/${ROUTE_LIST.CONCERTS}`);
+      navigate(`/${ROUTE_LIST.EVENTS}`);
     },
-    [addConcert, showSnackbar, navigate],
+    [addEvent, showSnackbar, navigate],
   );
 
   const openConcertEditView = () => {
-    navigate(`/${ROUTE_LIST.CONCERTS}/${concertId}/edit`);
+    navigate(`/${ROUTE_LIST.EVENTS}/${concertId}/edit`);
   };
 
   useEffect(() => {
     const fetchConcertData = async () => {
       if (concertId) {
-        const { message, concert } = await getConcert(concertId);
+        const concert = await getEvent(concertId);
 
         if (concert) {
           reset(concert);
         } else {
-          showSnackbar({ message, variant: SnackbarVariantType.ERROR });
-          navigate(`/${ROUTE_LIST.CONCERTS}`);
+          showSnackbar({
+            message: ResponseMessages.EVENT_FAILED_RETRIEVE,
+            variant: SnackbarVariantType.ERROR,
+          });
+          navigate(`/${ROUTE_LIST.EVENTS}`);
         }
       } else {
         reset(defaultValues);
@@ -138,14 +141,15 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
     };
 
     fetchConcertData();
-  }, [concertId, getConcert, navigate, reset, showSnackbar]);
+  }, [concertId, getEvent, navigate, reset, showSnackbar]);
 
   useEffect(() => {
     return () => {
-      resetRequest(ConcertDetailsRequests.getConcert);
+      resetRequest(EventDetailsRequests.getEvent);
     };
   }, []);
 
+  // TODO: change file input somehow
   return (
     <ContentLoader isLoading={displayLoader}>
       <Container sx={formContainerStyle}>
@@ -155,6 +159,7 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
               <Typography variant="h5">{getFormTitle}</Typography>
               <ConcertForm readOnly={concertInReadonlyMode} />
               <ConcertDatesForm readOnly={concertInReadonlyMode} />
+              <input {...register("posterImage", { required: true })} type="file" />
               <ConcertDetailsButtons
                 readOnly={concertInReadonlyMode}
                 isEditMode={concertInEditMode}

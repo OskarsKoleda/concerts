@@ -1,6 +1,6 @@
 export const ROUTE_LIST = {
   HOMEPAGE: "/",
-  CONCERTS: "concerts",
-  CONCERT_DETAILS: "concerts/:id",
-  NEW_CONCERT: "concerts/new",
+  EVENTS: "events",
+  EVENT_DETAILS: "events/:id",
+  NEW_EVENT: "events/new",
 };

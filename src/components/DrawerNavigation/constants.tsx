@@ -13,12 +13,12 @@ export const menuItems = [
   },
   {
     label: "View Concerts",
-    path: ROUTE_LIST.CONCERTS,
+    path: ROUTE_LIST.EVENTS,
     icon: <StadiumIcon />,
   },
   {
     label: "Add Concert",
-    path: ROUTE_LIST.NEW_CONCERT,
+    path: ROUTE_LIST.NEW_EVENT,
     icon: <AddIcon />,
   },
   {

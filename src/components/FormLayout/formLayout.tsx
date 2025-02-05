@@ -1,6 +1,8 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
+import type { FC, ReactNode } from "react";
 import { memo, useCallback } from "react";
+import type { Control } from "react-hook-form";
 import { Controller } from "react-hook-form";
 
 import { AutocompleteTextField } from "../Inputs/reactHookForm/autocompleteTextField/autocompleteTextField";
@@ -10,9 +12,6 @@ import { TextFieldWithValidation } from "../Inputs/reactHookForm/textFieldWithVa
 import { InputType } from "./constants";
 import { gridStyles, layoutWrapperStyles } from "./styles";
 import { isFormSection } from "./utils";
-
-import type { FC, ReactNode } from "react";
-import type { Control } from "react-hook-form";
 import type { FormContent, FormField } from "./types";
 
 export interface FormLayoutProps {

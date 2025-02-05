@@ -6,13 +6,15 @@ export const URL_VALIDATION_PATTERN_PROTOCOL_OPTIONAL =
 export const NOT_ALL_WHITESPACE_PATTERN = /^\S\S*/;
 
 export enum ResponseMessages {
-  CONCERT_SUCCESSFUL_CREATION = "The concert was successfully CREATED!",
-  CONCERT_SUCCESSFUL_DELETION = "The concert was successfully REMOVED!",
-  CONCERT_SUCCESSFUL_UPDATE = "The concert was successfully UPDATED!",
-  CONCERT_UPDATE_FAILURE = "Couldn't update the concert. Something went wrong!",
-  CONCERT_DELETION_FAILURE = "Couldn't delete the concert. Something went wrong!",
-  CONCERT_NOT_FOUND = "The concert was not found!",
-  CONCERT_RETRIEVE_FAILED = "Could not retrieve the concert. Unknown problem.",
+  EVENT_SUCCESSFUL_CREATION = "The event was successfully CREATED!",
+  EVENT_SUCCESSFUL_DELETION = "The event was successfully REMOVED!",
+  EVENT_SUCCESSFUL_UPDATE = "The event was successfully UPDATED!",
+  EVENT_SUCCESSFUL_RETRIEVE = "The event was successfully RETRIEVED!",
+  EVENT_UPDATE_FAILURE = "Could not update the event. Something went wrong!",
+  EVENT_DELETION_FAILURE = "Could not delete the event. Something went wrong!",
+  EVENT_NOT_FOUND = "The event was not found!",
+  EVENT_FAILED_RETRIEVE = "Could not retrieve the event. Unknown problem.",
+  EVENT_FAILED_CREATION = "Could not create the event. Something went wrong!",
 }
 
 export const EVENT_TITLE_RULES: UseControllerProps["rules"] = {

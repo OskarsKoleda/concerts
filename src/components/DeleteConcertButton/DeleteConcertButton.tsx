@@ -27,7 +27,7 @@ export const DeleteConcertButton: React.FC = observer(() => {
           message,
           variant: SnackbarVariantType.SUCCESS,
         });
-        navigate(`/${ROUTE_LIST.CONCERTS}`);
+        navigate(`/${ROUTE_LIST.EVENTS}`);
       } else {
         showSnackbar({ message, variant: SnackbarVariantType.ERROR });
       }

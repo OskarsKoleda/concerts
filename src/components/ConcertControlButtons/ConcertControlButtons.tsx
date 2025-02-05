@@ -9,7 +9,7 @@ import { buttonContainerStyle } from "./styles";
 export const ConcertControlButtons: React.FC<{ concertId: string }> = ({ concertId }) => {
   const navigate = useNavigate();
   const handleOpenConcert = (concertId: string) => {
-    navigate(`/${ROUTE_LIST.CONCERTS}/${concertId}`);
+    navigate(`/${ROUTE_LIST.EVENTS}/${concertId}`);
   };
 
   return (
@@ -17,7 +17,9 @@ export const ConcertControlButtons: React.FC<{ concertId: string }> = ({ concert
       {/* <IconButton size="small" onClick={() => handleOpenConcert(concertId)}>
         <ArrowForwardIosIcon />
       </IconButton> */}
-      <Button variant="outlined" onClick={() => handleOpenConcert(concertId)}>View</Button>
+      <Button variant="outlined" onClick={() => handleOpenConcert(concertId)}>
+        View
+      </Button>
       {/* <DeleteConcertButton concertId={concertId} /> */}
     </Box>
   );

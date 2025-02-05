@@ -15,7 +15,7 @@ export const ConcertList: React.FC = observer(function ConcertList() {
   const {
     applicationStore: { listViewIsSelected },
     concertListStore: {
-      loadConcerts: fetchAllConcerts,
+      loadEvents: fetchAllConcerts,
 
       concertListTransport: {
         requestHandler: { resetRequest, isSuccessfulRequest },

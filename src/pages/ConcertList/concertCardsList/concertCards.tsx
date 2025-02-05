@@ -16,8 +16,12 @@ export const ConcertCardsList: React.FC = observer(function ConcertCardsList() {
     <Box sx={concertsContainerStyles}>
       <Grid container direction="row" justifyContent="space-evenly" rowSpacing={1}>
         {toJS(concerts).map((concert) => (
-          <Grid item key={concert.id}>
-            <Card imageUrl={concert.posterUrl} title={concert.title} concertId={concert.id} />
+          <Grid item key={concert.eventId}>
+            <Card
+              imageUrl={concert.posterUrl || concert.posterUrl}
+              title={concert.eventTitle}
+              concertId={concert.eventId}
+            />
           </Grid>
         ))}
       </Grid>

@@ -1,16 +1,15 @@
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 
-import { concertsFilteringEngine, transformFirebaseObject } from "../../common/utils/utility";
+import { appendEventIdToServerEvent, eventsFilteringEngine } from "../../common/utils/utility";
 import { ConcertListRequests } from "../transport/concertListTransport/constants";
 
-import { ConcertsFiltersStore } from "./concertFilters/ConcertsFiltersStore";
-
-import type { ConcertFormattedData, ConcertRawData } from "../../common/types/concert";
+import type { ServerEventData, ServerEventDataWithId } from "../../common/types/eventTypes.ts";
 import type { ConcertListTransport } from "../transport/concertListTransport/ConcertListTransport";
 import type { RequestPayload } from "../transport/concertListTransport/types";
+import { ConcertsFiltersStore } from "./concertFilters/ConcertsFiltersStore";
 
 export class ConcertListStore {
-  concerts: ConcertFormattedData[] = [];
+  concerts: ServerEventDataWithId[] = [];
   concertsFilters: ConcertsFiltersStore;
   concertListTransport: ConcertListTransport;
 
@@ -35,7 +34,7 @@ export class ConcertListStore {
 
     reaction(
       () => this.fetchConcertsPayload,
-      () => this.loadConcerts(),
+      () => this.loadEvents(),
       { delay: 500 },
     );
   }
@@ -68,21 +67,20 @@ export class ConcertListStore {
     };
   }
 
-  private filterConcerts = (formattedConcerts: ConcertFormattedData[]) => {
-    return concertsFilteringEngine(this.fetchConcertsPayload, formattedConcerts);
+  private filterConcerts = (formattedConcerts: ServerEventDataWithId[]) => {
+    return eventsFilteringEngine(this.fetchConcertsPayload, formattedConcerts);
 
     // runInAction(() => {
     //   this.setConcerts(filteredConcerts);
     // });
   };
 
-  public loadConcerts = async (): Promise<void> => {
-    const data: ConcertRawData | undefined = await this.concertListTransport.fetchConcerts();
-    // const { eventType } = this.fetchConcertsPayload.filters;
+  public loadEvents = async (): Promise<void> => {
+    const allEvents: ServerEventData | undefined = await this.concertListTransport.fetchEvents();
 
-    if (data) {
-      const formattedConcerts: ConcertFormattedData[] = transformFirebaseObject(data);
-      const filteredConcerts: ConcertFormattedData[] = this.filterConcerts(formattedConcerts);
+    if (allEvents) {
+      const formattedConcerts: ServerEventDataWithId[] = appendEventIdToServerEvent(allEvents);
+      const filteredConcerts: ServerEventDataWithId[] = this.filterConcerts(formattedConcerts);
 
       this.setConcerts(filteredConcerts);
     } else {
@@ -90,12 +88,12 @@ export class ConcertListStore {
     }
   };
 
-  private setConcerts = (concerts: ConcertFormattedData[]): void => {
+  private setConcerts = (concerts: ServerEventDataWithId[]): void => {
     this.concerts = concerts;
   };
 
   private setupConcertsListener = (): void => {
-    this.concertListTransport.concertsListener((concerts: ConcertFormattedData[]) => {
+    this.concertListTransport.concertsListener((concerts: ServerEventDataWithId[]) => {
       runInAction(() => {
         this.setConcerts(concerts);
       });

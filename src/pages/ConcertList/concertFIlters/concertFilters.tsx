@@ -8,12 +8,11 @@ import { EventType, type EventTypeFilter } from "../../../store/concertList/conc
 import { useRootStore } from "../../../store/StoreContext";
 import { ConcertsPageIds, concertsPageText } from "../constants";
 
-import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
-
 import type {
   FilterInputsConfig,
   ToggleButtonFilterProps,
 } from "../../../components/DataGridFilters/types";
+import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
 
 export const ConcertFilters: React.FC = observer(function ConcertFilters() {
   const {

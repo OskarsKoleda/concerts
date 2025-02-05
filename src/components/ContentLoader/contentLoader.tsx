@@ -1,9 +1,8 @@
 import { Box, CircularProgress } from "@mui/material";
+import type { FC } from "react";
 import { memo } from "react";
 
 import { contentWrapperSyle, getContentStyles } from "./styles";
-
-import type { FC } from "react";
 
 type ContentLoaderProps = {
   isLoading: boolean;

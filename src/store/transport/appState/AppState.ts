@@ -8,6 +8,7 @@ export class AppState implements AppStateStorage {
   constructor() {
     makeAutoObservable(this);
   }
+
   public setActiveError: SetAppActiveError = (message) => {
     this.activeError = { message };
   };

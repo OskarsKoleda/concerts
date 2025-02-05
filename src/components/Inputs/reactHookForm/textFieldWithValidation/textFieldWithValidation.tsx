@@ -1,11 +1,10 @@
+import type { TextFieldProps } from "@mui/material";
 import { Box, TextField, Tooltip } from "@mui/material";
 import { Controller } from "react-hook-form";
 
+import type { ChangeEvent } from "react";
 import { getInputErrorText } from "../../../../common/utils/utility";
 import { ReadonlyField } from "../../readonly/readonly";
-
-import type { TextFieldProps } from "@mui/material";
-import type { ChangeEvent } from "react";
 import type {
   ReadonlyControl,
   WithTooltip,
