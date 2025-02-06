@@ -8,17 +8,18 @@ export type EventTypeFilter = EventType;
 export enum EventType {
   concert = "Concert",
   festival = "Festival",
+  theatre = "Theatre",
   all = "All",
 }
 
-export interface ConcertsFilterOptions {
+export interface EventFilterOptions {
   eventType: string;
-  concertTitle: Nullable<string>;
+  eventTitle: Nullable<string>;
   city: Nullable<string>;
   band: Nullable<string>;
 }
 
-export interface IConcertFilters {
+export interface IEventFilters {
   readonly eventTitle: string;
   readonly city: CityFilter;
   readonly eventType: string;

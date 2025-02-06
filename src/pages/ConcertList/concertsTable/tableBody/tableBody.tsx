@@ -10,7 +10,7 @@ import { tableStyles } from "./styles";
 
 export const TableBody = observer(function TableBody() {
   const {
-    concertListStore: { concerts },
+    concertListStore: { events },
   } = useRootStore();
 
   const renderBandsCell = (params: GridRenderCellParams) => {
@@ -77,7 +77,7 @@ export const TableBody = observer(function TableBody() {
     <DataGrid
       sx={tableStyles}
       columns={columns}
-      rows={concerts}
+      rows={events}
       disableRowSelectionOnClick={true}
       disableColumnMenu={true}
       initialState={{

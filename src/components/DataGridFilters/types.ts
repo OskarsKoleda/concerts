@@ -1,6 +1,6 @@
 import type { ButtonProps } from "@mui/material";
 import type { Maybe } from "../../common/types/appTypes";
-import type { EventTypeFilter } from "../../store/concertList/concertFilters/types";
+import type { EventTypeFilter } from "../../store/eventList/eventFilters/types";
 import type { FilterInputType } from "./constants";
 
 export type FilterInputProps = {

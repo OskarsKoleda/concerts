@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import { ContentLoader } from "../../components/ContentLoader/contentLoader";
 import { useRootStore } from "../../store/StoreContext";
-import { ConcertListRequests } from "../../store/transport/concertListTransport/constants";
+import { ConcertListRequests } from "../../store/transport/eventListTransport/constants";
 
 import { ConcertCardsList } from "./concertCardsList/concertCards";
 import { ConcertFilters } from "./concertFIlters/concertFilters";
@@ -15,9 +15,9 @@ export const ConcertList: React.FC = observer(function ConcertList() {
   const {
     applicationStore: { listViewIsSelected },
     concertListStore: {
-      loadEvents: fetchAllConcerts,
+      getAllEvents: fetchAllConcerts,
 
-      concertListTransport: {
+      eventListTransport: {
         requestHandler: { resetRequest, isSuccessfulRequest },
       },
     },

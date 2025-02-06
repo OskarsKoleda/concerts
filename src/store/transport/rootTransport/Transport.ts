@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 
 import { AppState } from "../appState/AppState";
 import { EventDetailsTransport } from "../eventDetailsTransport/EventDetailsTransport.ts";
-import { ConcertListTransport } from "../concertListTransport/ConcertListTransport";
+import { EventListTransport } from "../eventListTransport/EventListTransport.ts";
 import { RequestHandler } from "../requestHandler/RequestHandler";
 import { db } from "../../../firebaseConfig.ts";
 
@@ -11,7 +11,7 @@ import type { RootTransport } from "./types";
 export class Transport implements RootTransport {
   public readonly appState: AppState;
   public readonly requestHandler: RequestHandler;
-  public readonly concertListTransport: ConcertListTransport;
+  public readonly concertListTransport: EventListTransport;
   public readonly concertDetailsTransport: EventDetailsTransport;
 
   constructor() {
@@ -24,7 +24,7 @@ export class Transport implements RootTransport {
       setAppActiveError: this.appState.setActiveError,
     });
 
-    this.concertListTransport = new ConcertListTransport(db, this.requestHandler);
+    this.concertListTransport = new EventListTransport(db, this.requestHandler);
     this.concertDetailsTransport = new EventDetailsTransport(db, this.requestHandler);
   }
 }

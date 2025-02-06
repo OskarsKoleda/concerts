@@ -7,9 +7,6 @@ export const NOT_ALL_WHITESPACE_PATTERN = /^\S\S*/;
 
 export enum ResponseMessages {
   EVENT_SUCCESSFUL_CREATION = "The event was successfully CREATED!",
-  EVENT_SUCCESSFUL_DELETION = "The event was successfully REMOVED!",
-  EVENT_SUCCESSFUL_UPDATE = "The event was successfully UPDATED!",
-  EVENT_SUCCESSFUL_RETRIEVE = "The event was successfully RETRIEVED!",
   EVENT_UPDATE_FAILURE = "Could not update the event. Something went wrong!",
   EVENT_DELETION_FAILURE = "Could not delete the event. Something went wrong!",
   EVENT_NOT_FOUND = "The event was not found!",

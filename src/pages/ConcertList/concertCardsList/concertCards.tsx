@@ -9,13 +9,13 @@ import { concertsContainerStyles } from "./styles";
 
 export const ConcertCardsList: React.FC = observer(function ConcertCardsList() {
   const {
-    concertListStore: { concerts },
+    concertListStore: { events },
   } = useRootStore();
 
   return (
     <Box sx={concertsContainerStyles}>
       <Grid container direction="row" justifyContent="space-evenly" rowSpacing={1}>
-        {toJS(concerts).map((concert) => (
+        {toJS(events).map((concert) => (
           <Grid item key={concert.eventId}>
             <Card
               imageUrl={concert.posterUrl || concert.posterUrl}

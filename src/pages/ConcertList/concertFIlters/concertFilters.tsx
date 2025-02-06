@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import { FilterInputType } from "../../../components/DataGridFilters/constants";
 import { DataGridFilters } from "../../../components/DataGridFilters/dataGridFilters";
-import { EventType, type EventTypeFilter } from "../../../store/concertList/concertFilters/types";
+import { EventType, type EventTypeFilter } from "../../../store/eventList/eventFilters/types";
 import { useRootStore } from "../../../store/StoreContext";
 import { ConcertsPageIds, concertsPageText } from "../constants";
 
@@ -21,7 +21,7 @@ export const ConcertFilters: React.FC = observer(function ConcertFilters() {
   } = concertsPageText.filters;
   const {
     concertListStore: {
-      concertsFilters: {
+      eventsFilters: {
         setEventTitle,
         setCity,
         setBand,

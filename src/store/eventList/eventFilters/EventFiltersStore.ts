@@ -1,24 +1,24 @@
 import { makeAutoObservable } from "mobx";
 
 import {
-  EventType,
   type BandFilter,
   type CityFilter,
-  type ConcertsFilterOptions,
+  type EventFilterOptions,
   type EventTitleFilter,
+  EventType,
   type EventTypeFilter,
-  type IConcertFilters,
+  type IEventFilters,
 } from "./types";
 
-export class ConcertsFiltersStore implements IConcertFilters {
+export class EventFiltersStore implements IEventFilters {
   eventTitle: EventTitleFilter;
   eventType: EventTypeFilter;
   city: CityFilter;
   band: BandFilter;
 
-  constructor(options: ConcertsFilterOptions) {
+  constructor(options: EventFilterOptions) {
     makeAutoObservable(this);
-    this.eventTitle = options.concertTitle ?? "";
+    this.eventTitle = options.eventTitle ?? "";
     this.city = options.city ?? "";
     this.band = options.band ?? "";
     this.eventType = EventType.all;

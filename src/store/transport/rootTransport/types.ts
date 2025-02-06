@@ -1,4 +1,4 @@
-import type { ConcertListTransport } from "../concertListTransport/ConcertListTransport";
+import type { EventListTransport } from "../eventListTransport/EventListTransport.ts";
 import type { AppRequest } from "../requestHandler/appRequest/AppRequest";
 import type { IRequestHandler } from "../requestHandler/types";
 
@@ -7,7 +7,7 @@ export interface ChildTransport {
 }
 
 export interface RootTransport {
-  readonly concertListTransport: ConcertListTransport;
+  readonly concertListTransport: EventListTransport;
 }
 
 type ErrorTexts = {

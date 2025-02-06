@@ -1,5 +1,5 @@
 import type { Database } from "firebase/database";
-import { onValue, ref } from "firebase/database";
+import { get, onValue, ref } from "firebase/database";
 import { makeAutoObservable } from "mobx";
 
 import { appendEventIdToServerEvent } from "../../../common/utils/utility";
@@ -10,8 +10,7 @@ import type { RequestHandler } from "../requestHandler/RequestHandler";
 import type { ChildTransport, RequestContext } from "../rootTransport/types";
 import { ConcertListRequests, requestErrorMessages } from "./constants";
 
-// why need to implement ChildTransport?
-export class ConcertListTransport implements ChildTransport {
+export class EventListTransport implements ChildTransport {
   constructor(
     readonly db: Database,
     readonly requestHandler: RequestHandler,
@@ -23,12 +22,15 @@ export class ConcertListTransport implements ChildTransport {
     return getRequestContext(requestName, this.requestHandler, requestErrorMessages);
   };
 
-  concertsListener = (callback: (concerts: ServerEventDataWithId[]) => void) => {
+  eventsListener = (callback: (concerts: ServerEventDataWithId[]) => void) => {
     const concertsRef = ref(this.db, "/events");
+
     onValue(concertsRef, (snapshot) => {
-      const data = snapshot.val();
+      const data = snapshot.val(); // TODO: find out what is data - 1 or many events
+
       if (data) {
         const formattedConcerts: ServerEventDataWithId[] = appendEventIdToServerEvent(data);
+
         callback(formattedConcerts);
       } else {
         callback([]);
@@ -36,22 +38,26 @@ export class ConcertListTransport implements ChildTransport {
     });
   };
 
-  fetchEvents = async (): Promise<ServerEventData | undefined> => {
+  getAllEvents = async (): Promise<ServerEventData | undefined> => {
     const { errorTexts, request } = this.getRequestContextHelper(
       ConcertListRequests.getConcertsData,
     );
 
     try {
       request.inProgress();
-      const concertsRef = ref(this.db, "/events");
+      const eventsRef = ref(this.db, "/events");
+      const snapshot = await get(eventsRef);
+      request.success();
 
-      return new Promise((res) => {
-        onValue(concertsRef, (snapshot) => {
-          const data: ServerEventData = snapshot.val();
-          request.success();
-          res(data);
-        });
-      });
+      return snapshot.val();
+      // return new Promise((res) => {
+      //   onValue(eventsRef, (snapshot) => {
+      //     const data: ServerEventData = snapshot.val();
+      //
+      //     request.success();
+      //     res(data);
+      //   });
+      // });
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
     }
