@@ -6,10 +6,10 @@ export const homepageText = {
     },
     navigationSection: {
       viewButton: {
-        label: "View Concerts",
+        label: "View Events",
       },
       addButton: {
-        label: "Add Concert",
+        label: "Add New Event",
       },
     },
     contentSection: {

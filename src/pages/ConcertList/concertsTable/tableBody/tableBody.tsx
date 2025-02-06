@@ -10,7 +10,7 @@ import { tableStyles } from "./styles";
 
 export const TableBody = observer(function TableBody() {
   const {
-    concertListStore: { events },
+    eventListStore: { events },
   } = useRootStore();
 
   const renderBandsCell = (params: GridRenderCellParams) => {
@@ -72,7 +72,7 @@ export const TableBody = observer(function TableBody() {
     { field: "ticketPrice", headerName: "Ticket (€)", flex: 1 },
   ];
 
-  // TODO table renendered with every click
+  // TODO table rendered with every click
   return (
     <DataGrid
       sx={tableStyles}

@@ -12,7 +12,7 @@ import { CustomDialog } from "../CustomDialog/customDialog";
 export const DeleteConcertButton: React.FC = observer(() => {
   const [showConfirmationDialogue, setShowConfirmationDialogue] = useState(false);
   const {
-    concertDetailsStore: { deleteConcert, currentConcertId: concertId },
+    eventDetailsStore: { deleteConcert, currentConcertId: concertId },
   } = useRootStore();
 
   const navigate = useNavigate();

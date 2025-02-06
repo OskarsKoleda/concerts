@@ -1,12 +1,12 @@
 import { Accordion, AccordionDetails, AccordionSummary, Paper } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 
 import { FilterInputType } from "../../../components/DataGridFilters/constants";
 import { DataGridFilters } from "../../../components/DataGridFilters/dataGridFilters";
 import { EventType, type EventTypeFilter } from "../../../store/eventList/eventFilters/types";
 import { useRootStore } from "../../../store/StoreContext";
-import { ConcertsPageIds, concertsPageText } from "../constants";
+import { EventsPageIds, eventsPageText } from "../constants";
 
 import type {
   FilterInputsConfig,
@@ -14,13 +14,14 @@ import type {
 } from "../../../components/DataGridFilters/types";
 import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
 
-export const ConcertFilters: React.FC = observer(function ConcertFilters() {
+const {
+  inputs: { band, city, eventTitle },
+  buttons,
+} = eventsPageText["ENGLISH"].filters;
+
+export const EventFilters: React.FC = observer(function EventFilters() {
   const {
-    inputs: { band, city, eventTitle },
-    buttons,
-  } = concertsPageText.filters;
-  const {
-    concertListStore: {
+    eventListStore: {
       eventsFilters: {
         setEventTitle,
         setCity,
@@ -35,10 +36,10 @@ export const ConcertFilters: React.FC = observer(function ConcertFilters() {
     },
   } = useRootStore();
 
-  const concertFilterToggleButtons: ToggleButtonFilterProps = useMemo(() => {
+  const eventFilterToggleButtons: ToggleButtonFilterProps = useMemo(() => {
     return {
       inputType: FilterInputType.toggleButton,
-      id: ConcertsPageIds.eventTypeToggle,
+      id: EventsPageIds.eventTypeToggle,
       label: "Event Type",
       value: currentEventType,
       options: Object.values(EventType),
@@ -50,12 +51,12 @@ export const ConcertFilters: React.FC = observer(function ConcertFilters() {
     };
   }, [currentEventType, setEventType]);
 
-  const concertFilterInputConfig: FilterInputsConfig = useMemo(() => {
+  const eventFilterInputConfig: FilterInputsConfig = useMemo(() => {
     return {
       inputs: [
         {
           inputType: FilterInputType.text,
-          id: ConcertsPageIds.eventTitleFilter,
+          id: EventsPageIds.eventTitleFilter,
           label: eventTitle.label,
           placeholder: eventTitle.placeholder,
           onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEventTitle(e.target.value),
@@ -63,7 +64,7 @@ export const ConcertFilters: React.FC = observer(function ConcertFilters() {
         },
         {
           inputType: FilterInputType.text,
-          id: ConcertsPageIds.cityFilter,
+          id: EventsPageIds.cityFilter,
           label: city.label,
           placeholder: city.placeholder,
           onChange: (e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value),
@@ -71,7 +72,7 @@ export const ConcertFilters: React.FC = observer(function ConcertFilters() {
         },
         {
           inputType: FilterInputType.text,
-          id: ConcertsPageIds.bandFilter,
+          id: EventsPageIds.bandFilter,
           label: band.label,
           placeholder: band.placeholder,
           onChange: (e: React.ChangeEvent<HTMLInputElement>) => setBand(e.target.value),
@@ -93,7 +94,7 @@ export const ConcertFilters: React.FC = observer(function ConcertFilters() {
       buttons: [
         {
           disabled: false, // isResetFiltersDisabled
-          id: ConcertsPageIds.resetButton,
+          id: EventsPageIds.resetButton,
           label: buttons.reset.label,
           onClick: resetFilters,
           color: "primary",
@@ -133,8 +134,8 @@ export const ConcertFilters: React.FC = observer(function ConcertFilters() {
         <AccordionSummary sx={filterSummaryStyles}>Filter By</AccordionSummary>
         <AccordionDetails sx={filterDetailsStyles}>
           <DataGridFilters
-            filterProps={concertFilterInputConfig}
-            filterToggles={concertFilterToggleButtons}
+            filterProps={eventFilterInputConfig}
+            filterToggles={eventFilterToggleButtons}
           />
         </AccordionDetails>
       </Accordion>

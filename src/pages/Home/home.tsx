@@ -1,19 +1,20 @@
 import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 
+import React from "react";
 import { NavLinkButton } from "../../components/NavButton/navButton";
 import { ROUTE_LIST } from "../../router/routes";
 
 import { homepageText } from "./constants";
 
-export const HomePage: React.FC = () => {
-  const {
-    ENGLISH: {
-      titleSection,
-      navigationSection: { addButton, viewButton },
-      contentSection,
-    },
-  } = homepageText;
+const {
+  ENGLISH: {
+    titleSection,
+    navigationSection: { addButton, viewButton },
+    contentSection,
+  },
+} = homepageText;
 
+export const HomePage: React.FC = () => {
   return (
     <Container maxWidth="md" sx={{ mt: 8 }}>
       <Box textAlign="center" mb={4}>

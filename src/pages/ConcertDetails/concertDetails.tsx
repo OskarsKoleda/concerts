@@ -31,7 +31,7 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
   const currentURL = useLocation();
 
   const {
-    concertDetailsStore: {
+    eventDetailsStore: {
       addEvent,
       getEvent,
       updateEvent,

@@ -7,7 +7,7 @@ export interface ChildTransport {
 }
 
 export interface RootTransport {
-  readonly concertListTransport: EventListTransport;
+  readonly eventListTransport: EventListTransport;
 }
 
 type ErrorTexts = {

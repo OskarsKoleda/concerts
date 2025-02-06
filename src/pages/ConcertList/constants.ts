@@ -1,4 +1,4 @@
-export enum ConcertsPageIds {
+export enum EventsPageIds {
   eventTitleFilter = "eventTitleFilter",
   cityFilter = "cityFilter",
   bandFilter = "bandFilter",
@@ -7,24 +7,26 @@ export enum ConcertsPageIds {
   eventTypeToggle = "eventTypeToggle",
 }
 
-export const concertsPageText = {
-  filters: {
-    inputs: {
-      eventTitle: {
-        label: "Event Title",
-        placeholder: "Enter event title",
+export const eventsPageText = {
+  ENGLISH: {
+    filters: {
+      inputs: {
+        eventTitle: {
+          label: "Event Title",
+          placeholder: "Enter event title",
+        },
+        band: {
+          label: "Band",
+          placeholder: "Enter band",
+        },
+        city: {
+          label: "City",
+          placeholder: "Enter city",
+        },
       },
-      band: {
-        label: "Band",
-        placeholder: "Enter band",
+      buttons: {
+        reset: { label: "Reset" },
       },
-      city: {
-        label: "City",
-        placeholder: "Enter city",
-      },
-    },
-    buttons: {
-      reset: { label: "Reset" },
     },
   },
 };

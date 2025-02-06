@@ -2,6 +2,7 @@ import { Box, Grid } from "@mui/material";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 
+import React from "react";
 import { Card } from "../../../components/CardWithImage/cardWithImage";
 import { useRootStore } from "../../../store/StoreContext";
 
@@ -9,7 +10,7 @@ import { concertsContainerStyles } from "./styles";
 
 export const ConcertCardsList: React.FC = observer(function ConcertCardsList() {
   const {
-    concertListStore: { events },
+    eventListStore: { events },
   } = useRootStore();
 
   return (

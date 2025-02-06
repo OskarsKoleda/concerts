@@ -11,8 +11,8 @@ import type { RootTransport } from "./types";
 export class Transport implements RootTransport {
   public readonly appState: AppState;
   public readonly requestHandler: RequestHandler;
-  public readonly concertListTransport: EventListTransport;
-  public readonly concertDetailsTransport: EventDetailsTransport;
+  public readonly eventListTransport: EventListTransport;
+  public readonly eventDetailsTransport: EventDetailsTransport;
 
   constructor() {
     makeAutoObservable(this);
@@ -24,7 +24,7 @@ export class Transport implements RootTransport {
       setAppActiveError: this.appState.setActiveError,
     });
 
-    this.concertListTransport = new EventListTransport(db, this.requestHandler);
-    this.concertDetailsTransport = new EventDetailsTransport(db, this.requestHandler);
+    this.eventListTransport = new EventListTransport(db, this.requestHandler);
+    this.eventDetailsTransport = new EventDetailsTransport(db, this.requestHandler);
   }
 }
