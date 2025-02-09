@@ -1,12 +1,17 @@
-export const defaultValues = {
-  eventType: "Concert",
-  title: "",
+import type { LocalEventData } from "../../common/types/eventTypes.ts";
+import { EventType } from "../../store/eventList/eventFilters/types.ts";
+
+export const defaultValues: LocalEventData = {
+  eventType: EventType.concert,
+  eventTitle: "",
   bands: [],
   city: "",
-  startDate: new Date(),
-  endDate: new Date(),
+  eventDate: new Date(),
+  festivalStartDate: new Date(),
+  festivalEndDate: new Date(),
   ticketPrice: 0,
-  posterUrl: "",
+  location: "",
+  posterImage: null,
 };
 
 export const concertText = {

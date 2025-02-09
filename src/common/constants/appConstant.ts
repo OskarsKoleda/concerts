@@ -12,6 +12,7 @@ export enum ResponseMessages {
   EVENT_NOT_FOUND = "The event was not found!",
   EVENT_FAILED_RETRIEVE = "Could not retrieve the event. Unknown problem.",
   EVENT_FAILED_CREATION = "Could not create the event. Something went wrong!",
+  EVENT_SUCCESSFUL_UPDATE = "The event was successfully updated!",
 }
 
 export const EVENT_TITLE_RULES: UseControllerProps["rules"] = {

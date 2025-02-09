@@ -4,12 +4,12 @@ import { ResponseMessages } from "../../../common/constants/appConstant";
 import { getRequestContext } from "../rootTransport/utils";
 import type { ServerEventData } from "../../../common/types/eventTypes.ts";
 import type {
-  EventCreateResponse,
-  EventDeleteResponse,
-  EventReadResponse,
-  EventUpdateResponse,
-  ImageUploadResponse,
-} from "../../responseTypes.ts";
+  EventCreateResult,
+  EventDeleteResult,
+  EventReadResult,
+  EventUpdateResult,
+  ImageUploadResult,
+} from "../responseTypes.ts";
 import type { RequestHandler } from "../requestHandler/RequestHandler";
 import type { ChildTransport, RequestContext } from "../rootTransport/types";
 import { EventDetailsRequests, requestErrorMessages } from "./constants";
@@ -26,7 +26,7 @@ export class EventDetailsTransport implements ChildTransport {
     return getRequestContext(requestName, this.requestHandler, requestErrorMessages);
   };
 
-  addEvent = async (event: ServerEventData): Promise<EventCreateResponse> => {
+  addEvent = async (event: ServerEventData): Promise<EventCreateResult> => {
     const { errorTexts, request } = this.getRequestContextHelper(EventDetailsRequests.addEvent);
 
     try {
@@ -36,7 +36,6 @@ export class EventDetailsTransport implements ChildTransport {
       await set(createdEventReference, event);
       request.success();
 
-      // TODO: check this ThenableReference object
       return {
         eventReference: createdEventReference.key,
       };
@@ -51,7 +50,7 @@ export class EventDetailsTransport implements ChildTransport {
 
   // TODO: move to its own transport?
   // TODO: add try / catch
-  uploadImageToCloudinary = async (posterImage: File): Promise<ImageUploadResponse> => {
+  uploadImageToCloudinary = async (posterImage: File): Promise<ImageUploadResult> => {
     const formData = new FormData();
     formData.append("file", posterImage);
     formData.append("upload_preset", "events");
@@ -73,12 +72,12 @@ export class EventDetailsTransport implements ChildTransport {
     const data = await response.json();
 
     return {
-      publicId: data.publicId,
+      publicPosterImageId: data.publicId,
       posterImageUrl: data.secure_url,
     };
   };
 
-  getEvent = async (eventId: string): Promise<EventReadResponse> => {
+  getEvent = async (eventId: string): Promise<EventReadResult> => {
     const { errorTexts, request } = this.getRequestContextHelper(EventDetailsRequests.getEvent);
 
     try {
@@ -99,10 +98,7 @@ export class EventDetailsTransport implements ChildTransport {
     }
   };
 
-  updateEvent = async (
-    eventId: string,
-    eventData: ServerEventData,
-  ): Promise<EventUpdateResponse> => {
+  updateEvent = async (eventId: string, eventData: ServerEventData): Promise<EventUpdateResult> => {
     const { errorTexts, request } = this.getRequestContextHelper(EventDetailsRequests.updateEvent);
 
     try {
@@ -111,7 +107,7 @@ export class EventDetailsTransport implements ChildTransport {
       await update(eventReference, eventData);
       request.success();
 
-      return { eventId };
+      return { eventReference: eventId };
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
 
@@ -119,7 +115,7 @@ export class EventDetailsTransport implements ChildTransport {
     }
   };
 
-  deleteConcert = async (eventId: string): Promise<EventDeleteResponse> => {
+  deleteConcert = async (eventId: string): Promise<EventDeleteResult> => {
     const { errorTexts, request } = this.getRequestContextHelper(EventDetailsRequests.deleteEvent);
     const concertRef = ref(this.db, `/events/${eventId}`);
     request.inProgress();

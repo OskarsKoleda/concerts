@@ -1,3 +1,5 @@
+import type { Nullable } from "./appTypes.ts";
+
 interface CommonEventData {
   eventType: string;
   eventTitle: string;
@@ -8,16 +10,16 @@ interface CommonEventData {
 }
 
 export type LocalEventData = CommonEventData & {
-  posterUrl?: string;
-  posterImage: File;
+  // posterUrl?: string;
+  posterImage: Nullable<File>;
   eventDate?: Date;
   festivalStartDate?: Date;
   festivalEndDate?: Date;
 };
 
 export type ServerEventData = CommonEventData & {
-  posterUrl: string;
-  posterPublicId: string;
+  posterImageUrl?: string;
+  publicPosterImageId?: string;
   eventDate?: string;
   festivalStartDate?: string;
   festivalEndDate?: string;

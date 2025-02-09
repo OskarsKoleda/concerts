@@ -6,22 +6,22 @@ import React from "react";
 import { Card } from "../../../components/CardWithImage/cardWithImage";
 import { useRootStore } from "../../../store/StoreContext";
 
-import { concertsContainerStyles } from "./styles";
+import { eventsContainerStyles } from "./styles";
 
-export const ConcertCardsList: React.FC = observer(function ConcertCardsList() {
+export const EventCardsList: React.FC = observer(function EventCardsList() {
   const {
     eventListStore: { events },
   } = useRootStore();
 
   return (
-    <Box sx={concertsContainerStyles}>
+    <Box sx={eventsContainerStyles}>
       <Grid container direction="row" justifyContent="space-evenly" rowSpacing={1}>
-        {toJS(events).map((concert) => (
-          <Grid item key={concert.eventId}>
+        {toJS(events).map((event) => (
+          <Grid item key={event.eventId}>
             <Card
-              imageUrl={concert.posterUrl || concert.posterUrl}
-              title={concert.eventTitle}
-              concertId={concert.eventId}
+              imageUrl={event.posterImageUrl || event.posterImageUrl}
+              title={event.eventTitle}
+              concertId={event.eventId}
             />
           </Grid>
         ))}

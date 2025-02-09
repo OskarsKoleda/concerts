@@ -19,17 +19,14 @@ import { ConcertForm } from "./concertForm/concertForm";
 import { concertText, defaultValues } from "./constants";
 import { formContainerStyle, paperStyle } from "./styles";
 import type { LocalEventData } from "../../common/types/eventTypes.ts";
+import { EventRetrieveData } from "../../store/responseTypes.ts";
+import { convertServerEventToLocal } from "../../store/eventDetails/utils.ts";
 
 const {
-  ENGLISH: {
-    form: { title },
-  },
-} = concertText;
+  form: { title },
+} = concertText["ENGLISH"];
 
-export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage() {
-  const { id: concertId } = useParams();
-  const currentURL = useLocation();
-
+export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
   const {
     eventDetailsStore: {
       addEvent,
@@ -41,6 +38,8 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
     },
   } = useRootStore();
 
+  const { id: openedEventId } = useParams();
+  const currentURL = useLocation();
   const navigate = useNavigate();
   const { showSnackbar } = useCustomSnackbar();
   // TODO: move to some UI store?
@@ -49,12 +48,12 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
     [currentURL.pathname],
   );
   const concertInReadonlyMode = useMemo(
-    () => !!concertId && !concertInEditMode,
-    [concertId, concertInEditMode],
+    () => !!openedEventId && !concertInEditMode,
+    [openedEventId, concertInEditMode],
   );
 
   const displayLoader =
-    concertInReadonlyMode && !!concertId && !isSuccessfulRequest(EventDetailsRequests.getEvent);
+    concertInReadonlyMode && !!openedEventId && !isSuccessfulRequest(EventDetailsRequests.getEvent);
 
   const getFormTitle = useMemo(() => {
     return concertInEditMode
@@ -74,18 +73,20 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
 
   const handleUpdate: SubmitHandler<LocalEventData> = useCallback(
     async (data) => {
-      if (concertId) {
-        const { status, message } = await updateEvent(data, concertId);
+      if (openedEventId) {
+        const { status, message } = await updateEvent(openedEventId, data);
+
+        showSnackbar({
+          message,
+          variant: status === "OK" ? SnackbarVariantType.INFO : SnackbarVariantType.ERROR,
+        });
 
         if (status === "OK") {
-          showSnackbar({ message, variant: SnackbarVariantType.INFO });
-          navigate(`/${ROUTE_LIST.EVENTS}/${concertId}`);
-        } else {
-          showSnackbar({ message, variant: SnackbarVariantType.ERROR });
+          navigate(`/${ROUTE_LIST.EVENTS}/${openedEventId}`);
         }
       }
     },
-    [updateEvent, showSnackbar, navigate, concertId],
+    [updateEvent, showSnackbar, navigate, openedEventId],
   );
 
   const submitFormHandler = (event: React.SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -118,16 +119,22 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
   );
 
   const openConcertEditView = () => {
-    navigate(`/${ROUTE_LIST.EVENTS}/${concertId}/edit`);
+    navigate(`/${ROUTE_LIST.EVENTS}/${openedEventId}/edit`);
   };
 
   useEffect(() => {
-    const fetchConcertData = async () => {
-      if (concertId) {
-        const concert = await getEvent(concertId);
+    const fetchEventData = async () => {
+      if (openedEventId) {
+        const { event, message, status }: EventRetrieveData = await getEvent(openedEventId);
 
-        if (concert) {
-          reset(concert);
+        showSnackbar({
+          message,
+          variant: status === "OK" ? SnackbarVariantType.INFO : SnackbarVariantType.ERROR,
+        });
+
+        if (event) {
+          const convertedEvent = convertServerEventToLocal(event);
+          reset(convertedEvent);
         } else {
           showSnackbar({
             message: ResponseMessages.EVENT_FAILED_RETRIEVE,
@@ -140,8 +147,8 @@ export const ConcertDetailsPage: React.FC = observer(function ConcertDetailsPage
       }
     };
 
-    fetchConcertData();
-  }, [concertId, getEvent, navigate, reset, showSnackbar]);
+    fetchEventData();
+  }, [openedEventId, getEvent, navigate, reset, showSnackbar]);
 
   useEffect(() => {
     return () => {

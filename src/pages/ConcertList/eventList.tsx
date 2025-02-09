@@ -6,7 +6,7 @@ import { ContentLoader } from "../../components/ContentLoader/contentLoader";
 import { useRootStore } from "../../store/StoreContext";
 import { ConcertListRequests } from "../../store/transport/eventListTransport/constants";
 
-import { ConcertCardsList } from "./concertCardsList/concertCards";
+import { EventCardsList } from "./eventCardsList/eventCards.tsx";
 import { EventFilters } from "./eventFilters/eventFilters.tsx";
 import { EventsTable } from "./concertsTable/eventsTable.tsx";
 import { contentContainer } from "./styles";
@@ -41,7 +41,7 @@ export const EventList: React.FC = observer(function EventList() {
     <ContentLoader isLoading={!concertsHaveLoaded}>
       <Box sx={contentContainer}>
         <EventFilters />
-        {listViewIsSelected ? <ConcertCardsList /> : <EventsTable />}
+        {listViewIsSelected ? <EventCardsList /> : <EventsTable />}
       </Box>
     </ContentLoader>
   );
