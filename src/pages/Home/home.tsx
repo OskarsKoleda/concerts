@@ -29,7 +29,7 @@ export const HomePage: React.FC = () => {
       <Box textAlign="center" mb={4}>
         <Grid container spacing={2} justifyContent="center">
           <Grid item>
-            <NavLinkButton variant="contained" color="primary" to="concerts">
+            <NavLinkButton variant="contained" color="primary" to={`/${ROUTE_LIST.EVENTS}`}>
               {viewButton.label}
             </NavLinkButton>
           </Grid>

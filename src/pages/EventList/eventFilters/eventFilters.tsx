@@ -4,7 +4,7 @@ import React, { useMemo } from "react";
 
 import { FilterInputType } from "../../../components/DataGridFilters/constants";
 import { DataGridFilters } from "../../../components/DataGridFilters/dataGridFilters";
-import { EventType, type EventTypeFilter } from "../../../store/eventList/eventFilters/types";
+import { type EventCategoryFilter } from "../../../store/eventList/eventFilters/types";
 import { useRootStore } from "../../../store/StoreContext";
 import { EventsPageIds, eventsPageText } from "../constants";
 
@@ -13,6 +13,7 @@ import type {
   ToggleButtonFilterProps,
 } from "../../../components/DataGridFilters/types";
 import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
+import { eventCategoriesList } from "../../EventDetails/constants.ts";
 
 const {
   inputs: { band, city, eventTitle },
@@ -42,8 +43,8 @@ export const EventFilters: React.FC = observer(function EventFilters() {
       id: EventsPageIds.eventTypeToggle,
       label: "Event Type",
       value: currentEventType,
-      options: Object.values(EventType),
-      onChange: (_: React.MouseEvent<HTMLElement>, newFestivalType: EventTypeFilter) => {
+      options: eventCategoriesList,
+      onChange: (_: React.MouseEvent<HTMLElement>, newFestivalType: EventCategoryFilter) => {
         if (newFestivalType !== null) {
           setEventType(newFestivalType);
         }

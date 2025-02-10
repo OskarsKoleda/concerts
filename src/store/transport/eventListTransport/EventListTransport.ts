@@ -8,7 +8,7 @@ import { getRequestContext } from "../rootTransport/utils";
 import type { ServerEventData, ServerEventDataWithId } from "../../../common/types/eventTypes.ts";
 import type { RequestHandler } from "../requestHandler/RequestHandler";
 import type { ChildTransport, RequestContext } from "../rootTransport/types";
-import { ConcertListRequests, requestErrorMessages } from "./constants";
+import { EventListRequests, requestErrorMessages } from "./constants";
 
 export class EventListTransport implements ChildTransport {
   constructor(
@@ -18,14 +18,14 @@ export class EventListTransport implements ChildTransport {
     makeAutoObservable(this);
   }
 
-  private getRequestContextHelper = (requestName: ConcertListRequests): RequestContext => {
+  private getRequestContextHelper = (requestName: EventListRequests): RequestContext => {
     return getRequestContext(requestName, this.requestHandler, requestErrorMessages);
   };
 
   eventsListener = (callback: (concerts: ServerEventDataWithId[]) => void) => {
-    const concertsRef = ref(this.db, "/events");
+    const eventsRef = ref(this.db, "/events");
 
-    onValue(concertsRef, (snapshot) => {
+    onValue(eventsRef, (snapshot) => {
       const data = snapshot.val(); // TODO: find out what is data - 1 or many events
 
       if (data) {
@@ -39,9 +39,7 @@ export class EventListTransport implements ChildTransport {
   };
 
   getAllEvents = async (): Promise<ServerEventData | undefined> => {
-    const { errorTexts, request } = this.getRequestContextHelper(
-      ConcertListRequests.getConcertsData,
-    );
+    const { errorTexts, request } = this.getRequestContextHelper(EventListRequests.getEventsData);
 
     try {
       request.inProgress();

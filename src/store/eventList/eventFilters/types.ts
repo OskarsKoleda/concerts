@@ -1,16 +1,10 @@
 import type { Nullable } from "../../../common/types/appTypes";
+import type { EventCategoryType } from "../../../pages/EventDetails/types.ts";
 
 export type EventTitleFilter = string;
 export type CityFilter = string;
 export type BandFilter = string;
-export type EventTypeFilter = EventType;
-
-export enum EventType {
-  concert = "Concert",
-  festival = "Festival",
-  theatre = "Theatre",
-  all = "All",
-}
+export type EventCategoryFilter = EventCategoryType | "All";
 
 export interface EventFilterOptions {
   eventType: string;

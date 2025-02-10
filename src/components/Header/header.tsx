@@ -37,21 +37,21 @@ export const Header = observer(function Header() {
               to="/"
             >
               <Box component="img" src={homepage} alt="homepage" sx={homepageIconStyles} />
-              <Typography sx={headerTitleStyles}>My Concerts</Typography>
+              <Typography sx={headerTitleStyles}>My Events</Typography>
             </Link>
           </Box>
 
           <Box sx={flexCenterStyle}>
-            <Link onClick={() => setActiveMenuItem("View Concerts")} to="/concerts">
-              <Tooltip title="View Concerts">
+            <Link onClick={() => setActiveMenuItem("View Events")} to="/events">
+              <Tooltip title="View Event">
                 <IconButton size="large">
                   <StadiumIcon />
                 </IconButton>
               </Tooltip>
             </Link>
 
-            <Link onClick={() => setActiveMenuItem("Add Concert")} to="/concerts/new">
-              <Tooltip title="Add Concert">
+            <Link onClick={() => setActiveMenuItem("Add Event")} to="/events/new">
+              <Tooltip title="Add Event">
                 <IconButton size="large">
                   <AddIcon />
                 </IconButton>

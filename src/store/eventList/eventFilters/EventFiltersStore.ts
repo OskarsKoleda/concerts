@@ -1,18 +1,16 @@
 import { makeAutoObservable } from "mobx";
-
 import {
   type BandFilter,
   type CityFilter,
+  type EventCategoryFilter,
   type EventFilterOptions,
   type EventTitleFilter,
-  EventType,
-  type EventTypeFilter,
   type IEventFilters,
 } from "./types";
 
 export class EventFiltersStore implements IEventFilters {
   eventTitle: EventTitleFilter;
-  eventType: EventTypeFilter;
+  eventType: EventCategoryFilter;
   city: CityFilter;
   band: BandFilter;
 
@@ -21,7 +19,7 @@ export class EventFiltersStore implements IEventFilters {
     this.eventTitle = options.eventTitle ?? "";
     this.city = options.city ?? "";
     this.band = options.band ?? "";
-    this.eventType = EventType.all;
+    this.eventType = "All";
   }
 
   setEventTitle = (eventTitle: EventTitleFilter): void => {
@@ -36,7 +34,7 @@ export class EventFiltersStore implements IEventFilters {
     this.band = band;
   };
 
-  setEventType = (eventType: EventTypeFilter): void => {
+  setEventType = (eventType: EventCategoryFilter): void => {
     this.eventType = eventType;
   };
 
@@ -44,6 +42,6 @@ export class EventFiltersStore implements IEventFilters {
     this.eventTitle = "";
     this.city = "";
     this.band = "";
-    this.eventType = EventType.all;
+    this.eventType = "All";
   };
 }

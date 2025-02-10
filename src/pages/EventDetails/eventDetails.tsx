@@ -13,10 +13,10 @@ import { ROUTE_LIST } from "../../router/routes";
 import { useRootStore } from "../../store/StoreContext";
 import { EventDetailsRequests } from "../../store/transport/eventDetailsTransport/constants";
 
-import { ConcertDatesForm } from "./concertDatesForm/concertDatesForm";
-import { ConcertDetailsButtons } from "./concertDetailsButtons/concertDetailsButtons";
-import { ConcertForm } from "./concertForm/concertForm";
-import { concertText, defaultValues } from "./constants";
+import { EventDatesForm } from "./eventDatesForm/eventDatesForm.tsx";
+import { EventDetailsButtons } from "./eventDetailsButtons/eventDetailsButtons.tsx";
+import { EventForm } from "./eventForm/eventForm.tsx";
+import { defaultValues, eventDetailsText } from "./constants";
 import { formContainerStyle, paperStyle } from "./styles";
 import type { LocalEventData } from "../../common/types/eventTypes.ts";
 import { EventRetrieveData } from "../../store/responseTypes.ts";
@@ -24,7 +24,7 @@ import { convertServerEventToLocal } from "../../store/eventDetails/utils.ts";
 
 const {
   form: { title },
-} = concertText["ENGLISH"];
+} = eventDetailsText["ENGLISH"];
 
 export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
   const {
@@ -164,10 +164,10 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
           <FormProvider {...methods}>
             <form onSubmit={submitFormHandler}>
               <Typography variant="h5">{getFormTitle}</Typography>
-              <ConcertForm readOnly={concertInReadonlyMode} />
-              <ConcertDatesForm readOnly={concertInReadonlyMode} />
+              <EventForm readOnly={concertInReadonlyMode} />
+              <EventDatesForm readOnly={concertInReadonlyMode} />
               <input {...register("posterImage", { required: true })} type="file" />
-              <ConcertDetailsButtons
+              <EventDetailsButtons
                 readOnly={concertInReadonlyMode}
                 isEditMode={concertInEditMode}
                 onEditClick={openConcertEditView}

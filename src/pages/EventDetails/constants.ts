@@ -1,10 +1,19 @@
 import type { LocalEventData } from "../../common/types/eventTypes.ts";
-import { EventType } from "../../store/eventList/eventFilters/types.ts";
+import type { EventCategoryType } from "./types.ts";
+
+export enum EventCategory {
+  musicConcert = "Music Concert",
+  musicFestival = "Music Festival",
+  theatre = "Theatre",
+  creativeEvening = "Creative Evening",
+}
+
+export const eventCategoriesList: EventCategoryType[] = Object.values(EventCategory);
 
 export const defaultValues: LocalEventData = {
-  eventType: EventType.concert,
+  eventCategory: EventCategory.musicConcert,
   eventTitle: "",
-  bands: [],
+  artists: [],
   city: "",
   eventDate: new Date(),
   festivalStartDate: new Date(),
@@ -14,7 +23,7 @@ export const defaultValues: LocalEventData = {
   posterImage: null,
 };
 
-export const concertText = {
+export const eventDetailsText = {
   ENGLISH: {
     form: {
       title: {

@@ -4,12 +4,13 @@ import { observer } from "mobx-react-lite";
 
 import { ContentLoader } from "../../components/ContentLoader/contentLoader";
 import { useRootStore } from "../../store/StoreContext";
-import { ConcertListRequests } from "../../store/transport/eventListTransport/constants";
 
 import { EventCardsList } from "./eventCardsList/eventCards.tsx";
 import { EventFilters } from "./eventFilters/eventFilters.tsx";
-import { EventsTable } from "./concertsTable/eventsTable.tsx";
+import { EventsTable } from "./eventsTable/eventsTable.tsx";
 import { contentContainer } from "./styles";
+
+import { EventListRequests } from "../../store/transport/eventListTransport/constants.ts";
 
 export const EventList: React.FC = observer(function EventList() {
   const {
@@ -23,7 +24,7 @@ export const EventList: React.FC = observer(function EventList() {
     },
   } = useRootStore();
 
-  const concertsHaveLoaded: boolean = isSuccessfulRequest(ConcertListRequests.getConcertsData);
+  const concertsHaveLoaded: boolean = isSuccessfulRequest(EventListRequests.getEventsData);
 
   useEffect(() => {
     getAllEvents();
@@ -31,12 +32,12 @@ export const EventList: React.FC = observer(function EventList() {
 
   useEffect(
     () => () => {
-      resetRequest(ConcertListRequests.getConcertsData);
+      resetRequest(EventListRequests.getEventsData);
     },
     [],
   );
 
-  // try <Suspense> instead of Content Loader
+  // TODO: try <Suspense> instead of Content Loader
   return (
     <ContentLoader isLoading={!concertsHaveLoaded}>
       <Box sx={contentContainer}>

@@ -1,7 +1,6 @@
 import _ from "lodash";
 
 import type { FieldError } from "react-hook-form";
-import { EventType } from "../../store/eventList/eventFilters/types";
 import { ERROR_TEXTS } from "../constants/appConstant";
 
 import type { RequestPayload } from "../../store/transport/eventListTransport/types";
@@ -39,8 +38,8 @@ export const eventsFilteringEngine = (
     // const matchesBand = band ? concert.bands.some((singleBand) => singleBand.includes(band)) : true;
     let matchesEventType: boolean;
 
-    if (eventType !== EventType.all) {
-      matchesEventType = eventType ? concert.eventType === eventType : true;
+    if (eventType !== "All") {
+      matchesEventType = eventType ? concert.eventCategory === eventType : true;
     } else {
       matchesEventType = true;
     }

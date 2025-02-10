@@ -1,6 +1,7 @@
 import type { ButtonProps } from "@mui/material";
+import type React from "react";
 import type { Maybe } from "../../common/types/appTypes";
-import type { EventTypeFilter } from "../../store/eventList/eventFilters/types";
+import type { EventCategoryFilter } from "../../store/eventList/eventFilters/types";
 import type { FilterInputType } from "./constants";
 
 export type FilterInputProps = {
@@ -24,7 +25,7 @@ export type SelectFilterProps = {
 // TODO: exclude redundant props?
 export type ToggleButtonFilterProps = {
   inputType: FilterInputType.toggleButton;
-  onChange: (_: React.MouseEvent<HTMLElement>, value: EventTypeFilter) => void;
+  onChange: (_: React.MouseEvent<HTMLElement>, value: EventCategoryFilter) => void;
   options: Array<string>;
 } & FilterInputProps;
 

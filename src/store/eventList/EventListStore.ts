@@ -1,11 +1,11 @@
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 
 import { appendEventIdToServerEvent, eventsFilteringEngine } from "../../common/utils/utility";
-import { ConcertListRequests } from "../transport/eventListTransport/constants";
 
 import type { ServerEventData, ServerEventDataWithId } from "../../common/types/eventTypes.ts";
 import type { EventListTransport } from "../transport/eventListTransport/EventListTransport.ts";
 import type { RequestPayload } from "../transport/eventListTransport/types";
+import { EventListRequests } from "../transport/eventListTransport/constants.ts";
 import { EventFiltersStore } from "./eventFilters/EventFiltersStore.ts";
 
 export class EventListStore {
@@ -15,12 +15,12 @@ export class EventListStore {
 
   constructor(eventListTransport: EventListTransport) {
     makeAutoObservable(this);
-    this.setupEventsListener();
     this.eventListTransport = eventListTransport;
+    this.setupEventsListener();
     this.eventsFilters = new EventFiltersStore({
       city: "",
       eventTitle: "",
-      eventType: "Concert",
+      eventType: "Music Concert",
       band: "",
     });
 
@@ -48,7 +48,7 @@ export class EventListStore {
   public get concertsCompletedLoading(): boolean {
     const { isSuccessfulRequest } = this.eventListTransport.requestHandler;
 
-    return isSuccessfulRequest(ConcertListRequests.getConcertsData);
+    return isSuccessfulRequest(EventListRequests.getEventsData);
   }
 
   // public get isDeletionSuccessful(): boolean {

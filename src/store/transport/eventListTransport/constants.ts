@@ -1,13 +1,13 @@
 import type { RequestErrorMessages } from "../rootTransport/types";
 
-export enum ConcertListRequests {
-  getConcertsData = "getConcertsData",
+export enum EventListRequests {
+  getEventsData = "getEventsData",
 }
 
-export const requestErrorMessages: RequestErrorMessages<ConcertListRequests> = {
-  [ConcertListRequests.getConcertsData]: {
-    incorrectResponse: "Incorrect concerts data was received",
-    unexpectedError: "Unable to retrieve concerts data",
+export const requestErrorMessages: RequestErrorMessages<EventListRequests> = {
+  [EventListRequests.getEventsData]: {
+    incorrectResponse: "Incorrect events data was received",
+    unexpectedError: "Unable to retrieve events data",
   },
 };
 

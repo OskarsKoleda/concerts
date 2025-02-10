@@ -1,9 +1,10 @@
+import type { EventCategoryType } from "../../pages/EventDetails/types.ts";
 import type { Nullable } from "./appTypes.ts";
 
 interface CommonEventData {
-  eventType: string;
+  eventCategory: EventCategoryType;
   eventTitle: string;
-  bands?: string[];
+  artists: string[];
   city: string;
   location?: string;
   ticketPrice?: number;

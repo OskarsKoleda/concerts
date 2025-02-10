@@ -14,7 +14,7 @@ type ControlButtonsProps = {
   onEditClick: () => void;
 };
 
-export const ConcertDetailsButtons: FC<ControlButtonsProps> = memo(function ConcertDetailsButtons({
+export const EventDetailsButtons: FC<ControlButtonsProps> = memo(function EventDetailsButtons({
   onEditClick,
   readOnly,
   isEditMode,
@@ -58,7 +58,7 @@ export const ConcertDetailsButtons: FC<ControlButtonsProps> = memo(function Conc
       visible: readOnly,
     },
     {
-      id: "newConcert.resetConcertForm",
+      id: "newEvent.resetEventForm",
       color: "primary",
       onClick: handleReset,
       text: "Reset",
@@ -67,7 +67,7 @@ export const ConcertDetailsButtons: FC<ControlButtonsProps> = memo(function Conc
       disabled: !isFormReallyDirty,
     },
     {
-      id: "concert.cancelConcertCreation",
+      id: "event.cancelEventCreation",
       color: "primary",
       onClick: handleCancelCreation,
       text: "Cancel",
@@ -75,7 +75,7 @@ export const ConcertDetailsButtons: FC<ControlButtonsProps> = memo(function Conc
       visible: !readOnly,
     },
     {
-      id: "concert.returnFromDetails",
+      id: "event.returnFromDetails",
       color: "primary",
       onClick: handleReturnFromDetails,
       text: "Back",
