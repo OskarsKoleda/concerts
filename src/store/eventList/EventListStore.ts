@@ -80,6 +80,7 @@ export class EventListStore {
 
     if (allEvents) {
       const formattedEvents: ServerEventDataWithId[] = appendEventIdToServerEvent(allEvents);
+
       const filteredEvents: ServerEventDataWithId[] = this.filterEvents(formattedEvents);
 
       this.setEvents(filteredEvents);

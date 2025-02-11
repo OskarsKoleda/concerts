@@ -1,39 +1,37 @@
 import { Box, Button, Tooltip } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { SnackbarVariantType } from "../../common/enums/appEnums";
 import { useCustomSnackbar } from "../../hooks/useCustomSnackbar";
-import { ROUTE_LIST } from "../../router/routes";
 import { useRootStore } from "../../store/StoreContext";
 import { CustomDialog } from "../CustomDialog/customDialog";
 
 export const DeleteConcertButton: React.FC = observer(() => {
   const [showConfirmationDialogue, setShowConfirmationDialogue] = useState(false);
   const {
-    eventDetailsStore: { deleteConcert, currentConcertId: concertId },
+    eventDetailsStore: { deleteEvent, currentEventId: eventId },
   } = useRootStore();
 
   const navigate = useNavigate();
   const { showSnackbar } = useCustomSnackbar();
-  const handleConcertDeletion = useCallback(
-    async (concertId: string) => {
-      const { status, message } = await deleteConcert(concertId);
-      setShowConfirmationDialogue(false);
 
-      if (status === "OK") {
-        showSnackbar({
-          message,
-          variant: SnackbarVariantType.SUCCESS,
-        });
-        navigate(`/${ROUTE_LIST.EVENTS}`);
-      } else {
-        showSnackbar({ message, variant: SnackbarVariantType.ERROR });
-      }
-    },
-    [deleteConcert, navigate, showSnackbar],
-  );
+  // const handleConcertDeletion = useCallback(
+  //   async (eventId: string) => {
+  //     const { status, message } = await deleteEvent(eventId);
+  //     setShowConfirmationDialogue(false);
+  //
+  //     if (status === "OK") {
+  //       showSnackbar({
+  //         message,
+  //         variant: SnackbarVariantType.SUCCESS,
+  //       });
+  //       navigate(`/${ROUTE_LIST.EVENTS}`);
+  //     } else {
+  //       showSnackbar({ message, variant: SnackbarVariantType.ERROR });
+  //     }
+  //   },
+  //   [deleteEvent, navigate, showSnackbar],
+  // );
 
   const handleDeletion = () => {
     setShowConfirmationDialogue(true);
@@ -45,12 +43,12 @@ export const DeleteConcertButton: React.FC = observer(() => {
         setShow={setShowConfirmationDialogue}
         show={showConfirmationDialogue}
         title="Are you sure?"
-        description="You are about to delete the concert permanently. Proceed?"
-        onConfirm={() => handleConcertDeletion(concertId)}
+        description="You are about to delete the event permanently. Proceed?"
+        onConfirm={() => {}}
       />
       <Tooltip title="Delete Event">
         <Button
-          id="concert.deleteConcert"
+          id="event.deleteEvent"
           variant="outlined"
           color="error"
           onClick={() => handleDeletion()}

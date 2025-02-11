@@ -23,8 +23,8 @@ export const EventForm = React.memo(({ readOnly }: { readOnly: boolean }) => {
       },
       {
         inputType: InputType.text,
-        controlName: "title",
-        id: "title",
+        controlName: "eventTitle",
+        id: "eventTitle",
         label: "Event Title",
         rules: EVENT_TITLE_RULES,
       },

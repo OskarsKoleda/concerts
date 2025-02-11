@@ -50,29 +50,31 @@ export class EventDetailsTransport implements ChildTransport {
 
   // TODO: move to its own transport?
   // TODO: add try / catch
-  uploadImageToCloudinary = async (posterImage: File): Promise<ImageUploadResult> => {
+  uploadImageToCloudinary = async (posterImage: FileList): Promise<ImageUploadResult> => {
     const formData = new FormData();
-    formData.append("file", posterImage);
+    formData.append("file", posterImage[0]);
     formData.append("upload_preset", "events");
 
-    const response = await fetch(
-      `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/auto/upload`,
-      {
-        method: "POST",
-        body: formData,
-      },
-    );
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/auto/uploadx`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+    } catch (error) {}
 
-    if (!response.ok) {
-      return {
-        message: "Failed to upload image", // TODO: move to error messages
-      };
-    }
+    // if (!response.ok) {
+    //   return {
+    //     message: "Failed to upload image", // TODO: move to error messages
+    //   };
+    // }
 
     const data = await response.json();
 
     return {
-      publicPosterImageId: data.publicId,
+      publicPosterImageId: data.public_id,
       posterImageUrl: data.secure_url,
     };
   };
@@ -115,7 +117,7 @@ export class EventDetailsTransport implements ChildTransport {
     }
   };
 
-  deleteConcert = async (eventId: string): Promise<EventDeleteResult> => {
+  deleteEvent = async (eventId: string): Promise<EventDeleteResult> => {
     const { errorTexts, request } = this.getRequestContextHelper(EventDetailsRequests.deleteEvent);
     const concertRef = ref(this.db, `/events/${eventId}`);
     request.inProgress();

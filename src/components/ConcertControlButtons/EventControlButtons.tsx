@@ -6,18 +6,18 @@ import { ROUTE_LIST } from "../../router/routes";
 
 import { buttonContainerStyle } from "./styles";
 
-export const ConcertControlButtons: React.FC<{ concertId: string }> = ({ concertId }) => {
+export const EventControlButtons: React.FC<{ concertId: string }> = ({ concertId }) => {
   const navigate = useNavigate();
-  const handleOpenConcert = (concertId: string) => {
+  const handleOpenEvent = (concertId: string) => {
     navigate(`/${ROUTE_LIST.EVENTS}/${concertId}`);
   };
 
   return (
     <Box sx={buttonContainerStyle}>
-      {/* <IconButton size="small" onClick={() => handleOpenConcert(concertId)}>
+      {/* <IconButton size="small" onClick={() => handleOpenEvent(concertId)}>
         <ArrowForwardIosIcon />
       </IconButton> */}
-      <Button variant="outlined" onClick={() => handleOpenConcert(concertId)}>
+      <Button variant="outlined" onClick={() => handleOpenEvent(concertId)}>
         View
       </Button>
       {/* <DeleteConcertButton concertId={concertId} /> */}

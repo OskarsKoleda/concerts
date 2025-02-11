@@ -11,8 +11,7 @@ interface CommonEventData {
 }
 
 export type LocalEventData = CommonEventData & {
-  // posterUrl?: string;
-  posterImage: Nullable<File>;
+  posterImage: Nullable<FileList>;
   eventDate?: Date;
   festivalStartDate?: Date;
   festivalEndDate?: Date;

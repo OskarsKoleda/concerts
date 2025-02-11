@@ -9,7 +9,7 @@ import type { ServerEventData, ServerEventDataWithId } from "../types/eventTypes
 export const appendEventIdToServerEvent = (events: ServerEventData): ServerEventDataWithId[] => {
   return Object.entries(events).map(([eventId, event]) => ({
     ...event,
-    id: eventId,
+    eventId,
   }));
 };
 

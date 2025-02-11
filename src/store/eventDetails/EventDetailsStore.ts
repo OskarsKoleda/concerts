@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 
-import type { LocalEventData } from "../../common/types/eventTypes.ts";
+import type { LocalEventData, ServerEventData } from "../../common/types/eventTypes.ts";
 import type { EventDetailsTransport } from "../transport/eventDetailsTransport/EventDetailsTransport.ts";
 import type { EventDeleteResult, ImageUploadResult } from "../transport/responseTypes.ts";
 import type {
@@ -15,13 +15,13 @@ export class EventDetailsStore {
   eventId: string;
   eventDetailsTransport: EventDetailsTransport;
 
-  constructor(concertDetailsTransport: EventDetailsTransport) {
+  constructor(eventDetailsTransport: EventDetailsTransport) {
     makeAutoObservable(this);
-    this.eventDetailsTransport = concertDetailsTransport;
+    this.eventDetailsTransport = eventDetailsTransport;
     this.eventId = "";
   }
 
-  public get currentConcertId(): string {
+  public get currentEventId(): string {
     return this.eventId;
   }
 
@@ -58,7 +58,7 @@ export class EventDetailsStore {
     );
   };
 
-  private uploadPosterImage = async (posterImage: File): Promise<ImageUploadData> => {
+  private uploadPosterImage = async (posterImage: FileList): Promise<ImageUploadData> => {
     const response: ImageUploadResult =
       await this.eventDetailsTransport.uploadImageToCloudinary(posterImage);
 
@@ -96,15 +96,21 @@ export class EventDetailsStore {
     event: LocalEventData,
     posterImageUrl?: string,
     publicPosterImageId?: string,
-  ) => {
-    return {
+  ): ServerEventData => {
+    const eventData: ServerEventData = {
       ...event,
-      posterImageUrl: posterImageUrl ?? undefined,
-      publicPosterImageId: publicPosterImageId ?? undefined,
-      eventDate: event.eventDate?.toISOString() ?? undefined,
-      festivalStartDate: event.festivalStartDate?.toISOString() ?? undefined,
-      festivalEndDate: event.festivalEndDate?.toISOString() ?? undefined,
+      posterImageUrl: posterImageUrl,
+      publicPosterImageId: publicPosterImageId,
+      eventDate: event.eventDate?.toISOString(),
+      festivalStartDate: event.festivalStartDate?.toISOString(),
+      festivalEndDate: event.festivalEndDate?.toISOString(),
     };
+
+    return Object.fromEntries(
+      Object.entries(eventData).filter(
+        ([key, value]) => value !== undefined && key !== "posterImage",
+      ),
+    ) as ServerEventData;
   };
 
   public updateEvent = async (
@@ -152,7 +158,7 @@ export class EventDetailsStore {
     return { status: "ERROR", message: eventUpdateResponse.message };
   };
 
-  public deleteConcert = async (id: string): Promise<EventDeleteResult> => {
-    return this.eventDetailsTransport.deleteConcert(id);
+  public deleteEvent = async (id: string): Promise<EventDeleteResult> => {
+    return this.eventDetailsTransport.deleteEvent(id);
   };
 }

@@ -106,13 +106,14 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
   };
 
   const handleCreate: SubmitHandler<LocalEventData> = useCallback(
-    (data) => {
-      addEvent(data);
+    async (data) => {
+      const response = await addEvent(data);
 
       showSnackbar({
-        message: ResponseMessages.EVENT_SUCCESSFUL_CREATION,
-        variant: SnackbarVariantType.SUCCESS,
+        message: response.message,
+        variant: response.status === "OK" ? SnackbarVariantType.SUCCESS : SnackbarVariantType.ERROR,
       });
+
       navigate(`/${ROUTE_LIST.EVENTS}`);
     },
     [addEvent, showSnackbar, navigate],
