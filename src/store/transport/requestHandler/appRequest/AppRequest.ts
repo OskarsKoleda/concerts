@@ -3,19 +3,23 @@ import { makeAutoObservable } from "mobx";
 import { RequestStatus } from "../../../../common/enums/appEnums";
 
 import type {
+  Fail,
   GetStatus,
   InProgress,
   RequestController,
   RequestService,
-  Success,
-  Fail,
   Reset,
+  Success,
 } from "./types";
 
 export class AppRequest implements RequestController {
   private status = RequestStatus.NOT_EXECUTED;
 
-  constructor(private readonly name: string, private readonly requestService: RequestService) {
+  // TODO: check what is going on here
+  constructor(
+    private readonly name: string,
+    private readonly requestService: RequestService,
+  ) {
     makeAutoObservable(this);
   }
 

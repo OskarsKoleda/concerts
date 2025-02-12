@@ -5,6 +5,7 @@ export enum EventDetailsRequests {
   addEvent = "addEvent",
   deleteEvent = "deleteEvent",
   updateEvent = "updateEvent",
+  uploadPoster = "uploadPoster",
 }
 
 export const requestErrorMessages: RequestErrorMessages<EventDetailsRequests> = {
@@ -23,6 +24,10 @@ export const requestErrorMessages: RequestErrorMessages<EventDetailsRequests> = 
   [EventDetailsRequests.updateEvent]: {
     incorrectResponse: "Incorrect...",
     unexpectedError: "Unable to update an event",
+  },
+  [EventDetailsRequests.uploadPoster]: {
+    incorrectResponse: "Incorrect...",
+    unexpectedError: "Failed to upload event poster",
   },
 };
 

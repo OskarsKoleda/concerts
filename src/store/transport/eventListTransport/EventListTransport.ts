@@ -43,19 +43,10 @@ export class EventListTransport implements ChildTransport {
 
     try {
       request.inProgress();
-      const eventsRef = ref(this.db, "/events");
-      const snapshot = await get(eventsRef);
+      const snapshot = await get(ref(this.db, "/events"));
       request.success();
 
       return snapshot.val();
-      // return new Promise((res) => {
-      //   onValue(eventsRef, (snapshot) => {
-      //     const data: ServerEventData = snapshot.val();
-      //
-      //     request.success();
-      //     res(data);
-      //   });
-      // });
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
     }

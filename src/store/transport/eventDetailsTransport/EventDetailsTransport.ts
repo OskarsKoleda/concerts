@@ -1,12 +1,10 @@
 import { child, type Database, get, push, ref, remove, set, update } from "firebase/database";
 import { makeAutoObservable } from "mobx";
-import { ResponseMessages } from "../../../common/constants/appConstant";
 import { getRequestContext } from "../rootTransport/utils";
 import type { ServerEventData } from "../../../common/types/eventTypes.ts";
 import type {
   EventCreateResult,
   EventDeleteResult,
-  EventReadResult,
   EventUpdateResult,
   ImageUploadResult,
 } from "../responseTypes.ts";
@@ -36,67 +34,54 @@ export class EventDetailsTransport implements ChildTransport {
       await set(createdEventReference, event);
       request.success();
 
-      return {
-        eventReference: createdEventReference.key,
-      };
+      return createdEventReference.key;
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
-
-      return {
-        message: ResponseMessages.EVENT_FAILED_CREATION,
-      };
     }
   };
 
-  // TODO: move to its own transport?
-  // TODO: add try / catch
-  uploadImageToCloudinary = async (posterImage: FileList): Promise<ImageUploadResult> => {
+  uploadImageToCloudinary = async (
+    posterImage: FileList,
+  ): Promise<ImageUploadResult | undefined> => {
+    const { errorTexts, request } = this.getRequestContextHelper(EventDetailsRequests.uploadPoster);
     const formData = new FormData();
+
     formData.append("file", posterImage[0]);
     formData.append("upload_preset", "events");
 
     try {
+      request.inProgress();
       const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/auto/uploadx`,
+        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/auto/upload`,
         {
           method: "POST",
           body: formData,
         },
       );
-    } catch (error) {}
 
-    // if (!response.ok) {
-    //   return {
-    //     message: "Failed to upload image", // TODO: move to error messages
-    //   };
-    // }
+      const data = await response.json();
 
-    const data = await response.json();
-
-    return {
-      publicPosterImageId: data.public_id,
-      posterImageUrl: data.secure_url,
-    };
+      return {
+        publicPosterImageId: data.public_id,
+        posterImageUrl: data.secure_url,
+      };
+    } catch (error) {
+      request.fail(error, errorTexts.unexpectedError);
+    }
   };
 
-  getEvent = async (eventId: string): Promise<EventReadResult> => {
+  getEvent = async (eventId: string): Promise<ServerEventData | undefined> => {
     const { errorTexts, request } = this.getRequestContextHelper(EventDetailsRequests.getEvent);
 
     try {
       request.inProgress();
       const snapshot = await get(child(ref(this.db), `/events/${eventId}`));
 
-      if (!snapshot.exists()) {
-        return { message: ResponseMessages.EVENT_NOT_FOUND };
-      }
-
       request.success();
 
-      return { event: snapshot.val() };
+      return snapshot.val();
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
-
-      return { message: ResponseMessages.EVENT_FAILED_RETRIEVE };
     }
   };
 
@@ -109,29 +94,24 @@ export class EventDetailsTransport implements ChildTransport {
       await update(eventReference, eventData);
       request.success();
 
-      return { eventReference: eventId };
+      return eventReference.key;
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
-
-      return { message: ResponseMessages.EVENT_UPDATE_FAILURE };
     }
   };
 
   deleteEvent = async (eventId: string): Promise<EventDeleteResult> => {
     const { errorTexts, request } = this.getRequestContextHelper(EventDetailsRequests.deleteEvent);
-    const concertRef = ref(this.db, `/events/${eventId}`);
-    request.inProgress();
+    const eventReference = ref(this.db, `/events/${eventId}`);
 
     try {
       request.inProgress();
-      await remove(concertRef);
+      await remove(eventReference);
       request.success();
 
-      return { success: true };
+      return eventReference.key;
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
-
-      return { message: ResponseMessages.EVENT_DELETION_FAILURE };
     }
   };
 }

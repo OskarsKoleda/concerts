@@ -1,12 +1,12 @@
 import type { ServerEventData } from "../../common/types/eventTypes.ts";
+import type { Nullable } from "../../common/types/appTypes.ts";
 
-export type EventCreateResult = { eventReference: string | null } | { message: string }; // TODO: | null
-export type EventReadResult = { event: ServerEventData } | { message: string };
-export type EventUpdateResult = { eventReference: string } | { message: string };
-export type EventDeleteResult = { success: boolean } | { message: string };
-export type ImageUploadResult =
-  | {
-      publicPosterImageId: string;
-      posterImageUrl: string;
-    }
-  | { message: string };
+// TODO: update or/and move
+export type EventCreateResult = Nullable<string> | undefined;
+export type EventUpdateResult = Nullable<string> | undefined;
+export type EventReadResult = ServerEventData;
+export type EventDeleteResult = Nullable<string> | undefined;
+export type ImageUploadResult = {
+  publicPosterImageId: string;
+  posterImageUrl: string;
+};

@@ -4,8 +4,6 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-
-import { ResponseMessages } from "../../common/constants/appConstant";
 import { SnackbarVariantType } from "../../common/enums/appEnums";
 import { ContentLoader } from "../../components/ContentLoader/contentLoader";
 import { useCustomSnackbar } from "../../hooks/useCustomSnackbar";
@@ -19,7 +17,6 @@ import { EventForm } from "./eventForm/eventForm.tsx";
 import { defaultValues, eventDetailsText } from "./constants";
 import { formContainerStyle, paperStyle } from "./styles";
 import type { LocalEventData } from "../../common/types/eventTypes.ts";
-import { EventRetrieveData } from "../../store/responseTypes.ts";
 import { convertServerEventToLocal } from "../../store/eventDetails/utils.ts";
 
 const {
@@ -74,16 +71,17 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
   const handleUpdate: SubmitHandler<LocalEventData> = useCallback(
     async (data) => {
       if (openedEventId) {
-        const { status, message } = await updateEvent(openedEventId, data);
+        const response = await updateEvent(openedEventId, data);
+
+        if (!response) {
+          return;
+        }
 
         showSnackbar({
-          message,
-          variant: status === "OK" ? SnackbarVariantType.INFO : SnackbarVariantType.ERROR,
+          message: `Event ${response} successfully updated`,
+          variant: SnackbarVariantType.INFO,
         });
-
-        if (status === "OK") {
-          navigate(`/${ROUTE_LIST.EVENTS}/${openedEventId}`);
-        }
+        navigate(`/${ROUTE_LIST.EVENTS}/${openedEventId}`);
       }
     },
     [updateEvent, showSnackbar, navigate, openedEventId],
@@ -109,9 +107,13 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
     async (data) => {
       const response = await addEvent(data);
 
+      if (!response) {
+        return;
+      }
+
       showSnackbar({
-        message: response.message,
-        variant: response.status === "OK" ? SnackbarVariantType.SUCCESS : SnackbarVariantType.ERROR,
+        message: `Added new event - ${response}`,
+        variant: SnackbarVariantType.SUCCESS,
       });
 
       navigate(`/${ROUTE_LIST.EVENTS}`);
@@ -126,23 +128,20 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
   useEffect(() => {
     const fetchEventData = async () => {
       if (openedEventId) {
-        const { event, message, status }: EventRetrieveData = await getEvent(openedEventId);
+        const event = await getEvent(openedEventId);
 
-        showSnackbar({
-          message,
-          variant: status === "OK" ? SnackbarVariantType.INFO : SnackbarVariantType.ERROR,
-        });
-
-        if (event) {
-          const convertedEvent = convertServerEventToLocal(event);
-          reset(convertedEvent);
-        } else {
+        if (!event) {
+          navigate(`/${ROUTE_LIST.EVENTS}`);
           showSnackbar({
-            message: ResponseMessages.EVENT_FAILED_RETRIEVE,
+            message: `Event ${openedEventId} not found!`,
             variant: SnackbarVariantType.ERROR,
           });
-          navigate(`/${ROUTE_LIST.EVENTS}`);
+
+          return;
         }
+
+        const convertedEvent = convertServerEventToLocal(event);
+        reset(convertedEvent);
       } else {
         reset(defaultValues);
       }

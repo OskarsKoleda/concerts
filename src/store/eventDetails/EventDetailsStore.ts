@@ -2,14 +2,9 @@ import { makeAutoObservable } from "mobx";
 
 import type { LocalEventData, ServerEventData } from "../../common/types/eventTypes.ts";
 import type { EventDetailsTransport } from "../transport/eventDetailsTransport/EventDetailsTransport.ts";
-import type { EventDeleteResult, ImageUploadResult } from "../transport/responseTypes.ts";
-import type {
-  EventCreateData,
-  EventRetrieveData,
-  EventUpdateStatus,
-  ImageUploadData,
-} from "../responseTypes.ts";
-import { ResponseMessages } from "../../common/constants/appConstant.ts";
+import type { EventCreateResult, EventDeleteResult } from "../transport/responseTypes.ts";
+import type { ImageUploadData } from "../responseTypes.ts";
+import type { Nullable } from "../../common/types/appTypes.ts";
 
 export class EventDetailsStore {
   eventId: string;
@@ -25,30 +20,22 @@ export class EventDetailsStore {
     return this.eventId;
   }
 
-  public getEvent = async (eventId: string): Promise<EventRetrieveData> => {
+  public getEvent = async (eventId: string): Promise<ServerEventData | undefined> => {
     this.eventId = eventId;
     const response = await this.eventDetailsTransport.getEvent(eventId);
 
-    if ("event" in response) {
-      return {
-        status: "OK",
-        event: response.event,
-        message: ResponseMessages.EVENT_SUCCESSFUL_UPDATE,
-      };
+    if (response) {
+      return response;
     }
-
-    return { status: "ERROR", message: response.message };
   };
 
-  public addEvent = async (event: LocalEventData): Promise<EventCreateData> => {
-    let imageUploadResult: ImageUploadResult | undefined;
+  public addEvent = async (event: LocalEventData): Promise<EventCreateResult> => {
+    const imageUploadResult = event.posterImage
+      ? await this.uploadPosterImage(event.posterImage)
+      : undefined;
 
-    if (event.posterImage) {
-      imageUploadResult = await this.uploadPosterImage(event.posterImage);
-    }
-
-    if (imageUploadResult && "message" in imageUploadResult) {
-      return { status: "ERROR", message: imageUploadResult.message };
+    if (event.posterImage && !imageUploadResult) {
+      return;
     }
 
     return this.createAndStoreEvent(
@@ -58,16 +45,16 @@ export class EventDetailsStore {
     );
   };
 
-  private uploadPosterImage = async (posterImage: FileList): Promise<ImageUploadData> => {
-    const response: ImageUploadResult =
-      await this.eventDetailsTransport.uploadImageToCloudinary(posterImage);
+  private uploadPosterImage = async (
+    posterImage: FileList,
+  ): Promise<ImageUploadData | undefined> => {
+    const response = await this.eventDetailsTransport.uploadImageToCloudinary(posterImage);
 
-    if ("message" in response) {
-      return { status: "ERROR", message: response.message };
+    if (!response) {
+      return;
     }
 
     return {
-      status: "OK",
       posterImageUrl: response.posterImageUrl,
       publicPosterImageId: response.publicPosterImageId,
     };
@@ -77,19 +64,10 @@ export class EventDetailsStore {
     event: LocalEventData,
     publicPosterImageId?: string,
     posterImageUrl?: string,
-  ): Promise<EventCreateData> => {
+  ): Promise<Nullable<string> | undefined> => {
     const newEventData = this.composeEventData(event, posterImageUrl, publicPosterImageId);
-    const eventCreationResponse = await this.eventDetailsTransport.addEvent(newEventData);
 
-    if ("eventReference" in eventCreationResponse) {
-      return {
-        status: "OK",
-        eventReference: eventCreationResponse.eventReference,
-        message: "Event successfully added!",
-      };
-    }
-
-    return { status: "ERROR", message: eventCreationResponse.message };
+    return await this.eventDetailsTransport.addEvent(newEventData);
   };
 
   private composeEventData = (
@@ -116,15 +94,13 @@ export class EventDetailsStore {
   public updateEvent = async (
     eventId: string,
     event: LocalEventData,
-  ): Promise<EventUpdateStatus> => {
-    let imageUploadResult: ImageUploadResult | undefined;
+  ): Promise<EventCreateResult> => {
+    const imageUploadResult = event.posterImage
+      ? await this.uploadPosterImage(event.posterImage)
+      : undefined;
 
-    if (event.posterImage) {
-      imageUploadResult = await this.uploadPosterImage(event.posterImage);
-    }
-
-    if (imageUploadResult && "message" in imageUploadResult) {
-      return { status: "ERROR", message: imageUploadResult.message };
+    if (event.posterImage && !imageUploadResult) {
+      return;
     }
 
     return this.updateAndStoreEvent(
@@ -140,22 +116,10 @@ export class EventDetailsStore {
     eventId: string,
     publicPosterImageId?: string,
     posterImageUrl?: string,
-  ): Promise<EventCreateData> => {
+  ): Promise<EventCreateResult> => {
     const updatedEventData = this.composeEventData(event, posterImageUrl, publicPosterImageId);
-    const eventUpdateResponse = await this.eventDetailsTransport.updateEvent(
-      eventId,
-      updatedEventData,
-    );
 
-    if ("eventReference" in eventUpdateResponse) {
-      return {
-        status: "OK",
-        eventReference: eventUpdateResponse.eventReference,
-        message: "Event successfully added!",
-      };
-    }
-
-    return { status: "ERROR", message: eventUpdateResponse.message };
+    return await this.eventDetailsTransport.updateEvent(eventId, updatedEventData);
   };
 
   public deleteEvent = async (id: string): Promise<EventDeleteResult> => {

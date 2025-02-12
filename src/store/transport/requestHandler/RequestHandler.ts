@@ -38,7 +38,7 @@ export class RequestHandler implements IRequestHandler {
   };
 
   private createRequest = (name: string): AppRequest => {
-    const request = new AppRequest(name, { processError: this.proceedError });
+    const request = new AppRequest(name, { processError: this.processError });
     this.requests[name] = request;
 
     return request;
@@ -48,9 +48,10 @@ export class RequestHandler implements IRequestHandler {
     return this.requests[name];
   };
 
-  private proceedError: ProcessError = (error, defaultErrorMessage) => {
+  private processError: ProcessError = (error, defaultErrorMessage) => {
     try {
       const errorMessage = getErrorMessage(error, defaultErrorMessage);
+
       this.appStateHandler.setAppActiveError(errorMessage);
     } catch (error) {
       throw new Error("Unable to parse error. Invalid error format.");
