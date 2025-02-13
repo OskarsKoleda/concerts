@@ -2,8 +2,7 @@ import { makeAutoObservable } from "mobx";
 
 import type { LocalEventData, ServerEventData } from "../../common/types/eventTypes.ts";
 import type { EventDetailsTransport } from "../transport/eventDetailsTransport/EventDetailsTransport.ts";
-import type { EventCreateResult, EventDeleteResult } from "../transport/responseTypes.ts";
-import type { ImageUploadData } from "../responseTypes.ts";
+import type { FirebaseResponse, ImageUploadData } from "../responseTypes.ts";
 import type { Nullable } from "../../common/types/appTypes.ts";
 
 export class EventDetailsStore {
@@ -29,7 +28,7 @@ export class EventDetailsStore {
     }
   };
 
-  public addEvent = async (event: LocalEventData): Promise<EventCreateResult> => {
+  public addEvent = async (event: LocalEventData): Promise<FirebaseResponse> => {
     const imageUploadResult = event.posterImage
       ? await this.uploadPosterImage(event.posterImage)
       : undefined;
@@ -94,7 +93,7 @@ export class EventDetailsStore {
   public updateEvent = async (
     eventId: string,
     event: LocalEventData,
-  ): Promise<EventCreateResult> => {
+  ): Promise<FirebaseResponse> => {
     const imageUploadResult = event.posterImage
       ? await this.uploadPosterImage(event.posterImage)
       : undefined;
@@ -116,13 +115,13 @@ export class EventDetailsStore {
     eventId: string,
     publicPosterImageId?: string,
     posterImageUrl?: string,
-  ): Promise<EventCreateResult> => {
+  ): Promise<FirebaseResponse> => {
     const updatedEventData = this.composeEventData(event, posterImageUrl, publicPosterImageId);
 
     return await this.eventDetailsTransport.updateEvent(eventId, updatedEventData);
   };
 
-  public deleteEvent = async (id: string): Promise<EventDeleteResult> => {
+  public deleteEvent = async (id: string): Promise<FirebaseResponse> => {
     return this.eventDetailsTransport.deleteEvent(id);
   };
 }

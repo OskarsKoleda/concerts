@@ -12,11 +12,11 @@ export class EventListStore {
   events: ServerEventDataWithId[] = [];
   eventsFilters: EventFiltersStore;
   eventListTransport: EventListTransport;
+  cleanupEventsListener?: () => void;
 
   constructor(eventListTransport: EventListTransport) {
     makeAutoObservable(this);
     this.eventListTransport = eventListTransport;
-    this.setupEventsListener();
     this.eventsFilters = new EventFiltersStore({
       city: "",
       eventTitle: "",
@@ -80,7 +80,6 @@ export class EventListStore {
 
     if (allEvents) {
       const formattedEvents: ServerEventDataWithId[] = appendEventIdToServerEvent(allEvents);
-
       const filteredEvents: ServerEventDataWithId[] = this.filterEvents(formattedEvents);
 
       this.setEvents(filteredEvents);
@@ -93,12 +92,19 @@ export class EventListStore {
     this.events = events;
   };
 
-  // TODO: check is it necessary to unsubscribe manually somehow
-  private setupEventsListener = (): void => {
-    this.eventListTransport.eventsListener((events: ServerEventDataWithId[]) => {
-      runInAction(() => {
-        this.setEvents(events);
-      });
-    });
+  public setupEventsListener = (): void => {
+    this.cleanupEventsListener = this.eventListTransport.eventsListener(
+      (events: ServerEventDataWithId[]) => {
+        runInAction(() => {
+          this.setEvents(events);
+        });
+      },
+    );
+  };
+
+  public cleanupListener = (): void => {
+    if (this.cleanupEventsListener) {
+      this.cleanupEventsListener();
+    }
   };
 }

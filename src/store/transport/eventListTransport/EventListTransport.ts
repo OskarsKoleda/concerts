@@ -25,7 +25,7 @@ export class EventListTransport implements ChildTransport {
   eventsListener = (callback: (concerts: ServerEventDataWithId[]) => void) => {
     const eventsRef = ref(this.db, "/events");
 
-    onValue(eventsRef, (snapshot) => {
+    return onValue(eventsRef, (snapshot) => {
       const data = snapshot.val(); // TODO: find out what is data - 1 or many events
 
       if (data) {

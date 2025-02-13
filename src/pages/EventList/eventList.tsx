@@ -17,6 +17,8 @@ export const EventList: React.FC = observer(function EventList() {
     applicationStore: { listViewIsSelected },
     eventListStore: {
       getAllEvents,
+      setupEventsListener,
+      cleanupListener,
 
       eventListTransport: {
         requestHandler: { resetRequest, isSuccessfulRequest },
@@ -28,14 +30,13 @@ export const EventList: React.FC = observer(function EventList() {
 
   useEffect(() => {
     getAllEvents();
-  }, [getAllEvents]);
+    setupEventsListener();
 
-  useEffect(
-    () => () => {
+    return () => {
+      cleanupListener();
       resetRequest(EventListRequests.getEventsData);
-    },
-    [],
-  );
+    };
+  }, [getAllEvents, setupEventsListener]);
 
   // TODO: try <Suspense> instead of Content Loader
   return (

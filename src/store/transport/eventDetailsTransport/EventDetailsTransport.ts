@@ -2,14 +2,9 @@ import { child, type Database, get, push, ref, remove, set, update } from "fireb
 import { makeAutoObservable } from "mobx";
 import { getRequestContext } from "../rootTransport/utils";
 import type { ServerEventData } from "../../../common/types/eventTypes.ts";
-import type {
-  EventCreateResult,
-  EventDeleteResult,
-  EventUpdateResult,
-  ImageUploadResult,
-} from "../responseTypes.ts";
 import type { RequestHandler } from "../requestHandler/RequestHandler";
 import type { ChildTransport, RequestContext } from "../rootTransport/types";
+import type { FirebaseResponse, ImageUploadData } from "../../responseTypes.ts";
 import { EventDetailsRequests, requestErrorMessages } from "./constants";
 
 export class EventDetailsTransport implements ChildTransport {
@@ -24,7 +19,7 @@ export class EventDetailsTransport implements ChildTransport {
     return getRequestContext(requestName, this.requestHandler, requestErrorMessages);
   };
 
-  addEvent = async (event: ServerEventData): Promise<EventCreateResult> => {
+  addEvent = async (event: ServerEventData): Promise<FirebaseResponse> => {
     const { errorTexts, request } = this.getRequestContextHelper(EventDetailsRequests.addEvent);
 
     try {
@@ -40,9 +35,7 @@ export class EventDetailsTransport implements ChildTransport {
     }
   };
 
-  uploadImageToCloudinary = async (
-    posterImage: FileList,
-  ): Promise<ImageUploadResult | undefined> => {
+  uploadImageToCloudinary = async (posterImage: FileList): Promise<ImageUploadData | undefined> => {
     const { errorTexts, request } = this.getRequestContextHelper(EventDetailsRequests.uploadPoster);
     const formData = new FormData();
 
@@ -85,7 +78,7 @@ export class EventDetailsTransport implements ChildTransport {
     }
   };
 
-  updateEvent = async (eventId: string, eventData: ServerEventData): Promise<EventUpdateResult> => {
+  updateEvent = async (eventId: string, eventData: ServerEventData): Promise<FirebaseResponse> => {
     const { errorTexts, request } = this.getRequestContextHelper(EventDetailsRequests.updateEvent);
 
     try {
@@ -100,7 +93,7 @@ export class EventDetailsTransport implements ChildTransport {
     }
   };
 
-  deleteEvent = async (eventId: string): Promise<EventDeleteResult> => {
+  deleteEvent = async (eventId: string): Promise<FirebaseResponse> => {
     const { errorTexts, request } = this.getRequestContextHelper(EventDetailsRequests.deleteEvent);
     const eventReference = ref(this.db, `/events/${eventId}`);
 
