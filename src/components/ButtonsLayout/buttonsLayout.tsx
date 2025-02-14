@@ -1,7 +1,7 @@
 import { Box, Button, Grid } from "@mui/material";
 import { memo } from "react";
 
-import { DeleteConcertButton } from "../DeleteConcertButton/DeleteConcertButton";
+import { DeleteEventButton } from "../DeleteEventButton/DeleteEventButton.tsx";
 
 import { controlButtonLeftContainersStyles, controlButtonsTopContainerStyles } from "./styles";
 import { toVisibleControl } from "./utils";
@@ -31,7 +31,7 @@ export const ButtonsLayout = memo<ButtonLayoutProps>(function ConcertCreationFor
         </Grid>
         {showDelete && (
           <Grid item>
-            <DeleteConcertButton />
+            <DeleteEventButton />
           </Grid>
         )}
       </Grid>

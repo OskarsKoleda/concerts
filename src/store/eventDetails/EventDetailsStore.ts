@@ -4,22 +4,28 @@ import type { LocalEventData, ServerEventData } from "../../common/types/eventTy
 import type { EventDetailsTransport } from "../transport/eventDetailsTransport/EventDetailsTransport.ts";
 import type { FirebaseResponse, ImageUploadData } from "../responseTypes.ts";
 import type { Nullable } from "../../common/types/appTypes.ts";
+import type { CloudinaryTransport } from "../transport/cloudinaryTransport/CloudinaryTransport.ts";
 
 export class EventDetailsStore {
-  eventId: string;
+  eventId: string; // TODO: why is this in the store?
   eventDetailsTransport: EventDetailsTransport;
+  cloudinaryTransport: CloudinaryTransport;
 
-  constructor(eventDetailsTransport: EventDetailsTransport) {
+  constructor(
+    eventDetailsTransport: EventDetailsTransport,
+    cloudinaryTransport: CloudinaryTransport,
+  ) {
     makeAutoObservable(this);
     this.eventDetailsTransport = eventDetailsTransport;
+    this.cloudinaryTransport = cloudinaryTransport;
     this.eventId = "";
   }
 
-  public get currentEventId(): string {
+  get currentEventId(): string {
     return this.eventId;
   }
 
-  public getEvent = async (eventId: string): Promise<ServerEventData | undefined> => {
+  getEvent = async (eventId: string): Promise<ServerEventData | undefined> => {
     this.eventId = eventId;
     const response = await this.eventDetailsTransport.getEvent(eventId);
 
@@ -28,7 +34,7 @@ export class EventDetailsStore {
     }
   };
 
-  public addEvent = async (event: LocalEventData): Promise<FirebaseResponse> => {
+  addEvent = async (event: LocalEventData): Promise<FirebaseResponse> => {
     const imageUploadResult = event.posterImage
       ? await this.uploadPosterImage(event.posterImage)
       : undefined;
@@ -47,7 +53,7 @@ export class EventDetailsStore {
   private uploadPosterImage = async (
     posterImage: FileList,
   ): Promise<ImageUploadData | undefined> => {
-    const response = await this.eventDetailsTransport.uploadImageToCloudinary(posterImage);
+    const response = await this.cloudinaryTransport.uploadImageToCloudinary(posterImage);
 
     if (!response) {
       return;
@@ -90,10 +96,7 @@ export class EventDetailsStore {
     ) as ServerEventData;
   };
 
-  public updateEvent = async (
-    eventId: string,
-    event: LocalEventData,
-  ): Promise<FirebaseResponse> => {
+  updateEvent = async (eventId: string, event: LocalEventData): Promise<FirebaseResponse> => {
     const imageUploadResult = event.posterImage
       ? await this.uploadPosterImage(event.posterImage)
       : undefined;
@@ -121,7 +124,7 @@ export class EventDetailsStore {
     return await this.eventDetailsTransport.updateEvent(eventId, updatedEventData);
   };
 
-  public deleteEvent = async (id: string): Promise<FirebaseResponse> => {
-    return this.eventDetailsTransport.deleteEvent(id);
+  deleteEvent = async (eventId: string): Promise<FirebaseResponse> => {
+    return this.eventDetailsTransport.deleteEvent(eventId);
   };
 }

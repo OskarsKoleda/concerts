@@ -15,7 +15,10 @@ class RootStore {
 
     this.applicationStore = new ApplicationStore();
     this.eventListStore = new EventListStore(this.transport.eventListTransport);
-    this.eventDetailsStore = new EventDetailsStore(this.transport.eventDetailsTransport);
+    this.eventDetailsStore = new EventDetailsStore(
+      this.transport.eventDetailsTransport,
+      this.transport.cloudinaryTransport,
+    );
   }
 }
 

@@ -44,6 +44,7 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
     () => currentURL.pathname.includes("/edit"),
     [currentURL.pathname],
   );
+
   const concertInReadonlyMode = useMemo(
     () => !!openedEventId && !concertInEditMode,
     [openedEventId, concertInEditMode],

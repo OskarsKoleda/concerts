@@ -20,7 +20,7 @@ export const EventControlButtons: React.FC<{ concertId: string }> = ({ concertId
       <Button variant="outlined" onClick={() => handleOpenEvent(concertId)}>
         View
       </Button>
-      {/* <DeleteConcertButton concertId={concertId} /> */}
+      {/* <DeleteEventButton concertId={concertId} /> */}
     </Box>
   );
 };

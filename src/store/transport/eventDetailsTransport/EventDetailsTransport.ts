@@ -4,7 +4,7 @@ import { getRequestContext } from "../rootTransport/utils";
 import type { ServerEventData } from "../../../common/types/eventTypes.ts";
 import type { RequestHandler } from "../requestHandler/RequestHandler";
 import type { ChildTransport, RequestContext } from "../rootTransport/types";
-import type { FirebaseResponse, ImageUploadData } from "../../responseTypes.ts";
+import type { FirebaseResponse } from "../../responseTypes.ts";
 import { EventDetailsRequests, requestErrorMessages } from "./constants";
 
 export class EventDetailsTransport implements ChildTransport {
@@ -30,34 +30,6 @@ export class EventDetailsTransport implements ChildTransport {
       request.success();
 
       return createdEventReference.key;
-    } catch (error) {
-      request.fail(error, errorTexts.unexpectedError);
-    }
-  };
-
-  uploadImageToCloudinary = async (posterImage: FileList): Promise<ImageUploadData | undefined> => {
-    const { errorTexts, request } = this.getRequestContextHelper(EventDetailsRequests.uploadPoster);
-    const formData = new FormData();
-
-    formData.append("file", posterImage[0]);
-    formData.append("upload_preset", "events");
-
-    try {
-      request.inProgress();
-      const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/auto/upload`,
-        {
-          method: "POST",
-          body: formData,
-        },
-      );
-
-      const data = await response.json();
-
-      return {
-        publicPosterImageId: data.public_id,
-        posterImageUrl: data.secure_url,
-      };
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
     }

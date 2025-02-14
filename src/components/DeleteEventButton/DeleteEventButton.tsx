@@ -7,8 +7,9 @@ import { useRootStore } from "../../store/StoreContext";
 import { CustomDialog } from "../CustomDialog/customDialog";
 import { SnackbarVariantType } from "../../common/enums/appEnums.ts";
 import { ROUTE_LIST } from "../../router/routes.ts";
+import type { FirebaseResponse } from "../../store/responseTypes.ts";
 
-export const DeleteConcertButton: React.FC = observer(() => {
+export const DeleteEventButton: React.FC = observer(() => {
   const [showConfirmationDialogue, setShowConfirmationDialogue] = useState(false);
   const {
     eventDetailsStore: { deleteEvent, currentEventId: eventId },
@@ -17,9 +18,11 @@ export const DeleteConcertButton: React.FC = observer(() => {
   const navigate = useNavigate();
   const { showSnackbar } = useCustomSnackbar();
 
-  const handleConcertDeletion = useCallback(
+  const handleEventDeletion = useCallback(
     async (eventId: string) => {
-      const response = await deleteEvent(eventId);
+      let response: FirebaseResponse = undefined;
+
+      response = await deleteEvent(eventId);
       setShowConfirmationDialogue(false);
 
       if (!response) {
@@ -46,7 +49,7 @@ export const DeleteConcertButton: React.FC = observer(() => {
         show={showConfirmationDialogue}
         title="Are you sure?"
         description="You are about to delete the event permanently. Proceed?"
-        onConfirm={() => handleConcertDeletion(eventId)}
+        onConfirm={() => handleEventDeletion(eventId)}
       />
       <Tooltip title="Delete Event">
         <Button

@@ -12,12 +12,12 @@ export const menuItems = [
     icon: <HomeIcon />,
   },
   {
-    label: "View Concerts",
+    label: "View Events",
     path: ROUTE_LIST.EVENTS,
     icon: <StadiumIcon />,
   },
   {
-    label: "Add Concert",
+    label: "Add Event",
     path: ROUTE_LIST.NEW_EVENT,
     icon: <AddIcon />,
   },
