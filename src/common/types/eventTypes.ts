@@ -18,7 +18,7 @@ export type LocalEventData = CommonEventData & {
 
 export type ServerEventData = CommonEventData & {
   posterImageUrl?: string;
-  publicPosterImageId?: string;
+  posterImageTitle?: string;
   eventDate?: string;
   festivalStartDate?: string;
   festivalEndDate?: string;

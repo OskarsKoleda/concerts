@@ -1,35 +1,34 @@
 import { makeAutoObservable } from "mobx";
 
-import type { LocalEventData, ServerEventData } from "../../common/types/eventTypes.ts";
-import type { EventDetailsTransport } from "../transport/eventDetailsTransport/EventDetailsTransport.ts";
-import type { FirebaseResponse, ImageUploadData } from "../responseTypes.ts";
-import type { Nullable } from "../../common/types/appTypes.ts";
-import type { CloudinaryTransport } from "../transport/cloudinaryTransport/CloudinaryTransport.ts";
+import type { LocalEventData, ServerEventData } from "../../../common/types/eventTypes.ts";
+import type { EventDetailsTransport } from "../../transport/eventDetailsTransport/EventDetailsTransport.ts";
+import type { FirebaseResponse, ImageUploadData } from "../../responseTypes.ts";
+import type { Nullable } from "../../../common/types/appTypes.ts";
+import type { CloudinaryTransport } from "../../transport/cloudinaryTransport/CloudinaryTransport.ts";
+import type { EventDetailsUIStore } from "../eventDetailUIStore/EventDetailsUIStore.ts";
 
-export class EventDetailsStore {
-  eventId: string; // TODO: why is this in the store?
+export class EventDetailsRequestStore {
   eventDetailsTransport: EventDetailsTransport;
   cloudinaryTransport: CloudinaryTransport;
+  eventDetailsUIStore: EventDetailsUIStore;
 
   constructor(
     eventDetailsTransport: EventDetailsTransport,
     cloudinaryTransport: CloudinaryTransport,
+    eventDetailsUIStore: EventDetailsUIStore,
   ) {
     makeAutoObservable(this);
     this.eventDetailsTransport = eventDetailsTransport;
     this.cloudinaryTransport = cloudinaryTransport;
-    this.eventId = "";
-  }
-
-  get currentEventId(): string {
-    return this.eventId;
+    this.eventDetailsUIStore = eventDetailsUIStore;
   }
 
   getEvent = async (eventId: string): Promise<ServerEventData | undefined> => {
-    this.eventId = eventId;
     const response = await this.eventDetailsTransport.getEvent(eventId);
 
     if (response) {
+      this.eventDetailsUIStore.setEvent(response);
+
       return response;
     }
   };
@@ -45,7 +44,7 @@ export class EventDetailsStore {
 
     return this.createAndStoreEvent(
       event,
-      imageUploadResult?.publicPosterImageId,
+      imageUploadResult?.posterImageTitle,
       imageUploadResult?.posterImageUrl,
     );
   };
@@ -61,7 +60,7 @@ export class EventDetailsStore {
 
     return {
       posterImageUrl: response.posterImageUrl,
-      publicPosterImageId: response.publicPosterImageId,
+      posterImageTitle: response.posterImageTitle,
     };
   };
 
@@ -83,7 +82,7 @@ export class EventDetailsStore {
     const eventData: ServerEventData = {
       ...event,
       posterImageUrl: posterImageUrl,
-      publicPosterImageId: publicPosterImageId,
+      posterImageTitle: publicPosterImageId,
       eventDate: event.eventDate?.toISOString(),
       festivalStartDate: event.festivalStartDate?.toISOString(),
       festivalEndDate: event.festivalEndDate?.toISOString(),
@@ -108,7 +107,7 @@ export class EventDetailsStore {
     return this.updateAndStoreEvent(
       event,
       eventId,
-      imageUploadResult?.publicPosterImageId,
+      imageUploadResult?.posterImageTitle,
       imageUploadResult?.posterImageUrl,
     );
   };

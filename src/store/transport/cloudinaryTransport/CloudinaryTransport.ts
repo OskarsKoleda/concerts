@@ -31,7 +31,7 @@ export class CloudinaryTransport {
       const data = await response.json();
 
       return {
-        publicPosterImageId: data.public_id,
+        posterImageTitle: data.display_name,
         posterImageUrl: data.secure_url,
       };
     } catch (error) {

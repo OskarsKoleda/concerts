@@ -26,7 +26,7 @@ const {
 
 export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
   const {
-    eventDetailsStore: {
+    eventDetailsRequestStore: {
       addEvent,
       getEvent,
       updateEvent,
@@ -34,13 +34,14 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
         requestHandler: { isSuccessfulRequest, resetRequest },
       },
     },
+    eventDetailsUIStore: { setEventId },
   } = useRootStore();
 
   const { id: openedEventId } = useParams();
+
   const currentURL = useLocation();
   const navigate = useNavigate();
   const { showSnackbar } = useCustomSnackbar();
-  // TODO: move to some UI store?
   const eventInEditMode = useMemo(
     () => currentURL.pathname.includes("/edit"),
     [currentURL.pathname],
@@ -83,6 +84,7 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
           message: `Event ${response} successfully updated`,
           variant: SnackbarVariantType.INFO,
         });
+
         navigate(`/${ROUTE_LIST.EVENTS}/${openedEventId}`);
       }
     },
@@ -130,6 +132,7 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
   useEffect(() => {
     const fetchEventData = async () => {
       if (openedEventId) {
+        setEventId(openedEventId || "");
         const event = await getEvent(openedEventId);
 
         if (!event) {

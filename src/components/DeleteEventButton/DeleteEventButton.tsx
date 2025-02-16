@@ -12,7 +12,8 @@ import type { FirebaseResponse } from "../../store/responseTypes.ts";
 export const DeleteEventButton: React.FC = observer(() => {
   const [showConfirmationDialogue, setShowConfirmationDialogue] = useState(false);
   const {
-    eventDetailsStore: { deleteEvent, currentEventId: eventId }, // TODO: with UI store change this
+    eventDetailsRequestStore: { deleteEvent },
+    eventDetailsUIStore: { openedEventId },
   } = useRootStore();
 
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ export const DeleteEventButton: React.FC = observer(() => {
         show={showConfirmationDialogue}
         title="Are you sure?"
         description="You are about to delete the event permanently. Proceed?"
-        onConfirm={() => handleEventDeletion(eventId)}
+        onConfirm={() => handleEventDeletion(openedEventId)}
       />
       <Tooltip title="Delete Event">
         <Button
