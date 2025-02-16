@@ -20,7 +20,7 @@ export const defaultValues: LocalEventData = {
   festivalEndDate: new Date(),
   ticketPrice: 0,
   location: "",
-  posterImage: null,
+  posterImage: undefined,
 };
 
 export const eventDetailsText = {

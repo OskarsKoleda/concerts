@@ -13,11 +13,12 @@ import { EventDetailsRequests } from "../../store/transport/eventDetailsTranspor
 
 import { EventDatesForm } from "./eventDatesForm/eventDatesForm.tsx";
 import { EventDetailsButtons } from "./eventDetailsButtons/eventDetailsButtons.tsx";
-import { EventForm } from "./eventForm/eventForm.tsx";
+import { EventFormFields } from "./eventFormFields/eventFormFields.tsx";
 import { defaultValues, eventDetailsText } from "./constants";
 import { formContainerStyle, paperStyle } from "./styles";
 import type { LocalEventData } from "../../common/types/eventTypes.ts";
 import { convertServerEventToLocal } from "../../store/eventDetails/utils.ts";
+import { UploadFileButton } from "./uploadFileButton/uploadFileButton.tsx";
 
 const {
   form: { title },
@@ -40,26 +41,26 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
   const navigate = useNavigate();
   const { showSnackbar } = useCustomSnackbar();
   // TODO: move to some UI store?
-  const concertInEditMode = useMemo(
+  const eventInEditMode = useMemo(
     () => currentURL.pathname.includes("/edit"),
     [currentURL.pathname],
   );
 
-  const concertInReadonlyMode = useMemo(
-    () => !!openedEventId && !concertInEditMode,
-    [openedEventId, concertInEditMode],
+  const eventInReadonlyMode = useMemo(
+    () => !!openedEventId && !eventInEditMode,
+    [openedEventId, eventInEditMode],
   );
 
   const displayLoader =
-    concertInReadonlyMode && !!openedEventId && !isSuccessfulRequest(EventDetailsRequests.getEvent);
+    eventInReadonlyMode && !!openedEventId && !isSuccessfulRequest(EventDetailsRequests.getEvent);
 
   const getFormTitle = useMemo(() => {
-    return concertInEditMode
+    return eventInEditMode
       ? title.editForm
-      : concertInReadonlyMode
+      : eventInReadonlyMode
         ? title.detailsForm
         : title.newForm;
-  }, [concertInEditMode, concertInReadonlyMode]);
+  }, [eventInEditMode, eventInReadonlyMode]);
 
   const methods = useForm<LocalEventData>({
     defaultValues,
@@ -67,7 +68,7 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
     shouldUnregister: true,
   });
 
-  const { handleSubmit, reset, register } = methods;
+  const { handleSubmit, reset } = methods;
 
   const handleUpdate: SubmitHandler<LocalEventData> = useCallback(
     async (data) => {
@@ -142,6 +143,7 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
         }
 
         const convertedEvent = convertServerEventToLocal(event);
+
         reset(convertedEvent);
       } else {
         reset(defaultValues);
@@ -157,7 +159,6 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
     };
   }, []);
 
-  // TODO: change file input somehow
   return (
     <ContentLoader isLoading={displayLoader}>
       <Container sx={formContainerStyle}>
@@ -165,12 +166,17 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
           <FormProvider {...methods}>
             <form onSubmit={submitFormHandler}>
               <Typography variant="h5">{getFormTitle}</Typography>
-              <EventForm readOnly={concertInReadonlyMode} />
-              <EventDatesForm readOnly={concertInReadonlyMode} />
-              <input {...register("posterImage", { required: true })} type="file" />
+              <EventFormFields readOnly={eventInReadonlyMode} />
+              <EventDatesForm readOnly={eventInReadonlyMode} />
+              <UploadFileButton
+                formFieldName={"posterImage"}
+                buttonTitle={"Add Poster"}
+                formMethods={methods}
+                readonly={eventInReadonlyMode}
+              />
               <EventDetailsButtons
-                readOnly={concertInReadonlyMode}
-                isEditMode={concertInEditMode}
+                readOnly={eventInReadonlyMode}
+                isEditMode={eventInEditMode}
                 onEditClick={openConcertEditView}
               />
             </form>

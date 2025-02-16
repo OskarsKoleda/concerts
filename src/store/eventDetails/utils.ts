@@ -3,7 +3,7 @@ import type { LocalEventData, ServerEventData } from "../../common/types/eventTy
 export const convertServerEventToLocal = (serverEvent: ServerEventData): LocalEventData => {
   return {
     ...serverEvent,
-    posterImage: null,
+    posterImage: undefined,
     eventDate: serverEvent.eventDate ? new Date(serverEvent.eventDate) : undefined,
     festivalStartDate: serverEvent.festivalStartDate
       ? new Date(serverEvent.festivalStartDate)

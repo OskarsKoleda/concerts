@@ -9,7 +9,7 @@ import type { LocalEventData } from "../../../common/types/eventTypes.ts";
 import type { FormFields } from "../../../components/FormLayout/types";
 import { eventCategoriesList } from "../constants.ts";
 
-export const EventForm = React.memo(({ readOnly }: { readOnly: boolean }) => {
+export const EventFormFields = React.memo(({ readOnly }: { readOnly: boolean }) => {
   const { control } = useFormContext<LocalEventData>();
 
   const getCommonEventFields = (): FormFields => {

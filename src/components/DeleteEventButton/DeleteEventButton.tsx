@@ -12,7 +12,7 @@ import type { FirebaseResponse } from "../../store/responseTypes.ts";
 export const DeleteEventButton: React.FC = observer(() => {
   const [showConfirmationDialogue, setShowConfirmationDialogue] = useState(false);
   const {
-    eventDetailsStore: { deleteEvent, currentEventId: eventId },
+    eventDetailsStore: { deleteEvent, currentEventId: eventId }, // TODO: with UI store change this
   } = useRootStore();
 
   const navigate = useNavigate();
