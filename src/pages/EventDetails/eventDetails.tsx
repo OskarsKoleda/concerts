@@ -68,7 +68,7 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
     shouldUnregister: true,
   });
 
-  const { handleSubmit, reset } = methods;
+  const { handleSubmit, reset, register } = methods;
 
   const handleUpdate: SubmitHandler<LocalEventData> = useCallback(
     async (data) => {
@@ -171,7 +171,7 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
               <UploadFileButton
                 formFieldName={"posterImage"}
                 buttonTitle={"Add Poster"}
-                formMethods={methods}
+                register={register}
                 readonly={eventInReadonlyMode}
               />
               <EventDetailsButtons
