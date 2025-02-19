@@ -1,40 +1,41 @@
 import Button from "@mui/material/Button";
-import { useMemo, useRef } from "react";
-import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
-import { useWatch } from "react-hook-form";
-import { Box, Typography } from "@mui/material";
+import React, { useRef } from "react";
+import type { Path } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
+import { Box } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../../store/StoreContext.tsx";
+import type { LocalEventData } from "../../../common/types/eventTypes.ts";
 import { uploadFileButtonStyles } from "./styles.ts";
 
-type UploadFileButtonProps<T extends FieldValues> = {
+type UploadFileButtonProps = {
   buttonTitle: string;
-  formFieldName: Path<T>;
-  register: UseFormRegister<T>;
+  formFieldName: Path<LocalEventData>;
   readonly: boolean;
 };
 
 export const UploadFileButton = observer(
-  <T extends FieldValues>({
-    buttonTitle,
-    formFieldName,
-    register,
-    readonly,
-  }: UploadFileButtonProps<T>) => {
+  ({ buttonTitle, formFieldName, readonly }: UploadFileButtonProps) => {
     const {
-      eventDetailsUIStore: { eventPosterName },
+      eventDetailsUIStore: { setPosterTitle },
     } = useRootStore();
 
-    const selectedImage = useWatch({ name: formFieldName });
-    const { ref, ...rest } = register(formFieldName, { required: false });
+    const { control } = useFormContext<LocalEventData>();
+
     const fileInput = useRef<HTMLInputElement | null>(null);
     const triggerFileInput = () => fileInput.current?.click();
 
-    const posterTitle = useMemo(() => {
-      return readonly
-        ? eventPosterName
-        : selectedImage && selectedImage.length > 0 && selectedImage[0].name;
-    }, [eventPosterName, selectedImage]);
+    const handleChange = (
+      event: React.ChangeEvent<HTMLInputElement>,
+      onChange: (value: FileList | null) => void,
+    ) => {
+      const fileList: FileList | null = event.target.files;
+
+      if (fileList) {
+        setPosterTitle(fileList[0].name);
+        onChange(fileList);
+      }
+    };
 
     return (
       <Box display="flex" alignItems="baseline">
@@ -49,16 +50,21 @@ export const UploadFileButton = observer(
           </Button>
         )}
 
-        <input
-          type="file"
-          {...rest}
-          ref={(e) => {
-            ref(e);
-            fileInput.current = e;
-          }}
-          style={{ display: "none" }}
+        <Controller
+          name={formFieldName}
+          control={control}
+          render={({ field }) => (
+            <input
+              type="file"
+              style={{ display: "none" }}
+              onChange={(e) => handleChange(e, field.onChange)}
+              ref={(e) => {
+                field.ref(e);
+                fileInput.current = e;
+              }}
+            />
+          )}
         />
-        <Typography variant="caption">{posterTitle}</Typography>
       </Box>
     );
   },

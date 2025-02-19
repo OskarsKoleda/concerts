@@ -1,14 +1,24 @@
-import { makeAutoObservable, observable, runInAction } from "mobx";
+import { makeAutoObservable } from "mobx";
 import type { ServerEventData } from "../../../common/types/eventTypes.ts";
 
 export class EventDetailsUIStore {
   private event: ServerEventData | null;
   private eventId: string;
+  private posterTitle: string;
 
   constructor() {
     makeAutoObservable(this);
     this.event = null;
     this.eventId = "";
+    this.posterTitle = "";
+  }
+
+  get eventPosterTitle(): string | undefined {
+    return this.posterTitle || this.event?.posterImageTitle;
+  }
+
+  get openedEventId(): string {
+    return this.eventId;
   }
 
   setEventId = (eventId: string): void => {
@@ -16,16 +26,14 @@ export class EventDetailsUIStore {
   };
 
   setEvent = (event: ServerEventData): void => {
-    runInAction(() => {
-      this.event = observable(event); // Wrap event as observable
-    });
+    this.event = event;
   };
 
-  get eventPosterName(): string {
-    return this.event?.posterImageTitle ?? "";
-  }
+  setPosterTitle = (posterTitle: string): void => {
+    this.posterTitle = posterTitle;
+  };
 
-  get openedEventId(): string {
-    return this.eventId;
-  }
+  resetEvent = (): void => {
+    this.event = null;
+  };
 }

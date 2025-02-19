@@ -32,7 +32,7 @@ export const EventDatesForm = ({ readOnly }: { readOnly: boolean }) => {
     return [
       {
         inputType: InputType.date,
-        controlName: "startDate",
+        controlName: "festivalStartDate",
         id: "startDate",
         label: "Start Date",
         readonly: readOnly,
@@ -40,7 +40,7 @@ export const EventDatesForm = ({ readOnly }: { readOnly: boolean }) => {
       },
       {
         inputType: InputType.date,
-        controlName: "endDate",
+        controlName: "festivalEndDate",
         id: "endDate",
         label: "End Date",
         readonly: readOnly,

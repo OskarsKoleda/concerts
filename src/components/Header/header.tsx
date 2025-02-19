@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import homepage from "../../assets/homepage2.png";
 import { useRootStore } from "../../store/StoreContext";
 
+import { ROUTE_LIST } from "../../router/routes.ts";
 import {
   flexCenterStyle,
   headerTitleStyles,
@@ -50,7 +51,7 @@ export const Header = observer(function Header() {
               </Tooltip>
             </Link>
 
-            <Link onClick={() => setActiveMenuItem("Add Event")} to="/events/new">
+            <Link onClick={() => setActiveMenuItem("Add Event")} to={ROUTE_LIST.NEW_EVENT}>
               <Tooltip title="Add Event">
                 <IconButton size="large">
                   <AddIcon />

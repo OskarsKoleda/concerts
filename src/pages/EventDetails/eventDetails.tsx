@@ -1,4 +1,4 @@
-import { Container, Paper, Typography } from "@mui/material";
+import { Box, Container, Paper, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import React, { useCallback, useEffect, useMemo } from "react";
 import type { SubmitHandler } from "react-hook-form";
@@ -15,7 +15,7 @@ import { EventDatesForm } from "./eventDatesForm/eventDatesForm.tsx";
 import { EventDetailsButtons } from "./eventDetailsButtons/eventDetailsButtons.tsx";
 import { EventFormFields } from "./eventFormFields/eventFormFields.tsx";
 import { defaultValues, eventDetailsText } from "./constants";
-import { formContainerStyle, paperStyle } from "./styles";
+import { formContainerStyles, paperStyles, posterTitleStyles } from "./styles";
 import type { LocalEventData } from "../../common/types/eventTypes.ts";
 import { convertServerEventToLocal } from "../../store/eventDetails/utils.ts";
 import { UploadFileButton } from "./uploadFileButton/uploadFileButton.tsx";
@@ -34,14 +34,15 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
         requestHandler: { isSuccessfulRequest, resetRequest },
       },
     },
-    eventDetailsUIStore: { setEventId },
+    eventDetailsUIStore: { setEventId, setPosterTitle, resetEvent, eventPosterTitle },
   } = useRootStore();
 
   const { id: openedEventId } = useParams();
 
+  const { showSnackbar } = useCustomSnackbar();
   const currentURL = useLocation();
   const navigate = useNavigate();
-  const { showSnackbar } = useCustomSnackbar();
+  const newEventPage = useMemo(() => currentURL.pathname.includes("/new"), [currentURL.pathname]);
   const eventInEditMode = useMemo(
     () => currentURL.pathname.includes("/edit"),
     [currentURL.pathname],
@@ -69,7 +70,7 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
     shouldUnregister: true,
   });
 
-  const { handleSubmit, reset, register } = methods;
+  const { handleSubmit, reset } = methods;
 
   const handleUpdate: SubmitHandler<LocalEventData> = useCallback(
     async (data) => {
@@ -132,7 +133,7 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
   useEffect(() => {
     const fetchEventData = async () => {
       if (openedEventId) {
-        setEventId(openedEventId || "");
+        setEventId(openedEventId);
         const event = await getEvent(openedEventId);
 
         if (!event) {
@@ -144,7 +145,6 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
 
           return;
         }
-
         const convertedEvent = convertServerEventToLocal(event);
 
         reset(convertedEvent);
@@ -157,26 +157,42 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
   }, [openedEventId, getEvent, navigate, reset, showSnackbar]);
 
   useEffect(() => {
+    if (eventInEditMode || newEventPage) {
+      setPosterTitle("");
+    }
+
+    if (newEventPage) {
+      resetEvent();
+    }
+
     return () => {
       resetRequest(EventDetailsRequests.getEvent);
     };
-  }, []);
+  }, [eventInEditMode, newEventPage, setPosterTitle, resetEvent]);
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [defaultValues]);
 
   return (
     <ContentLoader isLoading={displayLoader}>
-      <Container sx={formContainerStyle}>
-        <Paper sx={paperStyle} elevation={2}>
+      <Container sx={formContainerStyles}>
+        <Paper sx={paperStyles} elevation={2}>
           <FormProvider {...methods}>
             <form onSubmit={submitFormHandler}>
               <Typography variant="h5">{getFormTitle}</Typography>
               <EventFormFields readOnly={eventInReadonlyMode} />
               <EventDatesForm readOnly={eventInReadonlyMode} />
-              <UploadFileButton
-                formFieldName={"posterImage"}
-                buttonTitle={"Add Poster"}
-                register={register}
-                readonly={eventInReadonlyMode}
-              />
+              <Box display="flex" alignItems="flex-end">
+                <UploadFileButton
+                  buttonTitle="Add Poster"
+                  formFieldName="posterImage"
+                  readonly={eventInReadonlyMode}
+                />
+                <Typography variant="caption" sx={posterTitleStyles(eventInReadonlyMode)}>
+                  {eventPosterTitle}
+                </Typography>
+              </Box>
               <EventDetailsButtons
                 readOnly={eventInReadonlyMode}
                 isEditMode={eventInEditMode}
