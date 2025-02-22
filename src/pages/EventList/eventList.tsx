@@ -5,12 +5,11 @@ import { observer } from "mobx-react-lite";
 import { ContentLoader } from "../../components/ContentLoader/contentLoader";
 import { useRootStore } from "../../store/StoreContext";
 
+import { EventListRequests } from "../../store/transport/eventListTransport/constants.ts";
 import { EventCardsList } from "./eventCardsList/eventCards.tsx";
 import { EventFilters } from "./eventFilters/eventFilters.tsx";
 import { EventsTable } from "./eventsTable/eventsTable.tsx";
 import { contentContainer } from "./styles";
-
-import { EventListRequests } from "../../store/transport/eventListTransport/constants.ts";
 
 export const EventList: React.FC = observer(function EventList() {
   const {

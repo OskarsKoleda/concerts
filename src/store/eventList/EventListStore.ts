@@ -1,11 +1,12 @@
-import { makeAutoObservable, reaction, runInAction } from "mobx";
+import { makeAutoObservable, reaction, runInAction, toJS } from "mobx";
 
-import { appendEventIdToServerEvent, eventsFilteringEngine } from "../../common/utils/utility";
+import { eventsFilteringEngine } from "../../common/utils/utility";
 
 import type { ServerEventData, ServerEventDataWithId } from "../../common/types/eventTypes.ts";
 import type { EventListTransport } from "../transport/eventListTransport/EventListTransport.ts";
 import type { RequestPayload } from "../transport/eventListTransport/types";
 import { EventListRequests } from "../transport/eventListTransport/constants.ts";
+import { appendEventIdToServerEvent } from "../utility.ts";
 import { EventFiltersStore } from "./eventFilters/EventFiltersStore.ts";
 
 export class EventListStore {
@@ -89,7 +90,7 @@ export class EventListStore {
   };
 
   private setEvents = (events: ServerEventDataWithId[]): void => {
-    this.events = events;
+    this.events = toJS(events);
   };
 
   public setupEventsListener = (): void => {

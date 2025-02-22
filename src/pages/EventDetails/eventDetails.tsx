@@ -11,13 +11,13 @@ import { ROUTE_LIST } from "../../router/routes";
 import { useRootStore } from "../../store/StoreContext";
 import { EventDetailsRequests } from "../../store/transport/eventDetailsTransport/constants";
 
+import type { LocalEventData } from "../../common/types/eventTypes.ts";
+import { convertServerEventToLocal } from "../../store/eventDetails/utils.ts";
 import { EventDatesForm } from "./eventDatesForm/eventDatesForm.tsx";
 import { EventDetailsButtons } from "./eventDetailsButtons/eventDetailsButtons.tsx";
 import { EventFormFields } from "./eventFormFields/eventFormFields.tsx";
 import { defaultValues, eventDetailsText } from "./constants";
 import { formContainerStyles, paperStyles, posterTitleStyles } from "./styles";
-import type { LocalEventData } from "../../common/types/eventTypes.ts";
-import { convertServerEventToLocal } from "../../store/eventDetails/utils.ts";
 import { UploadFileButton } from "./uploadFileButton/uploadFileButton.tsx";
 
 const {

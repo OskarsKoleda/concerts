@@ -6,13 +6,6 @@ import { ERROR_TEXTS } from "../constants/appConstant";
 import type { RequestPayload } from "../../store/transport/eventListTransport/types";
 import type { ServerEventData, ServerEventDataWithId } from "../types/eventTypes.ts";
 
-export const appendEventIdToServerEvent = (events: ServerEventData): ServerEventDataWithId[] => {
-  return Object.entries(events).map(([eventId, event]) => ({
-    ...event,
-    eventId,
-  }));
-};
-
 export const getInputErrorText = (error: FieldError): string | null => {
   if (!error) {
     return null;
@@ -46,4 +39,8 @@ export const eventsFilteringEngine = (
 
     return matchesCity && matchesEventTitle && matchesEventType;
   });
+};
+
+export const formatDateToLocal = (date: string): string => {
+  return new Date(date).toLocaleDateString("de-DE");
 };

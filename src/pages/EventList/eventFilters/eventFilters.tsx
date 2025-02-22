@@ -12,8 +12,8 @@ import type {
   FilterInputsConfig,
   ToggleButtonFilterProps,
 } from "../../../components/DataGridFilters/types";
-import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
 import { eventCategoriesList } from "../../EventDetails/constants.ts";
+import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
 
 const {
   inputs: { band, city, eventTitle },

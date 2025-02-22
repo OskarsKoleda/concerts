@@ -1,5 +1,5 @@
 import React from "react";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
 import { EVENT_TITLE_RULES } from "../../../common/constants/appConstant";
 import { InputType } from "../../../components/FormLayout/constants";
@@ -7,10 +7,15 @@ import { FormLayout } from "../../../components/FormLayout/formLayout";
 
 import type { LocalEventData } from "../../../common/types/eventTypes.ts";
 import type { FormFields } from "../../../components/FormLayout/types";
-import { eventCategoriesList } from "../constants.ts";
+import { eventCategoriesList, EventCategory } from "../constants.ts";
 
 export const EventFormFields = React.memo(({ readOnly }: { readOnly: boolean }) => {
   const { control } = useFormContext<LocalEventData>();
+
+  const eventCategory = useWatch({
+    control,
+    name: "eventCategory",
+  });
 
   const getCommonEventFields = (): FormFields => {
     return [
@@ -34,6 +39,7 @@ export const EventFormFields = React.memo(({ readOnly }: { readOnly: boolean }) 
         id: "artists",
         label: "Artists",
         readonly: readOnly,
+        hide: [EventCategory.theatre, EventCategory.creativeEvening].includes(eventCategory),
       },
       {
         inputType: InputType.text,

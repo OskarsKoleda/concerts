@@ -1,12 +1,10 @@
 import { Box, Grid } from "@mui/material";
-import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 
 import React from "react";
-import { Card } from "../../../components/CardWithImage/cardWithImage";
 import { useRootStore } from "../../../store/StoreContext";
 
-import { eventsContainerStyles } from "./styles";
+import { EventCard } from "../../../components/EventCard/eventCard.tsx";
 
 export const EventCardsList: React.FC = observer(function EventCardsList() {
   const {
@@ -14,11 +12,11 @@ export const EventCardsList: React.FC = observer(function EventCardsList() {
   } = useRootStore();
 
   return (
-    <Box sx={eventsContainerStyles}>
-      <Grid container direction="row" justifyContent="space-evenly" rowSpacing={1}>
-        {toJS(events).map(({ eventId, eventTitle, posterImageUrl }) => (
-          <Grid item key={eventId}>
-            <Card imageUrl={posterImageUrl} title={eventTitle} eventId={eventId} />
+    <Box>
+      <Grid container direction="row" justifyContent="flex-start" rowSpacing={2} columnSpacing={2}>
+        {events.map((event) => (
+          <Grid item key={event.eventId} sm={12} md={6}>
+            <EventCard key={event.eventId} event={event} />
           </Grid>
         ))}
       </Grid>

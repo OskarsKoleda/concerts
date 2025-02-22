@@ -56,7 +56,7 @@
       }
     ],
     "react/jsx-curly-brace-presence": [
-      "error"
+      "error", {"props": "never"}
     ],
     // TypeScript-specific rules
     "@typescript-eslint/no-explicit-any": "warn",

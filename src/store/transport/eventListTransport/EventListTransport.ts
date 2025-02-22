@@ -2,12 +2,12 @@ import type { Database } from "firebase/database";
 import { get, onValue, ref } from "firebase/database";
 import { makeAutoObservable } from "mobx";
 
-import { appendEventIdToServerEvent } from "../../../common/utils/utility";
 import { getRequestContext } from "../rootTransport/utils";
 
 import type { ServerEventData, ServerEventDataWithId } from "../../../common/types/eventTypes.ts";
 import type { RequestHandler } from "../requestHandler/RequestHandler";
 import type { ChildTransport, RequestContext } from "../rootTransport/types";
+import { appendEventIdToServerEvent } from "../../utility.ts";
 import { EventListRequests, requestErrorMessages } from "./constants";
 
 export class EventListTransport implements ChildTransport {

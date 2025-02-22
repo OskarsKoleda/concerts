@@ -3,13 +3,12 @@ import { appTheme } from "../../../components/AppProviders/theme";
 
 export const filterContainerStyles: SxProps = {
   margin: "1.5rem 0",
-  width: "65%",
 };
 
 export const filterSummaryStyles: SxProps = {
   fontWeight: 500,
   margin: 0,
-  backgroundColor: appTheme.palette.secondary.main,
+  backgroundColor: appTheme.palette.secondary.light,
 
   minHeight: "2.5rem",
   "&.Mui-expanded": {
@@ -23,5 +22,5 @@ export const filterSummaryStyles: SxProps = {
 };
 
 export const filterDetailsStyles: SxProps = {
-  backgroundColor: "#eee",
+  backgroundColor: "#f5f1f1",
 };
