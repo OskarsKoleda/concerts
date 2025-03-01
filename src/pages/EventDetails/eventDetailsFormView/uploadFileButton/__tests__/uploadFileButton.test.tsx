@@ -2,8 +2,8 @@ import { describe, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { useForm } from "react-hook-form";
 import { UploadFileButton } from "../uploadFileButton.tsx";
-import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
-import { defaultValues } from "../../constants.ts";
+import type { LocalEventData } from "../../../../../common/types/eventTypes.ts";
+import { defaultValues } from "../../../constants.ts";
 
 describe("UploadFileButton", () => {
   it("should render correctly", async () => {

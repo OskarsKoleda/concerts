@@ -13,7 +13,7 @@ export const DeleteEventButton: React.FC = observer(() => {
   const [showConfirmationDialogue, setShowConfirmationDialogue] = useState(false);
   const {
     eventDetailsRequestStore: { deleteEvent },
-    eventDetailsUIStore: { openedEventId },
+    eventDetailsUIStore: { currentEventId },
   } = useRootStore();
 
   const navigate = useNavigate();
@@ -50,7 +50,7 @@ export const DeleteEventButton: React.FC = observer(() => {
         show={showConfirmationDialogue}
         title="Are you sure?"
         description="You are about to delete the event permanently. Proceed?"
-        onConfirm={() => handleEventDeletion(openedEventId)}
+        onConfirm={() => handleEventDeletion(currentEventId)}
       />
       <Tooltip title="Delete Event">
         <Button

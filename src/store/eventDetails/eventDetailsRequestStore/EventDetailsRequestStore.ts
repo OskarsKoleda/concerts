@@ -31,6 +31,8 @@ export class EventDetailsRequestStore {
 
       return response;
     }
+
+    // TODO: maybe reset if not found
   };
 
   addEvent = async (event: LocalEventData): Promise<FirebaseResponse> => {

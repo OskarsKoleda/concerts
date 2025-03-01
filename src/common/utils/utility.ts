@@ -1,7 +1,8 @@
 import _ from "lodash";
 
 import type { FieldError } from "react-hook-form";
-import { ERROR_TEXTS } from "../constants/appConstant";
+import { format, parseISO } from "date-fns";
+import { DATE_FORMAT, ERROR_TEXTS } from "../constants/appConstant";
 
 import type { RequestPayload } from "../../store/transport/eventListTransport/types";
 import type { ServerEventData, ServerEventDataWithId } from "../types/eventTypes.ts";
@@ -41,6 +42,6 @@ export const eventsFilteringEngine = (
   });
 };
 
-export const formatDateToLocal = (date: string): string => {
-  return new Date(date).toLocaleDateString("de-DE");
+export const formatDate = (date: string): string => {
+  return format(parseISO(date), DATE_FORMAT);
 };

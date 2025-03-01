@@ -32,3 +32,5 @@ export const ERROR_TEXTS: Record<string, string> = {
   minLength: "The field is too short",
   pattern: "Incorrect input format",
 };
+
+export const DATE_FORMAT = "dd.MM.yyyy";

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import type { ServerEventDataWithId } from "../../common/types/eventTypes.ts";
 import { ROUTE_LIST } from "../../router/routes.ts";
-import { formatDateToLocal } from "../../common/utils/utility.ts";
+import { formatDate } from "../../common/utils/utility.ts";
 import {
   cardContentChipStyles,
   cardContentFooterStyles,
@@ -32,19 +32,20 @@ export const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) =
     festivalStartDate,
     festivalEndDate,
   } = event;
+
   const navigate = useNavigate();
 
   const handleOpenEvent = (eventId: string) => {
     navigate(`/${ROUTE_LIST.EVENTS}/${eventId}`);
   };
 
-  const formattedEventDates = useMemo(() => {
+  const formattedEventDate = useMemo(() => {
     if (eventDate) {
-      return formatDateToLocal(eventDate);
+      return formatDate(eventDate);
     }
 
     if (festivalStartDate && festivalEndDate) {
-      return `${formatDateToLocal(festivalStartDate)} - ${formatDateToLocal(festivalEndDate)}`;
+      return `${formatDate(festivalStartDate)} - ${formatDate(festivalEndDate)}`;
     }
   }, [eventDate]);
 
@@ -55,7 +56,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) =
         <Box sx={cardContentHeaderStyles}>
           <Typography variant="h6">{eventTitle}</Typography>
           <Typography variant="caption" mb={0.5}>
-            {formattedEventDates}
+            {formattedEventDate}
           </Typography>
         </Box>
 

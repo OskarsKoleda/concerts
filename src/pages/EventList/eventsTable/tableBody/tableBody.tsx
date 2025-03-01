@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite";
 
 import { useRootStore } from "../../../../store/StoreContext";
 
+import { DATE_FORMAT } from "../../../../common/constants/appConstant.ts";
 import { tableStyles } from "./styles";
 
 export const TableBody = observer(function TableBody() {
@@ -30,7 +31,7 @@ export const TableBody = observer(function TableBody() {
       return <span>-</span>;
     }
 
-    return <span>{format(parseISO(params.value), "dd.MM.yyyy")}</span>;
+    return <span>{format(parseISO(params.value), DATE_FORMAT)}</span>;
   };
 
   // can be specified separately in the columns.ts

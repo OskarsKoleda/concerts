@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Paper, Typography } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 
 import React from "react";
 import { NavLinkButton } from "../../components/NavButton/navButton";
@@ -16,7 +16,7 @@ const {
 
 export const HomePage: React.FC = () => {
   return (
-    <Container maxWidth="md" sx={{ mt: 8 }}>
+    <Box width="100%" sx={{ mt: 8 }}>
       <Box textAlign="center" mb={4}>
         <Typography variant="h2" component="h1" gutterBottom>
           {titleSection.mainTitle}
@@ -51,6 +51,6 @@ export const HomePage: React.FC = () => {
           </Typography>
         </Paper>
       </Box>
-    </Container>
+    </Box>
   );
 };

@@ -1,30 +1,30 @@
-import { Box, Container, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import React, { useCallback, useEffect, useMemo } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { SnackbarVariantType } from "../../common/enums/appEnums";
-import { ContentLoader } from "../../components/ContentLoader/contentLoader";
-import { useCustomSnackbar } from "../../hooks/useCustomSnackbar";
-import { ROUTE_LIST } from "../../router/routes";
-import { useRootStore } from "../../store/StoreContext";
-import { EventDetailsRequests } from "../../store/transport/eventDetailsTransport/constants";
+import { SnackbarVariantType } from "../../../common/enums/appEnums.ts";
+import { ContentLoader } from "../../../components/ContentLoader/contentLoader.tsx";
+import { useCustomSnackbar } from "../../../hooks/useCustomSnackbar.ts";
+import { ROUTE_LIST } from "../../../router/routes.ts";
+import { useRootStore } from "../../../store/StoreContext.tsx";
+import { EventDetailsRequests } from "../../../store/transport/eventDetailsTransport/constants.ts";
 
-import type { LocalEventData } from "../../common/types/eventTypes.ts";
-import { convertServerEventToLocal } from "../../store/eventDetails/utils.ts";
+import type { LocalEventData } from "../../../common/types/eventTypes.ts";
 import { EventDatesForm } from "./eventDatesForm/eventDatesForm.tsx";
 import { EventDetailsButtons } from "./eventDetailsButtons/eventDetailsButtons.tsx";
 import { EventFormFields } from "./eventFormFields/eventFormFields.tsx";
-import { defaultValues, eventDetailsText } from "./constants";
-import { formContainerStyles, paperStyles, posterTitleStyles } from "./styles";
+import { defaultValues, eventDetailsText } from "../constants.ts";
+import { formContainerStyles, paperStyles, posterTitleStyles } from "../styles.ts";
 import { UploadFileButton } from "./uploadFileButton/uploadFileButton.tsx";
+import { convertServerEventToLocal } from "../../../store/eventDetails/utils.ts";
 
 const {
   form: { title },
 } = eventDetailsText["ENGLISH"];
 
-export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
+export const EventDetailsFormView: React.FC = observer(function EventDetailsFormView() {
   const {
     eventDetailsRequestStore: {
       addEvent,
@@ -176,7 +176,7 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
 
   return (
     <ContentLoader isLoading={displayLoader}>
-      <Container sx={formContainerStyles}>
+      <Box sx={formContainerStyles}>
         <Paper sx={paperStyles} elevation={2}>
           <FormProvider {...methods}>
             <form onSubmit={submitFormHandler}>
@@ -201,7 +201,7 @@ export const EventDetailsPage: React.FC = observer(function EventDetailsPage() {
             </form>
           </FormProvider>
         </Paper>
-      </Container>
+      </Box>
     </ContentLoader>
   );
 });

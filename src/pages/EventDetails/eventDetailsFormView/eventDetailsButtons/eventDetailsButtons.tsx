@@ -3,10 +3,10 @@ import { memo, useCallback } from "react";
 import { useFormContext } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { ButtonsLayout } from "../../../components/ButtonsLayout/buttonsLayout";
-import { ROUTE_LIST } from "../../../router/routes";
-import type { LocalEventData } from "../../../common/types/eventTypes.ts";
-import type { ControlPayload } from "../../../components/ButtonsLayout/types";
+import { ButtonsLayout } from "../../../../components/ButtonsLayout/buttonsLayout.tsx";
+import { ROUTE_LIST } from "../../../../router/routes.ts";
+import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
+import type { ControlPayload } from "../../../../components/ButtonsLayout/types.ts";
 
 type ControlButtonsProps = {
   readOnly: boolean;

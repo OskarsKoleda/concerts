@@ -1,13 +1,13 @@
 import React from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
-import { EVENT_TITLE_RULES } from "../../../common/constants/appConstant";
-import { InputType } from "../../../components/FormLayout/constants";
-import { FormLayout } from "../../../components/FormLayout/formLayout";
+import { EVENT_TITLE_RULES } from "../../../../common/constants/appConstant.ts";
+import { InputType } from "../../../../components/FormLayout/constants.ts";
+import { FormLayout } from "../../../../components/FormLayout/formLayout.tsx";
 
-import type { LocalEventData } from "../../../common/types/eventTypes.ts";
-import type { FormFields } from "../../../components/FormLayout/types";
-import { eventCategoriesList, EventCategory } from "../constants.ts";
+import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
+import type { FormFields } from "../../../../components/FormLayout/types.ts";
+import { eventCategoriesList, EventCategory } from "../../constants.ts";
 
 export const EventFormFields = React.memo(({ readOnly }: { readOnly: boolean }) => {
   const { control } = useFormContext<LocalEventData>();
