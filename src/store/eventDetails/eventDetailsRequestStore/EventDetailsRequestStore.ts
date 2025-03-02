@@ -32,7 +32,7 @@ export class EventDetailsRequestStore {
       return response;
     }
 
-    // TODO: maybe reset if not found
+    this.eventDetailsUIStore.resetEvent();
   };
 
   addEvent = async (event: LocalEventData): Promise<FirebaseResponse> => {

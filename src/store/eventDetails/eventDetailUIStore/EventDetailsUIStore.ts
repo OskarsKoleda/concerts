@@ -86,5 +86,7 @@ export class EventDetailsUIStore {
 
   resetEvent = (): void => {
     this.event = null;
+    this.eventId = "";
+    this.posterTitle = "";
   };
 }

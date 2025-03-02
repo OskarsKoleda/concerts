@@ -37,32 +37,22 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
     eventDetailsUIStore: { setEventId, setPosterTitle, resetEvent, eventPosterTitle },
   } = useRootStore();
 
-  const { id: openedEventId } = useParams();
+  const { id: eventId } = useParams();
 
   const { showSnackbar } = useCustomSnackbar();
-  const currentURL = useLocation();
+  const url = useLocation();
   const navigate = useNavigate();
-  const newEventPage = useMemo(() => currentURL.pathname.includes("/new"), [currentURL.pathname]);
-  const eventInEditMode = useMemo(
-    () => currentURL.pathname.includes("/edit"),
-    [currentURL.pathname],
-  );
+  const newEvent = useMemo(() => url.pathname.includes("/new"), [url.pathname]);
+  const editEvent = useMemo(() => url.pathname.includes("/edit"), [url.pathname]);
 
-  const eventInReadonlyMode = useMemo(
-    () => !!openedEventId && !eventInEditMode,
-    [openedEventId, eventInEditMode],
-  );
+  const eventInReadonlyMode = useMemo(() => !!eventId && !editEvent, [eventId, editEvent]);
 
   const displayLoader =
-    eventInReadonlyMode && !!openedEventId && !isSuccessfulRequest(EventDetailsRequests.getEvent);
+    eventInReadonlyMode && !!eventId && !isSuccessfulRequest(EventDetailsRequests.getEvent);
 
   const getFormTitle = useMemo(() => {
-    return eventInEditMode
-      ? title.editForm
-      : eventInReadonlyMode
-        ? title.detailsForm
-        : title.newForm;
-  }, [eventInEditMode, eventInReadonlyMode]);
+    return editEvent ? title.editForm : title.newForm;
+  }, [editEvent]);
 
   const methods = useForm<LocalEventData>({
     defaultValues,
@@ -74,8 +64,8 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
 
   const handleUpdate: SubmitHandler<LocalEventData> = useCallback(
     async (data) => {
-      if (openedEventId) {
-        const response = await updateEvent(openedEventId, data);
+      if (eventId) {
+        const response = await updateEvent(eventId, data);
 
         if (!response) {
           return;
@@ -86,10 +76,10 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
           variant: SnackbarVariantType.INFO,
         });
 
-        navigate(`/${ROUTE_LIST.EVENTS}/${openedEventId}`);
+        navigate(`/${ROUTE_LIST.EVENTS}/${eventId}`);
       }
     },
-    [updateEvent, showSnackbar, navigate, openedEventId],
+    [updateEvent, showSnackbar, navigate, eventId],
   );
 
   const submitFormHandler = (event: React.SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -126,53 +116,43 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
     [addEvent, showSnackbar, navigate],
   );
 
-  const openConcertEditView = () => {
-    navigate(`/${ROUTE_LIST.EVENTS}/${openedEventId}/edit`);
+  const openEventEditView = () => {
+    navigate(`/${ROUTE_LIST.EVENTS}/${eventId}/edit`);
   };
 
   useEffect(() => {
     const fetchEventData = async () => {
-      if (openedEventId) {
-        setEventId(openedEventId);
-        const event = await getEvent(openedEventId);
+      if (eventId) {
+        const event = await getEvent(eventId);
 
         if (!event) {
           navigate(`/${ROUTE_LIST.EVENTS}`);
           showSnackbar({
-            message: `Event ${openedEventId} not found!`,
+            message: `Event ${eventId} not found!`,
             variant: SnackbarVariantType.ERROR,
           });
 
           return;
         }
-        const convertedEvent = convertServerEventToLocal(event);
 
-        reset(convertedEvent);
+        setEventId(eventId);
+
+        const convertedEventData = convertServerEventToLocal(event);
+
+        reset(convertedEventData);
       } else {
         reset(defaultValues);
       }
     };
 
     fetchEventData();
-  }, [openedEventId, getEvent, navigate, reset, showSnackbar]);
+  }, [eventId, getEvent, navigate, reset, showSnackbar]);
 
   useEffect(() => {
-    if (eventInEditMode || newEventPage) {
-      setPosterTitle("");
-    }
+    if (newEvent) resetEvent();
 
-    if (newEventPage) {
-      resetEvent();
-    }
-
-    return () => {
-      resetRequest(EventDetailsRequests.getEvent);
-    };
-  }, [eventInEditMode, newEventPage, setPosterTitle, resetEvent]);
-
-  useEffect(() => {
-    reset(defaultValues);
-  }, [defaultValues]);
+    return () => resetRequest(EventDetailsRequests.getEvent);
+  }, [editEvent, newEvent, setPosterTitle, resetEvent]);
 
   return (
     <ContentLoader isLoading={displayLoader}>
@@ -195,8 +175,8 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
               </Box>
               <EventDetailsButtons
                 readOnly={eventInReadonlyMode}
-                isEditMode={eventInEditMode}
-                onEditClick={openConcertEditView}
+                isEditMode={editEvent}
+                onEditClick={openEventEditView}
               />
             </form>
           </FormProvider>
