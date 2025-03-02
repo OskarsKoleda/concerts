@@ -12,7 +12,7 @@ import { ErrorToast } from "../ErrorToast/errorToast.tsx";
 import { appContainerStyles, contentWrapperStyles, scrollContainerStyles } from "./styles.ts";
 
 const App: React.FC = () => (
-  <BrowserRouter>
+  <BrowserRouter future={{ v7_startTransition: true }}>
     <DrawerNavigation />
 
     <Box sx={appContainerStyles}>
