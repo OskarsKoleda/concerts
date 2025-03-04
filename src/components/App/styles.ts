@@ -1,4 +1,5 @@
 import type { SxProps, Theme } from "@mui/material";
+import { appTheme } from "../AppProviders/theme.ts";
 
 export const appContainerStyles: SxProps<Theme> = {
   height: "100vh",
@@ -17,5 +18,5 @@ export const scrollContainerStyles: SxProps<Theme> = {
   flex: "1",
   alignItems: "center",
   overflowX: "hidden",
-  backgroundColor: "#756a6a",
+  backgroundColor: appTheme.palette.background.default,
 };

@@ -1,21 +1,22 @@
 export const homepageText = {
   ENGLISH: {
     titleSection: {
-      mainTitle: "Welcome to My Website",
-      subTitle: "Discover amazing features and content designed to help you.",
+      mainTitle: "Event Tracker: Your Personal Guide to Music & Other Events Experiences",
+      subTitle: "Register, Track, and Relive Every Event You’ve Attended!",
     },
     navigationSection: {
       viewButton: {
-        label: "View Events",
+        label: "View All Events",
       },
       addButton: {
         label: "Add New Event",
       },
     },
     contentSection: {
-      contentTitle: "About This Site",
-      content:
-        "The purpose of this site is to train React basic principles. The application is meant to store the different kind of events visited by the user.",
+      mainContent:
+        "Welcome to the Event Tracker, your go-to platform for tracking all your music and theatre experiences!",
+      additionalContent:
+        "Here, you can easily register and keep a record of every event you've attended. From concerts to plays, our simple interface lets you view all your past visits, helping you revisit your favorite moments and stay organized. Sign up today and start tracking your cultural journey!",
     },
   },
 };
