@@ -1,14 +1,13 @@
+import { appTheme } from "../AppProviders/theme.ts";
+
 export const cardStyles = {
   display: "flex",
-  height: "200px",
-  padding: ".3rem",
-  backgroundColor: "#918989",
+  height: "12rem",
+  borderRadius: 0,
   transition: "transform 0.1s ease-out, background-color 0.2s ease-out, filter 0.2s ease-out",
 
   "&:hover": {
-    transform: "scale(1.01)",
-    backgroundColor: "rgba(255, 255, 255, 0.05)",
-    filter: "brightness(1.1)",
+    filter: "brightness(0.9)",
   },
 
   "& > div:last-child": {
@@ -18,10 +17,9 @@ export const cardStyles = {
 
 export const cardImageStyles = {
   flexShrink: 0,
-  marginRight: ".5rem",
   width: "30%",
-  height: "100%",
-  borderRadius: "5px",
+  borderRadius: 0,
+  borderRight: "2px solid #000",
 };
 
 export const cardContentStyles = {
@@ -29,8 +27,8 @@ export const cardContentStyles = {
   flexDirection: "column",
   justifyContent: "space-between",
   width: "100%",
-  borderRadius: "5px",
-  backgroundColor: "#e8f4e8",
+  borderRadius: 0,
+  backgroundColor: appTheme.palette.background.paper,
 };
 
 export const cardContentHeaderStyles = {
@@ -41,15 +39,17 @@ export const cardContentHeaderStyles = {
 };
 
 export const cardContentChipStyles = {
-  display: "flex",
+  // display: "flex",
   flexWrap: "wrap",
   margin: "0 .3rem",
   height: "100%",
 };
 
 export const chipStyles = {
-  marginBottom: "0.15rem",
-  marginRight: "0.15rem",
+  marginBottom: "0.1rem",
+  marginRight: "0.1rem",
+  fontWeight: "450",
+  backgroundColor: "#B0A1BA",
 };
 
 export const cardContentFooterStyles = {

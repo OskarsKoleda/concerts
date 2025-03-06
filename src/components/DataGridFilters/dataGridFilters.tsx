@@ -6,7 +6,7 @@ import { generateFilterFields } from "./utils";
 
 import type { FilterInputsConfig, ToggleButtonFilterProps } from "./types";
 
-export type DataGridFilterProps = {
+type DataGridFilterProps = {
   filterProps: FilterInputsConfig;
   filterToggles: ToggleButtonFilterProps;
 };
@@ -14,7 +14,7 @@ export type DataGridFilterProps = {
 export const DataGridFilters = React.memo<DataGridFilterProps>(function DataGridFilters({
   filterProps: { inputs, buttons },
   filterToggles,
-}) {
+}: DataGridFilterProps) {
   return (
     <Grid container direction="column">
       <Grid container gap={2}>

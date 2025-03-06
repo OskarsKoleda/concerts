@@ -1,4 +1,5 @@
 import type { SxProps } from "@mui/material";
+import { appTheme } from "../AppProviders/theme.ts";
 
 export const toolbarContainerStyle: SxProps = {
   width: "100%",
@@ -9,22 +10,14 @@ export const toolbarContainerStyle: SxProps = {
 
 export const flexCenterStyle: SxProps = {
   display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
 };
 
-export const homepageIconStyles: SxProps = {
-  margin: "0 1rem .5rem 1rem",
-  height: "2rem",
+export const homepageLinkStyles: SxProps = {
+  display: "flex",
+  alignItems: "center",
 };
 
 export const headerTitleStyles: SxProps = {
-  fontWeight: "550",
-  fontSize: "1.5rem",
-};
-
-export const indexLinkStyles: SxProps = {
-  display: "flex",
-  alignItems: "center",
-  textDecoration: "none",
+  marginLeft: "0.5rem",
+  color: appTheme.palette.primary.contrastText,
 };

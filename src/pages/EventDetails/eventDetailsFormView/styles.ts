@@ -1,13 +1,13 @@
 import type { SxProps } from "@mui/material";
+import { appTheme } from "../../../components/AppProviders/theme.ts";
 
 export const formContainerStyles: SxProps = {
-  display: "flex",
-};
+  marginTop: "3rem",
+  maxWidth: "40rem",
 
-export const paperStyles: SxProps = {
-  borderRadius: "0.2rem",
-  boxShadow: "0px .2rem .4rem rgba(0,0,0,0.1)",
-  padding: "1.5rem",
+  [appTheme.breakpoints.up("lg")]: {
+    maxWidth: "50rem",
+  },
 };
 
 export const posterTitleStyles = (readonly: boolean): SxProps => ({

@@ -6,12 +6,11 @@ import { ROUTE_LIST } from "../../router/routes";
 
 import { homepageText } from "./constants";
 import {
-  additionalInfoStyles,
   buttonsContainerStyles,
   dividerStyles,
+  homePageCardStyles,
   homePageContainerStyles,
   informationContainerStyles,
-  statisticsStyles,
   welcomeTextContainerStyles,
 } from "./styles.ts";
 
@@ -35,7 +34,7 @@ export const HomePage: React.FC = () => {
       </Box>
 
       <Box sx={informationContainerStyles}>
-        <Paper sx={additionalInfoStyles}>
+        <Paper sx={homePageCardStyles}>
           <Typography textAlign="justify" variant="body1">
             {contentSection.mainContent}
           </Typography>
@@ -46,14 +45,14 @@ export const HomePage: React.FC = () => {
             {contentSection.additionalContent}
           </Typography>
         </Paper>
-        <Paper sx={statisticsStyles}>Statistics:</Paper>
+        <Paper sx={homePageCardStyles}>Statistics:</Paper>
       </Box>
 
       <Box sx={buttonsContainerStyles}>
-        <NavLinkButton variant="contained" color="secondary" to={`/${ROUTE_LIST.EVENTS}`}>
+        <NavLinkButton color="secondary" to={`/${ROUTE_LIST.EVENTS}`}>
           {viewButton.label}
         </NavLinkButton>
-        <NavLinkButton variant="contained" color="secondary" to={`/${ROUTE_LIST.NEW_EVENT}`}>
+        <NavLinkButton color="secondary" to={`/${ROUTE_LIST.NEW_EVENT}`}>
           {addButton.label}
         </NavLinkButton>
       </Box>

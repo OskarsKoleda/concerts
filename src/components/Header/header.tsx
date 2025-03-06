@@ -3,18 +3,17 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PortraitIcon from "@mui/icons-material/Portrait";
 import RemoveRedEye from "@mui/icons-material/RemoveRedEye";
 import StadiumIcon from "@mui/icons-material/Stadium";
-import { AppBar, Box, IconButton, Toolbar, Tooltip, Typography } from "@mui/material";
+import { AppBar, Box, IconButton, Link, Toolbar, Tooltip, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { Link } from "react-router-dom";
 
-import homepage from "../../assets/homepage2.png";
+import HomeIcon from "@mui/icons-material/Home";
+import { Link as RouterLink } from "react-router-dom";
 import { useRootStore } from "../../store/StoreContext";
-
 import { ROUTE_LIST } from "../../router/routes.ts";
 import {
   flexCenterStyle,
   headerTitleStyles,
-  homepageIconStyles,
+  homepageLinkStyles,
   toolbarContainerStyle,
 } from "./styles";
 
@@ -29,21 +28,28 @@ export const Header = observer(function Header() {
         <Box sx={toolbarContainerStyle}>
           <Box sx={flexCenterStyle}>
             <IconButton onClick={toggleDrawer} size="large">
-              <MenuIcon color="action" />
+              <MenuIcon />
             </IconButton>
 
             <Link
+              component={RouterLink}
+              sx={homepageLinkStyles}
               onClick={() => setActiveMenuItem("Home")}
-              style={{ display: "flex", alignItems: "center", textDecoration: "none" }}
-              to="/"
+              to={ROUTE_LIST.HOMEPAGE}
             >
-              <Box component="img" src={homepage} alt="homepage" sx={homepageIconStyles} />
-              <Typography sx={headerTitleStyles}>My Events</Typography>
+              <HomeIcon color="action" fontSize="large" />
+              <Typography variant="h3" sx={headerTitleStyles}>
+                Event Tracker
+              </Typography>
             </Link>
           </Box>
 
           <Box sx={flexCenterStyle}>
-            <Link onClick={() => setActiveMenuItem("View Events")} to="/events">
+            <Link
+              component={RouterLink}
+              onClick={() => setActiveMenuItem("View Events")}
+              to={ROUTE_LIST.EVENTS}
+            >
               <Tooltip title="View Event">
                 <IconButton size="large">
                   <StadiumIcon />
@@ -51,7 +57,11 @@ export const Header = observer(function Header() {
               </Tooltip>
             </Link>
 
-            <Link onClick={() => setActiveMenuItem("Add Event")} to={ROUTE_LIST.NEW_EVENT}>
+            <Link
+              component={RouterLink}
+              onClick={() => setActiveMenuItem("Add Event")}
+              to={ROUTE_LIST.NEW_EVENT}
+            >
               <Tooltip title="Add Event">
                 <IconButton size="large">
                   <AddIcon />

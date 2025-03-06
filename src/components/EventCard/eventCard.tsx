@@ -54,8 +54,8 @@ export const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) =
       <CardMedia sx={cardImageStyles} component="img" image={posterImageUrl} />
       <CardContent sx={cardContentStyles}>
         <Box sx={cardContentHeaderStyles}>
-          <Typography variant="h6">{eventTitle}</Typography>
-          <Typography variant="caption" mb={0.5}>
+          <Typography variant="h5">{eventTitle}</Typography>
+          <Typography variant="subtitle2" mb={0.5}>
             {formattedEventDate}
           </Typography>
         </Box>

@@ -1,8 +1,8 @@
-import { Box, MenuItem, Select, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
-
+import { MenuItem, Select, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { FilterInputType } from "./constants";
 
 import type { FilterInputsConfigItem } from "./types";
+import { toggleButtonGroupStyles, toggleButtonStyles } from "./styles.ts";
 
 export function generateFilterFields(input: FilterInputsConfigItem): JSX.Element {
   switch (input.inputType) {
@@ -39,21 +39,20 @@ export function generateFilterFields(input: FilterInputsConfigItem): JSX.Element
     }
     case FilterInputType.toggleButton: {
       return (
-        <Box>
-          <ToggleButtonGroup
-            id={input.id}
-            onChange={input.onChange}
-            size="small"
-            value={input.value}
-            exclusive
-          >
-            {input.options.map((value: string) => (
-              <ToggleButton key={value} value={value}>
-                {value}
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
-        </Box>
+        <ToggleButtonGroup
+          id={input.id}
+          onChange={input.onChange}
+          value={input.value}
+          size="small"
+          exclusive
+          sx={toggleButtonGroupStyles}
+        >
+          {input.options.map((value: string) => (
+            <ToggleButton key={value} value={value} sx={toggleButtonStyles}>
+              {value}
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
       );
     }
   }

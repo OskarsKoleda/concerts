@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import React, { useCallback, useEffect, useMemo } from "react";
 import type { SubmitHandler } from "react-hook-form";
@@ -16,7 +16,7 @@ import { EventDatesForm } from "./eventDatesForm/eventDatesForm.tsx";
 import { EventDetailsButtons } from "./eventDetailsButtons/eventDetailsButtons.tsx";
 import { EventFormFields } from "./eventFormFields/eventFormFields.tsx";
 import { defaultValues, eventDetailsText } from "../constants.ts";
-import { formContainerStyles, paperStyles, posterTitleStyles } from "../styles.ts";
+import { formContainerStyles, posterTitleStyles } from "./styles.ts";
 import { UploadFileButton } from "./uploadFileButton/uploadFileButton.tsx";
 import { convertServerEventToLocal } from "../../../store/eventDetails/utils.ts";
 
@@ -156,8 +156,8 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
 
   return (
     <ContentLoader isLoading={displayLoader}>
-      <Box sx={formContainerStyles}>
-        <Paper sx={paperStyles} elevation={2}>
+      <Box display="flex" justifyContent={"center"}>
+        <Box sx={formContainerStyles}>
           <FormProvider {...methods}>
             <form onSubmit={submitFormHandler}>
               <Typography variant="h5">{getFormTitle}</Typography>
@@ -180,7 +180,7 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
               />
             </form>
           </FormProvider>
-        </Paper>
+        </Box>
       </Box>
     </ContentLoader>
   );

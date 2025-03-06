@@ -15,8 +15,8 @@ export const contentWrapperStyles: SxProps<Theme> = {
 export const scrollContainerStyles: SxProps<Theme> = {
   display: "flex",
   flexDirection: "column",
-  flex: "1",
   alignItems: "center",
+  height: "100%",
   overflowX: "hidden",
   backgroundColor: appTheme.palette.background.default,
 };

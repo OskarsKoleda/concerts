@@ -1,18 +1,17 @@
 import { Chip, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-
-import type { SxProps } from "@mui/material";
 import type { ReactNode } from "react";
+import React from "react";
 
 interface ReadonlyFieldProps {
   label: ReactNode;
-  sx?: SxProps;
   values?: string[];
 }
 
-export const ChipsReadonlyField: React.FC<ReadonlyFieldProps> = ({ label, sx, values }) => {
+// TODO: not used now
+export const ChipsReadonlyField: React.FC<ReadonlyFieldProps> = ({ label, values }) => {
   return (
-    <Box display="flex" flexDirection="column" gap="0.375rem" sx={sx}>
+    <Box display="flex" flexDirection="column" gap="0.375rem">
       <Typography variant="body2">{label}</Typography>
 
       {values && values.length ? (

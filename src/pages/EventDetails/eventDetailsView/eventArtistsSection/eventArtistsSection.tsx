@@ -16,7 +16,7 @@ export const EventArtistsSection = observer(function EventArtistsSection() {
           <ListItem
             key={artist}
             secondaryAction={
-              <IconButton edge="end" aria-label="delete">
+              <IconButton edge="end">
                 <StarBorderRoundedIcon />
               </IconButton>
             }

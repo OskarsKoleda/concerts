@@ -42,7 +42,7 @@ export const EventDetailsView = observer(function EventDetailsView() {
     <ContentLoader isLoading={isLoading || !currentEvent}>
       <Box sx={eventContainerStyles}>
         <Box sx={eventHeaderStyles}>
-          <Typography variant="h2" fontFamily="cursive">
+          <Typography color={"#333"} variant="h2">
             {currentEventTitle}
           </Typography>
         </Box>

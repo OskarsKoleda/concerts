@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Paper } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Paper, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import React, { useMemo } from "react";
 
@@ -132,7 +132,9 @@ export const EventFilters: React.FC = observer(function EventFilters() {
   return (
     <Paper sx={filterContainerStyles}>
       <Accordion>
-        <AccordionSummary sx={filterSummaryStyles}>Filter By</AccordionSummary>
+        <AccordionSummary sx={filterSummaryStyles}>
+          <Typography variant={"h5"}>Event Filters</Typography>
+        </AccordionSummary>
         <AccordionDetails sx={filterDetailsStyles}>
           <DataGridFilters
             filterProps={eventFilterInputConfig}

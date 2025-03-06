@@ -4,16 +4,16 @@ export const appTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#5C6BC0",
-      light: "#8E99F3",
-      dark: "#3E4A89",
-      contrastText: "#fff",
+      main: "#009688", // Teal, modern and refreshing
+      light: "#52C7B8", // Lighter teal for subtle accents
+      dark: "#00796B", // Darker teal for depth
+      contrastText: "#e8f4e8", // White text for contrast
     },
     secondary: {
-      main: "#FF7043",
-      light: "#FFAB91",
-      dark: "#D32F2F",
-      contrastText: "#fff",
+      main: "#CDDC39",
+      light: "#E6EE9C",
+      dark: "#AFB42B",
+      contrastText: "#51514b",
     },
     error: {
       main: "#D32F2F",
@@ -29,16 +29,17 @@ export const appTheme = createTheme({
     },
     background: {
       default: "#f0f4f7",
-      paper: "#fff",
+      paper: "#f3dfa2",
     },
     text: {
       primary: "#333",
       secondary: "#757575",
     },
-    divider: "#FF7043",
   },
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    // fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    // fontFamily: "Nunito",
+    fontFamily: "cursive",
     h1: {
       fontSize: "2.5rem",
       fontWeight: 700,
@@ -99,14 +100,8 @@ export const appTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
+          borderRadius: "0",
           textTransform: "none",
-        },
-      },
-    },
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          fontFamily: "'Roboto', 'Arial', sans-serif",
         },
       },
     },
@@ -116,6 +111,15 @@ export const appTheme = createTheme({
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
         },
       },
+    },
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
     },
   },
 });

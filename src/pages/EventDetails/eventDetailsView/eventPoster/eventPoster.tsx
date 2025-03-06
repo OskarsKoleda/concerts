@@ -11,7 +11,8 @@ export const EventPoster = observer(function EventPoster() {
     <Box>
       <img
         style={{
-          height: "70vh",
+          height: "80vh",
+          boxShadow: "4px 4px 10px #52C7B8",
         }}
         src={currentEventPosterURL}
         alt={currentEventPosterTitle}
