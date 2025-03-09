@@ -1,31 +1,24 @@
 import { Link } from "react-router-dom";
-import { ListItemText, ListItemButton, ListItemIcon } from "@mui/material";
+import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 
-import { listItemStyle } from "./styles";
+import React from "react";
+import { listItemStyle } from "./styles.ts";
 
 interface ListItemLinkProps {
   selected: boolean;
-  icon?: React.ReactElement;
   label: string;
   to: string;
-  onClick: () => void;
+  icon?: React.ReactElement;
 }
 
 export const NavListItem: React.FC<ListItemLinkProps> = ({
-  icon,
+  selected,
   label,
   to,
-  selected,
-  onClick,
+  icon,
 }: ListItemLinkProps) => {
   return (
-    <ListItemButton
-      component={Link}
-      selected={selected}
-      to={to}
-      onClick={onClick}
-      sx={listItemStyle}
-    >
+    <ListItemButton component={Link} selected={selected} to={to} sx={listItemStyle}>
       {icon && <ListItemIcon>{icon}</ListItemIcon>}
       <ListItemText primary={label} />
     </ListItemButton>

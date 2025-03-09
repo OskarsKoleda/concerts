@@ -4,7 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import React from "react";
 import AppRoutes from "../../router/routes.tsx";
-import { DrawerNavigation } from "../DrawerNavigation/drawerNavigation.tsx";
 import { Header } from "../Header/header.tsx";
 
 import { ErrorBoundaryMessage } from "../ErrorBoundaryMessage/errorBoundaryMessage.tsx";
@@ -13,8 +12,6 @@ import { appContainerStyles, contentWrapperStyles, scrollContainerStyles } from 
 
 const App: React.FC = () => (
   <BrowserRouter future={{ v7_startTransition: true }}>
-    <DrawerNavigation />
-
     <Box sx={appContainerStyles}>
       <Box sx={contentWrapperStyles}>
         <Header />

@@ -11,14 +11,12 @@ import type { ControlPayload } from "../../../../components/ButtonsLayout/types.
 type ControlButtonsProps = {
   readOnly: boolean;
   isEditMode: boolean;
-  onEditClick: () => void;
 };
 
 export const EventDetailsButtons: FC<ControlButtonsProps> = memo(function EventDetailsButtons({
-  onEditClick,
   readOnly,
   isEditMode,
-}) {
+}: ControlButtonsProps) {
   const {
     reset,
     formState: { dirtyFields },
@@ -26,10 +24,6 @@ export const EventDetailsButtons: FC<ControlButtonsProps> = memo(function EventD
 
   const navigate = useNavigate();
   const isFormReallyDirty = Object.keys(dirtyFields).length > 0;
-
-  const handleReset = useCallback(() => {
-    reset();
-  }, [reset]);
 
   const handleReturnFromDetails = useCallback(() => {
     navigate(ROUTE_LIST.HOMEPAGE);
@@ -50,17 +44,9 @@ export const EventDetailsButtons: FC<ControlButtonsProps> = memo(function EventD
       disabled: !isFormReallyDirty,
     },
     {
-      color: "primary",
-      text: "Edit",
-      variant: "contained",
-      onClick: onEditClick,
-      type: "button",
-      visible: readOnly,
-    },
-    {
       id: "newEvent.resetEventForm",
       color: "primary",
-      onClick: handleReset,
+      onClick: () => reset(),
       text: "Reset",
       variant: "contained",
       visible: !readOnly,

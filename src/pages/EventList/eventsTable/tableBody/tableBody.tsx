@@ -7,7 +7,6 @@ import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../../../store/StoreContext";
 
 import { DATE_FORMAT } from "../../../../common/constants/appConstant.ts";
-import { tableStyles } from "./styles";
 
 export const TableBody = observer(function TableBody() {
   const {
@@ -76,7 +75,7 @@ export const TableBody = observer(function TableBody() {
   // TODO table rendered with every click
   return (
     <DataGrid
-      sx={tableStyles}
+      // sx={tableStyles}
       columns={columns}
       rows={events}
       disableRowSelectionOnClick={true}
@@ -87,7 +86,7 @@ export const TableBody = observer(function TableBody() {
         },
       }}
       hideFooterSelectedRowCount={true}
-      autoHeight
+      // autoHeight
       rowHeight={40}
     />
   );

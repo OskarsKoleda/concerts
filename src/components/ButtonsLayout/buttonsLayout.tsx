@@ -3,7 +3,7 @@ import { memo } from "react";
 
 import { DeleteEventButton } from "../DeleteEventButton/DeleteEventButton.tsx";
 
-import { controlButtonLeftContainersStyles, controlButtonsTopContainerStyles } from "./styles";
+import { controlButtonsContainerStyles } from "./styles";
 import { toVisibleControl } from "./utils";
 
 import type { ControlPayload } from "./types";
@@ -13,14 +13,14 @@ export type ButtonLayoutProps = {
   showDelete: boolean;
 };
 
-export const ButtonsLayout = memo<ButtonLayoutProps>(function ConcertCreationFormControls({
+export const ButtonsLayout = memo<ButtonLayoutProps>(function ButtonsLayout({
   controls,
   showDelete,
-}) {
+}: ButtonLayoutProps) {
   return (
     <Box>
-      <Grid container sx={controlButtonsTopContainerStyles}>
-        <Grid item sx={controlButtonLeftContainersStyles}>
+      <Grid container sx={controlButtonsContainerStyles}>
+        <Grid item display="flex">
           {controls.flatMap(toVisibleControl).map((control) => (
             <Grid item key={control.text} mr={1}>
               <Button id={control.id} {...control}>

@@ -1,35 +1,28 @@
-import { Box, Divider, Drawer, List } from "@mui/material";
-import { observer } from "mobx-react-lite";
-
-import { useRootStore } from "../../store/StoreContext";
-import { NavListItem } from "../NavigationListItem/navigationListItem";
+import { Box, Drawer, List } from "@mui/material";
+import { useLocation } from "react-router-dom";
+import { NavListItem } from "./NavigationListItem/navigationListItem";
 
 import { menuItems } from "./constants";
+import { drawerStyles } from "./styles.ts";
 
-export const DrawerNavigation: React.FC = observer(() => {
-  const {
-    applicationStore: {
-      drawerIsOpen,
-      toggleDrawer,
-      setActiveMenuItem: selectMenuItem,
-      currentMenuItem,
-    },
-  } = useRootStore();
+type DrawerNavigationProps = {
+  drawerIsOpen: boolean;
+  toggleDrawer: () => void;
+};
 
-  const handleListItemClick = (itemLabel: string) => {
-    selectMenuItem(itemLabel);
-  };
+export const DrawerNavigation = (props: DrawerNavigationProps) => {
+  const { drawerIsOpen, toggleDrawer } = props;
+  const url = useLocation();
 
   return (
-    <Drawer variant="temporary" onClose={toggleDrawer} open={drawerIsOpen} anchor="left">
-      <Box width={210} onClick={toggleDrawer}>
+    <Drawer onClose={toggleDrawer} open={drawerIsOpen}>
+      <Box sx={drawerStyles} onClick={toggleDrawer}>
         <List>
           {menuItems.map((item) => {
             return (
               <NavListItem
                 key={item.label}
-                selected={currentMenuItem === item.label}
-                onClick={() => handleListItemClick(item.label)}
+                selected={url.pathname === item.path}
                 to={item.path}
                 label={item.label}
                 icon={item.icon}
@@ -37,8 +30,7 @@ export const DrawerNavigation: React.FC = observer(() => {
             );
           })}
         </List>
-        <Divider />
       </Box>
     </Drawer>
   );
-});
+};

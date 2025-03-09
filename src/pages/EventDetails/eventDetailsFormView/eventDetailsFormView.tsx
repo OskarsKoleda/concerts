@@ -3,11 +3,8 @@ import { observer } from "mobx-react-lite";
 import React, { useCallback, useEffect, useMemo } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { SnackbarVariantType } from "../../../common/enums/appEnums.ts";
+import { useLocation, useParams } from "react-router-dom";
 import { ContentLoader } from "../../../components/ContentLoader/contentLoader.tsx";
-import { useCustomSnackbar } from "../../../hooks/useCustomSnackbar.ts";
-import { ROUTE_LIST } from "../../../router/routes.ts";
 import { useRootStore } from "../../../store/StoreContext.tsx";
 import { EventDetailsRequests } from "../../../store/transport/eventDetailsTransport/constants.ts";
 
@@ -19,6 +16,7 @@ import { defaultValues, eventDetailsText } from "../constants.ts";
 import { formContainerStyles, posterTitleStyles } from "./styles.ts";
 import { UploadFileButton } from "./uploadFileButton/uploadFileButton.tsx";
 import { convertServerEventToLocal } from "../../../store/eventDetails/utils.ts";
+import { useEventHandlers } from "./utils.ts";
 
 const {
   form: { title },
@@ -34,19 +32,16 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
         requestHandler: { isSuccessfulRequest, resetRequest },
       },
     },
-    eventDetailsUIStore: { setEventId, setPosterTitle, resetEvent, eventPosterTitle },
+    eventDetailsUIStore: { resetEvent, eventPosterTitle, currentEventId, currentEvent },
   } = useRootStore();
 
   const { id: eventId } = useParams();
-
-  const { showSnackbar } = useCustomSnackbar();
   const url = useLocation();
-  const navigate = useNavigate();
+
   const newEvent = useMemo(() => url.pathname.includes("/new"), [url.pathname]);
   const editEvent = useMemo(() => url.pathname.includes("/edit"), [url.pathname]);
 
   const eventInReadonlyMode = useMemo(() => !!eventId && !editEvent, [eventId, editEvent]);
-
   const displayLoader =
     eventInReadonlyMode && !!eventId && !isSuccessfulRequest(EventDetailsRequests.getEvent);
 
@@ -61,25 +56,20 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
   });
 
   const { handleSubmit, reset } = methods;
+  const { handleSuccessfulCreate, handleSuccessfulUpdate, handleEventNotFound } =
+    useEventHandlers();
 
   const handleUpdate: SubmitHandler<LocalEventData> = useCallback(
     async (data) => {
       if (eventId) {
         const response = await updateEvent(eventId, data);
 
-        if (!response) {
-          return;
-        }
+        if (!response) return;
 
-        showSnackbar({
-          message: `Event ${response} successfully updated`,
-          variant: SnackbarVariantType.INFO,
-        });
-
-        navigate(`/${ROUTE_LIST.EVENTS}/${eventId}`);
+        handleSuccessfulUpdate(eventId);
       }
     },
-    [updateEvent, showSnackbar, navigate, eventId],
+    [updateEvent, eventId],
   );
 
   const submitFormHandler = (event: React.SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -102,57 +92,46 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
     async (data) => {
       const response = await addEvent(data);
 
-      if (!response) {
-        return;
-      }
+      if (!response) return;
 
-      showSnackbar({
-        message: `Added new event - ${response}`,
-        variant: SnackbarVariantType.SUCCESS,
-      });
-
-      navigate(`/${ROUTE_LIST.EVENTS}`);
+      handleSuccessfulCreate(response);
     },
-    [addEvent, showSnackbar, navigate],
+    [addEvent],
   );
-
-  const openEventEditView = () => {
-    navigate(`/${ROUTE_LIST.EVENTS}/${eventId}/edit`);
-  };
 
   useEffect(() => {
     const fetchEventData = async () => {
-      if (eventId) {
-        const event = await getEvent(eventId);
-
-        if (!event) {
-          navigate(`/${ROUTE_LIST.EVENTS}`);
-          showSnackbar({
-            message: `Event ${eventId} not found!`,
-            variant: SnackbarVariantType.ERROR,
-          });
-
-          return;
-        }
-
-        setEventId(eventId);
-
-        const convertedEventData = convertServerEventToLocal(event);
-
-        reset(convertedEventData);
-      } else {
+      if (!eventId) {
         reset(defaultValues);
+
+        return;
       }
+
+      if (currentEvent && eventId === currentEventId) {
+        reset(convertServerEventToLocal(currentEvent));
+
+        return;
+      }
+
+      const event = await getEvent(eventId);
+
+      if (!event) {
+        handleEventNotFound(eventId);
+
+        return;
+      }
+
+      reset(convertServerEventToLocal(event));
     };
 
     fetchEventData();
-  }, [eventId, getEvent, navigate, reset, showSnackbar]);
+  }, [eventId, getEvent, reset]);
 
   useEffect(() => {
     if (newEvent) resetEvent();
 
     return () => resetRequest(EventDetailsRequests.getEvent);
-  }, [editEvent, newEvent, setPosterTitle, resetEvent]);
+  }, [newEvent, resetEvent, resetRequest]);
 
   return (
     <ContentLoader isLoading={displayLoader}>
@@ -173,11 +152,7 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
                   {eventPosterTitle}
                 </Typography>
               </Box>
-              <EventDetailsButtons
-                readOnly={eventInReadonlyMode}
-                isEditMode={editEvent}
-                onEditClick={openEventEditView}
-              />
+              <EventDetailsButtons readOnly={eventInReadonlyMode} isEditMode={editEvent} />
             </form>
           </FormProvider>
         </Box>

@@ -36,7 +36,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) =
   const navigate = useNavigate();
 
   const handleOpenEvent = (eventId: string) => {
-    navigate(`/${ROUTE_LIST.EVENTS}/${eventId}`);
+    navigate(`${ROUTE_LIST.EVENTS}/${eventId}`);
   };
 
   const formattedEventDate = useMemo(() => {

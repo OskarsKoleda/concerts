@@ -7,5 +7,4 @@ export const gridStyles: SxProps = {
 export const layoutWrapperStyles: SxProps = {
   display: "flex",
   flexDirection: "column",
-  justifyContent: "space-between",
 };

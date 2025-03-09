@@ -60,8 +60,8 @@ export class EventDetailsUIStore {
     return this.event?.ticketPrice ? `${this.event?.ticketPrice} €` : "";
   }
 
-  get currentEventPosterURL(): string {
-    return this.event?.posterImageUrl ?? "";
+  get currentEventPosterURL(): string | undefined {
+    return this.event?.posterImageUrl;
   }
 
   get currentEventPosterTitle(): string {

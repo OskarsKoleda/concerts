@@ -6,6 +6,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
+import React from "react";
 
 type LockConfirmDialogProps = {
   show: boolean;

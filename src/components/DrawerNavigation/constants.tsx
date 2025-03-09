@@ -23,7 +23,7 @@ export const menuItems = [
   },
   {
     label: "Profile",
-    path: "/",
+    path: "/profile",
     icon: <PortraitIcon />,
   },
 ];

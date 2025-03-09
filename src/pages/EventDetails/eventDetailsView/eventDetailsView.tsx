@@ -47,7 +47,7 @@ export const EventDetailsView = observer(function EventDetailsView() {
           </Typography>
         </Box>
 
-        <Box display="flex" justifyContent="center">
+        <Box display="flex" minWidth={"500px"} justifyContent="center">
           <EventDataSection />
           <EventPoster />
           <EventArtistsSection />

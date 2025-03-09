@@ -8,8 +8,10 @@ import { observer } from "mobx-react-lite";
 
 import HomeIcon from "@mui/icons-material/Home";
 import { Link as RouterLink } from "react-router-dom";
+import { useState } from "react";
 import { useRootStore } from "../../store/StoreContext";
 import { ROUTE_LIST } from "../../router/routes.ts";
+import { DrawerNavigation } from "../DrawerNavigation/drawerNavigation.tsx";
 import {
   flexCenterStyle,
   headerTitleStyles,
@@ -19,24 +21,26 @@ import {
 
 export const Header = observer(function Header() {
   const {
-    applicationStore: { toggleDrawer, toggleConcertsView, setActiveMenuItem },
+    applicationStore: { toggleConcertsView },
   } = useRootStore();
+
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const toggleDrawer = () => {
+    setOpenDrawer((prevState) => !prevState);
+  };
 
   return (
     <AppBar position="sticky">
       <Toolbar>
         <Box sx={toolbarContainerStyle}>
           <Box sx={flexCenterStyle}>
+            <DrawerNavigation drawerIsOpen={openDrawer} toggleDrawer={toggleDrawer} />
             <IconButton onClick={toggleDrawer} size="large">
               <MenuIcon />
             </IconButton>
 
-            <Link
-              component={RouterLink}
-              sx={homepageLinkStyles}
-              onClick={() => setActiveMenuItem("Home")}
-              to={ROUTE_LIST.HOMEPAGE}
-            >
+            <Link component={RouterLink} sx={homepageLinkStyles} to={ROUTE_LIST.HOMEPAGE}>
               <HomeIcon color="action" fontSize="large" />
               <Typography variant="h3" sx={headerTitleStyles}>
                 Event Tracker
@@ -45,11 +49,7 @@ export const Header = observer(function Header() {
           </Box>
 
           <Box sx={flexCenterStyle}>
-            <Link
-              component={RouterLink}
-              onClick={() => setActiveMenuItem("View Events")}
-              to={ROUTE_LIST.EVENTS}
-            >
+            <Link component={RouterLink} to={ROUTE_LIST.EVENTS}>
               <Tooltip title="View Event">
                 <IconButton size="large">
                   <StadiumIcon />
@@ -57,11 +57,7 @@ export const Header = observer(function Header() {
               </Tooltip>
             </Link>
 
-            <Link
-              component={RouterLink}
-              onClick={() => setActiveMenuItem("Add Event")}
-              to={ROUTE_LIST.NEW_EVENT}
-            >
+            <Link component={RouterLink} to={ROUTE_LIST.NEW_EVENT}>
               <Tooltip title="Add Event">
                 <IconButton size="large">
                   <AddIcon />
@@ -69,6 +65,7 @@ export const Header = observer(function Header() {
               </Tooltip>
             </Link>
 
+            {/*TODO: move to somewhere else*/}
             <Tooltip title="Change View">
               <IconButton onClick={toggleConcertsView} size="large">
                 <RemoveRedEye />

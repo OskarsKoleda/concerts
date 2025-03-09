@@ -49,10 +49,10 @@ export const HomePage: React.FC = () => {
       </Box>
 
       <Box sx={buttonsContainerStyles}>
-        <NavLinkButton color="secondary" to={`/${ROUTE_LIST.EVENTS}`}>
+        <NavLinkButton color="secondary" to={ROUTE_LIST.EVENTS}>
           {viewButton.label}
         </NavLinkButton>
-        <NavLinkButton color="secondary" to={`/${ROUTE_LIST.NEW_EVENT}`}>
+        <NavLinkButton color="secondary" to={ROUTE_LIST.NEW_EVENT}>
           {addButton.label}
         </NavLinkButton>
       </Box>
