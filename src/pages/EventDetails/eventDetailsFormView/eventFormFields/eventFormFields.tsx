@@ -1,15 +1,18 @@
-import React from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
-import { EVENT_TITLE_RULES } from "../../../../common/constants/appConstant.ts";
 import { InputType } from "../../../../components/FormLayout/constants.ts";
 import { FormLayout } from "../../../../components/FormLayout/formLayout.tsx";
 
 import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
 import type { FormFields } from "../../../../components/FormLayout/types.ts";
 import { eventCategoriesList, EventCategory } from "../../constants.ts";
+import {
+  CITY_RULES,
+  EVENT_TITLE_RULES,
+  TICKET_PRICE_RULES,
+} from "../../../../common/constants/validations.ts";
 
-export const EventFormFields = React.memo(({ readOnly }: { readOnly: boolean }) => {
+export const EventFormFields = () => {
   const { control } = useFormContext<LocalEventData>();
 
   const eventCategory = useWatch({
@@ -38,7 +41,6 @@ export const EventFormFields = React.memo(({ readOnly }: { readOnly: boolean }) 
         controlName: "artists",
         id: "artists",
         label: "Artists",
-        readonly: readOnly,
         hide: [EventCategory.theatre, EventCategory.creativeEvening].includes(eventCategory),
       },
       {
@@ -47,6 +49,7 @@ export const EventFormFields = React.memo(({ readOnly }: { readOnly: boolean }) 
         id: "city",
         label: "City",
         xs: 6,
+        rules: CITY_RULES,
       },
       {
         inputType: InputType.text,
@@ -60,18 +63,11 @@ export const EventFormFields = React.memo(({ readOnly }: { readOnly: boolean }) 
         controlName: "ticketPrice",
         id: "ticketPrice",
         label: "Ticket Price",
-        readonly: readOnly,
         xs: 6,
+        rules: TICKET_PRICE_RULES,
       },
     ];
   };
 
-  return (
-    <FormLayout
-      content={getCommonEventFields()}
-      control={control}
-      readonly={readOnly}
-      title="Event Details"
-    />
-  );
-});
+  return <FormLayout content={getCommonEventFields()} control={control} title="Event Details" />;
+};

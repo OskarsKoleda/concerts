@@ -67,6 +67,10 @@ export class EventDetailsTransport implements ChildTransport {
 
   deleteEvent = async (eventId: string): Promise<FirebaseResponse> => {
     const { errorTexts, request } = this.getRequestContextHelper(EventDetailsRequests.deleteEvent);
+    if (!eventId) {
+      return;
+    }
+
     const eventReference = ref(this.db, `/events/${eventId}`);
 
     try {

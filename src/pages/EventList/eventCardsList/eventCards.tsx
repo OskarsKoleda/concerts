@@ -37,7 +37,7 @@ export const EventCardsList: React.FC = observer(function EventCardsList() {
 
   return (
     <ContentLoader isLoading={!concertsHaveLoaded}>
-      <Grid container direction="row" rowSpacing={2} columnSpacing={2}>
+      <Grid container rowSpacing={2} columnSpacing={2}>
         {events.map((event) => (
           <Grid item key={event.eventId} sm={12} md={6}>
             <EventCard key={event.eventId} event={event} />

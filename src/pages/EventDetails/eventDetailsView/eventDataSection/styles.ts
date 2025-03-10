@@ -26,3 +26,9 @@ export const eventDataFooterStyles: SxProps = {
   flex: "1 0 auto",
   alignItems: "center",
 };
+
+export const eventButtonContainerStyles: SxProps = {
+  display: "flex",
+  justifyContent: "space-between",
+  width: "100%",
+};

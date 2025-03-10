@@ -32,7 +32,7 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
         requestHandler: { isSuccessfulRequest, resetRequest },
       },
     },
-    eventDetailsUIStore: { resetEvent, eventPosterTitle, currentEventId, currentEvent },
+    eventDetailsUIStore: { resetCurrentEvent, eventPosterTitle },
   } = useRootStore();
 
   const { id: eventId } = useParams();
@@ -99,16 +99,11 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
     [addEvent],
   );
 
+  // TODO: add unnecessary data refetch
   useEffect(() => {
     const fetchEventData = async () => {
       if (!eventId) {
         reset(defaultValues);
-
-        return;
-      }
-
-      if (currentEvent && eventId === currentEventId) {
-        reset(convertServerEventToLocal(currentEvent));
 
         return;
       }
@@ -128,10 +123,10 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
   }, [eventId, getEvent, reset]);
 
   useEffect(() => {
-    if (newEvent) resetEvent();
+    if (newEvent) resetCurrentEvent();
 
     return () => resetRequest(EventDetailsRequests.getEvent);
-  }, [newEvent, resetEvent, resetRequest]);
+  }, [newEvent, resetCurrentEvent, resetRequest]);
 
   return (
     <ContentLoader isLoading={displayLoader}>
@@ -140,8 +135,8 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
           <FormProvider {...methods}>
             <form onSubmit={submitFormHandler}>
               <Typography variant="h5">{getFormTitle}</Typography>
-              <EventFormFields readOnly={eventInReadonlyMode} />
-              <EventDatesForm readOnly={eventInReadonlyMode} />
+              <EventFormFields />
+              <EventDatesForm />
               <Box display="flex" alignItems="flex-end">
                 <UploadFileButton
                   buttonTitle="Add Poster"
@@ -152,7 +147,7 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
                   {eventPosterTitle}
                 </Typography>
               </Box>
-              <EventDetailsButtons readOnly={eventInReadonlyMode} isEditMode={editEvent} />
+              <EventDetailsButtons isEditMode={editEvent} />
             </form>
           </FormProvider>
         </Box>

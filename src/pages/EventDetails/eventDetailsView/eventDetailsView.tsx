@@ -20,7 +20,7 @@ export const EventDetailsView = observer(function EventDetailsView() {
 
   const {
     eventDetailsRequestStore: { getEvent },
-    eventDetailsUIStore: { currentEvent, currentEventTitle },
+    eventDetailsUIStore: { currentEvent, currentEventTitle, currentEventArtists },
   } = useRootStore();
 
   const { isLoading, error } = useQuery({
@@ -36,21 +36,24 @@ export const EventDetailsView = observer(function EventDetailsView() {
         variant: SnackbarVariantType.ERROR,
       });
     }
+
+    // return () => {
+    //   console.log("RESETTING");
+    //   resetCurrentEvent();
+    // };
   }, [error, eventId, navigate]);
 
   return (
     <ContentLoader isLoading={isLoading || !currentEvent}>
       <Box sx={eventContainerStyles}>
         <Box sx={eventHeaderStyles}>
-          <Typography color={"#333"} variant="h2">
-            {currentEventTitle}
-          </Typography>
+          <Typography variant="h2">{currentEventTitle}</Typography>
         </Box>
 
-        <Box display="flex" minWidth={"500px"} justifyContent="center">
+        <Box display="flex" justifyContent="center">
           <EventDataSection />
           <EventPoster />
-          <EventArtistsSection />
+          {currentEventArtists.length ? <EventArtistsSection /> : null}
         </Box>
       </Box>
     </ContentLoader>

@@ -26,7 +26,7 @@ export class EventListTransport implements ChildTransport {
     const eventsRef = ref(this.db, "/events");
 
     return onValue(eventsRef, (snapshot) => {
-      const data = snapshot.val(); // TODO: find out what is data - 1 or many events
+      const data = snapshot.val();
 
       if (data) {
         const formattedConcerts: ServerEventDataWithId[] = appendEventIdToServerEvent(data);
@@ -44,6 +44,7 @@ export class EventListTransport implements ChildTransport {
     try {
       request.inProgress();
       const snapshot = await get(ref(this.db, "/events"));
+
       request.success();
 
       return snapshot.val();

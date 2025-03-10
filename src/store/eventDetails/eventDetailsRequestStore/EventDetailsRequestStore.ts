@@ -25,8 +25,6 @@ export class EventDetailsRequestStore {
 
   getEvent = async (eventId: string): Promise<ServerEventData | undefined> => {
     const response = await this.eventDetailsTransport.getEvent(eventId);
-
-    console.log("FETCHING");
     if (response) {
       this.eventDetailsUIStore.setEvent(response);
       this.eventDetailsUIStore.setEventId(eventId);
@@ -34,7 +32,7 @@ export class EventDetailsRequestStore {
       return response;
     }
 
-    this.eventDetailsUIStore.resetEvent();
+    this.eventDetailsUIStore.resetCurrentEvent();
   };
 
   addEvent = async (event: LocalEventData): Promise<FirebaseResponse> => {

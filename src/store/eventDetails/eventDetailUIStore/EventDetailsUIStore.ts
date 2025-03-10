@@ -84,7 +84,7 @@ export class EventDetailsUIStore {
     this.posterTitle = posterTitle;
   };
 
-  resetEvent = (): void => {
+  resetCurrentEvent = (): void => {
     this.event = null;
     this.eventId = "";
     this.posterTitle = "";

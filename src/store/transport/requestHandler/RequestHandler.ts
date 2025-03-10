@@ -38,7 +38,7 @@ export class RequestHandler implements IRequestHandler {
   };
 
   private createRequest = (name: string): AppRequest => {
-    const request = new AppRequest(name, { processError: this.processError });
+    const request = new AppRequest({ processError: this.processError });
     this.requests[name] = request;
 
     return request;

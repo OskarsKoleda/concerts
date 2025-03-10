@@ -1,9 +1,5 @@
-import type { UseControllerProps } from "react-hook-form";
-
 export const URL_VALIDATION_PATTERN_PROTOCOL_OPTIONAL =
   /^(?:http(s)?:\/\/)?[\w.-]+(?:\.|:[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=]+$/;
-
-export const NOT_ALL_WHITESPACE_PATTERN = /^\S\S*/;
 
 export enum ResponseMessages {
   EVENT_SUCCESSFUL_CREATION = "The event was successfully CREATED!",
@@ -15,17 +11,6 @@ export enum ResponseMessages {
   EVENT_SUCCESSFUL_UPDATE = "The event was successfully updated!",
 }
 
-export const EVENT_TITLE_RULES: UseControllerProps["rules"] = {
-  pattern: NOT_ALL_WHITESPACE_PATTERN,
-  required: true,
-  minLength: 3,
-  validate: (value: string) => {
-    if (value.length > 30) {
-      return "Title cannot exceed 30 characters!";
-    }
-  },
-};
-
 export const ERROR_TEXTS: Record<string, string> = {
   maxLength: "The field is too long",
   required: "The field is required",
@@ -34,3 +19,6 @@ export const ERROR_TEXTS: Record<string, string> = {
 };
 
 export const DATE_FORMAT = "dd.MM.yyyy";
+
+export const DATA_STALE_TIME = 1000;
+export const DATA_CACHE_TIME = 300000;

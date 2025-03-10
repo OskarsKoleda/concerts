@@ -1,10 +1,14 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
 import { useRootStore } from "../../../../store/StoreContext.tsx";
 import { ROUTE_LIST } from "../../../../router/routes.ts";
-import { eventDataContainerStyles, eventDataFooterStyles, eventDataStyles } from "./styles.ts";
+import { NavLinkButton } from "../../../../components/NavButton/navButton.tsx";
+import {
+  eventButtonContainerStyles,
+  eventDataContainerStyles,
+  eventDataFooterStyles,
+  eventDataStyles,
+} from "./styles.ts";
 
 export const EventDataSection = observer(function EventDataSection() {
   const {
@@ -19,14 +23,8 @@ export const EventDataSection = observer(function EventDataSection() {
     },
   } = useRootStore();
 
-  const navigate = useNavigate();
-
   const formattedDate =
     currentEventDate || `${currentFestivalStartDate} - ${currentFestivalEndDate}`;
-
-  const openEditView = (eventId: string) => {
-    navigate(`${ROUTE_LIST.EVENTS}/${eventId}/edit`);
-  };
 
   return (
     <Paper sx={eventDataContainerStyles}>
@@ -42,12 +40,9 @@ export const EventDataSection = observer(function EventDataSection() {
       <Box sx={eventDataFooterStyles}>
         <Typography variant="h4">{currentFestivalTicketPrice}</Typography>
       </Box>
-      <Divider orientation="horizontal" flexItem />
-      <Box>
-        <Button variant="outlined">Back</Button>
-        <Button variant="outlined" onClick={() => openEditView(currentEventId)}>
-          Edit
-        </Button>
+      <Box sx={eventButtonContainerStyles}>
+        <NavLinkButton to={ROUTE_LIST.EVENTS}>Back</NavLinkButton>
+        <NavLinkButton to={`${ROUTE_LIST.EVENTS}/${currentEventId}/edit`}>Edit</NavLinkButton>
       </Box>
     </Paper>
   );
