@@ -12,7 +12,7 @@ import type {
   FilterInputsConfig,
   ToggleButtonFilterProps,
 } from "../../../components/DataGridFilters/types";
-import { eventCategoriesList } from "../../EventDetails/constants.ts";
+import { eventCategoriesList } from "../../../common/constants/appConstant.ts";
 import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
 
 const {
@@ -79,18 +79,6 @@ export const EventFilters: React.FC = observer(function EventFilters() {
           onChange: (e: React.ChangeEvent<HTMLInputElement>) => setBand(e.target.value),
           value: currentBand,
         },
-        // {
-        //   inputType: FilterInputType.toggleButton,
-        //   id: ConcertsPageIds.eventTypeToggle,
-        //   label: "Event Type",
-        //   value: currentEventType,
-        //   options: ["Concert", "Festival", "All"],
-        //   onChange: (_: React.MouseEvent<HTMLElement>, newFestivalType: EventTypeFilter) => {
-        //     if (newFestivalType !== null) {
-        //       setEventType(newFestivalType);
-        //     }
-        //   },
-        // },
       ],
       buttons: [
         {
@@ -133,7 +121,7 @@ export const EventFilters: React.FC = observer(function EventFilters() {
     <Paper sx={filterContainerStyles}>
       <Accordion>
         <AccordionSummary sx={filterSummaryStyles}>
-          <Typography variant={"h5"}>Event Filters</Typography>
+          <Typography variant="h5">Event Filters</Typography>
         </AccordionSummary>
         <AccordionDetails sx={filterDetailsStyles}>
           <DataGridFilters

@@ -46,8 +46,8 @@ export class EventDetailsRequestStore {
 
     return this.createAndStoreEvent(
       event,
-      imageUploadResult?.posterImageTitle,
       imageUploadResult?.posterImageUrl,
+      imageUploadResult?.posterImageTitle,
     );
   };
 
@@ -68,8 +68,8 @@ export class EventDetailsRequestStore {
 
   private createAndStoreEvent = async (
     event: LocalEventData,
-    publicPosterImageId?: string,
     posterImageUrl?: string,
+    publicPosterImageId?: string,
   ): Promise<Nullable<string> | undefined> => {
     const newEventData = this.composeEventData(event, posterImageUrl, publicPosterImageId);
 

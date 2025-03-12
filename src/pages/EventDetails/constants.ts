@@ -1,14 +1,5 @@
 import type { LocalEventData } from "../../common/types/eventTypes.ts";
-import type { EventCategoryType } from "./types.ts";
-
-export enum EventCategory {
-  musicConcert = "Music Concert",
-  musicFestival = "Music Festival",
-  theatre = "Theatre",
-  creativeEvening = "Creative Evening",
-}
-
-export const eventCategoriesList: EventCategoryType[] = Object.values(EventCategory);
+import { EventCategory } from "../../common/enums/appEnums.ts";
 
 export const defaultValues: LocalEventData = {
   eventCategory: EventCategory.musicConcert,

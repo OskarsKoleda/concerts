@@ -1,5 +1,5 @@
 import type { Database } from "firebase/database";
-import { get, onValue, ref } from "firebase/database";
+import { get, onValue, query, ref } from "firebase/database";
 import { makeAutoObservable } from "mobx";
 
 import { getRequestContext } from "../rootTransport/utils";
@@ -7,7 +7,7 @@ import { getRequestContext } from "../rootTransport/utils";
 import type { ServerEventData, ServerEventDataWithId } from "../../../common/types/eventTypes.ts";
 import type { RequestHandler } from "../requestHandler/RequestHandler";
 import type { ChildTransport, RequestContext } from "../rootTransport/types";
-import { appendEventIdToServerEvent } from "../../utility.ts";
+import { appendEventIdToServerEvent } from "../../utils.ts";
 import { EventListRequests, requestErrorMessages } from "./constants";
 
 export class EventListTransport implements ChildTransport {
@@ -43,7 +43,12 @@ export class EventListTransport implements ChildTransport {
 
     try {
       request.inProgress();
-      const snapshot = await get(ref(this.db, "/events"));
+      const eventsQuery = query(
+        ref(this.db, "/events"),
+        // orderByChild("eventDate"),
+        // startAt("2025-01-01"),
+      );
+      const snapshot = await get(eventsQuery);
 
       request.success();
 

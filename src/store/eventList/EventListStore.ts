@@ -1,13 +1,13 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from "mobx";
 
-import { eventsFilteringEngine } from "../../common/utils/utility";
-
 import type { ServerEventData, ServerEventDataWithId } from "../../common/types/eventTypes.ts";
 import type { EventListTransport } from "../transport/eventListTransport/EventListTransport.ts";
 import type { RequestPayload } from "../transport/eventListTransport/types";
 import { EventListRequests } from "../transport/eventListTransport/constants.ts";
-import { appendEventIdToServerEvent } from "../utility.ts";
+import { EventCategory } from "../../common/enums/appEnums.ts";
+import { appendEventIdToServerEvent } from "../utils.ts";
 import { EventFiltersStore } from "./eventFilters/EventFiltersStore.ts";
+import { eventsFilteringEngine } from "./utils.ts";
 
 export class EventListStore {
   events: ServerEventDataWithId[] = [];
@@ -19,10 +19,10 @@ export class EventListStore {
     makeAutoObservable(this);
     this.eventListTransport = eventListTransport;
     this.eventsFilters = new EventFiltersStore({
-      city: "",
       eventTitle: "",
-      eventType: "Music Concert",
+      city: "",
       band: "",
+      eventType: EventCategory.theatre,
     });
 
     /*reaction(
@@ -36,7 +36,7 @@ export class EventListStore {
     reaction(
       () => this.fetchEventsPayload,
       () => this.getAllEvents(),
-      { delay: 500 },
+      { delay: 300 },
     );
   }
 
@@ -60,10 +60,10 @@ export class EventListStore {
   private get fetchEventsPayload(): RequestPayload {
     return {
       filters: {
-        city: this.eventsFilters.city,
         eventTitle: this.eventsFilters.eventTitle,
-        eventType: this.eventsFilters.eventType,
+        city: this.eventsFilters.city,
         band: this.eventsFilters.band,
+        eventType: this.eventsFilters.eventType,
       },
     };
   }
@@ -79,18 +79,16 @@ export class EventListStore {
   public getAllEvents = async (): Promise<void> => {
     const allEvents: ServerEventData | undefined = await this.eventListTransport.getAllEvents();
 
-    if (allEvents) {
-      const formattedEvents: ServerEventDataWithId[] = appendEventIdToServerEvent(allEvents);
-      const filteredEvents: ServerEventDataWithId[] = this.filterEvents(formattedEvents);
-
-      this.setEvents(filteredEvents);
-    } else {
+    if (!allEvents) {
       this.setEvents([]);
-    }
-  };
 
-  private setEvents = (events: ServerEventDataWithId[]): void => {
-    this.events = toJS(events);
+      return;
+    }
+
+    const formattedEvents: ServerEventDataWithId[] = appendEventIdToServerEvent(allEvents);
+    const filteredEvents: ServerEventDataWithId[] = this.filterEvents(formattedEvents);
+
+    this.setEvents(filteredEvents);
   };
 
   public setupEventsListener = (): void => {
@@ -101,6 +99,10 @@ export class EventListStore {
         });
       },
     );
+  };
+
+  private setEvents = (events: ServerEventDataWithId[]): void => {
+    this.events = toJS(events);
   };
 
   public cleanupListener = (): void => {

@@ -2,8 +2,10 @@ import { Box, Card, CardActions, CardContent, CardMedia, Chip, Typography } from
 import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import Button from "@mui/material/Button";
 import type { ServerEventDataWithId } from "../../common/types/eventTypes.ts";
 import { ROUTE_LIST } from "../../router/routes.ts";
+
 import { formatDate } from "../../common/utils/utility.ts";
 import {
   cardContentChipStyles,
@@ -14,7 +16,6 @@ import {
   cardStyles,
   chipStyles,
 } from "./styles.tsx";
-import Button from "@mui/material/Button";
 
 type EventCardProps = {
   event: ServerEventDataWithId;
@@ -47,7 +48,12 @@ export const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) =
     if (festivalStartDate && festivalEndDate) {
       return `${formatDate(festivalStartDate)} - ${formatDate(festivalEndDate)}`;
     }
-  }, [eventDate]);
+  }, [eventDate, festivalStartDate, festivalEndDate]);
+
+  const eventLocation = useMemo(
+    () => (location ? `${city} / ${location}` : city),
+    [city, location],
+  );
 
   return (
     <Card sx={cardStyles}>
@@ -71,12 +77,10 @@ export const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) =
         <Box sx={cardContentFooterStyles}>
           <Box display="flex" alignItems="center">
             <LocationOnIcon fontSize="small" />
-            <Typography variant="subtitle1">
-              {city} / {location}
-            </Typography>
+            <Typography variant="subtitle1">{eventLocation}</Typography>
           </Box>
           <CardActions>
-            <Button variant={"contained"} onClick={() => handleOpenEvent(eventId)}>
+            <Button variant="contained" onClick={() => handleOpenEvent(eventId)}>
               View
             </Button>
           </CardActions>

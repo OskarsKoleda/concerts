@@ -13,3 +13,10 @@ export enum SnackbarVariantType {
   WARNING = "warning",
   INFO = "info",
 }
+
+export enum EventCategory {
+  musicConcert = "Music Concert",
+  musicFestival = "Music Festival",
+  theatre = "Theatre",
+  creativeEvening = "Creative Evening",
+}

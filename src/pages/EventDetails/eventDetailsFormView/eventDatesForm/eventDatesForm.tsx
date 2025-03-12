@@ -5,7 +5,7 @@ import { FormLayout } from "../../../../components/FormLayout/formLayout.tsx";
 
 import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
 import type { FormFields } from "../../../../components/FormLayout/types.ts";
-import { EventCategory } from "../../constants.ts";
+import { EventCategory } from "../../../../common/enums/appEnums.ts";
 
 export const EventDatesForm = () => {
   const { control } = useFormContext<LocalEventData>();

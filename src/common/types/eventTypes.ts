@@ -3,8 +3,8 @@ import type { EventCategoryType } from "../../pages/EventDetails/types.ts";
 interface CommonEventData {
   eventCategory: EventCategoryType;
   eventTitle: string;
-  artists: string[];
   city: string;
+  artists: string[];
   location?: string;
   ticketPrice?: number;
 }

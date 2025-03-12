@@ -10,9 +10,9 @@ import {
 
 export class EventFiltersStore implements IEventFilters {
   eventTitle: EventTitleFilter;
-  eventType: EventCategoryFilter;
   city: CityFilter;
   band: BandFilter;
+  eventType: EventCategoryFilter;
 
   constructor(options: EventFilterOptions) {
     makeAutoObservable(this);

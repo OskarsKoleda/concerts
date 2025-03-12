@@ -13,6 +13,7 @@ export const EventPoster = observer(function EventPoster() {
       <img
         style={{
           height: "80vh",
+          maxWidth: "700px",
           boxShadow: "4px 4px 10px #52C7B8",
         }}
         src={currentEventPosterURL || posterMissing}

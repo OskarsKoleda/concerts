@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite";
 import { Box, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 import { ContentLoader } from "../../../components/ContentLoader/contentLoader.tsx";
 import { useRootStore } from "../../../store/StoreContext.tsx";
 import { useCustomSnackbar } from "../../../hooks/useCustomSnackbar.ts";
@@ -11,7 +12,6 @@ import { eventContainerStyles, eventHeaderStyles } from "./styles.ts";
 import { EventDataSection } from "./eventDataSection/eventDataSection.tsx";
 import { EventArtistsSection } from "./eventArtistsSection/eventArtistsSection.tsx";
 import { EventPoster } from "./eventPoster/eventPoster.tsx";
-import { useEffect } from "react";
 
 export const EventDetailsView = observer(function EventDetailsView() {
   const { id: eventId } = useParams();
@@ -36,12 +36,7 @@ export const EventDetailsView = observer(function EventDetailsView() {
         variant: SnackbarVariantType.ERROR,
       });
     }
-
-    // return () => {
-    //   console.log("RESETTING");
-    //   resetCurrentEvent();
-    // };
-  }, [error, eventId, navigate]);
+  }, [error, eventId, navigate, showSnackbar]);
 
   return (
     <ContentLoader isLoading={isLoading || !currentEvent}>

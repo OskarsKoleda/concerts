@@ -9,13 +9,13 @@ import { useRootStore } from "../../../store/StoreContext.tsx";
 import { EventDetailsRequests } from "../../../store/transport/eventDetailsTransport/constants.ts";
 
 import type { LocalEventData } from "../../../common/types/eventTypes.ts";
+import { defaultValues, eventDetailsText } from "../constants.ts";
+import { convertServerEventToLocal } from "../../../store/eventDetails/utils.ts";
 import { EventDatesForm } from "./eventDatesForm/eventDatesForm.tsx";
 import { EventDetailsButtons } from "./eventDetailsButtons/eventDetailsButtons.tsx";
 import { EventFormFields } from "./eventFormFields/eventFormFields.tsx";
-import { defaultValues, eventDetailsText } from "../constants.ts";
 import { formContainerStyles, posterTitleStyles } from "./styles.ts";
 import { UploadFileButton } from "./uploadFileButton/uploadFileButton.tsx";
-import { convertServerEventToLocal } from "../../../store/eventDetails/utils.ts";
 import { useEventHandlers } from "./utils.ts";
 
 const {
@@ -69,7 +69,7 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
         handleSuccessfulUpdate(eventId);
       }
     },
-    [updateEvent, eventId],
+    [updateEvent, eventId, handleSuccessfulUpdate],
   );
 
   const submitFormHandler = (event: React.SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -96,10 +96,10 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
 
       handleSuccessfulCreate(response);
     },
-    [addEvent],
+    [addEvent, handleSuccessfulCreate],
   );
 
-  // TODO: add unnecessary data refetch
+  // TODO: handle unnecessary data re-fetch
   useEffect(() => {
     const fetchEventData = async () => {
       if (!eventId) {
@@ -120,7 +120,7 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
     };
 
     fetchEventData();
-  }, [eventId, getEvent, reset]);
+  }, [eventId, getEvent, reset, handleEventNotFound]);
 
   useEffect(() => {
     if (newEvent) resetCurrentEvent();
@@ -130,7 +130,7 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
 
   return (
     <ContentLoader isLoading={displayLoader}>
-      <Box display="flex" justifyContent={"center"}>
+      <Box display="flex" justifyContent="center">
         <Box sx={formContainerStyles}>
           <FormProvider {...methods}>
             <form onSubmit={submitFormHandler}>

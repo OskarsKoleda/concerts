@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import React, { useEffect } from "react";
@@ -33,17 +33,23 @@ export const EventCardsList: React.FC = observer(function EventCardsList() {
       cleanupListener();
       resetRequest(EventListRequests.getEventsData);
     };
-  }, [getAllEvents, setupEventsListener]);
+  }, [getAllEvents, setupEventsListener, cleanupListener, resetRequest]);
 
   return (
     <ContentLoader isLoading={!concertsHaveLoaded}>
-      <Grid container rowSpacing={2} columnSpacing={2}>
-        {events.map((event) => (
-          <Grid item key={event.eventId} sm={12} md={6}>
-            <EventCard key={event.eventId} event={event} />
-          </Grid>
-        ))}
-      </Grid>
+      {events.length ? (
+        <Grid container rowSpacing={2} columnSpacing={2}>
+          {events.map((event) => (
+            <Grid item key={event.eventId} sm={12} md={6}>
+              <EventCard key={event.eventId} event={event} />
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <Box display="flex" justifyContent="center">
+          <Typography variant="h2">Nothing Found :(</Typography>
+        </Box>
+      )}
     </ContentLoader>
   );
 });

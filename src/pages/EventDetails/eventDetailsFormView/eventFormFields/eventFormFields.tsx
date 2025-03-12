@@ -5,12 +5,13 @@ import { FormLayout } from "../../../../components/FormLayout/formLayout.tsx";
 
 import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
 import type { FormFields } from "../../../../components/FormLayout/types.ts";
-import { eventCategoriesList, EventCategory } from "../../constants.ts";
 import {
   CITY_RULES,
   EVENT_TITLE_RULES,
   TICKET_PRICE_RULES,
 } from "../../../../common/constants/validations.ts";
+import { eventCategoriesList } from "../../../../common/constants/appConstant.ts";
+import { EventCategory } from "../../../../common/enums/appEnums.ts";
 
 export const EventFormFields = () => {
   const { control } = useFormContext<LocalEventData>();
