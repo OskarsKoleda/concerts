@@ -1,13 +1,12 @@
-import type { Database } from "firebase/database";
-import { get, onValue, query, ref } from "firebase/database";
+import type { Database, DataSnapshot, IteratedDataSnapshot } from "firebase/database";
+import { get, onValue, orderByChild, query, ref } from "firebase/database";
 import { makeAutoObservable } from "mobx";
 
 import { getRequestContext } from "../rootTransport/utils";
 
-import type { ServerEventData, ServerEventDataWithId } from "../../../common/types/eventTypes.ts";
+import type { ServerEventDataWithId } from "../../../common/types/eventTypes.ts";
 import type { RequestHandler } from "../requestHandler/RequestHandler";
 import type { ChildTransport, RequestContext } from "../rootTransport/types";
-import { appendEventIdToServerEvent } from "../../utils.ts";
 import { EventListRequests, requestErrorMessages } from "./constants";
 
 export class EventListTransport implements ChildTransport {
@@ -24,37 +23,50 @@ export class EventListTransport implements ChildTransport {
 
   eventsListener = (callback: (concerts: ServerEventDataWithId[]) => void) => {
     const eventsRef = ref(this.db, "/events");
+    const eventsQuery = query(eventsRef, orderByChild("eventDate"));
 
-    return onValue(eventsRef, (snapshot) => {
-      const data = snapshot.val();
-
-      if (data) {
-        const formattedConcerts: ServerEventDataWithId[] = appendEventIdToServerEvent(data);
-
-        callback(formattedConcerts);
-      } else {
+    return onValue(eventsQuery, (snapshot) => {
+      if (!snapshot.exists()) {
         callback([]);
+
+        return;
       }
+
+      const eventsWithIds: ServerEventDataWithId[] = this.appendEventId(snapshot);
+
+      callback(eventsWithIds);
     });
   };
 
-  getAllEvents = async (): Promise<ServerEventData | undefined> => {
+  getAllEvents = async (): Promise<ServerEventDataWithId[] | undefined> => {
     const { errorTexts, request } = this.getRequestContextHelper(EventListRequests.getEventsData);
+    const eventsRef = ref(this.db, "/events");
+    const eventsQuery = query(eventsRef, orderByChild("eventDate"));
 
     try {
       request.inProgress();
-      const eventsQuery = query(
-        ref(this.db, "/events"),
-        // orderByChild("eventDate"),
-        // startAt("2025-01-01"),
-      );
+
       const snapshot = await get(eventsQuery);
 
       request.success();
 
-      return snapshot.val();
+      if (!snapshot.exists()) {
+        return [];
+      }
+
+      return this.appendEventId(snapshot);
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
     }
+  };
+
+  private appendEventId = (eventsSnapshot: DataSnapshot): ServerEventDataWithId[] => {
+    const events: ServerEventDataWithId[] = [];
+
+    eventsSnapshot.forEach((childSnapshot: IteratedDataSnapshot) => {
+      events.push({ eventId: childSnapshot.key, ...childSnapshot.val() });
+    });
+
+    return events;
   };
 }

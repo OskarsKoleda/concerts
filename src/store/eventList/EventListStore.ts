@@ -1,11 +1,10 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from "mobx";
 
-import type { ServerEventData, ServerEventDataWithId } from "../../common/types/eventTypes.ts";
+import type { ServerEventDataWithId } from "../../common/types/eventTypes.ts";
 import type { EventListTransport } from "../transport/eventListTransport/EventListTransport.ts";
 import type { RequestPayload } from "../transport/eventListTransport/types";
 import { EventListRequests } from "../transport/eventListTransport/constants.ts";
 import { EventCategory } from "../../common/enums/appEnums.ts";
-import { appendEventIdToServerEvent } from "../utils.ts";
 import { EventFiltersStore } from "./eventFilters/EventFiltersStore.ts";
 import { eventsFilteringEngine } from "./utils.ts";
 
@@ -77,7 +76,8 @@ export class EventListStore {
   };
 
   public getAllEvents = async (): Promise<void> => {
-    const allEvents: ServerEventData | undefined = await this.eventListTransport.getAllEvents();
+    const allEvents: ServerEventDataWithId[] | undefined =
+      await this.eventListTransport.getAllEvents();
 
     if (!allEvents) {
       this.setEvents([]);
@@ -85,8 +85,7 @@ export class EventListStore {
       return;
     }
 
-    const formattedEvents: ServerEventDataWithId[] = appendEventIdToServerEvent(allEvents);
-    const filteredEvents: ServerEventDataWithId[] = this.filterEvents(formattedEvents);
+    const filteredEvents: ServerEventDataWithId[] = this.filterEvents(allEvents);
 
     this.setEvents(filteredEvents);
   };
