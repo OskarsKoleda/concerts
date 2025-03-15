@@ -1,18 +1,27 @@
 import { makeAutoObservable } from "mobx";
 
 class ApplicationStore {
-  private concertsListView = true;
+  private tableView = false;
+  private smallCardsView = false;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  get listViewIsSelected(): boolean {
-    return this.concertsListView;
+  get tableViewIsSelected(): boolean {
+    return this.tableView;
   }
 
-  toggleConcertsView = () => {
-    this.concertsListView = !this.concertsListView;
+  get smallCardsViewIsSelected(): boolean {
+    return this.smallCardsView;
+  }
+
+  toggleEventsView = () => {
+    this.tableView = !this.tableView;
+  };
+
+  toggleSmallCardsView = () => {
+    this.smallCardsView = !this.smallCardsView;
   };
 }
 

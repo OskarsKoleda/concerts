@@ -5,16 +5,18 @@ import { useRootStore } from "../../store/StoreContext";
 import { EventCardsList } from "./eventCardsList/eventCards.tsx";
 import { EventFilters } from "./eventFilters/eventFilters.tsx";
 import { EventsTable } from "./eventsTable/eventsTable.tsx";
+import { EventListSettings } from "./eventListSettings/eventListSettings.tsx";
 
 export const EventList: React.FC = observer(function EventList() {
   const {
-    applicationStore: { listViewIsSelected },
+    applicationStore: { tableViewIsSelected },
   } = useRootStore();
 
   return (
     <Box width="85%">
       <EventFilters />
-      {listViewIsSelected ? <EventCardsList /> : <EventsTable />}
+      <EventListSettings />
+      {tableViewIsSelected ? <EventsTable /> : <EventCardsList />}
     </Box>
   );
 });

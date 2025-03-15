@@ -17,7 +17,10 @@ export const eventsFilteringEngine = (
     const matchesEventType = eventType === "All" ? true : event.eventCategory === eventType;
     let matchesArtist;
 
-    if (!("artists" in event)) {
+    // TODO: fix this dirty solution
+    if (!("artists" in event) && !band) {
+      matchesArtist = true;
+    } else if (!("artists" in event) && band) {
       matchesArtist = false;
     } else {
       matchesArtist = band ? event.artists.some((singleBand) => singleBand.includes(band)) : true;

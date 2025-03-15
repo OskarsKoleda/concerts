@@ -67,8 +67,8 @@ export class EventListStore {
     };
   }
 
-  private filterEvents = (formattedEvents: ServerEventDataWithId[]) => {
-    return eventsFilteringEngine(this.fetchEventsPayload, formattedEvents);
+  private filterEvents = (events: ServerEventDataWithId[]) => {
+    return eventsFilteringEngine(this.fetchEventsPayload, events);
 
     // runInAction(() => {
     //   this.setEvents(filteredConcerts);

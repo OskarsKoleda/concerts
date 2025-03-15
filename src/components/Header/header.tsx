@@ -21,7 +21,7 @@ import {
 
 export const Header = observer(function Header() {
   const {
-    applicationStore: { toggleConcertsView },
+    applicationStore: { toggleEventsView },
   } = useRootStore();
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -67,7 +67,7 @@ export const Header = observer(function Header() {
 
             {/*TODO: move to somewhere else*/}
             <Tooltip title="Change View">
-              <IconButton onClick={toggleConcertsView} size="large">
+              <IconButton onClick={toggleEventsView} size="large">
                 <RemoveRedEye />
               </IconButton>
             </Tooltip>

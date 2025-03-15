@@ -1,12 +1,13 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useRootStore } from "../../../store/StoreContext";
 
 import { EventCard } from "../../../components/EventCard/eventCard.tsx";
 import { EventListRequests } from "../../../store/transport/eventListTransport/constants.ts";
 import { ContentLoader } from "../../../components/ContentLoader/contentLoader.tsx";
+import { EventRow } from "../../../components/EventRow/eventRow.tsx";
 
 export const EventCardsList: React.FC = observer(function EventCardsList() {
   const {
@@ -20,10 +21,32 @@ export const EventCardsList: React.FC = observer(function EventCardsList() {
         requestHandler: { resetRequest, isSuccessfulRequest },
       },
     },
+    applicationStore: { smallCardsViewIsSelected },
   } = useRootStore();
 
   // TODO: try suspense?
   const concertsHaveLoaded: boolean = isSuccessfulRequest(EventListRequests.getEventsData);
+
+  // TODO: something to clean up here
+  const eventsCardList = useMemo(() => {
+    return smallCardsViewIsSelected ? (
+      <Grid container rowSpacing={2}>
+        {events.map((event) => (
+          <Grid item key={event.eventId} sm={12}>
+            <EventRow key={event.eventId} event={event} />
+          </Grid>
+        ))}
+      </Grid>
+    ) : (
+      <Grid container rowSpacing={2} columnSpacing={2}>
+        {events.map((event) => (
+          <Grid item key={event.eventId} sm={12} md={6}>
+            <EventCard key={event.eventId} event={event} />
+          </Grid>
+        ))}
+      </Grid>
+    );
+  }, [smallCardsViewIsSelected, events]);
 
   useEffect(() => {
     getAllEvents();
@@ -38,13 +61,7 @@ export const EventCardsList: React.FC = observer(function EventCardsList() {
   return (
     <ContentLoader isLoading={!concertsHaveLoaded}>
       {events.length ? (
-        <Grid container rowSpacing={2} columnSpacing={2}>
-          {events.map((event) => (
-            <Grid item key={event.eventId} sm={12} md={6}>
-              <EventCard key={event.eventId} event={event} />
-            </Grid>
-          ))}
-        </Grid>
+        eventsCardList
       ) : (
         <Box display="flex" justifyContent="center">
           <Typography variant="h2">Nothing Found :(</Typography>
