@@ -31,13 +31,6 @@ export const EventDatesForm = () => {
     return [
       {
         inputType: InputType.date,
-        controlName: "festivalStartDate",
-        id: "startDate",
-        label: "Start Date",
-        xs: 6,
-      },
-      {
-        inputType: InputType.date,
         controlName: "festivalEndDate",
         id: "endDate",
         label: "End Date",

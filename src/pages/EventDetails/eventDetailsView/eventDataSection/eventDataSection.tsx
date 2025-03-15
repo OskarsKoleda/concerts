@@ -17,14 +17,14 @@ export const EventDataSection = observer(function EventDataSection() {
       currentEventCity,
       currentEventLocation,
       currentEventDate,
-      currentFestivalStartDate,
       currentFestivalEndDate,
       currentFestivalTicketPrice,
     },
   } = useRootStore();
 
-  const formattedDate =
-    currentEventDate || `${currentFestivalStartDate} - ${currentFestivalEndDate}`;
+  const formattedDate = currentFestivalEndDate
+    ? `${currentEventDate} - ${currentFestivalEndDate}`
+    : currentEventDate;
 
   return (
     <Paper sx={eventDataContainerStyles}>

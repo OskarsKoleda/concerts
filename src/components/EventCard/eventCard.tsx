@@ -30,7 +30,6 @@ export const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) =
     city,
     location,
     eventDate,
-    festivalStartDate,
     festivalEndDate,
   } = event;
 
@@ -45,10 +44,10 @@ export const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) =
       return formatDate(eventDate);
     }
 
-    if (festivalStartDate && festivalEndDate) {
-      return `${formatDate(festivalStartDate)} - ${formatDate(festivalEndDate)}`;
+    if (eventDate && festivalEndDate) {
+      return `${formatDate(eventDate)} - ${formatDate(festivalEndDate)}`;
     }
-  }, [eventDate, festivalStartDate, festivalEndDate]);
+  }, [eventDate, festivalEndDate]);
 
   const eventLocation = useMemo(
     () => (location ? `${city} / ${location}` : city),

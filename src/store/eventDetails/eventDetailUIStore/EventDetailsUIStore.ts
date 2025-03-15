@@ -44,12 +44,6 @@ export class EventDetailsUIStore {
     return date ? formatDate(date) : "";
   }
 
-  get currentFestivalStartDate(): string {
-    const date = this.event?.festivalStartDate;
-
-    return date ? formatDate(date) : "";
-  }
-
   get currentFestivalEndDate(): string {
     const date = this.event?.festivalEndDate;
 

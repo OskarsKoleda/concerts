@@ -7,7 +7,6 @@ export const defaultValues: LocalEventData = {
   artists: [],
   city: "",
   eventDate: new Date(),
-  festivalStartDate: new Date(),
   festivalEndDate: new Date(),
   ticketPrice: 0,
   location: "",

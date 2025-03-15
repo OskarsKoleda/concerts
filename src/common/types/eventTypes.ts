@@ -12,7 +12,6 @@ interface CommonEventData {
 export type LocalEventData = CommonEventData & {
   posterImage?: FileList;
   eventDate?: Date;
-  festivalStartDate?: Date;
   festivalEndDate?: Date;
 };
 
@@ -20,7 +19,6 @@ export type ServerEventData = CommonEventData & {
   posterImageUrl?: string;
   posterImageTitle?: string;
   eventDate?: string;
-  festivalStartDate?: string;
   festivalEndDate?: string;
 };
 
