@@ -1,8 +1,15 @@
 import type { SxProps } from "@mui/material";
 
 export const tableStyles: SxProps = {
-  borderRadius: "0",
   marginBottom: "3rem",
-  marginLeft: "3rem",
-  marginRight: "3rem",
+
+  ".MuiDataGrid-columnHeaders": {
+    fontSize: "1rem",
+  },
+};
+
+export const eventCardIconContainerStyles: SxProps = {
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "0.5rem",
 };
