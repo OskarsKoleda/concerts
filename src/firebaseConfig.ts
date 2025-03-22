@@ -1,11 +1,10 @@
 import type { FirebaseApp } from "firebase/app";
 import { getApps, initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 import "firebase/database";
 
 import { getDatabase } from "firebase/database";
-import { getStorage } from "firebase/storage";
-
 import { firebaseConfig } from "./configurations";
 
 let app: FirebaseApp;
@@ -17,4 +16,4 @@ if (!getApps().length) {
 }
 
 export const db = getDatabase(app);
-export const storage = getStorage(app);
+export const auth = getAuth(app);

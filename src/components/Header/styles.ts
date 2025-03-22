@@ -4,12 +4,12 @@ import { appTheme } from "../AppProviders/theme.ts";
 export const toolbarContainerStyle: SxProps = {
   width: "100%",
   display: "flex",
-  alignItems: "center",
   justifyContent: "space-between",
 };
 
 export const flexCenterStyle: SxProps = {
   display: "flex",
+  alignItems: "center",
 };
 
 export const homepageLinkStyles: SxProps = {

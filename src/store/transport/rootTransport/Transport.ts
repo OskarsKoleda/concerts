@@ -7,6 +7,8 @@ import { RequestHandler } from "../requestHandler/RequestHandler";
 import { db } from "../../../firebaseConfig.ts";
 
 import { CloudinaryTransport } from "../cloudinaryTransport/CloudinaryTransport.ts";
+import { AuthTransport } from "../authTransport/AuthTransport.ts";
+import { UserTransport } from "../userTransport/UserTransport.ts";
 import type { RootTransport } from "./types";
 
 export class Transport implements RootTransport {
@@ -15,6 +17,8 @@ export class Transport implements RootTransport {
   public readonly eventListTransport: EventListTransport;
   public readonly eventDetailsTransport: EventDetailsTransport;
   public readonly cloudinaryTransport: CloudinaryTransport;
+  public readonly authTransport: AuthTransport;
+  public readonly userTransport: UserTransport;
 
   constructor() {
     makeAutoObservable(this);
@@ -29,5 +33,7 @@ export class Transport implements RootTransport {
     this.eventListTransport = new EventListTransport(db, this.requestHandler);
     this.eventDetailsTransport = new EventDetailsTransport(db, this.requestHandler);
     this.cloudinaryTransport = new CloudinaryTransport(this.requestHandler);
+    this.authTransport = new AuthTransport(this.requestHandler);
+    this.userTransport = new UserTransport(db, this.requestHandler);
   }
 }

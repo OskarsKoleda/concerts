@@ -23,3 +23,21 @@ export type ServerEventData = CommonEventData & {
 };
 
 export type ServerEventDataWithId = ServerEventData & { eventId: string };
+
+export interface UserProfile {
+  username: string;
+  email: string;
+}
+
+export type AuthUserProfile = UserProfile & {
+  password: string;
+};
+
+export type LocalUserProfile = UserProfile & {
+  uid: string;
+};
+
+// export interface LoginUserData {
+//   email: string;
+//   password: string;
+// }

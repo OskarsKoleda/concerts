@@ -4,12 +4,11 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useLocation, useParams } from "react-router-dom";
-import { ContentLoader } from "../../../components/ContentLoader/contentLoader.tsx";
 import { useRootStore } from "../../../store/StoreContext.tsx";
 import { EventDetailsRequests } from "../../../store/transport/eventDetailsTransport/constants.ts";
 
 import type { LocalEventData } from "../../../common/types/eventTypes.ts";
-import { defaultValues, eventDetailsText } from "../constants.ts";
+import { defaultEventValues, eventDetailsText } from "../constants.ts";
 import { convertServerEventToLocal } from "../../../store/eventDetails/utils.ts";
 import { EventDatesForm } from "./eventDatesForm/eventDatesForm.tsx";
 import { EventDetailsButtons } from "./eventDetailsButtons/eventDetailsButtons.tsx";
@@ -29,7 +28,7 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
       getEvent,
       updateEvent,
       eventDetailsTransport: {
-        requestHandler: { isSuccessfulRequest, resetRequest },
+        requestHandler: { resetRequest },
       },
     },
     eventDetailsUIStore: { resetCurrentEvent, eventPosterTitle },
@@ -42,15 +41,13 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
   const editEvent = useMemo(() => url.pathname.includes("/edit"), [url.pathname]);
 
   const eventInReadonlyMode = useMemo(() => !!eventId && !editEvent, [eventId, editEvent]);
-  const displayLoader =
-    eventInReadonlyMode && !!eventId && !isSuccessfulRequest(EventDetailsRequests.getEvent);
 
   const getFormTitle = useMemo(() => {
     return editEvent ? title.editForm : title.newForm;
   }, [editEvent]);
 
   const methods = useForm<LocalEventData>({
-    defaultValues,
+    defaultValues: defaultEventValues,
     mode: "onChange",
     shouldUnregister: true,
   });
@@ -59,22 +56,10 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
   const { handleSuccessfulCreate, handleSuccessfulUpdate, handleEventNotFound } =
     useEventHandlers();
 
-  const handleUpdate: SubmitHandler<LocalEventData> = useCallback(
-    async (data) => {
-      if (eventId) {
-        const response = await updateEvent(eventId, data);
-
-        if (!response) return;
-
-        handleSuccessfulUpdate(eventId);
-      }
-    },
-    [updateEvent, eventId, handleSuccessfulUpdate],
-  );
-
   const submitFormHandler = (event: React.SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-    event.preventDefault();
     const controlName = event.nativeEvent.submitter?.id;
+
+    event.preventDefault();
 
     switch (controlName) {
       case "btnAdd": {
@@ -99,11 +84,24 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
     [addEvent, handleSuccessfulCreate],
   );
 
+  const handleUpdate: SubmitHandler<LocalEventData> = useCallback(
+    async (data) => {
+      if (eventId) {
+        const response = await updateEvent(eventId, data);
+
+        if (!response) return;
+
+        handleSuccessfulUpdate(eventId);
+      }
+    },
+    [updateEvent, eventId, handleSuccessfulUpdate],
+  );
+
   // TODO: handle unnecessary data re-fetch
   useEffect(() => {
     const fetchEventData = async () => {
       if (!eventId) {
-        reset(defaultValues);
+        reset(defaultEventValues);
 
         return;
       }
@@ -129,29 +127,27 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
   }, [newEvent, resetCurrentEvent, resetRequest]);
 
   return (
-    <ContentLoader isLoading={displayLoader}>
-      <Box display="flex" justifyContent="center">
-        <Box sx={formContainerStyles}>
-          <FormProvider {...methods}>
-            <form onSubmit={submitFormHandler}>
-              <Typography variant="h5">{getFormTitle}</Typography>
-              <EventFormFields />
-              <EventDatesForm />
-              <Box display="flex" alignItems="flex-end">
-                <UploadFileButton
-                  buttonTitle="Add Poster"
-                  formFieldName="posterImage"
-                  readonly={eventInReadonlyMode}
-                />
-                <Typography variant="caption" sx={posterTitleStyles(eventInReadonlyMode)}>
-                  {eventPosterTitle}
-                </Typography>
-              </Box>
-              <EventDetailsButtons isEditMode={editEvent} />
-            </form>
-          </FormProvider>
-        </Box>
+    <Box display="flex" justifyContent="center">
+      <Box sx={formContainerStyles}>
+        <FormProvider {...methods}>
+          <form onSubmit={submitFormHandler}>
+            <Typography variant="h5">{getFormTitle}</Typography>
+            <EventFormFields />
+            <EventDatesForm />
+            <Box display="flex" alignItems="flex-end">
+              <UploadFileButton
+                buttonTitle="Add Poster"
+                formFieldName="posterImage"
+                readonly={eventInReadonlyMode}
+              />
+              <Typography variant="caption" sx={posterTitleStyles(eventInReadonlyMode)}>
+                {eventPosterTitle}
+              </Typography>
+            </Box>
+            <EventDetailsButtons isEditMode={editEvent} />
+          </form>
+        </FormProvider>
       </Box>
-    </ContentLoader>
+    </Box>
   );
 });

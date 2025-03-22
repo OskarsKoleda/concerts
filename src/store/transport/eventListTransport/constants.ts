@@ -10,8 +10,3 @@ export const requestErrorMessages: RequestErrorMessages<EventListRequests> = {
     unexpectedError: "Unable to retrieve events data",
   },
 };
-
-export enum ResponseStatuses {
-  OK = "OK",
-  ERROR = "ERROR",
-}

@@ -1,7 +1,7 @@
-import type { LocalEventData } from "../../common/types/eventTypes.ts";
+import type { AuthUserProfile, LocalEventData } from "../../common/types/eventTypes.ts";
 import { EventCategory } from "../../common/enums/appEnums.ts";
 
-export const defaultValues: LocalEventData = {
+export const defaultEventValues: LocalEventData = {
   eventCategory: EventCategory.musicConcert,
   eventTitle: "",
   artists: [],
@@ -11,6 +11,12 @@ export const defaultValues: LocalEventData = {
   ticketPrice: 0,
   location: "",
   posterImage: undefined,
+};
+
+export const defaultUserValues: AuthUserProfile = {
+  email: "",
+  password: "",
+  username: "",
 };
 
 export const eventDetailsText = {

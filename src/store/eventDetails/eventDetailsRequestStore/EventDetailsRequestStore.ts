@@ -86,7 +86,6 @@ export class EventDetailsRequestStore {
       posterImageUrl: posterImageUrl,
       posterImageTitle: publicPosterImageId,
       eventDate: event.eventDate?.toISOString(),
-      festivalStartDate: event.festivalStartDate?.toISOString(),
       festivalEndDate: event.festivalEndDate?.toISOString(),
     };
 
