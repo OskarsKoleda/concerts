@@ -36,8 +36,3 @@ export type AuthUserProfile = UserProfile & {
 export type LocalUserProfile = UserProfile & {
   uid: string;
 };
-
-// export interface LoginUserData {
-//   email: string;
-//   password: string;
-// }

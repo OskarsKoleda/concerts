@@ -41,7 +41,7 @@ export const Header = observer(function Header() {
 
   const handleLogout = () => {
     logoutUser();
-    navigation(ROUTE_LIST.AUTH);
+    navigation(`${ROUTE_LIST.AUTH}/?mode=login`);
   };
 
   return (
@@ -78,18 +78,20 @@ export const Header = observer(function Header() {
                 </IconButton>
               </Tooltip>
             </Link>
-            <Divider orientation="vertical" sx={{ margin: "0 0.5rem" }} />
 
-            <Typography>{userProfile?.username}</Typography>
-            <IconButton size="large">
-              <PortraitIcon />
-            </IconButton>
-
-            <Divider orientation="vertical" sx={{ margin: "0 0.5rem" }} />
-
-            <IconButton onClick={handleLogout} size="large">
-              <LogoutIcon />
-            </IconButton>
+            {userProfile ? (
+              <>
+                <Divider orientation="vertical" sx={{ margin: "0 0.5rem" }} />
+                <Typography mr={1}>{userProfile?.username}</Typography>
+                <IconButton size="large">
+                  <PortraitIcon />
+                </IconButton>
+                <Divider orientation="vertical" sx={{ margin: "0 0.5rem" }} />
+                <IconButton onClick={handleLogout} size="large">
+                  <LogoutIcon />
+                </IconButton>
+              </>
+            ) : null}
           </Box>
         </Box>
       </Toolbar>
