@@ -3,8 +3,8 @@ import { memo } from "react";
 import { useFormContext } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { ButtonsLayout } from "../../../../components/ButtonsLayout/buttonsLayout.tsx";
 import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
+import ButtonsLayout from "../../../../components/ButtonsLayout/ButtonsLayout.tsx";
 import type { ControlPayload } from "../../../../components/ButtonsLayout/types.ts";
 
 type ControlButtonsProps = {

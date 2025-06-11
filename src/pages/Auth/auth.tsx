@@ -1,18 +1,18 @@
 import { Box, Typography } from "@mui/material";
+import { FirebaseError } from "firebase/app";
+import { observer } from "mobx-react-lite";
+import React, { useMemo, useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import React, { useMemo, useState } from "react";
-import { observer } from "mobx-react-lite";
-import { FirebaseError } from "firebase/app";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { defaultUserValues } from "../EventDetails/constants.ts";
-import { useRootStore } from "../../store/StoreContext.tsx";
-import { useCustomSnackbar } from "../../hooks/useCustomSnackbar.ts";
-import { FirebaseAuthRequests } from "../../store/transport/authTransport/constants.ts";
 import type { AuthUserProfile } from "../../common/types/eventTypes.ts";
+import { useCustomSnackbar } from "../../hooks/useCustomSnackbar.ts";
 import { ROUTE_LIST } from "../../router/routes.ts";
-import { AuthFormFields } from "./authFormFields.tsx";
+import { useRootStore } from "../../store/StoreContext.tsx";
+import { FirebaseAuthRequests } from "../../store/transport/authTransport/constants.ts";
+import { defaultUserValues } from "../EventDetails/constants.ts";
 import { AuthButtons } from "./authButtons.tsx";
+import { AuthFormFields } from "./authFormFields.tsx";
 import { bottomCaptionStyles } from "./styles.ts";
 
 export const Auth = observer(function Auth() {
@@ -34,7 +34,8 @@ export const Auth = observer(function Auth() {
 
   const mode = searchParams.get("mode") || "login";
   const isSignupMode = mode === "signup";
-  const processingSignUp = requestHandler.isProcessingRequest(FirebaseAuthRequests.signUp);
+  const processingSignUp = requestHandler.isProcessingRequest(FirebaseAuthRequests.signUp); // TODO: make method
+
   const { handleSubmit } = methods;
 
   const toggleAuthMode = () => {
@@ -101,7 +102,7 @@ export const Auth = observer(function Auth() {
         Don&apos;t have an account? <span>Sign Up</span>
       </>
     );
-  }, [mode]);
+  }, [isSignupMode]);
 
   return (
     <Box display="flex" height="100%" mt={10}>

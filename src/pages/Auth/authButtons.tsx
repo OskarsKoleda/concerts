@@ -1,5 +1,5 @@
+import ButtonsLayout from "../../components/ButtonsLayout/ButtonsLayout.tsx";
 import type { ControlPayload } from "../../components/ButtonsLayout/types.ts";
-import { ButtonsLayout } from "../../components/ButtonsLayout/buttonsLayout.tsx";
 
 type AuthButtonsProps = {
   signUp: boolean;
