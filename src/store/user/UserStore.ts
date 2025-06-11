@@ -1,10 +1,10 @@
-import { makeAutoObservable } from "mobx";
 import type { User, UserCredential } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import type { AuthTransport } from "../transport/authTransport/AuthTransport.ts";
-import type { UserTransport } from "../transport/userTransport/UserTransport.ts";
+import { makeAutoObservable } from "mobx";
 import type { AuthUserProfile, LocalUserProfile } from "../../common/types/eventTypes.ts";
 import { auth } from "../../initializeFirebase.ts";
+import type { AuthTransport } from "../transport/authTransport/AuthTransport.ts";
+import type { UserTransport } from "../transport/userTransport/UserTransport.ts";
 
 export class UserStore {
   userTransport: UserTransport;
@@ -21,18 +21,20 @@ export class UserStore {
 
   listenForAuthChanges() {
     onAuthStateChanged(auth, async (user: User | null) => {
-      if (user) {
-        const userProfileData = await this.userTransport.getUser(user.uid);
-
-        if (userProfileData) {
-          this.userProfile = {
-            uid: userProfileData.uid,
-            email: userProfileData.email,
-            username: userProfileData.username,
-          };
-        }
-      } else {
+      if (!user) {
         this.userProfile = null;
+
+        return;
+      }
+
+      const userProfileData = await this.userTransport.getUser(user.uid);
+
+      if (userProfileData) {
+        this.userProfile = {
+          uid: userProfileData.uid,
+          email: userProfileData.email,
+          username: userProfileData.username,
+        };
       }
     });
   }

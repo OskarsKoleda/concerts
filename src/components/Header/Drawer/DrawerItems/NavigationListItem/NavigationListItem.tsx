@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 
 import type { ReactNode } from "react";
@@ -13,7 +13,12 @@ interface NavigationListItemProps {
 
 const NavigationListItem = ({ selected, label, to, icon }: NavigationListItemProps) => {
   return (
-    <ListItemButton component={Link} selected={selected} to={to} sx={navigationListItemStyles}>
+    <ListItemButton
+      component={RouterLink}
+      selected={selected}
+      to={to}
+      sx={navigationListItemStyles}
+    >
       <ListItemIcon>{icon}</ListItemIcon>
       <ListItemText primary={label} />
     </ListItemButton>
