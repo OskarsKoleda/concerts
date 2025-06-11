@@ -4,7 +4,7 @@ import { AppState } from "../appState/AppState";
 import { EventDetailsTransport } from "../eventDetailsTransport/EventDetailsTransport.ts";
 import { EventListTransport } from "../eventListTransport/EventListTransport.ts";
 import { RequestHandler } from "../requestHandler/RequestHandler";
-import { db } from "../../../firebaseConfig.ts";
+import { db } from "../../../initializeFirebase.ts";
 
 import { CloudinaryTransport } from "../cloudinaryTransport/CloudinaryTransport.ts";
 import { AuthTransport } from "../authTransport/AuthTransport.ts";

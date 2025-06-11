@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # Configs
-configurations.ts
+src/firebaseConfig.ts

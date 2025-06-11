@@ -1,12 +1,12 @@
 import type { SxProps, Theme } from "@mui/material";
-import { appTheme } from "../AppProviders/theme.ts";
+import { appTheme } from "./components/AppProviders/theme.ts";
 
-export const appContainerStyles: SxProps<Theme> = {
+export const appContainerStyles: SxProps = {
   height: "100vh",
   width: "100vw",
 };
 
-export const contentWrapperStyles: SxProps<Theme> = {
+export const contentWrapperStyles: SxProps = {
   display: "flex",
   flexDirection: "column",
   height: "100%",

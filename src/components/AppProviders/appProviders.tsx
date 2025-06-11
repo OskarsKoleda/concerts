@@ -11,6 +11,7 @@ import { StoreProvider } from "../../store/StoreContext";
 import { DATA_CACHE_TIME, DATA_STALE_TIME } from "../../common/constants/appConstant.ts";
 import { appTheme } from "./theme";
 
+// TODO: review usage of tanstack
 export const AppProviders: React.FC<PropsWithChildren> = ({ children }) => {
   const queryClient = new QueryClient({
     defaultOptions: {

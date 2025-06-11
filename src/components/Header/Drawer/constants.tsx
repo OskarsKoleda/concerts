@@ -2,10 +2,10 @@ import HomeIcon from "@mui/icons-material/Home";
 import StadiumIcon from "@mui/icons-material/Stadium";
 import AddIcon from "@mui/icons-material/Add";
 import PortraitIcon from "@mui/icons-material/Portrait";
+import { ROUTE_LIST } from "../../../router/routes.ts";
+import type { DrawerItem } from "./types.ts";
 
-import { ROUTE_LIST } from "../../router/routes";
-
-export const menuItems = [
+export const drawerItems: DrawerItem[] = [
   {
     label: "Home",
     path: ROUTE_LIST.HOMEPAGE,

@@ -5,12 +5,12 @@ import { getAuth } from "firebase/auth";
 import "firebase/database";
 
 import { getDatabase } from "firebase/database";
-import { firebaseConfig } from "./configurations";
+import firebaseConfiguration from "./firebaseConfig.ts";
 
 let app: FirebaseApp;
 
 if (!getApps().length) {
-  app = initializeApp(firebaseConfig);
+  app = initializeApp(firebaseConfiguration);
 } else {
   app = getApps()[0];
 }

@@ -1,3 +1,3 @@
-import type { EventCategory } from "./constants.ts";
+import type { EventCategory } from "../../common/enums/appEnums.ts";
 
 export type EventCategoryType = EventCategory;

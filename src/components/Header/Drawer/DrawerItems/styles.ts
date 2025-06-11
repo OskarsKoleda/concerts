@@ -1,4 +1,4 @@
-import { appTheme } from "../AppProviders/theme.ts";
+import { appTheme } from "../../../AppProviders/theme.ts";
 
 export const drawerStyles = {
   height: "100%",

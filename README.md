@@ -1,2 +1,2 @@
-# My Events - React, Mobx, react-hook-form, Material UI learning project
+# My Events—React, Mobx, React-Hook-Form, Material UI learning project
 

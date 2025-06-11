@@ -3,12 +3,12 @@ import { BrowserRouter } from "react-router-dom";
 
 import { ErrorBoundary } from "react-error-boundary";
 import React from "react";
-import AppRoutes from "../../router/routes.tsx";
-import { Header } from "../Header/header.tsx";
+import Header from "./components/Header/Header.tsx";
 
-import { ErrorBoundaryMessage } from "../ErrorBoundaryMessage/errorBoundaryMessage.tsx";
-import { ErrorToast } from "../ErrorToast/errorToast.tsx";
+import { ErrorBoundaryMessage } from "./components/ErrorBoundaryMessage/errorBoundaryMessage.tsx";
+import { ErrorToast } from "./components/ErrorToast/errorToast.tsx";
 import { appContainerStyles, contentWrapperStyles, scrollContainerStyles } from "./styles.ts";
+import AppRoutes from "./router/routes.tsx";
 
 const App: React.FC = () => (
   <BrowserRouter future={{ v7_startTransition: true }}>

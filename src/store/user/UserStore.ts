@@ -4,7 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import type { AuthTransport } from "../transport/authTransport/AuthTransport.ts";
 import type { UserTransport } from "../transport/userTransport/UserTransport.ts";
 import type { AuthUserProfile, LocalUserProfile } from "../../common/types/eventTypes.ts";
-import { auth } from "../../firebaseConfig.ts";
+import { auth } from "../../initializeFirebase.ts";
 
 export class UserStore {
   userTransport: UserTransport;
