@@ -8,8 +8,8 @@ import { useRootStore } from "../../../store/StoreContext.tsx";
 import { EventDetailsRequests } from "../../../store/transport/eventDetailsTransport/constants.ts";
 
 import type { LocalEventData } from "../../../common/types/eventTypes.ts";
-import { defaultEventValues, eventDetailsText } from "../constants.ts";
 import { convertServerEventToLocal } from "../../../store/eventDetails/utils.ts";
+import { defaultEventValues, eventDetailsText } from "../constants.ts";
 import { EventDatesForm } from "./eventDatesForm/eventDatesForm.tsx";
 import { EventDetailsButtons } from "./eventDetailsButtons/eventDetailsButtons.tsx";
 import { EventFormFields } from "./eventFormFields/eventFormFields.tsx";

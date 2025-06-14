@@ -1,29 +1,25 @@
 import { Box, CircularProgress } from "@mui/material";
-import type { FC } from "react";
-import React from "react";
+import { memo } from "react";
 
-import { contentWrapperSyle, getContentStyles } from "./styles";
+import type { PropsWithChildren } from "react";
+import { contentLoaderWrapperStyles } from "./styles";
 
 type ContentLoaderProps = {
   isLoading: boolean;
-  children: React.ReactNode;
-};
+} & PropsWithChildren;
 
-export const ContentLoader: FC<ContentLoaderProps> = React.memo(function ContentLoader({
-  isLoading,
-  children,
-}: ContentLoaderProps) {
-  const contentStyles = getContentStyles(isLoading);
-
+const ContentLoader = ({ isLoading, children }: ContentLoaderProps) => {
   return (
-    <Box>
+    <>
       {isLoading ? (
-        <Box sx={contentWrapperSyle}>
-          <CircularProgress thickness={6} size={90} />
+        <Box sx={contentLoaderWrapperStyles}>
+          <CircularProgress thickness={5} size={90} />
         </Box>
       ) : (
-        <Box sx={contentStyles}>{children}</Box>
+        <Box>{children}</Box>
       )}
-    </Box>
+    </>
   );
-});
+};
+
+export default memo(ContentLoader);

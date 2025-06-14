@@ -1,5 +1,20 @@
 import type { EventCategoryType } from "../../pages/EventDetails/types.ts";
 
+export type LocalEventData = CommonEventData & {
+  posterImage?: FileList;
+  eventDate?: Date;
+  festivalEndDate?: Date;
+};
+
+export type ServerEventDataWithId = ServerEventData & { eventId: string };
+
+export type ServerEventData = CommonEventData & {
+  posterImageUrl?: string;
+  posterImageTitle?: string;
+  eventDate?: string;
+  festivalEndDate?: string;
+};
+
 interface CommonEventData {
   eventCategory: EventCategoryType;
   eventTitle: string;
@@ -9,26 +24,6 @@ interface CommonEventData {
   ticketPrice?: number;
 }
 
-export type LocalEventData = CommonEventData & {
-  posterImage?: FileList;
-  eventDate?: Date;
-  festivalEndDate?: Date;
-};
-
-export type ServerEventData = CommonEventData & {
-  posterImageUrl?: string;
-  posterImageTitle?: string;
-  eventDate?: string;
-  festivalEndDate?: string;
-};
-
-export type ServerEventDataWithId = ServerEventData & { eventId: string };
-
-export interface UserProfile {
-  username: string;
-  email: string;
-}
-
 export type AuthUserProfile = UserProfile & {
   password: string;
 };
@@ -36,3 +31,8 @@ export type AuthUserProfile = UserProfile & {
 export type LocalUserProfile = UserProfile & {
   uid: string;
 };
+
+export interface UserProfile {
+  username: string;
+  email: string;
+}

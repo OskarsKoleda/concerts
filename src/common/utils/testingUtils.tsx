@@ -1,41 +1,58 @@
 import type { RenderOptions, RenderResult } from "@testing-library/react";
 import { render } from "@testing-library/react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 import React from "react";
+import type { UseFormProps } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RootStore from "../../store/RootStore.ts";
+import { StoreProvider } from "../../store/StoreContext.tsx";
 
-interface ExtendedRenderOptions extends Omit<RenderOptions, "wrapper"> {
-  route?: string | null;
-  location?: string | null;
+interface ExtendedRenderOptions<TFieldValues extends Record<string, any>>
+  extends Omit<RenderOptions, "wrapper"> {
   rootStore?: RootStore | null;
+  formConfig?: UseFormProps<TFieldValues> | null;
 }
 
-const withRouter = (children: React.ReactNode, route: string): JSX.Element => {
+const WithRouter = (children: ReactNode) => {
   return (
     <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Routes>
-        <Route path={route} element={children} />
+        <Route path="*" element={children} />
       </Routes>
     </BrowserRouter>
   );
 };
 
-export function renderWithProviders(
+const WithStore = (children: ReactNode) => {
+  return <StoreProvider>{children}</StoreProvider>;
+};
+
+const WithFormProvider = <TFieldValues extends Record<string, any>>(
+  children: ReactNode,
+  formConfig: UseFormProps<TFieldValues>,
+) => {
+  const formMethods = useForm<TFieldValues>(formConfig);
+
+  return <FormProvider {...formMethods}>{children}</FormProvider>;
+};
+
+export function renderWithProviders<TFieldValues extends Record<string, any> = any>(
   UI: React.ReactElement,
   {
-    route = "concerts/testing-route",
-    location = route,
     rootStore = new RootStore(),
+    formConfig = null,
     ...renderOptions
-  }: ExtendedRenderOptions = {},
+  }: ExtendedRenderOptions<TFieldValues> = {},
 ): RenderResult & { rootStore: RootStore | null } {
-  if (location) {
-    window.history.pushState({}, "", route);
-  }
-
-  const WithProvidersWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
-    const UIWithRouter = route ? withRouter(children, route) : <>{children}</>;
+  const WithProvidersWrapper: FC<{ children: ReactNode }> = ({ children }) => {
+    const UIWithStore = rootStore ? WithStore(children) : <>{children}</>;
+    const UIWithFormProvider = formConfig ? (
+      WithFormProvider(UIWithStore, formConfig)
+    ) : (
+      <>{UIWithStore}</>
+    );
+    const UIWithRouter = WithRouter(UIWithFormProvider);
 
     return UIWithRouter;
   };

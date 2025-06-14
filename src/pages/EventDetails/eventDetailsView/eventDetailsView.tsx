@@ -1,17 +1,17 @@
-import { observer } from "mobx-react-lite";
 import { Box, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
-import { ContentLoader } from "../../../components/ContentLoader/contentLoader.tsx";
-import { useRootStore } from "../../../store/StoreContext.tsx";
-import { useCustomSnackbar } from "../../../hooks/useCustomSnackbar.ts";
+import { useNavigate, useParams } from "react-router-dom";
 import { SnackbarVariantType } from "../../../common/enums/appEnums.ts";
+import ContentLoader from "../../../components/ContentLoader/ContentLoader.tsx";
+import { useCustomSnackbar } from "../../../hooks/useCustomSnackbar.ts";
 import { ROUTE_LIST } from "../../../router/routes.ts";
-import { eventContainerStyles, eventHeaderStyles } from "./styles.ts";
-import { EventDataSection } from "./eventDataSection/eventDataSection.tsx";
+import { useRootStore } from "../../../store/StoreContext.tsx";
 import { EventArtistsSection } from "./eventArtistsSection/eventArtistsSection.tsx";
+import { EventDataSection } from "./eventDataSection/eventDataSection.tsx";
 import { EventPoster } from "./eventPoster/eventPoster.tsx";
+import { eventContainerStyles, eventHeaderStyles } from "./styles.ts";
 
 export const EventDetailsView = observer(function EventDetailsView() {
   const { id: eventId } = useParams();

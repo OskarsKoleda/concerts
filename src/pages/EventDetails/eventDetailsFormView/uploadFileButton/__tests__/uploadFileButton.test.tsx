@@ -1,18 +1,23 @@
-import { describe, it } from "vitest";
-import { render } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import type { UseFormProps } from "react-hook-form";
+import type { LocalEventData } from "../../../../../common/types/eventTypes.ts";
+import { renderWithProviders } from "../../../../../common/utils/testingUtils.tsx";
+import { defaultEventValues } from "../../../constants.ts";
 import { UploadFileButton } from "../uploadFileButton.tsx";
 
 describe("UploadFileButton", () => {
-  it("should render correctly", async () => {
-    // const methods = useForm<LocalEventData>({
-    //   defaultValues,
-    //   mode: "onChange",
-    //   shouldUnregister: true,
-    // });
+  it("should render correctly", () => {
+    const formConfig: UseFormProps<LocalEventData> = {
+      defaultValues: defaultEventValues,
+      mode: "onChange",
+      shouldUnregister: true,
+    };
 
-    // TODO: should be wrapped with form provider before rendering
-    render(
+    renderWithProviders<LocalEventData>(
       <UploadFileButton buttonTitle="Add Poster" formFieldName="posterImage" readonly={false} />,
+      { formConfig },
     );
+
+    screen.debug();
   });
 });

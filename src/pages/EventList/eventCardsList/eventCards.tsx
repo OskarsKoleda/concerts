@@ -4,10 +4,10 @@ import { observer } from "mobx-react-lite";
 import React, { useEffect, useMemo } from "react";
 import { useRootStore } from "../../../store/StoreContext";
 
+import ContentLoader from "../../../components/ContentLoader/ContentLoader.tsx";
 import { EventCard } from "../../../components/EventCard/eventCard.tsx";
-import { EventListRequests } from "../../../store/transport/eventListTransport/constants.ts";
-import { ContentLoader } from "../../../components/ContentLoader/contentLoader.tsx";
 import { EventRow } from "../../../components/EventRow/eventRow.tsx";
+import { EventListRequests } from "../../../store/transport/eventListTransport/constants.ts";
 
 export const EventCardsList: React.FC = observer(function EventCardsList() {
   const {
@@ -64,7 +64,7 @@ export const EventCardsList: React.FC = observer(function EventCardsList() {
         eventsCardList
       ) : (
         <Box display="flex" justifyContent="center">
-          <Typography variant="h2">Nothing Found :(</Typography>
+          <Typography variant="h2">Nothing Found</Typography>
         </Box>
       )}
     </ContentLoader>
