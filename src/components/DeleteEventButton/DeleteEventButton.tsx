@@ -1,14 +1,14 @@
 import { Box, Button, Tooltip } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCustomSnackbar } from "../../hooks/useCustomSnackbar";
-import { useRootStore } from "../../store/StoreContext";
-import { CustomDialog } from "../CustomDialog/customDialog";
 import { SnackbarVariantType } from "../../common/enums/appEnums.ts";
+import { useCustomSnackbar } from "../../hooks/useCustomSnackbar";
 import { ROUTE_LIST } from "../../router/routes.ts";
+import { useRootStore } from "../../store/StoreContext";
+import CustomDialog from "../CustomDialog/CustomDialog.tsx";
 
-export const DeleteEventButton: React.FC = observer(() => {
+export const DeleteEventButton = observer(() => {
   const [showConfirmationDialogue, setShowConfirmationDialogue] = useState(false);
   const {
     eventDetailsRequestStore: { deleteEvent },
@@ -47,7 +47,8 @@ export const DeleteEventButton: React.FC = observer(() => {
         setShow={setShowConfirmationDialogue}
         show={showConfirmationDialogue}
         title="Are you sure?"
-        description="You are about to delete the event permanently. Proceed?"
+        proceedButtonColor="error"
+        content="You are about to delete the event permanently. Proceed?"
         onConfirm={() => handleEventDeletion(currentEventId)}
       />
       <Tooltip title="Delete Event">

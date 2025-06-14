@@ -6,23 +6,16 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import React from "react";
+import type { CustomDialogProps } from "./types";
 
-type LockConfirmDialogProps = {
-  show: boolean;
-  title: string;
-  description: string;
-  setShow: (value: boolean) => void;
-  onConfirm: () => void;
-};
-
-export const CustomDialog: React.FC<LockConfirmDialogProps> = ({
+export const CustomDialog = ({
   show,
   setShow,
   title,
-  description,
+  proceedButtonColor,
+  content: description,
   onConfirm,
-}) => {
+}: CustomDialogProps) => {
   return (
     <Dialog open={show}>
       <DialogTitle>{title}</DialogTitle>
@@ -30,7 +23,7 @@ export const CustomDialog: React.FC<LockConfirmDialogProps> = ({
         <DialogContentText>{description}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button color="error" variant="outlined" onClick={onConfirm}>
+        <Button color={proceedButtonColor} variant="outlined" onClick={onConfirm}>
           Proceed
         </Button>
         <Button variant="contained" onClick={() => setShow(false)}>
@@ -40,3 +33,5 @@ export const CustomDialog: React.FC<LockConfirmDialogProps> = ({
     </Dialog>
   );
 };
+
+export default CustomDialog;

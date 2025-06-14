@@ -3,7 +3,7 @@ import { renderWithProviders } from "../../common/utils/testingUtils";
 import ContentLoader from "./ContentLoader";
 
 describe("ContentLoader", () => {
-  it("should correctly render content loader", () => {
+  test("should correctly render content loader", () => {
     renderWithProviders(
       <ContentLoader isLoading={true}>
         <h1>Welcome!</h1>
@@ -15,7 +15,7 @@ describe("ContentLoader", () => {
     expect(loader).toBeInTheDocument();
   });
 
-  it("should not render content loader", () => {
+  test("should not render content loader", () => {
     renderWithProviders(
       <ContentLoader isLoading={false}>
         <h1>Welcome!</h1>
