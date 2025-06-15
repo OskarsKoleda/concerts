@@ -8,8 +8,8 @@ import { ROUTE_LIST } from "../../router/routes.ts";
 import { useRootStore } from "../../store/StoreContext";
 import CustomDialog from "../CustomDialog/CustomDialog.tsx";
 
-export const DeleteEventButton = observer(() => {
-  const [showConfirmationDialogue, setShowConfirmationDialogue] = useState(false);
+const DeleteEventButton = () => {
+  const [showDialog, setShowDialog] = useState(false);
   const {
     eventDetailsRequestStore: { deleteEvent },
     eventDetailsUIStore: { currentEventId },
@@ -22,7 +22,7 @@ export const DeleteEventButton = observer(() => {
     async (eventId: string) => {
       const response = await deleteEvent(eventId);
 
-      setShowConfirmationDialogue(false);
+      setShowDialog(false);
 
       if (!response) {
         return;
@@ -37,15 +37,11 @@ export const DeleteEventButton = observer(() => {
     [deleteEvent, navigate, showSnackbar],
   );
 
-  const handleDeletion = () => {
-    setShowConfirmationDialogue(true);
-  };
-
   return (
     <Box>
       <CustomDialog
-        setShow={setShowConfirmationDialogue}
-        show={showConfirmationDialogue}
+        setShow={setShowDialog}
+        show={showDialog}
         title="Are you sure?"
         proceedButtonColor="error"
         content="You are about to delete the event permanently. Proceed?"
@@ -56,11 +52,13 @@ export const DeleteEventButton = observer(() => {
           id="event.deleteEvent"
           variant="outlined"
           color="error"
-          onClick={() => handleDeletion()}
+          onClick={() => setShowDialog(true)}
         >
           Delete
         </Button>
       </Tooltip>
     </Box>
   );
-});
+};
+
+export default observer(DeleteEventButton);

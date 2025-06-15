@@ -1,10 +1,10 @@
 import { makeAutoObservable } from "mobx";
 
-import type { LocalEventData, ServerEventData } from "../../../common/types/eventTypes.ts";
-import type { EventDetailsTransport } from "../../transport/eventDetailsTransport/EventDetailsTransport.ts";
-import type { FirebaseResponse, ImageUploadData } from "../../responseTypes.ts";
 import type { Nullable } from "../../../common/types/appTypes.ts";
+import type { LocalEventData, ServerEventData } from "../../../common/types/eventTypes.ts";
+import type { FirebaseResponse, ImageUploadData } from "../../responseTypes.ts";
 import type { CloudinaryTransport } from "../../transport/cloudinaryTransport/CloudinaryTransport.ts";
+import type { EventDetailsTransport } from "../../transport/eventDetailsTransport/EventDetailsTransport.ts";
 import type { EventDetailsUIStore } from "../eventDetailUIStore/EventDetailsUIStore.ts";
 
 export class EventDetailsRequestStore {

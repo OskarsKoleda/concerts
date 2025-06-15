@@ -24,8 +24,8 @@ const WithRouter = (children: ReactNode) => {
   );
 };
 
-const WithStore = (children: ReactNode) => {
-  return <StoreProvider>{children}</StoreProvider>;
+const WithStore = (store: RootStore, children: ReactNode) => {
+  return <StoreProvider mockedStore={store}>{children}</StoreProvider>;
 };
 
 const WithFormProvider = <TFieldValues extends Record<string, any>>(
@@ -46,12 +46,13 @@ export function renderWithProviders<TFieldValues extends Record<string, any> = a
   }: ExtendedRenderOptions<TFieldValues> = {},
 ): RenderResult & { rootStore: RootStore | null } {
   const WithProvidersWrapper: FC<{ children: ReactNode }> = ({ children }) => {
-    const UIWithStore = rootStore ? WithStore(children) : <>{children}</>;
+    const UIWithStore = rootStore ? WithStore(rootStore, children) : <>{children}</>;
     const UIWithFormProvider = formConfig ? (
       WithFormProvider(UIWithStore, formConfig)
     ) : (
       <>{UIWithStore}</>
     );
+
     const UIWithRouter = WithRouter(UIWithFormProvider);
 
     return UIWithRouter;
