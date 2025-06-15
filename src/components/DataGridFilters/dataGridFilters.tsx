@@ -1,20 +1,20 @@
 import { Button, Grid } from "@mui/material";
-import React from "react";
 
-import { filterButtonsContainerStyles, filterFooterStyles } from "./styles";
+import { memo } from "react";
+import { filterFooterStyles } from "./styles";
 import { generateFilterFields } from "./utils";
 
 import type { FilterInputsConfig, ToggleButtonFilterProps } from "./types";
 
-type DataGridFilterProps = {
+type DataGridFiltersProps = {
   filterProps: FilterInputsConfig;
   filterToggles: ToggleButtonFilterProps;
 };
 
-export const DataGridFilters = React.memo<DataGridFilterProps>(function DataGridFilters({
+export const DataGridFilters = ({
   filterProps: { inputs, buttons },
   filterToggles,
-}: DataGridFilterProps) {
+}: DataGridFiltersProps) => {
   return (
     <Grid container direction="column">
       <Grid container gap={2}>
@@ -26,7 +26,7 @@ export const DataGridFilters = React.memo<DataGridFilterProps>(function DataGrid
       </Grid>
 
       <Grid container sx={filterFooterStyles}>
-        <Grid item sx={filterButtonsContainerStyles}>
+        <Grid item display="flex" gap={2}>
           {buttons.map(({ id, label, color, disabled, onClick, size, variant }) => (
             <Button
               key={id}
@@ -46,4 +46,6 @@ export const DataGridFilters = React.memo<DataGridFilterProps>(function DataGrid
       </Grid>
     </Grid>
   );
-});
+};
+
+export default memo(DataGridFilters);

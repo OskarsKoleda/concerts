@@ -3,16 +3,16 @@ import { observer } from "mobx-react-lite";
 import React, { useMemo } from "react";
 
 import { FilterInputType } from "../../../components/DataGridFilters/constants";
-import { DataGridFilters } from "../../../components/DataGridFilters/dataGridFilters";
 import { type EventCategoryFilter } from "../../../store/eventList/eventFilters/types";
 import { useRootStore } from "../../../store/StoreContext";
 import { EventsPageIds, eventsPageText } from "../constants";
 
+import { eventCategoriesList } from "../../../common/constants/appConstant.ts";
+import DataGridFilters from "../../../components/DataGridFilters/DataGridFilters.tsx";
 import type {
   FilterInputsConfig,
   ToggleButtonFilterProps,
 } from "../../../components/DataGridFilters/types";
-import { eventCategoriesList } from "../../../common/constants/appConstant.ts";
 import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
 
 const {
@@ -45,7 +45,7 @@ export const EventFilters: React.FC = observer(function EventFilters() {
       value: currentEventType,
       options: eventCategoriesList,
       onChange: (_: React.MouseEvent<HTMLElement>, newFestivalType: EventCategoryFilter) => {
-        if (newFestivalType !== null) {
+        if (newFestivalType) {
           setEventType(newFestivalType);
         }
       },
@@ -82,8 +82,8 @@ export const EventFilters: React.FC = observer(function EventFilters() {
       ],
       buttons: [
         {
-          disabled: false, // isResetFiltersDisabled
           id: EventsPageIds.resetButton,
+          disabled: false, // isResetFiltersDisabled
           label: buttons.reset.label,
           onClick: resetFilters,
           color: "primary",
@@ -91,8 +91,8 @@ export const EventFilters: React.FC = observer(function EventFilters() {
           variant: "outlined",
         },
         {
-          disabled: false,
           id: "filterButton",
+          disabled: false,
           label: "Filter",
           color: "primary",
           size: "medium",
@@ -100,22 +100,7 @@ export const EventFilters: React.FC = observer(function EventFilters() {
         },
       ],
     };
-  }, [
-    eventTitle.label,
-    eventTitle.placeholder,
-    city.label,
-    city.placeholder,
-    band.label,
-    band.placeholder,
-    currentEventTitle,
-    currentCity,
-    currentBand,
-    buttons.reset.label,
-    resetFilters,
-    setEventTitle,
-    setCity,
-    setBand,
-  ]);
+  }, [currentBand, currentCity, currentEventTitle, resetFilters, setBand, setCity, setEventTitle]);
 
   return (
     <Paper sx={filterContainerStyles}>

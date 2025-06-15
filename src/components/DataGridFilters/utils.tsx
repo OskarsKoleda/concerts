@@ -1,55 +1,58 @@
 import { MenuItem, Select, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { FilterInputType } from "./constants";
 
-import type { FilterInputsConfigItem } from "./types";
 import { toggleButtonGroupStyles, toggleButtonStyles } from "./styles.ts";
+import type { FilterInputsConfigItem } from "./types";
 
 export function generateFilterFields(input: FilterInputsConfigItem): JSX.Element {
-  switch (input.inputType) {
+  const { id, inputType, value, label, placeholder } = input;
+
+  switch (inputType) {
     case FilterInputType.text: {
+      const { onChange } = input;
+
       return (
         <TextField
-          id={input.id}
-          label={input.label}
-          onChange={input.onChange}
-          placeholder={input.placeholder}
-          value={input.value}
+          id={id}
+          label={label}
+          onChange={onChange}
+          placeholder={placeholder}
+          value={value}
           sx={{ backgroundColor: "#FFF" }}
-          variant="outlined"
           size="small"
         />
       );
     }
+
     case FilterInputType.select: {
+      const { options } = input;
+
       return (
-        <Select
-          id={input.id}
-          label={input.label}
-          // onChange={input.onChange}
-          placeholder={input.placeholder}
-          value={input.value}
-        >
-          {input.options.map((opt: string) => (
-            <MenuItem key={opt} value={opt}>
-              {opt}
+        <Select id={id} label={label} placeholder={placeholder} value={value}>
+          {options.map((option: string) => (
+            <MenuItem key={option} value={option}>
+              {option}
             </MenuItem>
           ))}
         </Select>
       );
     }
+
     case FilterInputType.toggleButton: {
+      const { options, onChange } = input;
+
       return (
         <ToggleButtonGroup
-          id={input.id}
-          onChange={input.onChange}
-          value={input.value}
+          id={id}
+          onChange={onChange}
+          value={value}
           size="small"
           exclusive
           sx={toggleButtonGroupStyles}
         >
-          {input.options.map((value: string) => (
-            <ToggleButton key={value} value={value} sx={toggleButtonStyles}>
-              {value}
+          {options.map((option: string) => (
+            <ToggleButton key={option} value={option} sx={toggleButtonStyles}>
+              {option}
             </ToggleButton>
           ))}
         </ToggleButtonGroup>

@@ -1,11 +1,6 @@
 import type { SxProps } from "@mui/material";
 import { appTheme } from "../AppProviders/theme.ts";
 
-export const filterButtonsContainerStyles: SxProps = {
-  display: "flex",
-  gap: "1rem",
-};
-
 export const filterFooterStyles: SxProps = {
   display: "flex",
   justifyContent: "space-between",
@@ -14,8 +9,9 @@ export const filterFooterStyles: SxProps = {
 
 export const toggleButtonGroupStyles: SxProps = {
   ".Mui-selected": {
-    color: appTheme.palette.primary.contrastText,
-    backgroundColor: appTheme.palette.primary.dark,
+    "&:hover": {
+      cursor: "default",
+    },
   },
 };
 
@@ -24,7 +20,6 @@ export const toggleButtonStyles: SxProps = {
   backgroundColor: appTheme.palette.primary.main,
 
   "&:hover": {
-    color: appTheme.palette.primary.contrastText,
-    backgroundColor: appTheme.palette.primary.dark,
+    backgroundColor: appTheme.palette.primary.light,
   },
 };

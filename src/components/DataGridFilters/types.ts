@@ -4,42 +4,34 @@ import type { Maybe } from "../../common/types/appTypes";
 import type { EventCategoryFilter } from "../../store/eventList/eventFilters/types";
 import type { FilterInputType } from "./constants";
 
-export type FilterInputProps = {
-  label?: string;
-  placeholder?: string;
-  id: string;
-  value: Maybe<string>;
-};
+export type FilterInputsConfigItem = TextFilterProps | SelectFilterProps | ToggleButtonFilterProps;
 
 export type TextFilterProps = {
   inputType: FilterInputType.text;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (_: React.ChangeEvent<HTMLInputElement>) => void;
 } & FilterInputProps;
 
 export type SelectFilterProps = {
   inputType: FilterInputType.select;
-  options: Array<string>;
-  onChange: (option: string) => void;
+  options: string[];
 } & FilterInputProps;
 
-// TODO: exclude redundant props?
 export type ToggleButtonFilterProps = {
   inputType: FilterInputType.toggleButton;
+  options: string[];
   onChange: (_: React.MouseEvent<HTMLElement>, value: EventCategoryFilter) => void;
-  options: Array<string>;
 } & FilterInputProps;
 
-export type FilterButtonProps = {
+export type FilterInputProps = {
   id: string;
-  label: string;
-  onClick?: VoidFunction;
-  color?: ButtonProps["color"];
-  disabled?: boolean;
-  size?: ButtonProps["size"];
-  variant?: ButtonProps["variant"];
+  value: Maybe<string>;
+  label?: string;
+  placeholder?: string;
 };
 
-export type FilterInputsConfigItem = TextFilterProps | SelectFilterProps | ToggleButtonFilterProps;
+export type FilterButtonProps = {
+  label: string;
+} & ButtonProps;
 
 export type FilterInputsConfig = {
   inputs: Array<FilterInputsConfigItem>;
