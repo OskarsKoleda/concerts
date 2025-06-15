@@ -1,14 +1,14 @@
 import { Box } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
 
-import { ErrorBoundary } from "react-error-boundary";
 import React from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import Header from "./components/Header/Header.tsx";
 
-import { ErrorBoundaryMessage } from "./components/ErrorBoundaryMessage/errorBoundaryMessage.tsx";
-import { ErrorToast } from "./components/ErrorToast/errorToast.tsx";
-import { appContainerStyles, contentWrapperStyles, scrollContainerStyles } from "./styles.ts";
+import ErrorBoundaryMessage from "./components/ErrorBoundaryMessage/ErrorBoundaryMessage.tsx";
+import ErrorToast from "./components/ErrorToast/ErrorToast.tsx";
 import AppRoutes from "./router/routes.tsx";
+import { appContainerStyles, contentWrapperStyles, scrollContainerStyles } from "./styles.ts";
 
 const App: React.FC = () => (
   <BrowserRouter future={{ v7_startTransition: true }}>

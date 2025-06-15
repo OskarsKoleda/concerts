@@ -1,11 +1,10 @@
-import type React from "react";
-import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { useRootStore } from "../../store/StoreContext.tsx";
-import { useCustomSnackbar } from "../../hooks/useCustomSnackbar.ts";
+import { useEffect } from "react";
 import { SnackbarVariantType } from "../../common/enums/appEnums.ts";
+import { useCustomSnackbar } from "../../hooks/useCustomSnackbar.ts";
+import { useRootStore } from "../../store/StoreContext.tsx";
 
-export const ErrorToast: React.FC = observer(function ErrorToast() {
+export const ErrorToast = () => {
   const {
     transport: {
       appState: { activeError },
@@ -24,4 +23,6 @@ export const ErrorToast: React.FC = observer(function ErrorToast() {
   }, [showSnackbar, activeError]);
 
   return <></>;
-});
+};
+
+export default observer(ErrorToast);

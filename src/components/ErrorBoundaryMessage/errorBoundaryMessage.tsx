@@ -1,13 +1,13 @@
-import type { FallbackProps } from "react-error-boundary";
 import { Paper, Typography } from "@mui/material";
-import React from "react";
+import { memo } from "react";
+import type { FallbackProps } from "react-error-boundary";
 
-export const ErrorBoundaryMessage = React.memo<Partial<FallbackProps>>(
-  function ErrorBoundaryMessage() {
-    return (
-      <Paper>
-        <Typography variant="body2">Something very wrong happened!</Typography>
-      </Paper>
-    );
-  },
-);
+export const ErrorBoundaryMessage = () => {
+  return (
+    <Paper>
+      <Typography variant="body2">Something very wrong happened! Refresh the page.</Typography>
+    </Paper>
+  );
+};
+
+export default memo<Partial<FallbackProps>>(ErrorBoundaryMessage);
