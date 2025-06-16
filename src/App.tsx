@@ -1,10 +1,9 @@
 import { Box } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
-
 import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import Header from "./components/Header/Header.tsx";
 
+import Header from "./components/Header/Header.tsx";
 import ErrorBoundaryMessage from "./components/ErrorBoundaryMessage/ErrorBoundaryMessage.tsx";
 import ErrorToast from "./components/ErrorToast/ErrorToast.tsx";
 import AppRoutes from "./router/routes.tsx";

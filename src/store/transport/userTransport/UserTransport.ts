@@ -1,10 +1,12 @@
 import type { Database } from "firebase/database";
 import { child, get, ref, set } from "firebase/database";
+
 import type { RequestHandler } from "../requestHandler/RequestHandler.ts";
 import type { ChildTransport, RequestContext } from "../rootTransport/types.ts";
 import { getRequestContext } from "../rootTransport/utils.ts";
 import type { LocalUserProfile } from "../../../common/types/eventTypes.ts";
 import type { FirebaseResponse } from "../../responseTypes.ts";
+
 import { requestErrorMessages, UserRequests } from "./constants.ts";
 
 export class UserTransport implements ChildTransport {

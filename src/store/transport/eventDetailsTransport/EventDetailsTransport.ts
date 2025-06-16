@@ -1,10 +1,12 @@
 import { child, type Database, get, push, ref, remove, set, update } from "firebase/database";
 import { makeAutoObservable } from "mobx";
+
 import { getRequestContext } from "../rootTransport/utils";
 import type { ServerEventData } from "../../../common/types/eventTypes.ts";
 import type { RequestHandler } from "../requestHandler/RequestHandler";
 import type { ChildTransport, RequestContext } from "../rootTransport/types";
 import type { FirebaseResponse } from "../../responseTypes.ts";
+
 import { EventDetailsRequests, requestErrorMessages } from "./constants";
 
 export class EventDetailsTransport implements ChildTransport {

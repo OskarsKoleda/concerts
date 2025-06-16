@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+
 import type { ServerEventData } from "../../../common/types/eventTypes.ts";
 import { formatDate } from "../../../common/utils/utility.ts";
 

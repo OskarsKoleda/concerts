@@ -1,6 +1,5 @@
 import { useSnackbar } from "notistack";
 import { useCallback } from "react";
-
 import type { OptionsObject, VariantType } from "notistack";
 
 type CustomSnackbarProps = {

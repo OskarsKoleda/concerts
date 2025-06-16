@@ -6,13 +6,13 @@ import { FilterInputType } from "../../../components/DataGridFilters/constants";
 import { type EventCategoryFilter } from "../../../store/eventList/eventFilters/types";
 import { useRootStore } from "../../../store/StoreContext";
 import { EventsPageIds, eventsPageText } from "../constants";
-
 import { eventCategoriesList } from "../../../common/constants/appConstant.ts";
 import DataGridFilters from "../../../components/DataGridFilters/DataGridFilters.tsx";
 import type {
   FilterInputsConfig,
   ToggleButtonFilterProps,
 } from "../../../components/DataGridFilters/types";
+
 import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
 
 const {

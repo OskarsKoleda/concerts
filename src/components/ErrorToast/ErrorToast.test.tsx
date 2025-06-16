@@ -1,6 +1,7 @@
 import { SnackbarVariantType } from "../../common/enums/appEnums";
 import { renderWithProviders } from "../../common/utils/testingUtils";
 import RootStore from "../../store/RootStore";
+
 import ErrorToast from "./ErrorToast";
 
 const mockShowSnackbar = vi.fn();

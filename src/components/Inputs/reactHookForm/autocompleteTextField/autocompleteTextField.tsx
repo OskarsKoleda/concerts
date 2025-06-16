@@ -2,8 +2,8 @@ import type { TextFieldProps } from "@mui/material";
 import { Autocomplete, TextField, Tooltip } from "@mui/material";
 import { Controller } from "react-hook-form";
 import React from "react";
-import { ChipsReadonlyField } from "../../chipsReadonlyField/chipsReadonlyField";
 
+import { ChipsReadonlyField } from "../../chipsReadonlyField/chipsReadonlyField";
 import type {
   ReadonlyControl,
   WithTooltip,

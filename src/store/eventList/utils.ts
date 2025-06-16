@@ -1,4 +1,5 @@
 import _ from "lodash";
+
 import type { ServerEventData, ServerEventDataWithId } from "../../common/types/eventTypes.ts";
 import type { RequestPayload } from "../transport/eventListTransport/types.ts";
 

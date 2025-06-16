@@ -2,8 +2,10 @@ import { observer } from "mobx-react-lite";
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+
 import type { ServerEventDataWithId } from "../../common/types/eventTypes.ts";
 import { ROUTE_LIST } from "../../router/routes.ts";
+
 import { eventRowContainerStyles } from "./styles.ts";
 
 type EventRowProps = {

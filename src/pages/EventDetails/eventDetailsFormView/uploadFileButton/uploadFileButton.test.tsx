@@ -1,7 +1,9 @@
 import type { UseFormProps } from "react-hook-form";
+
 import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
 import { renderWithProviders } from "../../../../common/utils/testingUtils.tsx";
 import { defaultEventValues } from "../../constants.ts";
+
 import { UploadFileButton } from "./uploadFileButton.tsx";
 
 describe("UploadFileButton", () => {

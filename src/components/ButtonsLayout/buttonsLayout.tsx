@@ -1,12 +1,11 @@
 import { Grid } from "@mui/material";
 import { memo } from "react";
-
 import { LoadingButton } from "@mui/lab";
+
 import DeleteEventButton from "../DeleteEventButton/DeleteEventButton.tsx";
 
 import { buttonsLayoutStyles } from "./styles.ts";
 import { toVisibleControl } from "./utils.ts";
-
 import type { ControlPayload } from "./types.ts";
 
 type ButtonLayoutProps = {

@@ -1,4 +1,5 @@
 import type { FieldError } from "react-hook-form";
+
 import { ERROR_TEXTS } from "./appConstant";
 
 export const getInputErrorText = (error: FieldError): string | null => {

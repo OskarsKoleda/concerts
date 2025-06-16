@@ -1,4 +1,5 @@
 import type { SxProps, Theme } from "@mui/material";
+
 import { appTheme } from "./components/AppProviders/theme.ts";
 
 export const appContainerStyles: SxProps = {

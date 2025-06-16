@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { Box } from "@mui/material";
+
 import { useRootStore } from "../../../../store/StoreContext.tsx";
 import posterMissing from "../../../../assets/poster-missing.jpg";
 

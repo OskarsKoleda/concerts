@@ -1,9 +1,11 @@
 import { Box, Drawer, List } from "@mui/material";
-import { useLocation } from "react-router-dom";
 import { memo, useMemo } from "react";
+import { useLocation } from "react-router-dom";
+
+import { drawerItems } from "../constants.tsx";
+
 import NavigationListItem from "./NavigationListItem/NavigationListItem.tsx";
 import { drawerItemsStyles } from "./styles.ts";
-import { drawerItems } from "../constants.tsx";
 
 interface DrawerItemsProps {
   showDrawer: boolean;
@@ -24,7 +26,7 @@ const DrawerItems = ({ showDrawer, toggleDrawer }: DrawerItemsProps) => {
           icon={item.icon}
         />
       )),
-    [drawerItems, location],
+    [location],
   );
 
   return (

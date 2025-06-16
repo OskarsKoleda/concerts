@@ -5,10 +5,10 @@ import { EventDetailsTransport } from "../eventDetailsTransport/EventDetailsTran
 import { EventListTransport } from "../eventListTransport/EventListTransport.ts";
 import { RequestHandler } from "../requestHandler/RequestHandler";
 import { db } from "../../../initializeFirebase.ts";
-
 import { CloudinaryTransport } from "../cloudinaryTransport/CloudinaryTransport.ts";
 import { AuthTransport } from "../authTransport/AuthTransport.ts";
 import { UserTransport } from "../userTransport/UserTransport.ts";
+
 import type { RootTransport } from "./types";
 
 export class Transport implements RootTransport {

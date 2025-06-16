@@ -2,7 +2,6 @@ import { useFormContext, useWatch } from "react-hook-form";
 
 import { InputType } from "../../../../components/FormLayout/constants.ts";
 import { FormLayout } from "../../../../components/FormLayout/formLayout.tsx";
-
 import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
 import type { FormFields } from "../../../../components/FormLayout/types.ts";
 import { EventCategory } from "../../../../common/enums/appEnums.ts";

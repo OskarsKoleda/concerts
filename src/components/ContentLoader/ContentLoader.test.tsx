@@ -1,5 +1,7 @@
 import { screen } from "@testing-library/react";
+
 import { renderWithProviders } from "../../common/utils/testingUtils";
+
 import ContentLoader from "./ContentLoader";
 
 describe("ContentLoader", () => {

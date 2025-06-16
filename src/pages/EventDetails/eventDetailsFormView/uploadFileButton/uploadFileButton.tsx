@@ -4,8 +4,10 @@ import type { Path } from "react-hook-form";
 import { Controller, useFormContext } from "react-hook-form";
 import { Box } from "@mui/material";
 import { observer } from "mobx-react-lite";
+
 import { useRootStore } from "../../../../store/StoreContext.tsx";
 import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
+
 import { uploadFileButtonStyles } from "./styles.ts";
 
 type UploadFileButtonProps = {

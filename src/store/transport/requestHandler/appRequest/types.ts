@@ -3,7 +3,7 @@ import type { ArrowFunction, VoidArrowFunction } from "../../../../common/types/
 import type { ProcessError } from "../types";
 
 export interface RequestService {
-    processError: ProcessError;
+  processError: ProcessError;
 }
 
 export type GetStatus = ArrowFunction<RequestStatus>;
@@ -19,5 +19,5 @@ export interface RequestController {
   inProgress: InProgress;
   fail: Fail;
   reset: Reset;
-//   cancel: Cancel;
+  //   cancel: Cancel;
 }

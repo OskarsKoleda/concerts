@@ -1,8 +1,10 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+
 import { SnackbarVariantType } from "../../common/enums/appEnums";
 import { renderWithProviders } from "../../common/utils/testingUtils";
 import RootStore from "../../store/RootStore";
+
 import DeleteEventButton from "./DeleteEventButton";
 
 const mockNavigate = vi.fn();

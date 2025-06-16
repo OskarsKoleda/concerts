@@ -1,6 +1,6 @@
 import { MenuItem, Select, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { FilterInputType } from "./constants";
 
+import { FilterInputType } from "./constants";
 import { toggleButtonGroupStyles, toggleButtonStyles } from "./styles.ts";
 import type { FilterInputsConfigItem } from "./types";
 

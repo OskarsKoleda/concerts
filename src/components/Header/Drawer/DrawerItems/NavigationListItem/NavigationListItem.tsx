@@ -1,7 +1,7 @@
 import { Link as RouterLink } from "react-router-dom";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-
 import type { ReactNode } from "react";
+
 import { navigationListItemStyles } from "./styles.ts";
 
 interface NavigationListItemProps {

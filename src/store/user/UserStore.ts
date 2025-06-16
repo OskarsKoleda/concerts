@@ -1,6 +1,7 @@
 import type { User, UserCredential } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { action, makeAutoObservable } from "mobx";
+
 import type { AuthUserProfile, LocalUserProfile } from "../../common/types/eventTypes.ts";
 import { auth } from "../../initializeFirebase.ts";
 import type { AuthTransport } from "../transport/authTransport/AuthTransport.ts";

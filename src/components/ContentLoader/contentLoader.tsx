@@ -1,7 +1,7 @@
 import { Box, CircularProgress } from "@mui/material";
 import { memo } from "react";
-
 import type { PropsWithChildren } from "react";
+
 import { contentLoaderWrapperStyles } from "./styles";
 
 type ContentLoaderProps = {

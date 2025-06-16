@@ -4,6 +4,7 @@ import React from "react";
 import DnsIcon from "@mui/icons-material/Dns";
 import ListIcon from "@mui/icons-material/List";
 import TableRowsIcon from "@mui/icons-material/TableRows";
+
 import { useRootStore } from "../../../store/StoreContext.tsx";
 
 export const EventListSettings: React.FC = observer(function EventListSettings() {

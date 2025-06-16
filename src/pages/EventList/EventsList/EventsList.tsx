@@ -1,22 +1,20 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
-
-import React, { useEffect, useMemo } from "react";
-import { useRootStore } from "../../../store/StoreContext";
+import { useEffect, useMemo } from "react";
 
 import ContentLoader from "../../../components/ContentLoader/ContentLoader.tsx";
-import { EventCard } from "../../../components/EventCard/eventCard.tsx";
+import EventCard from "../../../components/EventCard/EventCard.tsx";
 import { EventRow } from "../../../components/EventRow/eventRow.tsx";
+import { useRootStore } from "../../../store/StoreContext.tsx";
 import { EventListRequests } from "../../../store/transport/eventListTransport/constants.ts";
 
-export const EventCardsList: React.FC = observer(function EventCardsList() {
+const EventsList = () => {
   const {
     eventListStore: {
       events,
       getAllEvents,
       setupEventsListener,
       cleanupListener,
-
       eventListTransport: {
         requestHandler: { resetRequest, isSuccessfulRequest },
       },
@@ -69,4 +67,6 @@ export const EventCardsList: React.FC = observer(function EventCardsList() {
       )}
     </ContentLoader>
   );
-});
+};
+
+export default observer(EventsList);

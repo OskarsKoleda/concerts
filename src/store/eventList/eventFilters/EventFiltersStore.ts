@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+
 import {
   type BandFilter,
   type CityFilter,

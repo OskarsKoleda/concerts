@@ -4,12 +4,13 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useLocation, useParams } from "react-router-dom";
+
 import { useRootStore } from "../../../store/StoreContext.tsx";
 import { EventDetailsRequests } from "../../../store/transport/eventDetailsTransport/constants.ts";
-
 import type { LocalEventData } from "../../../common/types/eventTypes.ts";
 import { convertServerEventToLocal } from "../../../store/eventDetails/utils.ts";
 import { defaultEventValues, eventDetailsText } from "../constants.ts";
+
 import { EventDatesForm } from "./eventDatesForm/eventDatesForm.tsx";
 import { EventDetailsButtons } from "./eventDetailsButtons/eventDetailsButtons.tsx";
 import { EventFormFields } from "./eventFormFields/eventFormFields.tsx";

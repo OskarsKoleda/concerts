@@ -1,6 +1,8 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+
 import { renderWithProviders } from "../../common/utils/testingUtils";
+
 import CustomDialog from "./CustomDialog";
 import type { CustomDialogProps } from "./types";
 

@@ -4,11 +4,13 @@ import {
   deleteUser,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+
 import type { RequestHandler } from "../requestHandler/RequestHandler.ts";
 import type { ChildTransport, RequestContext } from "../rootTransport/types.ts";
 import { getRequestContext } from "../rootTransport/utils.ts";
 import type { AuthUserProfile } from "../../../common/types/eventTypes.ts";
 import { auth } from "../../../initializeFirebase.ts";
+
 import { FirebaseAuthRequests, requestErrorMessages } from "./constants.ts";
 
 export class AuthTransport implements ChildTransport {

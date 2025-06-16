@@ -1,7 +1,9 @@
 import type { ButtonProps } from "@mui/material";
 import type React from "react";
+
 import type { Maybe } from "../../common/types/appTypes";
 import type { EventCategoryFilter } from "../../store/eventList/eventFilters/types";
+
 import type { FilterInputType } from "./constants";
 
 export type FilterInputsConfigItem = TextFilterProps | SelectFilterProps | ToggleButtonFilterProps;

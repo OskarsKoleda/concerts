@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { ListItemButton } from "@mui/material";
+
 import { renderWithProviders } from "../../../../../common/utils/testingUtils.tsx";
+
 import NavigationListItem from "./NavigationListItem.tsx";
 
 const props = {

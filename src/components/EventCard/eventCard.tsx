@@ -1,32 +1,33 @@
-import { Box, Card, CardActions, CardContent, CardMedia, Chip, Typography } from "@mui/material";
-import React, { useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Button from "@mui/material/Button";
+import { Button, Card, CardActions, CardContent, Chip, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import { useCallback, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+
 import type { ServerEventDataWithId } from "../../common/types/eventTypes.ts";
+import { formatDate } from "../../common/utils/utility.ts";
 import { ROUTE_LIST } from "../../router/routes.ts";
 
-import { formatDate } from "../../common/utils/utility.ts";
+import EventImage from "./EventImage/EventImage.tsx";
 import {
   cardContentChipStyles,
   cardContentFooterStyles,
   cardContentHeaderStyles,
   cardContentStyles,
-  cardImageStyles,
-  cardStyles,
   chipStyles,
-} from "./styles.tsx";
+  eventCardStyles,
+} from "./styles.ts";
 
 type EventCardProps = {
   event: ServerEventDataWithId;
 };
 
-export const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
+const EventCard = ({ event }: EventCardProps) => {
   const {
     posterImageUrl,
     eventId,
     eventTitle,
-    artists,
+    artists = [],
     city,
     location,
     eventDate,
@@ -35,18 +36,20 @@ export const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) =
 
   const navigate = useNavigate();
 
-  const handleOpenEvent = (eventId: string) => {
+  const handleOpenEvent = useCallback(() => {
     navigate(`${ROUTE_LIST.EVENTS}/${eventId}`);
-  };
+  }, [navigate, eventId]);
 
   const formattedEventDate = useMemo(() => {
+    if (eventDate && festivalEndDate) {
+      return `${formatDate(eventDate)} - ${formatDate(festivalEndDate)}`;
+    }
+
     if (eventDate) {
       return formatDate(eventDate);
     }
 
-    if (eventDate && festivalEndDate) {
-      return `${formatDate(eventDate)} - ${formatDate(festivalEndDate)}`;
-    }
+    return "";
   }, [eventDate, festivalEndDate]);
 
   const eventLocation = useMemo(
@@ -55,8 +58,8 @@ export const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) =
   );
 
   return (
-    <Card sx={cardStyles}>
-      <CardMedia sx={cardImageStyles} component="img" image={posterImageUrl} />
+    <Card sx={eventCardStyles}>
+      <EventImage eventTitle={eventTitle} posterImageUrl={posterImageUrl} />
       <CardContent sx={cardContentStyles}>
         <Box sx={cardContentHeaderStyles}>
           <Typography variant="h5">{eventTitle}</Typography>
@@ -65,7 +68,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) =
           </Typography>
         </Box>
 
-        {artists && (
+        {artists.length > 0 && (
           <Box sx={cardContentChipStyles}>
             {artists.map((artist) => (
               <Chip key={artist} size="small" sx={chipStyles} label={artist} />
@@ -79,7 +82,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) =
             <Typography variant="subtitle1">{eventLocation}</Typography>
           </Box>
           <CardActions>
-            <Button variant="contained" onClick={() => handleOpenEvent(eventId)}>
+            <Button variant="contained" onClick={handleOpenEvent}>
               View
             </Button>
           </CardActions>
@@ -88,3 +91,5 @@ export const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) =
     </Card>
   );
 };
+
+export default EventCard;

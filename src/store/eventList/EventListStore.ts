@@ -5,6 +5,7 @@ import type { EventListTransport } from "../transport/eventListTransport/EventLi
 import type { RequestPayload } from "../transport/eventListTransport/types";
 import { EventListRequests } from "../transport/eventListTransport/constants.ts";
 import { EventCategory } from "../../common/enums/appEnums.ts";
+
 import { EventFiltersStore } from "./eventFilters/EventFiltersStore.ts";
 import { eventsFilteringEngine } from "./utils.ts";
 

@@ -3,10 +3,10 @@ import { get, onValue, orderByChild, query, ref } from "firebase/database";
 import { makeAutoObservable } from "mobx";
 
 import { getRequestContext } from "../rootTransport/utils";
-
 import type { ServerEventDataWithId } from "../../../common/types/eventTypes.ts";
 import type { RequestHandler } from "../requestHandler/RequestHandler";
 import type { ChildTransport, RequestContext } from "../rootTransport/types";
+
 import { EventListRequests, requestErrorMessages } from "./constants";
 
 export class EventListTransport implements ChildTransport {

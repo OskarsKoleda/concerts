@@ -1,6 +1,6 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
-
 import React from "react";
+
 import { NavLinkButton } from "../../components/NavButton/navButton";
 import { ROUTE_LIST } from "../../router/routes";
 

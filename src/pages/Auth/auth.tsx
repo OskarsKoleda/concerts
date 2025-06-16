@@ -5,12 +5,14 @@ import React, { useMemo, useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
+
 import type { AuthUserProfile } from "../../common/types/eventTypes.ts";
 import { useCustomSnackbar } from "../../hooks/useCustomSnackbar.ts";
 import { ROUTE_LIST } from "../../router/routes.ts";
 import { useRootStore } from "../../store/StoreContext.tsx";
 import { FirebaseAuthRequests } from "../../store/transport/authTransport/constants.ts";
 import { defaultUserValues } from "../EventDetails/constants.ts";
+
 import { AuthButtons } from "./authButtons.tsx";
 import { AuthFormFields } from "./authFormFields.tsx";
 import { bottomCaptionStyles } from "./styles.ts";

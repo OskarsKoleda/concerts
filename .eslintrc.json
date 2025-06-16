@@ -10,37 +10,23 @@
       "version": "detect"
     }
   },
-  "plugins": [
-    "@typescript-eslint",
-    "react-hooks",
-    "import",
-    "react"
-  ],
+  "plugins": ["@typescript-eslint", "react-hooks", "import", "react"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
     "plugin:import/typescript",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
   ],
-  "ignorePatterns": [
-    "lib"
-  ],
+  "ignorePatterns": ["lib"],
   "rules": {
     // Import and module-related rules
     "import/order": [
       "error",
       {
-        "groups": [
-          "external",
-          "parent",
-          [
-            "sibling",
-            "index"
-          ]
-          //          "type"
-        ]
-        //        "newlines-between": "always"
+        "groups": ["external", "parent", ["sibling", "index"]],
+        "newlines-between": "always"
       }
     ],
     "eslint-plugin-import/no-unresolved": "off",
@@ -74,9 +60,7 @@
       },
       {
         "selector": "typeLike",
-        "format": [
-          "PascalCase"
-        ]
+        "format": ["PascalCase"]
       }
     ],
     "@typescript-eslint/no-unused-vars": [
@@ -86,10 +70,7 @@
       }
     ],
     // Code quality and formatting rules
-    "block-spacing": [
-      "error",
-      "always"
-    ],
+    "block-spacing": ["error", "always"],
     "camelcase": [
       "warn",
       {
@@ -97,14 +78,10 @@
         "ignoreDestructuring": true
       }
     ],
-    "comma-spacing": [
-      "error"
-    ],
+    "comma-spacing": ["error"],
     "semi-spacing": "error",
     "semi": "off",
-    "@typescript-eslint/semi": [
-      "error"
-    ],
+    "@typescript-eslint/semi": ["error"],
     "max-len": [
       "error",
       {
@@ -113,17 +90,11 @@
         "ignorePattern": "^import |//|\"[^\"]{100,}\""
       }
     ],
-    "eqeqeq": [
-      "error",
-      "smart"
-    ],
+    "eqeqeq": ["error", "smart"],
     "no-console": [
       "warn",
       {
-        "allow": [
-          "warn",
-          "error"
-        ]
+        "allow": ["warn", "error"]
       }
     ],
     "no-empty": [
@@ -140,9 +111,7 @@
     ],
     "guard-for-in": "error",
     "keyword-spacing": "error",
-    "key-spacing": [
-      "error"
-    ],
+    "key-spacing": ["error"],
     "quotes": [
       "error",
       "double",
@@ -151,10 +120,7 @@
         "avoidEscape": true
       }
     ],
-    "object-curly-spacing": [
-      "error",
-      "always"
-    ],
+    "object-curly-spacing": ["error", "always"],
     "eol-last": "error",
     "no-trailing-spaces": "error",
     "no-var": "error",
@@ -165,23 +131,11 @@
         "maxBOF": 0
       }
     ],
-    "no-multi-spaces": [
-      "error"
-    ],
-    "no-whitespace-before-property": [
-      "error"
-    ],
-    "space-before-blocks": [
-      "error",
-      "always"
-    ],
-    "space-in-parens": [
-      "error",
-      "never"
-    ],
-    "arrow-spacing": [
-      "error"
-    ],
+    "no-multi-spaces": ["error"],
+    "no-whitespace-before-property": ["error"],
+    "space-before-blocks": ["error", "always"],
+    "space-in-parens": ["error", "never"],
+    "arrow-spacing": ["error"],
     // Spacing rules for code structure
     "padding-line-between-statements": [
       "error",

@@ -1,4 +1,5 @@
 import type { RequestStatus } from "../../../common/enums/appEnums";
+
 import type { AppRequest } from "./appRequest/AppRequest";
 
 export type TransferRequests = Record<string, AppRequest>;
