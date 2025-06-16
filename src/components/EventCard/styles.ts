@@ -1,6 +1,6 @@
 import { appTheme } from "../AppProviders/theme.ts";
 
-export const cardStyles = {
+export const eventCardStyles = {
   display: "flex",
   height: "12rem",
   borderRadius: 0,
@@ -11,7 +11,7 @@ export const cardStyles = {
   },
 
   "& > div:last-child": {
-    padding: "0",
+    padding: "0.5rem",
   },
 };
 
@@ -20,6 +20,14 @@ export const cardImageStyles = {
   width: "30%",
   borderRadius: 0,
   borderRight: "2px solid #000",
+};
+
+export const noPosterStyles = {
+  ...cardImageStyles,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  bgcolor: "grey.200",
 };
 
 export const cardContentStyles = {
