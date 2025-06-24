@@ -1,53 +1,33 @@
-import { appTheme } from "../AppProviders/theme.ts";
+import { horizontalCenteredStyles } from "../../common/styles";
 
-export const eventCardStyles = {
+export const cardStyles = {
   display: "flex",
-  height: "12rem",
-  borderRadius: 0,
-  transition: "transform 0.1s ease-out, background-color 0.2s ease-out, filter 0.2s ease-out",
+  height: "13rem",
+  transition: "transform 0.1s ease-out, filter 0.2s ease-out",
 
   "&:hover": {
-    filter: "brightness(0.9)",
-  },
-
-  "& > div:last-child": {
-    padding: "0.5rem",
+    transform: "scale(1.03)",
+    filter: "brightness(1.1)",
   },
 };
 
-export const cardContentStyles = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
+export const cardRightSideStyles = {
+  display: "grid",
+  padding: "0.5rem",
   width: "100%",
-  borderRadius: 0,
-  backgroundColor: appTheme.palette.background.paper,
-};
-
-export const cardContentHeaderStyles = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "flex-start",
-  padding: ".3rem .3rem 0 .3rem",
-};
-
-export const cardContentChipStyles = {
-  // display: "flex",
-  flexWrap: "wrap",
-  margin: "0 .3rem",
-  height: "100%",
 };
 
 export const chipStyles = {
+  fontSize: "0.75rem",
   marginBottom: "0.1rem",
   marginRight: "0.1rem",
   fontWeight: "450",
   backgroundColor: "#B0A1BA",
 };
 
-export const cardContentFooterStyles = {
-  display: "flex",
-  alignItems: "center",
+export const cardActionsStyles = {
+  ...horizontalCenteredStyles,
+
   justifyContent: "space-between",
-  padding: "0 .3rem .3rem .3rem",
+  padding: 0,
 };

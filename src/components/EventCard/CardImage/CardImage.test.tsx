@@ -2,11 +2,11 @@ import { screen } from "@testing-library/react";
 
 import { renderWithProviders } from "../../../common/utils/testingUtils";
 
-import EventImage from "./EventImage";
+import CardImage from "./CardImage";
 
-describe("renders fallback text when image is not provided", () => {
+describe("renders fallback text when card image is not provided", () => {
   test("renders with default image", () => {
-    renderWithProviders(<EventImage eventTitle="Test Event" />);
+    renderWithProviders(<CardImage imageTitle="Test Event" />);
 
     const noImageText = screen.getByText("No Image");
 
@@ -15,7 +15,8 @@ describe("renders fallback text when image is not provided", () => {
 
   test("renders with provided image", () => {
     const testImage = "https://example.com/test-image.jpg";
-    renderWithProviders(<EventImage eventTitle="Test Event" posterImageUrl={testImage} />);
+
+    renderWithProviders(<CardImage imageTitle="Test Event" imageUrl={testImage} />);
 
     const imageElement = screen.getByRole("img", { name: "Test Event" });
 

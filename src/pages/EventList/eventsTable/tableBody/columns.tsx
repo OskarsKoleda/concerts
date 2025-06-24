@@ -1,12 +1,12 @@
-import { Box, Tooltip } from "@mui/material";
-import MicIcon from "@mui/icons-material/Mic";
-import FestivalIcon from "@mui/icons-material/Festival";
-import TheaterComedyIcon from "@mui/icons-material/TheaterComedy";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
+import FestivalIcon from "@mui/icons-material/Festival";
+import MicIcon from "@mui/icons-material/Mic";
+import TheaterComedyIcon from "@mui/icons-material/TheaterComedy";
+import { Box, Tooltip } from "@mui/material";
 import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 
 import { EventCategory } from "../../../../common/enums/appEnums.ts";
-import { formatDate } from "../../../../common/utils/utility.ts";
+import { formatDateToDefault } from "../../../../common/utils/utils.ts";
 
 import { eventCardIconContainerStyles } from "./styles.ts";
 
@@ -62,7 +62,7 @@ const renderArtistsCell = (params: GridRenderCellParams) => {
 const renderDateCell = (params: GridRenderCellParams) => {
   if (!params.value) return <span>-</span>;
 
-  return <span>{formatDate(params.value)}</span>;
+  return <span>{formatDateToDefault(params.value)}</span>;
 };
 
 const renderTicketPriceCell = (params: GridRenderCellParams) => {

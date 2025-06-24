@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
 import type { ServerEventData } from "../../../common/types/eventTypes.ts";
-import { formatDate } from "../../../common/utils/utility.ts";
+import { formatDateToDefault } from "../../../common/utils/utils.ts";
 
 export class EventDetailsUIStore {
   private event: ServerEventData | null;
@@ -42,13 +42,13 @@ export class EventDetailsUIStore {
   get currentEventDate(): string {
     const date = this.event?.eventDate;
 
-    return date ? formatDate(date) : "";
+    return date ? formatDateToDefault(date) : "";
   }
 
   get currentFestivalEndDate(): string {
     const date = this.event?.festivalEndDate;
 
-    return date ? formatDate(date) : "";
+    return date ? formatDateToDefault(date) : "";
   }
 
   get currentFestivalTicketPrice(): string {

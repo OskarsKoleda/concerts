@@ -1,26 +1,28 @@
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { Button, Card, CardActions, CardContent, Chip, Typography } from "@mui/material";
+import {
+  Button,
+  CardActions,
+  CardContent as CardContentMui,
+  CardHeader as CardHeaderMui,
+  Card as CardMui,
+  Chip,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { emptyPaddingStyles, horizontalCenteredStyles } from "../../common/styles.ts";
 import type { ServerEventDataWithId } from "../../common/types/eventTypes.ts";
-import { formatDate } from "../../common/utils/utility.ts";
 import { ROUTE_LIST } from "../../router/routes.ts";
 
-import EventImage from "./EventImage/EventImage.tsx";
-import {
-  cardContentChipStyles,
-  cardContentFooterStyles,
-  cardContentHeaderStyles,
-  cardContentStyles,
-  chipStyles,
-  eventCardStyles,
-} from "./styles.ts";
+import CardImage from "./CardImage/CardImage.tsx";
+import { cardActionsStyles, cardRightSideStyles, cardStyles, chipStyles } from "./styles.ts";
+import { formatEventDate } from "./utils.ts";
 
-type EventCardProps = {
+interface EventCardProps {
   event: ServerEventDataWithId;
-};
+}
 
 const EventCard = ({ event }: EventCardProps) => {
   const {
@@ -35,60 +37,39 @@ const EventCard = ({ event }: EventCardProps) => {
   } = event;
 
   const navigate = useNavigate();
-
-  const handleOpenEvent = useCallback(() => {
-    navigate(`${ROUTE_LIST.EVENTS}/${eventId}`);
-  }, [navigate, eventId]);
-
-  const formattedEventDate = useMemo(() => {
-    if (eventDate && festivalEndDate) {
-      return `${formatDate(eventDate)} - ${formatDate(festivalEndDate)}`;
-    }
-
-    if (eventDate) {
-      return formatDate(eventDate);
-    }
-
-    return "";
-  }, [eventDate, festivalEndDate]);
-
-  const eventLocation = useMemo(
-    () => (location ? `${city} / ${location}` : city),
-    [city, location],
+  const handleOpenEvent = useCallback(
+    () => navigate(`${ROUTE_LIST.EVENTS}/${eventId}`),
+    [navigate, eventId],
   );
 
+  const formattedEventLocation = location ? `${city} / ${location}` : city;
+  const formattedEventDate = formatEventDate(eventDate, festivalEndDate);
+
   return (
-    <Card sx={eventCardStyles}>
-      <EventImage eventTitle={eventTitle} posterImageUrl={posterImageUrl} />
-      <CardContent sx={cardContentStyles}>
-        <Box sx={cardContentHeaderStyles}>
-          <Typography variant="h5">{eventTitle}</Typography>
-          <Typography variant="subtitle2" mb={0.5}>
-            {formattedEventDate}
-          </Typography>
-        </Box>
+    <CardMui sx={cardStyles}>
+      <CardImage imageTitle={eventTitle} imageUrl={posterImageUrl} />
+      <Box sx={cardRightSideStyles}>
+        <CardHeaderMui sx={emptyPaddingStyles} title={eventTitle} subheader={formattedEventDate} />
 
         {artists.length > 0 && (
-          <Box sx={cardContentChipStyles}>
-            {artists.map((artist) => (
-              <Chip key={artist} size="small" sx={chipStyles} label={artist} />
+          <CardContentMui sx={emptyPaddingStyles}>
+            {artists.map((artist, index) => (
+              <Chip key={artist + index} label={artist} size="small" sx={chipStyles} />
             ))}
-          </Box>
+          </CardContentMui>
         )}
 
-        <Box sx={cardContentFooterStyles}>
-          <Box display="flex" alignItems="center">
+        <CardActions sx={cardActionsStyles}>
+          <Box sx={horizontalCenteredStyles}>
             <LocationOnIcon fontSize="small" />
-            <Typography variant="subtitle1">{eventLocation}</Typography>
+            <Typography variant="subtitle1">{formattedEventLocation}</Typography>
           </Box>
-          <CardActions>
-            <Button variant="contained" onClick={handleOpenEvent}>
-              View
-            </Button>
-          </CardActions>
-        </Box>
-      </CardContent>
-    </Card>
+          <Button variant="contained" onClick={handleOpenEvent}>
+            View
+          </Button>
+        </CardActions>
+      </Box>
+    </CardMui>
   );
 };
 
