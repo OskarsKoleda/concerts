@@ -1,16 +1,16 @@
 import { useFormContext, useWatch } from "react-hook-form";
 
-import { InputType } from "../../../../components/FormLayout/constants.ts";
-import { FormLayout } from "../../../../components/FormLayout/formLayout.tsx";
-import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
-import type { FormFields } from "../../../../components/FormLayout/types.ts";
+import { eventCategoriesList } from "../../../../common/constants/appConstant.ts";
 import {
   CITY_RULES,
   EVENT_TITLE_RULES,
   TICKET_PRICE_RULES,
 } from "../../../../common/constants/validations.ts";
-import { eventCategoriesList } from "../../../../common/constants/appConstant.ts";
 import { EventCategory } from "../../../../common/enums/appEnums.ts";
+import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
+import { InputType } from "../../../../components/FormLayout/constants.ts";
+import FormLayout from "../../../../components/FormLayout/FormLayout.tsx";
+import type { FormFields } from "../../../../components/FormLayout/types.ts";
 
 export const EventFormFields = () => {
   const { control } = useFormContext<LocalEventData>();
@@ -68,6 +68,8 @@ export const EventFormFields = () => {
       },
     ];
   };
+
+  // TODO: add more fields for specific event categories
 
   return <FormLayout content={getCommonEventFields()} control={control} title="Event Details" />;
 };

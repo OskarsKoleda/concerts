@@ -9,10 +9,10 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useCallback } from "react";
+import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { emptyPaddingStyles, horizontalCenteredStyles } from "../../common/styles.ts";
+import { emptyPaddingStyles, horizontallyCenteredStyles } from "../../common/styles.ts";
 import type { ServerEventDataWithId } from "../../common/types/eventTypes.ts";
 import { ROUTE_LIST } from "../../router/routes.ts";
 
@@ -37,10 +37,8 @@ const EventCard = ({ event }: EventCardProps) => {
   } = event;
 
   const navigate = useNavigate();
-  const handleOpenEvent = useCallback(
-    () => navigate(`${ROUTE_LIST.EVENTS}/${eventId}`),
-    [navigate, eventId],
-  );
+  const eventPath = `${ROUTE_LIST.EVENTS}/${eventId}`;
+  const handleOpenEvent = () => navigate(eventPath);
 
   const formattedEventLocation = location ? `${city} / ${location}` : city;
   const formattedEventDate = formatEventDate(eventDate, festivalEndDate);
@@ -60,7 +58,7 @@ const EventCard = ({ event }: EventCardProps) => {
         )}
 
         <CardActions sx={cardActionsStyles}>
-          <Box sx={horizontalCenteredStyles}>
+          <Box sx={horizontallyCenteredStyles}>
             <LocationOnIcon fontSize="small" />
             <Typography variant="subtitle1">{formattedEventLocation}</Typography>
           </Box>
@@ -73,4 +71,4 @@ const EventCard = ({ event }: EventCardProps) => {
   );
 };
 
-export default EventCard;
+export default memo(EventCard);

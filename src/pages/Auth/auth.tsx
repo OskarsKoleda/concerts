@@ -14,7 +14,7 @@ import { FirebaseAuthRequests } from "../../store/transport/authTransport/consta
 import { defaultUserValues } from "../EventDetails/constants.ts";
 
 import { AuthButtons } from "./authButtons.tsx";
-import { AuthFormFields } from "./authFormFields.tsx";
+import AuthFormFields from "./AuthFormFields.tsx";
 import { bottomCaptionStyles } from "./styles.ts";
 
 export const Auth = observer(function Auth() {
@@ -34,7 +34,7 @@ export const Auth = observer(function Auth() {
     shouldUnregister: true,
   });
 
-  const mode = searchParams.get("mode") || "login";
+  const mode = searchParams.get("mode") ?? "login";
   const isSignupMode = mode === "signup";
   const processingSignUp = requestHandler.isProcessingRequest(FirebaseAuthRequests.signUp); // TODO: make method
 

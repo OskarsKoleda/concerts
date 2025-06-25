@@ -1,8 +1,10 @@
-import { horizontalCenteredStyles } from "../../common/styles";
+import type { SxProps } from "@mui/system";
 
-export const cardStyles = {
+import { horizontallyCenteredStyles } from "../../common/styles";
+
+export const cardStyles: SxProps = {
   display: "flex",
-  height: "13rem",
+  height: "15rem",
   transition: "transform 0.1s ease-out, filter 0.2s ease-out",
 
   "&:hover": {
@@ -11,13 +13,13 @@ export const cardStyles = {
   },
 };
 
-export const cardRightSideStyles = {
+export const cardRightSideStyles: SxProps = {
   display: "grid",
   padding: "0.5rem",
   width: "100%",
 };
 
-export const chipStyles = {
+export const chipStyles: SxProps = {
   fontSize: "0.75rem",
   marginBottom: "0.1rem",
   marginRight: "0.1rem",
@@ -25,8 +27,8 @@ export const chipStyles = {
   backgroundColor: "#B0A1BA",
 };
 
-export const cardActionsStyles = {
-  ...horizontalCenteredStyles,
+export const cardActionsStyles: SxProps = {
+  ...horizontallyCenteredStyles,
 
   justifyContent: "space-between",
   padding: 0,

@@ -1,20 +1,13 @@
-import { observer } from "mobx-react-lite";
-import { Box, IconButton, Tooltip } from "@mui/material";
-import React from "react";
-import DnsIcon from "@mui/icons-material/Dns";
-import ListIcon from "@mui/icons-material/List";
 import TableRowsIcon from "@mui/icons-material/TableRows";
+import { Box, IconButton, Tooltip } from "@mui/material";
+import { observer } from "mobx-react-lite";
+import React from "react";
 
 import { useRootStore } from "../../../store/StoreContext.tsx";
 
 export const EventListSettings: React.FC = observer(function EventListSettings() {
   const {
-    applicationStore: {
-      smallCardsViewIsSelected,
-      tableViewIsSelected,
-      toggleSmallCardsView,
-      toggleEventsView,
-    },
+    applicationStore: { tableViewIsSelected, toggleEventsView },
   } = useRootStore();
 
   return (
@@ -27,14 +20,6 @@ export const EventListSettings: React.FC = observer(function EventListSettings()
         >
           <TableRowsIcon />
         </IconButton>
-      </Tooltip>
-
-      <Tooltip title={smallCardsViewIsSelected ? "Switch to Cards View" : "Switch to Rows View"}>
-        <Box display="flex">
-          <IconButton onClick={toggleSmallCardsView} disabled={tableViewIsSelected}>
-            {smallCardsViewIsSelected ? <DnsIcon /> : <ListIcon />}
-          </IconButton>
-        </Box>
       </Tooltip>
     </Box>
   );

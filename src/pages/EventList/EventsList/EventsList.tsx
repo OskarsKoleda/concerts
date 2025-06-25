@@ -4,7 +4,6 @@ import { useEffect, useMemo } from "react";
 
 import ContentLoader from "../../../components/ContentLoader/ContentLoader.tsx";
 import EventCard from "../../../components/EventCard/EventCard.tsx";
-import { EventRow } from "../../../components/EventRow/eventRow.tsx";
 import { useRootStore } from "../../../store/StoreContext.tsx";
 import { EventListRequests } from "../../../store/transport/eventListTransport/constants.ts";
 
@@ -19,7 +18,6 @@ const EventsList = () => {
         requestHandler: { resetRequest, isSuccessfulRequest },
       },
     },
-    applicationStore: { smallCardsViewIsSelected },
   } = useRootStore();
 
   // TODO: try suspense?
@@ -27,15 +25,7 @@ const EventsList = () => {
 
   // TODO: something to clean up here
   const eventsCardList = useMemo(() => {
-    return smallCardsViewIsSelected ? (
-      <Grid container rowSpacing={2}>
-        {events.map((event) => (
-          <Grid item key={event.eventId} sm={12}>
-            <EventRow key={event.eventId} event={event} />
-          </Grid>
-        ))}
-      </Grid>
-    ) : (
+    return (
       <Grid container rowSpacing={2} columnSpacing={2}>
         {events.map((event) => (
           <Grid item key={event.eventId} sm={12} md={6}>
@@ -44,7 +34,7 @@ const EventsList = () => {
         ))}
       </Grid>
     );
-  }, [smallCardsViewIsSelected, events]);
+  }, [events]);
 
   useEffect(() => {
     getAllEvents();

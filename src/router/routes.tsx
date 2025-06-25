@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 
+import { Auth } from "../pages/Auth/auth.tsx";
 import { EventDetailsFormView } from "../pages/EventDetails/eventDetailsFormView/eventDetailsFormView.tsx";
-import { EventList } from "../pages/EventList/eventList.tsx";
+import { EventDetailsView } from "../pages/EventDetails/eventDetailsView/eventDetailsView.tsx";
+import EventList from "../pages/EventList/eventList.tsx";
 import { HomePage } from "../pages/Home/home";
 import { Layout } from "../pages/Layout/layout";
-import { EventDetailsView } from "../pages/EventDetails/eventDetailsView/eventDetailsView.tsx";
-import { Auth } from "../pages/Auth/auth.tsx";
 
 import { ROUTE_LIST } from "./routes";
 

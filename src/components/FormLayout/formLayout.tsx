@@ -1,35 +1,29 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
-import type { FC, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { memo, useCallback } from "react";
 import type { Control } from "react-hook-form";
 import { Controller } from "react-hook-form";
 
+import { DATE_FORMAT } from "../../common/constants/appConstant";
 import { AutocompleteTextField } from "../Inputs/reactHookForm/autocompleteTextField/autocompleteTextField";
 import { SelectWithValidation } from "../Inputs/reactHookForm/selectFieldWithValidation/selectWithValidation";
 import { TextFieldWithValidation } from "../Inputs/reactHookForm/textFieldWithValidation/textFieldWithValidation";
 
 import { InputType } from "./constants";
-import { gridStyles, layoutWrapperStyles } from "./styles";
-import { isFormSection } from "./utils";
 import type { FormContent, FormField } from "./types";
+import { isFormSection } from "./utils";
 
-export interface FormLayoutProps {
+interface FormLayoutProps {
   content: FormContent;
   control: Control<any, Record<string, unknown>>;
   title: string;
   readonly?: boolean;
-  disabled?: boolean;
+  disabled?: boolean; // TODO: is this needed?
   footer?: ReactNode;
 }
 
-export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
-  content,
-  control,
-  disabled,
-  readonly,
-  title,
-}) {
+const FormLayout = ({ content, control, disabled, readonly, title }: FormLayoutProps) => {
   const renderFieldInput = useCallback(
     (field: FormField) => {
       const formFieldProps = {
@@ -78,7 +72,7 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
                   value={new Date(controllerField.value)}
                   onChange={controllerField.onChange}
                   disabled={readonly}
-                  format="dd.MM.yyyy"
+                  format={DATE_FORMAT}
                 />
               )}
             />
@@ -106,10 +100,11 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
   );
 
   return (
-    <Box sx={layoutWrapperStyles}>
+    <>
       <Typography mt={1} variant="body2">
         {title}
       </Typography>
+
       {isFormSection(content) ? (
         content.map((formSection) => (
           <Box key={formSection.id}>
@@ -119,10 +114,12 @@ export const FormLayout: FC<FormLayoutProps> = memo(function FormLayout({
           </Box>
         ))
       ) : (
-        <Grid container columnSpacing={2.5} rowSpacing={1.5} sx={gridStyles}>
+        <Grid container columnSpacing={2.5} rowSpacing={1.5} mt={0}>
           {content.map(renderField)}
         </Grid>
       )}
-    </Box>
+    </>
   );
-});
+};
+
+export default memo(FormLayout);

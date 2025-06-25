@@ -1,14 +1,16 @@
-export const cardImageStyles = {
+import type { SxProps } from "@mui/system";
+
+import { horizontallyCenteredStyles } from "../../../common/styles";
+
+export const cardImageStyles: SxProps = {
   flexShrink: 0,
   width: "30%",
-  borderRadius: 0,
-  borderRight: "2px solid #000",
+  objectFit: "cover",
 };
 
-export const noPosterStyles = {
+export const noPosterStyles: SxProps = {
   ...cardImageStyles,
-  display: "flex",
-  alignItems: "center",
+  ...horizontallyCenteredStyles,
   justifyContent: "center",
   bgcolor: "grey.200",
 };
