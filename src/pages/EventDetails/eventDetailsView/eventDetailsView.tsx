@@ -27,7 +27,7 @@ export const EventDetailsView = observer(function EventDetailsView() {
 
   const { isLoading, error } = useQuery({
     queryKey: ["event", eventId],
-    queryFn: () => getEvent(eventId || ""),
+    queryFn: () => getEvent(eventId ?? ""),
   });
 
   useEffect(() => {

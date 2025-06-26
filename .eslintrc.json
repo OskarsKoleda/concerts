@@ -70,7 +70,10 @@
       }
     ],
     // Code quality and formatting rules
-    "block-spacing": ["error", "always"],
+    "block-spacing": [
+      "error",
+      "always"
+    ],
     "camelcase": [
       "warn",
       {
@@ -78,10 +81,6 @@
         "ignoreDestructuring": true
       }
     ],
-    "comma-spacing": ["error"],
-    "semi-spacing": "error",
-    "semi": "off",
-    "@typescript-eslint/semi": ["error"],
     "max-len": [
       "error",
       {
@@ -112,15 +111,6 @@
     "guard-for-in": "error",
     "keyword-spacing": "error",
     "key-spacing": ["error"],
-    "quotes": [
-      "error",
-      "double",
-      {
-        "allowTemplateLiterals": true,
-        "avoidEscape": true
-      }
-    ],
-    "object-curly-spacing": ["error", "always"],
     "eol-last": "error",
     "no-trailing-spaces": "error",
     "no-var": "error",

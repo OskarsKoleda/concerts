@@ -8,16 +8,6 @@ export const headerToolbarStyles: SxProps = {
   justifyContent: "space-between",
 };
 
-export const homepageLinkStyles: SxProps = {
-  display: "flex",
-  alignItems: "center",
-};
-
-export const centeredIconContainerStyles: SxProps = {
-  display: "flex",
-  alignItems: "center",
-};
-
 export const appTitleStyles: SxProps = {
   marginLeft: "1rem",
   color: appTheme.palette.primary.contrastText,

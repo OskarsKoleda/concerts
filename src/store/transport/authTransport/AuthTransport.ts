@@ -5,20 +5,16 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
+import type { AuthUserProfile } from "../../../common/types/eventTypes.ts";
+import { auth } from "../../../initializeFirebase.ts";
 import type { RequestHandler } from "../requestHandler/RequestHandler.ts";
 import type { ChildTransport, RequestContext } from "../rootTransport/types.ts";
 import { getRequestContext } from "../rootTransport/utils.ts";
-import type { AuthUserProfile } from "../../../common/types/eventTypes.ts";
-import { auth } from "../../../initializeFirebase.ts";
 
 import { FirebaseAuthRequests, requestErrorMessages } from "./constants.ts";
 
 export class AuthTransport implements ChildTransport {
   constructor(readonly requestHandler: RequestHandler) {}
-
-  private getRequestContextHelper = (requestName: FirebaseAuthRequests): RequestContext => {
-    return getRequestContext(requestName, this.requestHandler, requestErrorMessages);
-  };
 
   signUp = async (user: AuthUserProfile): Promise<UserCredential | undefined> => {
     const { errorTexts, request } = this.getRequestContextHelper(FirebaseAuthRequests.signUp);
@@ -75,5 +71,11 @@ export class AuthTransport implements ChildTransport {
     if (user) {
       await deleteUser(user);
     }
+  };
+
+  private readonly getRequestContextHelper = (
+    requestName: FirebaseAuthRequests,
+  ): RequestContext => {
+    return getRequestContext(requestName, this.requestHandler, requestErrorMessages);
   };
 }

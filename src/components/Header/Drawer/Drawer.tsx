@@ -1,8 +1,8 @@
-import { IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { IconButton } from "@mui/material";
 import { useState } from "react";
 
-import DrawerItems from "./DrawerItems.tsx";
+import DrawerItems from "./DrawerItems/DrawerItems";
 
 const Drawer = () => {
   const [showDrawer, setShowDrawer] = useState(false);

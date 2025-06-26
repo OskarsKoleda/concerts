@@ -5,16 +5,12 @@ import { AppBar, Box, IconButton, Link, Toolbar, Tooltip, Typography } from "@mu
 import { observer } from "mobx-react-lite";
 import { Link as RouterLink } from "react-router-dom";
 
+import { horizontallyCenteredStyles } from "../../common/styles.ts";
 import { ROUTE_LIST } from "../../router/routes.ts";
 import { useRootStore } from "../../store/StoreContext.tsx";
 
-import Drawer from "./Drawer/DrawerItems/Drawer.tsx";
-import {
-  appTitleStyles,
-  centeredIconContainerStyles,
-  headerToolbarStyles,
-  homepageLinkStyles,
-} from "./styles";
+import Drawer from "./Drawer/Drawer.tsx";
+import { appTitleStyles, headerToolbarStyles } from "./styles";
 import UserActions from "./UserActions/UserActions.tsx";
 
 const Header = () => {
@@ -26,10 +22,10 @@ const Header = () => {
     <AppBar position="sticky">
       <Toolbar>
         <Box sx={headerToolbarStyles}>
-          <Box sx={centeredIconContainerStyles}>
+          <Box sx={horizontallyCenteredStyles}>
             <Drawer />
 
-            <Link component={RouterLink} sx={homepageLinkStyles} to={ROUTE_LIST.HOMEPAGE}>
+            <Link component={RouterLink} sx={horizontallyCenteredStyles} to={ROUTE_LIST.HOMEPAGE}>
               <HomeIcon color="action" fontSize="large" />
               <Typography variant="h3" sx={appTitleStyles}>
                 Event Tracker
@@ -37,7 +33,7 @@ const Header = () => {
             </Link>
           </Box>
 
-          <Box sx={centeredIconContainerStyles}>
+          <Box sx={horizontallyCenteredStyles}>
             <Link component={RouterLink} to={ROUTE_LIST.EVENTS}>
               <Tooltip title="View Event">
                 <IconButton size="large">

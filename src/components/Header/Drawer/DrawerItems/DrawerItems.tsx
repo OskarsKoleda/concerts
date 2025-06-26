@@ -2,8 +2,7 @@ import { Box, Drawer, List } from "@mui/material";
 import { memo, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 
-import { drawerItems } from "../constants.tsx";
-
+import { drawerItems } from "./constants.tsx";
 import NavigationListItem from "./NavigationListItem/NavigationListItem.tsx";
 import { drawerItemsStyles } from "./styles.ts";
 

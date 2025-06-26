@@ -15,10 +15,11 @@ const UserActions = () => {
   } = useRootStore();
 
   const navigation = useNavigate();
+  const redirectToLogin = () => navigation(`${ROUTE_LIST.AUTH}/?mode=login`);
 
-  const handleLogout = () => {
-    logoutUser();
-    navigation(`${ROUTE_LIST.AUTH}/?mode=login`);
+  const handleLogout = async () => {
+    await logoutUser();
+    redirectToLogin();
   };
 
   return (

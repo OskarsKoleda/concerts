@@ -1,5 +1,5 @@
-import type { RequestHandler } from "../requestHandler/RequestHandler.ts";
 import type { ImageUploadData } from "../../responseTypes.ts";
+import type { RequestHandler } from "../requestHandler/RequestHandler.ts";
 import type { RequestContext } from "../rootTransport/types.ts";
 import { getRequestContext } from "../rootTransport/utils.ts";
 
@@ -7,10 +7,6 @@ import { CloudinaryRequests, requestErrorMessages } from "./constants.ts";
 
 export class CloudinaryTransport {
   constructor(readonly requestHandler: RequestHandler) {}
-
-  private getRequestContextHelper = (requestName: CloudinaryRequests): RequestContext => {
-    return getRequestContext(requestName, this.requestHandler, requestErrorMessages);
-  };
 
   uploadImageToCloudinary = async (posterImage: FileList): Promise<ImageUploadData | undefined> => {
     const { errorTexts, request } = this.getRequestContextHelper(CloudinaryRequests.uploadPoster);
@@ -38,5 +34,9 @@ export class CloudinaryTransport {
     } catch (error) {
       request.fail(error, errorTexts.unexpectedError);
     }
+  };
+
+  private readonly getRequestContextHelper = (requestName: CloudinaryRequests): RequestContext => {
+    return getRequestContext(requestName, this.requestHandler, requestErrorMessages);
   };
 }

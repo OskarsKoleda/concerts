@@ -1,10 +1,10 @@
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import {
   Button,
+  Card as CardMui,
   CardActions,
   CardContent as CardContentMui,
   CardHeader as CardHeaderMui,
-  Card as CardMui,
   Chip,
   Typography,
 } from "@mui/material";

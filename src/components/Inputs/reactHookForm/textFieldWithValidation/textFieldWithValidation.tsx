@@ -17,9 +17,8 @@ export type TextFieldWithValidationProps = Omit<
   "onChange" | "value" | "required" | "InputProps"
 > &
   WithValidationWrapperProps &
-  ReadonlyControl & {
-    onChange?: (value: string) => void;
-  } & WithTooltip;
+  ReadonlyControl &
+  WithTooltip;
 
 export const TextFieldWithValidation: React.FC<TextFieldWithValidationProps> = (props) => {
   const {
@@ -38,7 +37,7 @@ export const TextFieldWithValidation: React.FC<TextFieldWithValidationProps> = (
 
   const processedInputProps = {
     inputProps: {
-      ...(inputProps && inputProps),
+      ...inputProps,
     },
   };
 
@@ -50,24 +49,22 @@ export const TextFieldWithValidation: React.FC<TextFieldWithValidationProps> = (
       render={({ field, fieldState: { error } }) => {
         const handleChangeEvent = (event: ChangeEvent<HTMLInputElement>) => {
           const { value } = event.target;
-          field.onChange(value);
 
-          /** call external callback on value change */
-          // onChange && onChange(value);
+          field.onChange(value);
         };
 
         if (readonly) {
           return (
             <ReadonlyField
               label={label}
-              value={field.value || ""}
-              tooltipText={field.value || ""}
+              value={field.value ?? ""}
+              tooltipText={field.value ?? ""}
             />
           );
         }
 
         return (
-          <Tooltip title={tooltipText || ""}>
+          <Tooltip title={tooltipText}>
             <Box>
               <TextField
                 InputProps={processedInputProps}
@@ -81,7 +78,7 @@ export const TextFieldWithValidation: React.FC<TextFieldWithValidationProps> = (
                 helperText={error ? getInputErrorText(error) : null}
                 sx={sx}
                 type={type}
-                value={field.value || ""}
+                value={field.value ?? ""}
               />
             </Box>
           </Tooltip>
