@@ -1,16 +1,15 @@
 import type { TextFieldProps } from "@mui/material";
 import { Box, TextField, Tooltip } from "@mui/material";
 import type { ChangeEvent } from "react";
-import React from "react";
 import { Controller } from "react-hook-form";
 
 import type {
   ReadonlyControl,
   WithTooltip,
   WithValidationWrapperProps,
-} from "../../../../common/types/appTypes";
+} from "../../../../common/types/appTypes.ts";
 import { getInputErrorText } from "../../../../common/utils/utils";
-import { ReadonlyField } from "../../readonly/readonly";
+import ReadonlyField from "../../ReadonlyField/ReadonlyField.tsx";
 
 export type TextFieldWithValidationProps = Omit<
   TextFieldProps,
@@ -20,7 +19,7 @@ export type TextFieldWithValidationProps = Omit<
   ReadonlyControl &
   WithTooltip;
 
-export const TextFieldWithValidation: React.FC<TextFieldWithValidationProps> = (props) => {
+const TextFieldWithValidation = (props: TextFieldWithValidationProps) => {
   const {
     control,
     controlName,
@@ -46,22 +45,15 @@ export const TextFieldWithValidation: React.FC<TextFieldWithValidationProps> = (
       control={control}
       name={controlName}
       rules={rules}
-      render={({ field, fieldState: { error } }) => {
+      render={({ field: { name, value, onChange }, fieldState: { error } }) => {
         const handleChangeEvent = (event: ChangeEvent<HTMLInputElement>) => {
           const { value } = event.target;
 
-          field.onChange(value);
+          onChange(value);
         };
 
-        if (readonly) {
-          return (
-            <ReadonlyField
-              label={label}
-              value={field.value ?? ""}
-              tooltipText={field.value ?? ""}
-            />
-          );
-        }
+        if (readonly)
+          return <ReadonlyField label={label} value={value ?? ""} tooltipText={value ?? ""} />;
 
         return (
           <Tooltip title={tooltipText}>
@@ -70,7 +62,7 @@ export const TextFieldWithValidation: React.FC<TextFieldWithValidationProps> = (
                 InputProps={processedInputProps}
                 error={Boolean(error)}
                 label={label}
-                name={field.name}
+                name={name}
                 onChange={handleChangeEvent}
                 disabled={disabled}
                 placeholder={placeholder}
@@ -78,7 +70,7 @@ export const TextFieldWithValidation: React.FC<TextFieldWithValidationProps> = (
                 helperText={error ? getInputErrorText(error) : null}
                 sx={sx}
                 type={type}
-                value={field.value ?? ""}
+                value={value ?? ""}
               />
             </Box>
           </Tooltip>
@@ -87,3 +79,5 @@ export const TextFieldWithValidation: React.FC<TextFieldWithValidationProps> = (
     />
   );
 };
+
+export default TextFieldWithValidation;

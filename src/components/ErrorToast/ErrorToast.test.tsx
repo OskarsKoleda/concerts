@@ -7,7 +7,7 @@ import ErrorToast from "./ErrorToast";
 const mockShowSnackbar = vi.fn();
 
 vi.mock("../../hooks/useCustomSnackbar", () => ({
-  useCustomSnackbar: () => ({
+  default: () => ({
     showSnackbar: mockShowSnackbar,
   }),
 }));

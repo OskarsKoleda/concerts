@@ -6,9 +6,9 @@ import type { Control } from "react-hook-form";
 import { Controller } from "react-hook-form";
 
 import { DATE_FORMAT } from "../../common/constants/appConstant";
-import { AutocompleteTextField } from "../Inputs/reactHookForm/autocompleteTextField/autocompleteTextField";
-import { SelectWithValidation } from "../Inputs/reactHookForm/selectFieldWithValidation/selectWithValidation";
-import { TextFieldWithValidation } from "../Inputs/reactHookForm/textFieldWithValidation/textFieldWithValidation";
+import AutocompleteTextField from "../Inputs/reactHookForm/AutocompleteTextField/AutocompleteTextField.tsx";
+import SelectWithValidation from "../Inputs/reactHookForm/SelectWithValidation/SelectWithValidation.tsx";
+import TextFieldWithValidation from "../Inputs/reactHookForm/TextFieldWithValidation/TextFieldWithValidation.tsx";
 
 import { InputType } from "./constants";
 import type { FormContent, FormField } from "./types";
@@ -90,7 +90,7 @@ const FormLayout = ({ content, control, disabled, readonly, title }: FormLayoutP
     (field: FormField) => {
       if (!field.hide) {
         return (
-          <Grid key={field.id} item xs={field.xs || 12} rowSpacing={1.5}>
+          <Grid key={field.id} item xs={field.xs ?? 12} rowSpacing={1.5}>
             {renderFieldInput(field)}
           </Grid>
         );

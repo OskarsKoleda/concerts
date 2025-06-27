@@ -1,33 +1,32 @@
 import type { TextFieldProps } from "@mui/material";
 import { Autocomplete, TextField, Tooltip } from "@mui/material";
 import { Controller } from "react-hook-form";
-import React from "react";
 
-import { ChipsReadonlyField } from "../../chipsReadonlyField/chipsReadonlyField";
 import type {
   ReadonlyControl,
   WithTooltip,
   WithValidationWrapperProps,
 } from "../../../../common/types/appTypes";
+import { ChipsReadonlyField } from "../../ChipsReadonlyField/ChipsReadonlyField.tsx";
 
 type AutocompleteTextFieldProps = Pick<
   TextFieldProps,
-  "disabled" | "label" | "placeholder" | "InputLabelProps" | "helperText"
+  "disabled" | "label" | "placeholder" | "InputLabelProps" | "helperText" | "sx"
 > &
   WithValidationWrapperProps &
   ReadonlyControl &
   WithTooltip;
 
-export const AutocompleteTextField: React.FC<AutocompleteTextFieldProps> = (props) => {
+const AutocompleteTextField = (props: AutocompleteTextFieldProps) => {
   const { control, controlName, label, placeholder, readonly, tooltipText } = props;
 
   return (
     <Controller
       control={control}
       name={controlName}
-      render={({ field }) => {
+      render={({ field: { value, onChange } }) => {
         if (readonly) {
-          return <ChipsReadonlyField label={label} values={field.value} />;
+          return <ChipsReadonlyField label={label} values={value} />;
         }
 
         return (
@@ -36,10 +35,10 @@ export const AutocompleteTextField: React.FC<AutocompleteTextFieldProps> = (prop
             freeSolo
             clearIcon={false}
             options={[]}
-            // getOptionLabel={(option) => option}
-            value={field.value || []}
+            getOptionLabel={(option) => option}
+            value={value ?? []}
             onChange={(_, newValue) => {
-              field.onChange(newValue);
+              onChange(newValue);
             }}
             renderInput={(params) => (
               <Tooltip title={tooltipText}>
@@ -52,3 +51,5 @@ export const AutocompleteTextField: React.FC<AutocompleteTextFieldProps> = (prop
     />
   );
 };
+
+export default AutocompleteTextField;

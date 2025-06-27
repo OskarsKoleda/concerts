@@ -17,7 +17,7 @@ export class AppRequest implements RequestController {
 
   // TODO: check what is going on here
   constructor(
-    // private readonly name: string,
+    // private ReadonlyField name: string,
     private readonly requestService: RequestService,
   ) {
     makeAutoObservable(this);

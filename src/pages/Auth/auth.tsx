@@ -7,7 +7,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import type { AuthUserProfile } from "../../common/types/eventTypes.ts";
-import { useCustomSnackbar } from "../../hooks/useCustomSnackbar.ts";
+import useCustomSnackbar from "../../hooks/useCustomSnackbar.ts";
 import { ROUTE_LIST } from "../../router/routes.ts";
 import { useRootStore } from "../../store/StoreContext.tsx";
 import { FirebaseAuthRequests } from "../../store/transport/authTransport/constants.ts";

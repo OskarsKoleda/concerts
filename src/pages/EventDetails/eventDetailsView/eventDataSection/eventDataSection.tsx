@@ -1,9 +1,9 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
-import { useRootStore } from "../../../../store/StoreContext.tsx";
+import NavLinkButton from "../../../../components/NavLinkButton/NavLinkButton.tsx";
 import { ROUTE_LIST } from "../../../../router/routes.ts";
-import { NavLinkButton } from "../../../../components/NavButton/navButton.tsx";
+import { useRootStore } from "../../../../store/StoreContext.tsx";
 
 import {
   eventButtonContainerStyles,

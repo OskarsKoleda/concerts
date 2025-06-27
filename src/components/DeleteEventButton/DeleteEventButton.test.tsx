@@ -20,7 +20,7 @@ vi.mock("react-router-dom", async () => {
 });
 
 vi.mock("../../hooks/useCustomSnackbar", () => ({
-  useCustomSnackbar: () => ({
+  default: () => ({
     showSnackbar: mockShowSnackbar,
   }),
 }));

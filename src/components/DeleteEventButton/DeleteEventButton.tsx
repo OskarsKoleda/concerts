@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { SnackbarVariantType } from "../../common/enums/appEnums.ts";
-import { useCustomSnackbar } from "../../hooks/useCustomSnackbar";
+import useCustomSnackbar from "../../hooks/useCustomSnackbar";
 import { ROUTE_LIST } from "../../router/routes.ts";
 import { useRootStore } from "../../store/StoreContext";
 import CustomDialog from "../CustomDialog/CustomDialog.tsx";

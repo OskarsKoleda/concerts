@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { SnackbarVariantType } from "../../../common/enums/appEnums.ts";
 import ContentLoader from "../../../components/ContentLoader/ContentLoader.tsx";
-import { useCustomSnackbar } from "../../../hooks/useCustomSnackbar.ts";
+import useCustomSnackbar from "../../../hooks/useCustomSnackbar.ts";
 import { ROUTE_LIST } from "../../../router/routes.ts";
 import { useRootStore } from "../../../store/StoreContext.tsx";
 

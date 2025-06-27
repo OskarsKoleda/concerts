@@ -2,7 +2,6 @@ import type { SxProps } from "@mui/material";
 import { Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import type { ReactNode } from "react";
-import React from "react";
 
 import { readonlyFieldStyle } from "./styles";
 
@@ -14,13 +13,13 @@ interface ReadonlyFieldProps {
   sx?: SxProps;
 }
 
-export const ReadonlyField: React.FC<ReadonlyFieldProps> = (props) => {
+const ReadonlyField = (props: ReadonlyFieldProps) => {
   const { label, tooltipText, sx, value = "-", id } = props;
 
   return (
     <Box display="flex" flexDirection="column" sx={sx}>
       <Typography variant="caption">{label}</Typography>
-      <Tooltip title={tooltipText || ""}>
+      <Tooltip title={tooltipText}>
         <Typography id={id} sx={readonlyFieldStyle} variant="subtitle2">
           {value}
         </Typography>
@@ -28,3 +27,5 @@ export const ReadonlyField: React.FC<ReadonlyFieldProps> = (props) => {
     </Box>
   );
 };
+
+export default ReadonlyField;

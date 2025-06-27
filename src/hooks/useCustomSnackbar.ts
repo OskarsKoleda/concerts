@@ -1,15 +1,15 @@
+import type { OptionsObject, VariantType } from "notistack";
 import { useSnackbar } from "notistack";
 import { useCallback } from "react";
-import type { OptionsObject, VariantType } from "notistack";
 
-type CustomSnackbarProps = {
+interface CustomSnackbarProps {
   message: string;
   variant?: VariantType;
   anchorOrigin?: OptionsObject["anchorOrigin"];
   autoHideDuration?: number;
-};
+}
 
-export const useCustomSnackbar = () => {
+const useCustomSnackbar = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const showSnackbar = useCallback(
@@ -26,3 +26,5 @@ export const useCustomSnackbar = () => {
 
   return { showSnackbar };
 };
+
+export default useCustomSnackbar;
