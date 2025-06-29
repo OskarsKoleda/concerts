@@ -28,11 +28,11 @@ export type AuthUserProfile = UserProfile & {
   password: string;
 };
 
-export type LocalUserProfile = UserProfile & {
+export type LocalUserProfile = {
   uid: string;
-};
+} & UserProfile;
 
-export interface UserProfile {
+interface UserProfile {
   username: string;
   email: string;
 }

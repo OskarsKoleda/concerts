@@ -8,7 +8,7 @@ import type { DrawerItem } from "../types.ts";
 
 export const drawerItems: DrawerItem[] = [
   {
-    label: "Home",
+    label: "Homepage",
     path: ROUTE_LIST.HOMEPAGE,
     icon: <HomeIcon />,
   },

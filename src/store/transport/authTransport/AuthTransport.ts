@@ -1,4 +1,4 @@
-import type { UserCredential } from "firebase/auth";
+import type { Auth, UserCredential } from "firebase/auth";
 import {
   createUserWithEmailAndPassword,
   deleteUser,
@@ -6,7 +6,6 @@ import {
 } from "firebase/auth";
 
 import type { AuthUserProfile } from "../../../common/types/eventTypes.ts";
-import { auth } from "../../../initializeFirebase.ts";
 import type { RequestHandler } from "../requestHandler/RequestHandler.ts";
 import type { ChildTransport, RequestContext } from "../rootTransport/types.ts";
 import { getRequestContext } from "../rootTransport/utils.ts";
@@ -14,7 +13,10 @@ import { getRequestContext } from "../rootTransport/utils.ts";
 import { FirebaseAuthRequests, requestErrorMessages } from "./constants.ts";
 
 export class AuthTransport implements ChildTransport {
-  constructor(readonly requestHandler: RequestHandler) {}
+  constructor(
+    private readonly auth: Auth,
+    readonly requestHandler: RequestHandler,
+  ) {}
 
   signUp = async (user: AuthUserProfile): Promise<UserCredential | undefined> => {
     const { errorTexts, request } = this.getRequestContextHelper(FirebaseAuthRequests.signUp);
@@ -22,7 +24,7 @@ export class AuthTransport implements ChildTransport {
 
     try {
       request.inProgress();
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
 
       request.success();
 
@@ -39,7 +41,7 @@ export class AuthTransport implements ChildTransport {
 
     try {
       request.inProgress();
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
 
       request.success();
 
@@ -56,7 +58,7 @@ export class AuthTransport implements ChildTransport {
     try {
       request.inProgress();
 
-      await auth.signOut();
+      await this.auth.signOut();
 
       request.success();
     } catch (error) {
@@ -66,7 +68,7 @@ export class AuthTransport implements ChildTransport {
   };
 
   deleteUser = async () => {
-    const user = auth.currentUser;
+    const user = this.auth.currentUser;
 
     if (user) {
       await deleteUser(user);

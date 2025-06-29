@@ -33,8 +33,6 @@ export const homePageCardStyles: SxProps = {
 
 export const buttonsContainerStyles: SxProps = {
   display: "flex",
-  justifyContent: "center",
-  width: "100%",
   margin: "2rem",
   gap: "1.5rem",
 };

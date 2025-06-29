@@ -1,10 +1,10 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from "mobx";
 
+import { EventCategory } from "../../common/enums/appEnums.ts";
 import type { ServerEventDataWithId } from "../../common/types/eventTypes.ts";
+import { EventListRequests } from "../transport/eventListTransport/constants.ts";
 import type { EventListTransport } from "../transport/eventListTransport/EventListTransport.ts";
 import type { RequestPayload } from "../transport/eventListTransport/types";
-import { EventListRequests } from "../transport/eventListTransport/constants.ts";
-import { EventCategory } from "../../common/enums/appEnums.ts";
 
 import { EventFiltersStore } from "./eventFilters/EventFiltersStore.ts";
 import { eventsFilteringEngine } from "./utils.ts";
@@ -68,14 +68,6 @@ export class EventListStore {
     };
   }
 
-  private filterEvents = (events: ServerEventDataWithId[]) => {
-    return eventsFilteringEngine(this.fetchEventsPayload, events);
-
-    // runInAction(() => {
-    //   this.setEvents(filteredConcerts);
-    // });
-  };
-
   public getAllEvents = async (): Promise<void> => {
     const allEvents: ServerEventDataWithId[] | undefined =
       await this.eventListTransport.getAllEvents();
@@ -101,13 +93,21 @@ export class EventListStore {
     );
   };
 
-  private setEvents = (events: ServerEventDataWithId[]): void => {
-    this.events = toJS(events);
-  };
-
-  public cleanupListener = (): void => {
+  public cleanupListener = () => {
     if (this.cleanupEventsListener) {
       this.cleanupEventsListener();
     }
+  };
+
+  private filterEvents = (events: ServerEventDataWithId[]) => {
+    return eventsFilteringEngine(this.fetchEventsPayload, events);
+
+    // runInAction(() => {
+    //   this.setEvents(filteredConcerts);
+    // });
+  };
+
+  private setEvents = (events: ServerEventDataWithId[]) => {
+    this.events = toJS(events);
   };
 }

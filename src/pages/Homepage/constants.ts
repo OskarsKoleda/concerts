@@ -1,4 +1,4 @@
-export const homepageText = {
+export const homepageTexts = {
   ENGLISH: {
     titleSection: {
       mainTitle: "Event Tracker: Your Personal Guide to Music & Other Events Experiences",

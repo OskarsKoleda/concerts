@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
-import { getErrorMessage } from "../../../common/utils/appUtils";
 import { RequestStatus } from "../../../common/enums/appEnums";
+import { getErrorMessage } from "../../../common/utils/appUtils";
 import type { AppStateHandler } from "../appState/types";
 
 import { AppRequest } from "./appRequest/AppRequest";
@@ -36,27 +36,6 @@ export class RequestHandler implements IRequestHandler {
     }
   };
 
-  private createRequest = (name: string): AppRequest => {
-    const request = new AppRequest({ processError: this.processError });
-    this.requests[name] = request;
-
-    return request;
-  };
-
-  private getRequest = (name: string): AppRequest | undefined => {
-    return this.requests[name];
-  };
-
-  private processError: ProcessError = (error, defaultErrorMessage) => {
-    try {
-      const errorMessage = getErrorMessage(error, defaultErrorMessage);
-
-      this.appStateHandler.setAppActiveError(errorMessage);
-    } catch (error) {
-      throw new Error("Unable to parse error. Invalid error format.");
-    }
-  };
-
   getRequestStatus: GetRequestStatus = (requestName) => {
     return this.requests[requestName]?.getStatus();
   };
@@ -81,6 +60,27 @@ export class RequestHandler implements IRequestHandler {
     const request: AppRequest | undefined = this.getRequest(requestName);
     if (request) {
       request.reset();
+    }
+  };
+
+  private readonly createRequest = (name: string): AppRequest => {
+    const request = new AppRequest({ processError: this.processError });
+    this.requests[name] = request;
+
+    return request;
+  };
+
+  private readonly getRequest = (name: string): AppRequest | undefined => {
+    return this.requests[name];
+  };
+
+  private readonly processError: ProcessError = (error, defaultErrorMessage) => {
+    try {
+      const errorMessage = getErrorMessage(error, defaultErrorMessage);
+
+      this.appStateHandler.setAppActiveError(errorMessage);
+    } catch (error) {
+      throw new Error("Unable to parse error. Invalid error format.");
     }
   };
 }

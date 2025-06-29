@@ -1,10 +1,9 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
-import React from "react";
 
 import NavLinkButton from "../../components/NavLinkButton/NavLinkButton.tsx";
 import { ROUTE_LIST } from "../../router/routes";
 
-import { homepageText } from "./constants";
+import { homepageTexts } from "./constants";
 import {
   buttonsContainerStyles,
   dividerStyles,
@@ -20,9 +19,9 @@ const {
     navigationSection: { addButton, viewButton },
     contentSection,
   },
-} = homepageText;
+} = homepageTexts;
 
-export const HomePage: React.FC = () => {
+const Homepage = () => {
   return (
     <Box sx={homePageContainerStyles}>
       <Box sx={welcomeTextContainerStyles}>
@@ -38,9 +37,7 @@ export const HomePage: React.FC = () => {
           <Typography textAlign="justify" variant="body1">
             {contentSection.mainContent}
           </Typography>
-
           <Divider sx={dividerStyles} />
-
           <Typography textAlign="justify" variant="body2">
             {contentSection.additionalContent}
           </Typography>
@@ -59,3 +56,5 @@ export const HomePage: React.FC = () => {
     </Box>
   );
 };
+
+export default Homepage;

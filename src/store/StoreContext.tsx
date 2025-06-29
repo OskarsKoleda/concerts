@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect, useMemo } from "react";
 
 import RootStore from "./RootStore";
 
@@ -11,15 +11,26 @@ interface StoreProviderProps {
 const StoreContext = createContext<RootStore | null>(null);
 
 export const StoreProvider: React.FC<StoreProviderProps> = ({ mockedStore, children }) => {
-  const store = mockedStore || new RootStore();
+  const store = useMemo(() => {
+    return mockedStore ?? new RootStore();
+  }, [mockedStore]);
+
+  store.userStore.listenForAuthChanges();
+
+  useEffect(() => {
+    return () => {
+      store.userStore.dispose();
+    };
+  }, [store]);
 
   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
 };
 
 export const useRootStore = () => {
   const store = useContext(StoreContext);
+
   if (!store) {
-    throw new Error("useStore must be used within a StoreProvider");
+    throw new Error("useRootStore must be used within a StoreProvider");
   }
 
   return store;

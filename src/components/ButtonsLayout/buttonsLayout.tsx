@@ -1,21 +1,21 @@
+import { LoadingButton } from "@mui/lab";
 import { Grid } from "@mui/material";
 import { memo } from "react";
-import { LoadingButton } from "@mui/lab";
 
 import DeleteEventButton from "../DeleteEventButton/DeleteEventButton.tsx";
 
 import { buttonsLayoutStyles } from "./styles.ts";
-import { toVisibleControl } from "./utils.ts";
 import type { ControlPayload } from "./types.ts";
+import { toVisibleControl } from "./utils.ts";
 
-type ButtonLayoutProps = {
+interface ButtonLayoutProps {
   controls: ControlPayload[];
-  showDelete: boolean;
-};
+  renderDeleteButton: boolean;
+}
 
 // TODO: re-work toVisibleControl
 // TODO: what is LoadingButton?
-const ButtonsLayout = ({ controls, showDelete }: ButtonLayoutProps) => {
+const ButtonsLayout = ({ controls, renderDeleteButton }: ButtonLayoutProps) => {
   return (
     <Grid container sx={buttonsLayoutStyles}>
       <Grid item display="flex">
@@ -28,7 +28,7 @@ const ButtonsLayout = ({ controls, showDelete }: ButtonLayoutProps) => {
         ))}
       </Grid>
 
-      {showDelete && (
+      {renderDeleteButton && (
         <Grid item>
           <DeleteEventButton />
         </Grid>

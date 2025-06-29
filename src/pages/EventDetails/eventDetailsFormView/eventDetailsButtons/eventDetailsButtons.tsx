@@ -48,5 +48,5 @@ export const EventDetailsButtons: FC<ControlButtonsProps> = memo(function EventD
     },
   ];
 
-  return <ButtonsLayout controls={controls} showDelete={isEditMode} />;
+  return <ButtonsLayout controls={controls} renderDeleteButton={isEditMode} />;
 });

@@ -1,91 +1,113 @@
-import type { User, UserCredential } from "firebase/auth";
+import type { User } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import { action, makeAutoObservable } from "mobx";
+import { makeAutoObservable } from "mobx";
 
 import type { AuthUserProfile, LocalUserProfile } from "../../common/types/eventTypes.ts";
 import { auth } from "../../initializeFirebase.ts";
+import type { FirebaseResponse } from "../responseTypes.ts";
 import type { AuthTransport } from "../transport/authTransport/AuthTransport.ts";
+import { FirebaseAuthRequests } from "../transport/authTransport/constants.ts";
+import { UserRequests } from "../transport/userTransport/constants.ts";
 import type { UserTransport } from "../transport/userTransport/UserTransport.ts";
 
 export class UserStore {
-  userTransport: UserTransport;
-  authTransport: AuthTransport;
-  userProfile: LocalUserProfile | null;
+  userProfile: LocalUserProfile | null = null;
+  isAuthLoading: boolean = true;
+  private unsubscribeAuth: (() => void) | null = null;
 
-  constructor(authTransport: AuthTransport, userTransport: UserTransport) {
+  constructor(
+    private readonly authTransport: AuthTransport,
+    private readonly userTransport: UserTransport,
+  ) {
     makeAutoObservable(this);
-    this.listenForAuthChanges();
-    this.authTransport = authTransport;
-    this.userTransport = userTransport;
-    this.userProfile = null;
   }
 
-  listenForAuthChanges() {
-    onAuthStateChanged(auth, async (user: User | null) => {
-      if (!user) {
-        this.userProfile = null;
-
-        return;
-      }
-
-      const userProfileData = await this.userTransport.getUser(user.uid);
-
-      if (userProfileData) {
-        action(() => {
-          this.userProfile = {
-            uid: userProfileData.uid,
-            email: userProfileData.email,
-            username: userProfileData.username,
-          };
-        });
-      }
-    });
+  get isLoginInProgress(): boolean {
+    return (
+      this.userTransport.requestHandler.isProcessingRequest(UserRequests.getUser) ||
+      this.authTransport.requestHandler.isProcessingRequest(FirebaseAuthRequests.login)
+    );
   }
 
-  public createUser = async (user: AuthUserProfile): Promise<string | undefined> => {
+  get isSignUpInProgress(): boolean {
+    return (
+      this.userTransport.requestHandler.isProcessingRequest(UserRequests.createUser) ||
+      this.authTransport.requestHandler.isProcessingRequest(FirebaseAuthRequests.signUp)
+    );
+  }
+
+  createUser = async (user: AuthUserProfile): Promise<FirebaseResponse> => {
     const response = await this.authTransport.signUp(user);
 
     if (!response) {
       throw new Error("Signup failed!");
     }
 
-    const userDataWithoutPassword: LocalUserProfile = {
+    const userData: LocalUserProfile = {
       uid: response.user.uid,
-      username: user.username,
       email: user.email,
+      username: user.username,
     };
 
-    const createdUser = await this.userTransport.createUser(userDataWithoutPassword);
+    const createdUser = await this.userTransport.createUser(userData);
 
     if (!createdUser) {
       await this.authTransport.deleteUser();
       throw new Error("User profile creation failed. Rolling back sign-up.");
     }
 
+    this.setUserProfile(userData);
+
     return createdUser;
   };
 
-  public loginUser = async (user: AuthUserProfile): Promise<UserCredential | undefined> => {
+  loginUser = async (user: AuthUserProfile): Promise<string | undefined> => {
     const response = await this.authTransport.login(user);
 
     if (!response) {
       throw new Error("Login failed!");
     }
 
-    const userProfileData = await this.userTransport.getUser(response.user.uid);
+    const userData = await this.userTransport.getUser(response.user.uid);
 
-    if (userProfileData) {
-      this.userProfile = {
-        uid: userProfileData.uid,
-        email: userProfileData.email,
-        username: userProfileData.username,
-      };
+    if (userData) {
+      this.setUserProfile(userData);
+
+      return userData.username;
     }
-
-    return response;
   };
 
-  public logoutUser = async (): Promise<void> => {
+  logoutUser = async (): Promise<void> => {
     await this.authTransport.logout();
   };
+
+  listenForAuthChanges() {
+    this.unsubscribeAuth = onAuthStateChanged(auth, async (user: User | null) => {
+      if (!user) {
+        this.userProfile = null;
+        this.isAuthLoading = false;
+
+        return;
+      }
+
+      const userData = await this.userTransport.getUser(user.uid);
+
+      if (userData) {
+        this.setUserProfile(userData);
+      }
+
+      this.isAuthLoading = false;
+    });
+  }
+
+  dispose() {
+    if (this.unsubscribeAuth) {
+      this.unsubscribeAuth();
+      this.unsubscribeAuth = null;
+    }
+  }
+
+  private setUserProfile(userProfile: LocalUserProfile) {
+    this.userProfile = userProfile;
+  }
 }
