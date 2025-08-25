@@ -1,8 +1,8 @@
 import { Box, CircularProgress } from "@mui/material";
-import { memo } from "react";
 import type { PropsWithChildren } from "react";
+import { memo } from "react";
 
-import { contentLoaderWrapperStyles } from "./styles";
+import { contentLoaderStyles } from "./styles";
 
 type ContentLoaderProps = {
   isLoading: boolean;
@@ -12,7 +12,7 @@ const ContentLoader = ({ isLoading, children }: ContentLoaderProps) => {
   return (
     <>
       {isLoading ? (
-        <Box sx={contentLoaderWrapperStyles}>
+        <Box sx={contentLoaderStyles}>
           <CircularProgress thickness={5} size={90} />
         </Box>
       ) : (

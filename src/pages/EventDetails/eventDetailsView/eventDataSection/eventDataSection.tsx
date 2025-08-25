@@ -1,9 +1,8 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
-import { observer } from "mobx-react-lite";
 
+import type { ServerEventData } from "../../../../common/types/eventTypes.ts";
 import NavLinkButton from "../../../../components/NavLinkButton/NavLinkButton.tsx";
-import { ROUTE_LIST } from "../../../../router/routes.ts";
-import { useRootStore } from "../../../../store/StoreContext.tsx";
+import { ROUTES } from "../../../../router/routes.ts";
 
 import {
   eventButtonContainerStyles,
@@ -12,27 +11,20 @@ import {
   eventDataStyles,
 } from "./styles.ts";
 
-export const EventDataSection = observer(function EventDataSection() {
-  const {
-    eventDetailsUIStore: {
-      currentEventId,
-      currentEventCity,
-      currentEventLocation,
-      currentEventDate,
-      currentFestivalEndDate,
-      currentFestivalTicketPrice,
-    },
-  } = useRootStore();
+interface EventDataSectionProps {
+  event: ServerEventData | undefined;
+}
 
-  const formattedDate = currentFestivalEndDate
-    ? `${currentEventDate} - ${currentFestivalEndDate}`
-    : currentEventDate;
+export const EventDataSection = ({ event }: EventDataSectionProps) => {
+  const { slug, city, location, date, endDate, ticketPrice } = event || {};
+
+  const formattedDate = endDate ? `${date} - ${endDate}` : date;
 
   return (
     <Paper sx={eventDataContainerStyles}>
       <Box sx={eventDataStyles}>
-        <Typography variant="h4">{currentEventCity}</Typography>
-        <Typography variant="h5">{currentEventLocation}</Typography>
+        <Typography variant="h4">{city}</Typography>
+        <Typography variant="h5">{location}</Typography>
         <Typography variant="subtitle1" mt="1.5rem">
           {formattedDate}
         </Typography>
@@ -40,12 +32,14 @@ export const EventDataSection = observer(function EventDataSection() {
 
       <Divider orientation="horizontal" flexItem />
       <Box sx={eventDataFooterStyles}>
-        <Typography variant="h4">{currentFestivalTicketPrice}</Typography>
+        <Typography variant="h4">{ticketPrice} €</Typography>
       </Box>
       <Box sx={eventButtonContainerStyles}>
-        <NavLinkButton to={ROUTE_LIST.EVENTS}>Back</NavLinkButton>
-        <NavLinkButton to={`${ROUTE_LIST.EVENTS}/${currentEventId}/edit`}>Edit</NavLinkButton>
+        <NavLinkButton to={ROUTES.EVENTS}>Back</NavLinkButton>
+        <NavLinkButton to={`${ROUTES.EVENTS}/${slug}/edit`}>Edit</NavLinkButton>
       </Box>
     </Paper>
   );
-});
+};
+
+export default EventDataSection;

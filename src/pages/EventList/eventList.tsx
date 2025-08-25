@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
-import { useRootStore } from "../../store/StoreContext";
+import { useRootStore } from "../../store/StoreContext.tsx";
 
 import { EventFilters } from "./eventFilters/eventFilters.tsx";
 import { EventListSettings } from "./eventListSettings/eventListSettings.tsx";

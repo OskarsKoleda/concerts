@@ -28,7 +28,7 @@ export class EventDetailsUIStore {
   }
 
   get currentEventTitle(): string {
-    return this.event?.eventTitle ?? "";
+    return this.event?.title ?? "";
   }
 
   get currentEventCity(): string {
@@ -40,13 +40,13 @@ export class EventDetailsUIStore {
   }
 
   get currentEventDate(): string {
-    const date = this.event?.eventDate;
+    const date = this.event?.date;
 
     return date ? formatDateToDefault(date) : "";
   }
 
   get currentFestivalEndDate(): string {
-    const date = this.event?.festivalEndDate;
+    const date = this.event?.endDate;
 
     return date ? formatDateToDefault(date) : "";
   }
@@ -56,15 +56,15 @@ export class EventDetailsUIStore {
   }
 
   get currentEventPosterURL(): string | undefined {
-    return this.event?.posterImageUrl;
+    return this.event?.url;
   }
 
   get currentEventPosterTitle(): string {
     return this.event?.posterImageTitle ?? "";
   }
 
-  get currentEventArtists(): ServerEventData["artists"] {
-    return this.event?.artists || [];
+  get currentEventArtists(): ServerEventData["bands"] {
+    return this.event?.bands || [];
   }
 
   setEventId = (eventId: string): void => {

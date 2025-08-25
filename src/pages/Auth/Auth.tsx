@@ -8,7 +8,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 import type { AuthUserProfile } from "../../common/types/eventTypes.ts";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar.ts";
-import { ROUTE_LIST } from "../../router/routes.ts";
+import { ROUTES } from "../../router/routes.ts";
 import { useRootStore } from "../../store/StoreContext.tsx";
 import { defaultUserValues } from "../EventDetails/constants.ts";
 
@@ -67,7 +67,7 @@ const Auth = () => {
           variant: "success",
         });
 
-        navigate(ROUTE_LIST.HOMEPAGE);
+        navigate(ROUTES.HOMEPAGE);
       }
     } catch (error) {
       handleAuthError(error);
@@ -78,7 +78,7 @@ const Auth = () => {
     try {
       const response = await loginUser(data);
 
-      if (response) navigate(ROUTE_LIST.HOMEPAGE);
+      if (response) navigate(ROUTES.HOMEPAGE);
     } catch (error) {
       handleAuthError(error);
     }

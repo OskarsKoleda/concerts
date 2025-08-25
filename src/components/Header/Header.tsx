@@ -15,7 +15,7 @@ import { observer } from "mobx-react-lite";
 import { Link as RouterLink } from "react-router-dom";
 
 import { horizontallyCenteredStyles } from "../../common/styles.ts";
-import { ROUTE_LIST } from "../../router/routes.ts";
+import { ROUTES } from "../../router/routes.ts";
 import { useRootStore } from "../../store/StoreContext.tsx";
 
 import Drawer from "./Drawer/Drawer.tsx";
@@ -34,7 +34,7 @@ const Header = () => {
           <Box sx={horizontallyCenteredStyles}>
             <Drawer />
 
-            <Link component={RouterLink} sx={horizontallyCenteredStyles} to={ROUTE_LIST.HOMEPAGE}>
+            <Link component={RouterLink} sx={horizontallyCenteredStyles} to={ROUTES.HOMEPAGE}>
               <HomeIcon color="action" fontSize="large" />
               <Typography variant="h3" sx={appTitleStyles}>
                 Event Tracker
@@ -47,7 +47,7 @@ const Header = () => {
               <Skeleton animation="wave" variant="rectangular" sx={headerSkeletonStyles} />
             ) : (
               <>
-                <Link component={RouterLink} to={ROUTE_LIST.EVENTS}>
+                <Link component={RouterLink} to={ROUTES.EVENTS}>
                   <Tooltip title="View Event">
                     <IconButton size="large">
                       <StadiumIcon />
@@ -55,7 +55,7 @@ const Header = () => {
                   </Tooltip>
                 </Link>
 
-                <Link component={RouterLink} to={ROUTE_LIST.NEW_EVENT}>
+                <Link component={RouterLink} to={ROUTES.NEW_EVENT}>
                   <Tooltip title="Add Event">
                     <IconButton size="large">
                       <AddIcon />

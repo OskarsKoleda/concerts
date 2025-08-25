@@ -2,23 +2,23 @@ import { screen } from "@testing-library/react";
 import { describe, expect, vi } from "vitest";
 
 import { EventCategory } from "../../common/enums/appEnums";
-import type { ServerEventDataWithId } from "../../common/types/eventTypes";
 import { renderWithProviders } from "../../common/utils/testingUtils";
 import * as utilsModule from "../../common/utils/utils";
 
+import type { ServerEventData } from "../../common/types/eventTypes";
 import EventCard from "./EventCard";
 import { formatEventDate } from "./utils";
 
-const mockedEvent: ServerEventDataWithId = {
-  eventId: "1",
-  eventTitle: "Event Title",
-  eventCategory: EventCategory.musicConcert,
-  posterImageUrl: "https://example.com/image.jpg",
-  artists: ["Artist 1", "Artist 2"],
+const mockedEvent: ServerEventData = {
+  title: "Event Title",
+  slug: "event-title",
+  category: EventCategory.musicConcert,
+  url: "https://example.com/image.jpg",
+  bands: ["Artist 1", "Artist 2"],
   city: "City Name",
   location: "Venue Name",
-  eventDate: "2024-06-01",
-  festivalEndDate: "2024-06-03",
+  date: "2024-06-01",
+  endDate: "2024-06-03",
 };
 
 describe("EventCard", () => {
@@ -27,9 +27,9 @@ describe("EventCard", () => {
 
     const posterImage = screen.getByRole("img");
     expect(posterImage).toBeInTheDocument();
-    expect(posterImage).toHaveAttribute("src", mockedEvent.posterImageUrl);
+    expect(posterImage).toHaveAttribute("src", mockedEvent.url);
 
-    const eventTitle = screen.getByText(mockedEvent.eventTitle);
+    const eventTitle = screen.getByText(mockedEvent.title);
     expect(eventTitle).toBeInTheDocument();
 
     const eventDate = screen.getByText("01.06.2024 - 03.06.2024");

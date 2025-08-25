@@ -3,8 +3,7 @@ import type { UseFormProps } from "react-hook-form";
 import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
 import { renderWithProviders } from "../../../../common/utils/testingUtils.tsx";
 import { defaultEventValues } from "../../constants.ts";
-
-import { UploadFileButton } from "./uploadFileButton.tsx";
+import FileUpload from "./FileUpload.tsx";
 
 describe("UploadFileButton", () => {
   it.skip("should render correctly", () => {
@@ -15,7 +14,7 @@ describe("UploadFileButton", () => {
     };
 
     renderWithProviders<LocalEventData>(
-      <UploadFileButton buttonTitle="Add Poster" formFieldName="posterImage" readonly={false} />,
+      <FileUpload buttonTitle="Add Poster" formFieldName="image" />,
       { formConfig },
     );
 

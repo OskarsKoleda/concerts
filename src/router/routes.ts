@@ -1,7 +1,7 @@
-export const ROUTE_LIST = {
+export const ROUTES = {
   HOMEPAGE: "/",
   AUTH: "/auth",
   EVENTS: "/events",
-  EVENT_DETAILS: "/events/:id",
+  EVENT_DETAILS: "/events/:slug",
   NEW_EVENT: "/events/new",
 };

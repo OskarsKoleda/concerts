@@ -1,10 +1,10 @@
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import {
   Button,
-  Card as CardMui,
   CardActions,
   CardContent as CardContentMui,
   CardHeader as CardHeaderMui,
+  Card as CardMui,
   Chip,
   Typography,
 } from "@mui/material";
@@ -13,46 +13,37 @@ import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { emptyPaddingStyles, horizontallyCenteredStyles } from "../../common/styles.ts";
-import type { ServerEventDataWithId } from "../../common/types/eventTypes.ts";
-import { ROUTE_LIST } from "../../router/routes.ts";
+import type { ServerEventData } from "../../common/types/eventTypes.ts";
+import { ROUTES } from "../../router/routes.ts";
 
 import CardImage from "./CardImage/CardImage.tsx";
 import { cardActionsStyles, cardRightSideStyles, cardStyles, chipStyles } from "./styles.ts";
 import { formatEventDate } from "./utils.ts";
 
 interface EventCardProps {
-  event: ServerEventDataWithId;
+  event: ServerEventData;
 }
 
 const EventCard = ({ event }: EventCardProps) => {
-  const {
-    posterImageUrl,
-    eventId,
-    eventTitle,
-    artists = [],
-    city,
-    location,
-    eventDate,
-    festivalEndDate,
-  } = event;
+  const { url, slug, title, bands = [], city, location, date, endDate } = event;
 
   const navigate = useNavigate();
-  const eventPath = `${ROUTE_LIST.EVENTS}/${eventId}`;
+  const eventPath = `${ROUTES.EVENTS}/${slug}`;
   const handleOpenEvent = () => navigate(eventPath);
 
   const formattedEventLocation = location ? `${city} / ${location}` : city;
-  const formattedEventDate = formatEventDate(eventDate, festivalEndDate);
+  const formattedEventDate = formatEventDate(date, endDate);
 
   return (
     <CardMui sx={cardStyles}>
-      <CardImage imageTitle={eventTitle} imageUrl={posterImageUrl} />
+      <CardImage imageTitle={title} imageUrl={url} />
       <Box sx={cardRightSideStyles}>
-        <CardHeaderMui sx={emptyPaddingStyles} title={eventTitle} subheader={formattedEventDate} />
+        <CardHeaderMui sx={emptyPaddingStyles} title={title} subheader={formattedEventDate} />
 
-        {artists.length > 0 && (
+        {bands.length > 0 && (
           <CardContentMui sx={emptyPaddingStyles}>
-            {artists.map((artist, index) => (
-              <Chip key={artist + index} label={artist} size="small" sx={chipStyles} />
+            {bands.map((band) => (
+              <Chip key={band} label={band} size="small" sx={chipStyles} />
             ))}
           </CardContentMui>
         )}

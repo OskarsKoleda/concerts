@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router-dom";
 
 import { AuthMode } from "../../../pages/Auth/constants.ts";
-import { ROUTE_LIST } from "../../../router/routes.ts";
+import { ROUTES } from "../../../router/routes.ts";
 import { useRootStore } from "../../../store/StoreContext.tsx";
 
 import { dividerStyles } from "./styles.ts";
@@ -16,7 +16,7 @@ const UserActions = () => {
   } = useRootStore();
 
   const navigation = useNavigate();
-  const redirectToLogin = () => navigation(`${ROUTE_LIST.AUTH}/?mode=${AuthMode.login}`);
+  const redirectToLogin = () => navigation(`${ROUTES.AUTH}/?mode=${AuthMode.login}`);
 
   const handleLogout = async () => {
     await logoutUser();

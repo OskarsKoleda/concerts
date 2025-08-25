@@ -1,8 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
-import type { Nullable } from "../../../common/types/appTypes.ts";
-import type { LocalEventData, ServerEventData } from "../../../common/types/eventTypes.ts";
-import type { FirebaseResponse, ImageUploadData } from "../../responseTypes.ts";
+import type { ServerEventData } from "../../../common/types/eventTypes.ts";
+import type { FirebaseResponse } from "../../responseTypes.ts";
 import type { CloudinaryTransport } from "../../transport/cloudinaryTransport/CloudinaryTransport.ts";
 import type { EventDetailsTransport } from "../../transport/eventDetailsTransport/EventDetailsTransport.ts";
 import type { EventDetailsUIStore } from "../eventDetailUIStore/EventDetailsUIStore.ts";
@@ -35,94 +34,94 @@ export class EventDetailsRequestStore {
     this.eventDetailsUIStore.resetCurrentEvent();
   };
 
-  addEvent = async (event: LocalEventData): Promise<FirebaseResponse> => {
-    const imageUploadResult = event.posterImage
-      ? await this.uploadPosterImage(event.posterImage)
-      : undefined;
+  // addEvent = async (event: LocalEventData): Promise<FirebaseResponse> => {
+  //   const imageUploadResult = event.posterImage
+  //     ? await this.uploadPosterImage(event.posterImage)
+  //     : undefined;
 
-    if (event.posterImage && !imageUploadResult) {
-      return;
-    }
+  //   if (event.posterImage && !imageUploadResult) {
+  //     return;
+  //   }
 
-    return this.createAndStoreEvent(
-      event,
-      imageUploadResult?.posterImageUrl,
-      imageUploadResult?.posterImageTitle,
-    );
-  };
+  //   return this.createAndStoreEvent(
+  //     event,
+  //     imageUploadResult?.posterImageUrl,
+  //     imageUploadResult?.posterImageTitle,
+  //   );
+  // };
 
-  private uploadPosterImage = async (
-    posterImage: FileList,
-  ): Promise<ImageUploadData | undefined> => {
-    const response = await this.cloudinaryTransport.uploadImageToCloudinary(posterImage);
+  // private uploadPosterImage = async (
+  //   posterImage: FileList,
+  // ): Promise<ImageUploadData | undefined> => {
+  //   const response = await this.cloudinaryTransport.uploadImageToCloudinary(posterImage);
 
-    if (!response) {
-      return;
-    }
+  //   if (!response) {
+  //     return;
+  //   }
 
-    return {
-      posterImageUrl: response.posterImageUrl,
-      posterImageTitle: response.posterImageTitle,
-    };
-  };
+  //   return {
+  //     posterImageUrl: response.posterImageUrl,
+  //     posterImageTitle: response.posterImageTitle,
+  //   };
+  // };
 
-  private createAndStoreEvent = async (
-    event: LocalEventData,
-    posterImageUrl?: string,
-    publicPosterImageId?: string,
-  ): Promise<Nullable<string> | undefined> => {
-    const newEventData = this.composeEventData(event, posterImageUrl, publicPosterImageId);
+  // private createAndStoreEvent = async (
+  //   event: LocalEventData,
+  //   posterImageUrl?: string,
+  //   publicPosterImageId?: string,
+  // ): Promise<Nullable<string> | undefined> => {
+  //   const newEventData = this.composeEventData(event, posterImageUrl, publicPosterImageId);
 
-    return await this.eventDetailsTransport.addEvent(newEventData);
-  };
+  //   return await this.eventDetailsTransport.addEvent(newEventData);
+  // };
 
-  private composeEventData = (
-    event: LocalEventData,
-    posterImageUrl?: string,
-    publicPosterImageId?: string,
-  ): ServerEventData => {
-    const eventData: ServerEventData = {
-      ...event,
-      posterImageUrl: posterImageUrl,
-      posterImageTitle: publicPosterImageId,
-      eventDate: event.eventDate?.toISOString(),
-      festivalEndDate: event.festivalEndDate?.toISOString(),
-    };
+  // private composeEventData = (
+  //   event: LocalEventData,
+  //   posterImageUrl?: string,
+  //   publicPosterImageId?: string,
+  // ): ServerEventData => {
+  //   const eventData: ServerEventData = {
+  //     ...event,
+  //     url: posterImageUrl,
+  //     posterImageTitle: publicPosterImageId,
+  //     date: event.date?.toISOString(),
+  //     endDate: event.endDate?.toISOString(),
+  //   };
 
-    return Object.fromEntries(
-      Object.entries(eventData).filter(
-        ([key, value]) => value !== undefined && key !== "posterImage",
-      ),
-    ) as ServerEventData;
-  };
+  //   return Object.fromEntries(
+  //     Object.entries(eventData).filter(
+  //       ([key, value]) => value !== undefined && key !== "posterImage",
+  //     ),
+  //   ) as ServerEventData;
+  // };
 
-  updateEvent = async (eventId: string, event: LocalEventData): Promise<FirebaseResponse> => {
-    const imageUploadResult = event.posterImage
-      ? await this.uploadPosterImage(event.posterImage)
-      : undefined;
+  // updateEvent = async (eventId: string, event: LocalEventData): Promise<FirebaseResponse> => {
+  //   const imageUploadResult = event.posterImage
+  //     ? await this.uploadPosterImage(event.posterImage)
+  //     : undefined;
 
-    if (event.posterImage && !imageUploadResult) {
-      return;
-    }
+  //   if (event.posterImage && !imageUploadResult) {
+  //     return;
+  //   }
 
-    return this.updateAndStoreEvent(
-      event,
-      eventId,
-      imageUploadResult?.posterImageTitle,
-      imageUploadResult?.posterImageUrl,
-    );
-  };
+  //   return this.updateAndStoreEvent(
+  //     event,
+  //     eventId,
+  //     imageUploadResult?.posterImageTitle,
+  //     imageUploadResult?.posterImageUrl,
+  //   );
+  // };
 
-  private updateAndStoreEvent = async (
-    event: LocalEventData,
-    eventId: string,
-    publicPosterImageId?: string,
-    posterImageUrl?: string,
-  ): Promise<FirebaseResponse> => {
-    const updatedEventData = this.composeEventData(event, posterImageUrl, publicPosterImageId);
+  // private updateAndStoreEvent = async (
+  //   event: LocalEventData,
+  //   eventId: string,
+  //   publicPosterImageId?: string,
+  //   posterImageUrl?: string,
+  // ): Promise<FirebaseResponse> => {
+  //   const updatedEventData = this.composeEventData(event, posterImageUrl, publicPosterImageId);
 
-    return await this.eventDetailsTransport.updateEvent(eventId, updatedEventData);
-  };
+  //   return await this.eventDetailsTransport.updateEvent(eventId, updatedEventData);
+  // };
 
   deleteEvent = async (eventId: string): Promise<FirebaseResponse> => {
     return this.eventDetailsTransport.deleteEvent(eventId);

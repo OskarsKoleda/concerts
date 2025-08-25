@@ -1,51 +1,32 @@
 import { Box, Typography } from "@mui/material";
-import { observer } from "mobx-react-lite";
 import React, { useCallback, useEffect, useMemo } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import { useLocation, useParams } from "react-router-dom";
-
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useCreateEvent } from "../../../api/useCreateEvent.ts";
+import { useGetEventDetails } from "../../../api/useGetEventDetails.ts";
+import { useUpdateEvent } from "../../../api/useUpdateEvent.ts";
+import { SnackbarVariantType } from "../../../common/enums/appEnums.ts";
 import type { LocalEventData } from "../../../common/types/eventTypes.ts";
-import { convertServerEventToLocal } from "../../../store/eventDetails/utils.ts";
-import { useRootStore } from "../../../store/StoreContext.tsx";
-import { EventDetailsRequests } from "../../../store/transport/eventDetailsTransport/constants.ts";
+import useCustomSnackbar from "../../../hooks/useCustomSnackbar.ts";
 import { defaultEventValues, eventDetailsText } from "../constants.ts";
+import { EventActionButtons } from "./EventActionButtons/EventActionButtons.tsx";
+import EventDatesForm from "./EventDatesForm/EventDatesForm.tsx";
+import EventFormFields from "./EventFormFields/EventFormFields.tsx";
+import FileUpload from "./FileUpload/FileUpload.tsx";
+import { formContainerStyles } from "./styles.ts";
+import { convertServerEventToLocal, getChangedFields } from "./utils.ts";
 
-import EventDatesForm from "./eventDatesForm/eventDatesForm.tsx";
-import { EventDetailsButtons } from "./eventDetailsButtons/eventDetailsButtons.tsx";
-import { EventFormFields } from "./eventFormFields/eventFormFields.tsx";
-import { formContainerStyles, posterTitleStyles } from "./styles.ts";
-import { UploadFileButton } from "./uploadFileButton/uploadFileButton.tsx";
-import { useEventHandlers } from "./utils.ts";
+const { title } = eventDetailsText["ENGLISH"].form;
 
-const {
-  form: { title },
-} = eventDetailsText["ENGLISH"];
-
-export const EventDetailsFormView: React.FC = observer(function EventDetailsFormView() {
-  const {
-    eventDetailsRequestStore: {
-      addEvent,
-      getEvent,
-      updateEvent,
-      eventDetailsTransport: {
-        requestHandler: { resetRequest },
-      },
-    },
-    eventDetailsUIStore: { resetCurrentEvent, eventPosterTitle },
-  } = useRootStore();
-
-  const { id: eventId } = useParams();
+export const EventDetailsFormView = () => {
+  const { slug } = useParams();
   const url = useLocation();
+  const { showSnackbar } = useCustomSnackbar();
+  const navigate = useNavigate();
 
-  const newEvent = useMemo(() => url.pathname.includes("/new"), [url.pathname]);
-  const editEvent = useMemo(() => url.pathname.includes("/edit"), [url.pathname]);
-
-  const eventInReadonlyMode = useMemo(() => !!eventId && !editEvent, [eventId, editEvent]);
-
-  const getFormTitle = useMemo(() => {
-    return editEvent ? title.editForm : title.newForm;
-  }, [editEvent]);
+  const isEditMode = useMemo(() => url.pathname.includes("/edit"), [url.pathname]);
+  const formTitle = useMemo(() => (isEditMode ? title.editForm : title.newForm), [isEditMode]);
 
   const methods = useForm<LocalEventData>({
     defaultValues: defaultEventValues,
@@ -54,8 +35,40 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
   });
 
   const { handleSubmit, reset } = methods;
-  const { handleSuccessfulCreate, handleSuccessfulUpdate, handleEventNotFound } =
-    useEventHandlers();
+
+  const { eventData } = useGetEventDetails(slug);
+
+  const { mutate: mutateCreateEvent } = useCreateEvent({
+    onSuccess: (data) => {
+      navigate(`/events/${data.slug}`);
+      showSnackbar({
+        message: "Event was successfully created",
+        variant: SnackbarVariantType.SUCCESS,
+      });
+    },
+    onError: (error: any) => {
+      showSnackbar({
+        message: error?.response?.data?.message || "Failed to create event.",
+        variant: SnackbarVariantType.ERROR,
+      });
+    },
+  });
+
+  const { mutate: mutateUpdateEvent } = useUpdateEvent({
+    onSuccess: (data) => {
+      navigate(`/events/${data.slug}`);
+      showSnackbar({
+        message: "Event was successfully updated",
+        variant: SnackbarVariantType.SUCCESS,
+      });
+    },
+    onError: (error: any) => {
+      showSnackbar({
+        message: error?.response?.data?.message || "Failed to update event.",
+        variant: SnackbarVariantType.ERROR,
+      });
+    },
+  });
 
   const submitFormHandler = (event: React.SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
     const controlName = event.nativeEvent.submitter?.id;
@@ -64,7 +77,7 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
 
     switch (controlName) {
       case "btnAdd": {
-        handleSubmit(handleCreate)();
+        handleSubmit((data) => mutateCreateEvent(data))();
         break;
       }
       case "btnUpdate": {
@@ -74,81 +87,44 @@ export const EventDetailsFormView: React.FC = observer(function EventDetailsForm
     }
   };
 
-  const handleCreate: SubmitHandler<LocalEventData> = useCallback(
-    async (data) => {
-      const response = await addEvent(data);
-
-      if (!response) return;
-
-      handleSuccessfulCreate(response);
-    },
-    [addEvent, handleSuccessfulCreate],
-  );
-
   const handleUpdate: SubmitHandler<LocalEventData> = useCallback(
     async (data) => {
-      if (eventId) {
-        const response = await updateEvent(eventId, data);
-
-        if (!response) return;
-
-        handleSuccessfulUpdate(eventId);
+      if (!eventData || !slug) {
+        return;
       }
+
+      const updatedEventData = getChangedFields(data, eventData);
+
+      mutateUpdateEvent({ slug: slug, event: updatedEventData });
     },
-    [updateEvent, eventId, handleSuccessfulUpdate],
+    [slug, eventData],
   );
 
-  // TODO: handle unnecessary data re-fetch
   useEffect(() => {
-    const fetchEventData = async () => {
-      if (!eventId) {
-        reset(defaultEventValues);
+    if (!slug) {
+      reset(defaultEventValues);
 
-        return;
-      }
+      return;
+    }
 
-      const event = await getEvent(eventId);
-
-      if (!event) {
-        handleEventNotFound(eventId);
-
-        return;
-      }
-
-      reset(convertServerEventToLocal(event));
-    };
-
-    fetchEventData();
-  }, [eventId, getEvent, reset, handleEventNotFound]);
-
-  useEffect(() => {
-    if (newEvent) resetCurrentEvent();
-
-    return () => resetRequest(EventDetailsRequests.getEvent);
-  }, [newEvent, resetCurrentEvent, resetRequest]);
+    if (eventData) {
+      reset(convertServerEventToLocal(eventData));
+    }
+  }, [reset, eventData, slug]);
 
   return (
-    <Box display="flex" justifyContent="center">
-      <Box sx={formContainerStyles}>
-        <FormProvider {...methods}>
-          <form onSubmit={submitFormHandler}>
-            <Typography variant="h5">{getFormTitle}</Typography>
-            <EventFormFields />
-            <EventDatesForm />
-            <Box display="flex" alignItems="flex-end">
-              <UploadFileButton
-                buttonTitle="Add Poster"
-                formFieldName="posterImage"
-                readonly={eventInReadonlyMode}
-              />
-              <Typography variant="caption" sx={posterTitleStyles(eventInReadonlyMode)}>
-                {eventPosterTitle}
-              </Typography>
-            </Box>
-            <EventDetailsButtons isEditMode={editEvent} />
-          </form>
-        </FormProvider>
-      </Box>
+    <Box sx={formContainerStyles}>
+      <FormProvider {...methods}>
+        <form onSubmit={submitFormHandler}>
+          <Typography variant="h5">{formTitle}</Typography>
+          <EventFormFields />
+          <EventDatesForm />
+          <FileUpload buttonTitle="Add Poster" formFieldName="image" />
+          <EventActionButtons isEditMode={isEditMode} />
+        </form>
+      </FormProvider>
     </Box>
   );
-});
+};
+
+export default EventDetailsFormView;

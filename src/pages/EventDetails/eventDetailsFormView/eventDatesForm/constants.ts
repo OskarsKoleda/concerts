@@ -4,7 +4,7 @@ import type { FormFields } from "../../../../components/FormLayout/types.ts";
 export const eventDateFields: FormFields = [
   {
     inputType: InputType.date,
-    controlName: "eventDate",
+    controlName: "date",
     id: "eventDate",
     label: "Date",
     xs: 12,
@@ -14,7 +14,7 @@ export const eventDateFields: FormFields = [
 export const musicFestivalDateFields: FormFields = [
   {
     inputType: InputType.date,
-    controlName: "festivalEndDate",
+    controlName: "endDate",
     id: "endDate",
     label: "End Date",
     xs: 6,

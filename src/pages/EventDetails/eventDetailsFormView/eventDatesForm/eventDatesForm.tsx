@@ -11,7 +11,7 @@ const EventDatesForm = () => {
 
   const eventCategory = useWatch({
     control,
-    name: "eventCategory",
+    name: "category",
   });
 
   const datesFormContent =

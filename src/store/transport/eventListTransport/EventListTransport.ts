@@ -2,10 +2,10 @@ import type { Database, DataSnapshot, IteratedDataSnapshot } from "firebase/data
 import { get, onValue, orderByChild, query, ref } from "firebase/database";
 import { makeAutoObservable } from "mobx";
 
-import { getRequestContext } from "../rootTransport/utils";
 import type { ServerEventDataWithId } from "../../../common/types/eventTypes.ts";
 import type { RequestHandler } from "../requestHandler/RequestHandler";
 import type { ChildTransport, RequestContext } from "../rootTransport/types";
+import { getRequestContext } from "../rootTransport/utils";
 
 import { EventListRequests, requestErrorMessages } from "./constants";
 
@@ -64,7 +64,7 @@ export class EventListTransport implements ChildTransport {
     const events: ServerEventDataWithId[] = [];
 
     eventsSnapshot.forEach((childSnapshot: IteratedDataSnapshot) => {
-      events.push({ eventId: childSnapshot.key, ...childSnapshot.val() });
+      events.push({ _id: childSnapshot.key, ...childSnapshot.val() });
     });
 
     return events;

@@ -1,6 +1,6 @@
 import type { SxProps } from "@mui/material";
 
-export const contentLoaderWrapperStyles: SxProps = {
+export const contentLoaderStyles: SxProps = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
