@@ -5,9 +5,10 @@ import { EventCategory } from "../../common/enums/appEnums";
 import { renderWithProviders } from "../../common/utils/testingUtils";
 import * as utilsModule from "../../common/utils/utils";
 
-import type { ServerEventData } from "../../common/types/eventTypes";
 import EventCard from "./EventCard";
 import { formatEventDate } from "./utils";
+
+import type { ServerEventData } from "../../common/types/eventTypes";
 
 const mockedEvent: ServerEventData = {
   title: "Event Title",

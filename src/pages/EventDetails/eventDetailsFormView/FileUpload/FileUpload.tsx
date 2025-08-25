@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import React, { useRef } from "react";
-import type { Path } from "react-hook-form";
 import { Controller, useFormContext } from "react-hook-form";
 
-import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
-
 import { fileUploadContainerStyles, uploadButtonStyles } from "./styles.ts";
+
+import type { Path } from "react-hook-form";
+import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
 
 interface FileUploadProps {
   buttonTitle: string;

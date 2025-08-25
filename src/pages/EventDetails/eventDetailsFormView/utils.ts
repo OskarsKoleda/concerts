@@ -2,7 +2,7 @@ import _ from "lodash";
 
 import type { LocalEventData, ServerEventData } from "../../../common/types/eventTypes.ts";
 
-// TODO: to Local => to Event Form data? Check this
+// TODO: rework this. No poster name available
 export const convertServerEventToLocal = (serverEvent: ServerEventData): LocalEventData => {
   const { slug, url, ...rest } = serverEvent;
 

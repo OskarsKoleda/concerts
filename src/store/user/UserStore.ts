@@ -1,13 +1,14 @@
-import type { User } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { makeAutoObservable } from "mobx";
 
-import type { AuthUserProfile, LocalUserProfile } from "../../common/types/eventTypes.ts";
 import { auth } from "../../initializeFirebase.ts";
-import type { FirebaseResponse } from "../responseTypes.ts";
-import type { AuthTransport } from "../transport/authTransport/AuthTransport.ts";
 import { FirebaseAuthRequests } from "../transport/authTransport/constants.ts";
 import { UserRequests } from "../transport/userTransport/constants.ts";
+
+import type { AuthUserProfile, LocalUserProfile } from "../../common/types/eventTypes.ts";
+import type { FirebaseResponse } from "../responseTypes.ts";
+import type { AuthTransport } from "../transport/authTransport/AuthTransport.ts";
+import type { User } from "firebase/auth";
 import type { UserTransport } from "../transport/userTransport/UserTransport.ts";
 
 export class UserStore {

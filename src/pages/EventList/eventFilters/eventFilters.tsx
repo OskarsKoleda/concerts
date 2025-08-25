@@ -8,12 +8,13 @@ import { useRootStore } from "../../../store/StoreContext";
 import { EventsPageIds, eventsPageText } from "../constants";
 import { eventCategoriesList } from "../../../common/constants/appConstant.ts";
 import DataGridFilters from "../../../components/DataGridFilters/DataGridFilters.tsx";
+
+import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
+
 import type {
   FilterInputsConfig,
   ToggleButtonFilterProps,
 } from "../../../components/DataGridFilters/types";
-
-import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
 
 const {
   inputs: { band, city, eventTitle },

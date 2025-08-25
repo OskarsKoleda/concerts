@@ -1,13 +1,14 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from "mobx";
 
 import { EventCategory } from "../../common/enums/appEnums.ts";
-import type { ServerEventDataWithId } from "../../common/types/eventTypes.ts";
 import { EventListRequests } from "../transport/eventListTransport/constants.ts";
-import type { EventListTransport } from "../transport/eventListTransport/EventListTransport.ts";
-import type { RequestPayload } from "../transport/eventListTransport/types";
 
 import { EventFiltersStore } from "./eventFilters/EventFiltersStore.ts";
 import { eventsFilteringEngine } from "./utils.ts";
+
+import type { ServerEventDataWithId } from "../../common/types/eventTypes.ts";
+import type { EventListTransport } from "../transport/eventListTransport/EventListTransport.ts";
+import type { RequestPayload } from "../transport/eventListTransport/types";
 
 export class EventListStore {
   events: ServerEventDataWithId[] = [];

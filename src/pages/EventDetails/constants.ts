@@ -1,4 +1,5 @@
 import { EventCategory } from "../../common/enums/appEnums.ts";
+
 import type { AuthUserProfile, LocalEventData } from "../../common/types/eventTypes.ts";
 
 export const defaultEventValues: LocalEventData = {

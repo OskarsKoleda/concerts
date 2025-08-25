@@ -1,4 +1,5 @@
 import { InputType } from "../../../components/FormLayout/constants.ts";
+
 import type { FormFields } from "../../../components/FormLayout/types.ts";
 
 // TODO: make password hidden

@@ -5,8 +5,9 @@ import { memo } from "react";
 import DeleteEventButton from "../DeleteEventButton/DeleteEventButton.tsx";
 
 import { buttonsLayoutStyles } from "./styles.ts";
-import type { ControlPayload } from "./types.ts";
 import { toVisibleControl } from "./utils.ts";
+
+import type { ControlPayload } from "./types.ts";
 
 interface ButtonLayoutProps {
   controls: ControlPayload[];

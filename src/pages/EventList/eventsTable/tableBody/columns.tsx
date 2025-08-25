@@ -3,12 +3,13 @@ import FestivalIcon from "@mui/icons-material/Festival";
 import MicIcon from "@mui/icons-material/Mic";
 import TheaterComedyIcon from "@mui/icons-material/TheaterComedy";
 import { Box, Tooltip } from "@mui/material";
-import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 
 import { EventCategory } from "../../../../common/enums/appEnums.ts";
 import { formatDateToDefault } from "../../../../common/utils/utils.ts";
 
 import { eventCardIconContainerStyles } from "./styles.ts";
+
+import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 
 const renderEventCategoryCell = (params: GridRenderCellParams) => {
   switch (params.value) {

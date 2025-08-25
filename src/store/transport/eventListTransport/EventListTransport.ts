@@ -1,13 +1,14 @@
-import type { Database, DataSnapshot, IteratedDataSnapshot } from "firebase/database";
 import { get, onValue, orderByChild, query, ref } from "firebase/database";
 import { makeAutoObservable } from "mobx";
 
-import type { ServerEventDataWithId } from "../../../common/types/eventTypes.ts";
-import type { RequestHandler } from "../requestHandler/RequestHandler";
-import type { ChildTransport, RequestContext } from "../rootTransport/types";
 import { getRequestContext } from "../rootTransport/utils";
 
 import { EventListRequests, requestErrorMessages } from "./constants";
+
+import type { Database, DataSnapshot, IteratedDataSnapshot } from "firebase/database";
+import type { ServerEventDataWithId } from "../../../common/types/eventTypes.ts";
+import type { RequestHandler } from "../requestHandler/RequestHandler";
+import type { ChildTransport, RequestContext } from "../rootTransport/types";
 
 export class EventListTransport implements ChildTransport {
   constructor(

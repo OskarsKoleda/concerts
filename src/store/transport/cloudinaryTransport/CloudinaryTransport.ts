@@ -1,9 +1,10 @@
-import type { RequestHandler } from "../requestHandler/RequestHandler.ts";
-import type { RequestContext } from "../rootTransport/types.ts";
 import { getRequestContext } from "../rootTransport/utils.ts";
 
-import type { CloudinaryRequests } from "./constants.ts";
 import { requestErrorMessages } from "./constants.ts";
+
+import type { RequestHandler } from "../requestHandler/RequestHandler.ts";
+import type { RequestContext } from "../rootTransport/types.ts";
+import type { CloudinaryRequests } from "./constants.ts";
 
 export class CloudinaryTransport {
   constructor(readonly requestHandler: RequestHandler) {}

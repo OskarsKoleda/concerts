@@ -2,11 +2,11 @@ import { Route, Routes } from "react-router-dom";
 
 import Auth from "../pages/Auth/Auth.tsx";
 import { EventDetailsFormView } from "../pages/EventDetails/eventDetailsFormView/EventDetailsFormView.tsx";
-import Homepage from "../pages/Homepage/Homepage.tsx";
-import { Layout } from "../pages/Layout/Layout.tsx";
-
-import EventDetailsView from "../pages/EventDetails/eventDetailsView/eventDetailsView.tsx";
+import EventDetailsView from "../pages/EventDetails/eventDetailsView/EventDetailsView.tsx";
 import EventList from "../pages/EventList/EventList.tsx";
+import Homepage from "../pages/Homepage/Homepage.tsx";
+import Layout from "../pages/Layout/Layout.tsx";
+
 import { ROUTES } from "./routes.ts";
 
 const AppRoutes = () => {

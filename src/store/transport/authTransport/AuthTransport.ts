@@ -1,16 +1,17 @@
-import type { Auth, UserCredential } from "firebase/auth";
 import {
   createUserWithEmailAndPassword,
   deleteUser,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-import type { AuthUserProfile } from "../../../common/types/eventTypes.ts";
-import type { RequestHandler } from "../requestHandler/RequestHandler.ts";
-import type { ChildTransport, RequestContext } from "../rootTransport/types.ts";
 import { getRequestContext } from "../rootTransport/utils.ts";
 
 import { FirebaseAuthRequests, requestErrorMessages } from "./constants.ts";
+
+import type { Auth, UserCredential } from "firebase/auth";
+import type { AuthUserProfile } from "../../../common/types/eventTypes.ts";
+import type { RequestHandler } from "../requestHandler/RequestHandler.ts";
+import type { ChildTransport, RequestContext } from "../rootTransport/types.ts";
 
 export class AuthTransport implements ChildTransport {
   constructor(

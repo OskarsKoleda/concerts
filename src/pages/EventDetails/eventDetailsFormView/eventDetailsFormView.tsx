@@ -1,21 +1,24 @@
 import { Box, Typography } from "@mui/material";
 import React, { useCallback, useEffect, useMemo } from "react";
-import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+
 import { useCreateEvent } from "../../../api/useCreateEvent.ts";
 import { useGetEventDetails } from "../../../api/useGetEventDetails.ts";
 import { useUpdateEvent } from "../../../api/useUpdateEvent.ts";
 import { SnackbarVariantType } from "../../../common/enums/appEnums.ts";
-import type { LocalEventData } from "../../../common/types/eventTypes.ts";
 import useCustomSnackbar from "../../../hooks/useCustomSnackbar.ts";
 import { defaultEventValues, eventDetailsText } from "../constants.ts";
+
 import { EventActionButtons } from "./EventActionButtons/EventActionButtons.tsx";
 import EventDatesForm from "./EventDatesForm/EventDatesForm.tsx";
 import EventFormFields from "./EventFormFields/EventFormFields.tsx";
 import FileUpload from "./FileUpload/FileUpload.tsx";
 import { formContainerStyles } from "./styles.ts";
 import { convertServerEventToLocal, getChangedFields } from "./utils.ts";
+
+import type { SubmitHandler } from "react-hook-form";
+import type { LocalEventData } from "../../../common/types/eventTypes.ts";
 
 const { title } = eventDetailsText["ENGLISH"].form;
 
@@ -97,7 +100,7 @@ export const EventDetailsFormView = () => {
 
       mutateUpdateEvent({ slug: slug, event: updatedEventData });
     },
-    [slug, eventData],
+    [eventData, mutateUpdateEvent, slug],
   );
 
   useEffect(() => {

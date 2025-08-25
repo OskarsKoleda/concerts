@@ -1,4 +1,4 @@
-import { LocalEventData } from "../common/types/eventTypes";
+import type { LocalEventData } from "../common/types/eventTypes";
 
 export const composeEventFormData = (event: Partial<LocalEventData>): FormData => {
   const formData = new FormData();

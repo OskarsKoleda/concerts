@@ -1,7 +1,8 @@
 import { makeAutoObservable } from "mobx";
 
-import type { ServerEventData } from "../../../common/types/eventTypes.ts";
 import { formatDateToDefault } from "../../../common/utils/utils.ts";
+
+import type { ServerEventData } from "../../../common/types/eventTypes.ts";
 
 export class EventDetailsUIStore {
   private event: ServerEventData | null;

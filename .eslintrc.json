@@ -63,6 +63,13 @@
       }
     ],
     // TypeScript-specific rules
+    "no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "ignoreRestSiblings": true
+      }
+    ],
     "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/consistent-type-imports": "warn",
     "@typescript-eslint/naming-convention": [
@@ -78,12 +85,6 @@
         "format": [
           "PascalCase"
         ]
-      }
-    ],
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        "ignoreRestSiblings": true
       }
     ],
     // Code quality and formatting rules

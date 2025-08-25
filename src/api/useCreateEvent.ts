@@ -1,8 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
-import type { LocalEventData, ServerEventData } from "../common/types/eventTypes";
 import { composeEventFormData } from "./utils";
+
+import type { LocalEventData, ServerEventData } from "../common/types/eventTypes";
 
 const createEvent = async (event: LocalEventData): Promise<ServerEventData> => {
   const formData = composeEventFormData(event);

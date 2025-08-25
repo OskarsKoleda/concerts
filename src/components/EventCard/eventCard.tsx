@@ -13,12 +13,13 @@ import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { emptyPaddingStyles, horizontallyCenteredStyles } from "../../common/styles.ts";
-import type { ServerEventData } from "../../common/types/eventTypes.ts";
 import { ROUTES } from "../../router/routes.ts";
 
 import CardImage from "./CardImage/CardImage.tsx";
 import { cardActionsStyles, cardRightSideStyles, cardStyles, chipStyles } from "./styles.ts";
 import { formatEventDate } from "./utils.ts";
+
+import type { ServerEventData } from "../../common/types/eventTypes.ts";
 
 interface EventCardProps {
   event: ServerEventData;

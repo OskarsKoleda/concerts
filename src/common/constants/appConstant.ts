@@ -1,5 +1,6 @@
-import type { EventCategoryType } from "../../pages/EventDetails/types.ts";
 import { EventCategory } from "../enums/appEnums.ts";
+
+import type { EventCategoryType } from "../../pages/EventDetails/types.ts";
 
 export const URL_VALIDATION_PATTERN_PROTOCOL_OPTIONAL =
   /^(?:http(s)?:\/\/)?[\w.-]+(?:\.|:[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=]+$/;

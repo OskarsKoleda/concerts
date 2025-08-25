@@ -2,6 +2,7 @@ import { MenuItem, Select, TextField, ToggleButton, ToggleButtonGroup } from "@m
 
 import { FilterInputType } from "./constants";
 import { toggleButtonGroupStyles, toggleButtonStyles } from "./styles.ts";
+
 import type { FilterInputsConfigItem } from "./types";
 
 export function generateFilterFields(input: FilterInputsConfigItem): JSX.Element {

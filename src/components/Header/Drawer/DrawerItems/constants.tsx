@@ -4,6 +4,7 @@ import PortraitIcon from "@mui/icons-material/Portrait";
 import StadiumIcon from "@mui/icons-material/Stadium";
 
 import { ROUTES } from "../../../../router/routes.ts";
+
 import type { DrawerItem } from "../types.ts";
 
 export const drawerItems: DrawerItem[] = [

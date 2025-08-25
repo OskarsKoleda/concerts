@@ -1,6 +1,6 @@
-import type { SxProps } from "@mui/system";
-
 import { horizontallyCenteredStyles } from "../../../common/styles";
+
+import type { SxProps } from "@mui/system";
 
 export const cardImageStyles: SxProps = {
   flexShrink: 0,

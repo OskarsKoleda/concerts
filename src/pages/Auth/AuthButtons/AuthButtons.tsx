@@ -1,4 +1,5 @@
 import ButtonsLayout from "../../../components/ButtonsLayout/ButtonsLayout.tsx";
+
 import type { ControlPayload } from "../../../components/ButtonsLayout/types.ts";
 
 interface AuthButtonsProps {

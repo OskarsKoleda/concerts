@@ -1,7 +1,8 @@
-import type { ButtonProps } from "@mui/material/Button";
 import Button from "@mui/material/Button";
-import type { PropsWithChildren } from "react";
 import { Link as RouterLink } from "react-router-dom";
+
+import type { ButtonProps } from "@mui/material/Button";
+import type { PropsWithChildren } from "react";
 
 type NavLinkButtonProps = {
   to: string;

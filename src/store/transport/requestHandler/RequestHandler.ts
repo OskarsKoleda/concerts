@@ -2,9 +2,10 @@ import { makeAutoObservable } from "mobx";
 
 import { RequestStatus } from "../../../common/enums/appEnums";
 import { getErrorMessage } from "../../../common/utils/appUtils";
-import type { AppStateHandler } from "../appState/types";
 
 import { AppRequest } from "./appRequest/AppRequest";
+
+import type { AppStateHandler } from "../appState/types";
 import type {
   CheckRequestStatus,
   GetRequestStatus,

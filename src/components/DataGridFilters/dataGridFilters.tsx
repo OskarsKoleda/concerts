@@ -3,6 +3,7 @@ import { memo } from "react";
 
 import { filterFooterStyles } from "./styles";
 import { generateFilterFields } from "./utils";
+
 import type { FilterInputsConfig, ToggleButtonFilterProps } from "./types";
 
 type DataGridFiltersProps = {

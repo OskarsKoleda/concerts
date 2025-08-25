@@ -2,11 +2,9 @@ import { Box, Typography } from "@mui/material";
 import { FirebaseError } from "firebase/app";
 import { observer } from "mobx-react-lite";
 import React, { useMemo, useState } from "react";
-import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import type { AuthUserProfile } from "../../common/types/eventTypes.ts";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar.ts";
 import { ROUTES } from "../../router/routes.ts";
 import { useRootStore } from "../../store/StoreContext.tsx";
@@ -17,6 +15,9 @@ import AuthFormFields from "./AuthFormFields/AuthFormFields.tsx";
 import { AuthMode } from "./constants.ts";
 import { bottomCaptionStyles } from "./styles.ts";
 import { getFirebaseError } from "./utils.ts";
+
+import type { AuthUserProfile } from "../../common/types/eventTypes.ts";
+import type { SubmitHandler } from "react-hook-form";
 
 const Auth = () => {
   const [urlSearchParams, setUrlSearchParams] = useSearchParams();
