@@ -46,13 +46,13 @@ export const EventDetailsFormView = () => {
       navigate(`/events/${data.slug}`);
       showSnackbar({
         message: "Event was successfully created",
-        variant: SnackbarVariantType.SUCCESS,
+        variant: SnackbarVariantType.Success,
       });
     },
     onError: (error: any) => {
       showSnackbar({
         message: error?.response?.data?.message || "Failed to create event.",
-        variant: SnackbarVariantType.ERROR,
+        variant: SnackbarVariantType.Error,
       });
     },
   });
@@ -62,13 +62,13 @@ export const EventDetailsFormView = () => {
       navigate(`/events/${data.slug}`);
       showSnackbar({
         message: "Event was successfully updated",
-        variant: SnackbarVariantType.SUCCESS,
+        variant: SnackbarVariantType.Success,
       });
     },
     onError: (error: any) => {
       showSnackbar({
         message: error?.response?.data?.message || "Failed to update event.",
-        variant: SnackbarVariantType.ERROR,
+        variant: SnackbarVariantType.Error,
       });
     },
   });

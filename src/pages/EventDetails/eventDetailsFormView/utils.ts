@@ -4,9 +4,7 @@ import type { LocalEventData, ServerEventData } from "../../../common/types/even
 
 // TODO: rework this. No poster name available
 export const convertServerEventToLocal = (serverEvent: ServerEventData): LocalEventData => {
-  const { slug, url, ...rest } = serverEvent;
-
-  return rest;
+  return _.omit(serverEvent, ["slug", "url"]);
 };
 
 export const getChangedFields = (

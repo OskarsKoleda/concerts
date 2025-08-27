@@ -42,7 +42,7 @@ const EventFormFields = () => {
         controlName: "bands",
         id: "bands",
         label: "Bands",
-        hide: [EventCategory.theatre, EventCategory.creativeEvening].includes(eventCategory),
+        hide: [EventCategory.Theatre, EventCategory.CreativeEvening].includes(eventCategory),
       },
       {
         inputType: InputType.text,

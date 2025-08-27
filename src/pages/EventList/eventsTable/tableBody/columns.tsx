@@ -13,7 +13,7 @@ import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 
 const renderEventCategoryCell = (params: GridRenderCellParams) => {
   switch (params.value) {
-    case EventCategory.musicConcert:
+    case EventCategory.MusicConcert:
       return (
         <Tooltip title="Music Concert">
           <Box sx={eventCardIconContainerStyles}>
@@ -21,7 +21,7 @@ const renderEventCategoryCell = (params: GridRenderCellParams) => {
           </Box>
         </Tooltip>
       );
-    case EventCategory.musicFestival:
+    case EventCategory.MusicFestival:
       return (
         <Tooltip title="Music Festival">
           <Box sx={eventCardIconContainerStyles}>
@@ -30,7 +30,7 @@ const renderEventCategoryCell = (params: GridRenderCellParams) => {
         </Tooltip>
       );
 
-    case EventCategory.theatre:
+    case EventCategory.Theatre:
       return (
         <Tooltip title="Theatre">
           <Box sx={eventCardIconContainerStyles}>
@@ -39,7 +39,7 @@ const renderEventCategoryCell = (params: GridRenderCellParams) => {
         </Tooltip>
       );
 
-    case EventCategory.creativeEvening:
+    case EventCategory.CreativeEvening:
       return (
         <Tooltip title="Creative Evening">
           <Box sx={eventCardIconContainerStyles}>

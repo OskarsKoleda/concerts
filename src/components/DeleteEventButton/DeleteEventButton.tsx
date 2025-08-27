@@ -29,7 +29,7 @@ const DeleteEventButton = () => {
           navigate(ROUTES.EVENTS);
           showSnackbar({
             message: "Event was successfully deleted",
-            variant: SnackbarVariantType.SUCCESS,
+            variant: SnackbarVariantType.Success,
           });
         },
       });

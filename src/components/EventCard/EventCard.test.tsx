@@ -13,7 +13,7 @@ import type { ServerEventData } from "../../common/types/eventTypes";
 const mockedEvent: ServerEventData = {
   title: "Event Title",
   slug: "event-title",
-  category: EventCategory.musicConcert,
+  category: EventCategory.MusicConcert,
   url: "https://example.com/image.jpg",
   bands: ["Artist 1", "Artist 2"],
   city: "City Name",

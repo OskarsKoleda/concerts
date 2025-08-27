@@ -16,7 +16,7 @@ const EventDatesForm = () => {
   });
 
   const datesFormContent =
-    eventCategory === EventCategory.musicFestival ? musicFestivalDateFields : eventDateFields;
+    eventCategory === EventCategory.MusicFestival ? musicFestivalDateFields : eventDateFields;
 
   return <FormLayout content={datesFormContent} control={control} title="Dates" />;
 };

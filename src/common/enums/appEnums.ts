@@ -7,16 +7,16 @@ export enum RequestStatus {
 }
 
 export enum SnackbarVariantType {
-  DEFAULT = "default",
-  ERROR = "error",
-  SUCCESS = "success",
-  WARNING = "warning",
-  INFO = "info",
+  Default = "default",
+  Error = "error",
+  Success = "success",
+  Warning = "warning",
+  Info = "info",
 }
 
 export enum EventCategory {
-  musicConcert = "Music Concert",
-  musicFestival = "Music Festival",
-  theatre = "Theatre",
-  creativeEvening = "Creative Evening",
+  MusicConcert = "Music Concert",
+  MusicFestival = "Music Festival",
+  Theatre = "Theatre",
+  CreativeEvening = "Creative Evening",
 }

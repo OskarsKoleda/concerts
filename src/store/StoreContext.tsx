@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useMemo } from "react";
+import React, { createContext, useContext, useMemo } from "react";
 
 import RootStore from "./RootStore";
 
@@ -15,14 +15,6 @@ export const StoreProvider: React.FC<StoreProviderProps> = ({ mockedStore, child
   const store = useMemo(() => {
     return mockedStore ?? new RootStore();
   }, [mockedStore]);
-
-  store.userStore.listenForAuthChanges();
-
-  useEffect(() => {
-    return () => {
-      store.userStore.dispose();
-    };
-  }, [store]);
 
   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
 };

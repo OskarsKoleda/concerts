@@ -1,32 +1,18 @@
 import AddIcon from "@mui/icons-material/Add";
 import HomeIcon from "@mui/icons-material/Home";
 import StadiumIcon from "@mui/icons-material/Stadium";
-import {
-  AppBar,
-  Box,
-  IconButton,
-  Link,
-  Skeleton,
-  Toolbar,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { AppBar, Box, IconButton, Link, Toolbar, Tooltip, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { Link as RouterLink } from "react-router-dom";
 
 import { horizontallyCenteredStyles } from "../../common/styles.ts";
 import { ROUTES } from "../../router/routes.ts";
-import { useRootStore } from "../../store/StoreContext.tsx";
 
 import Drawer from "./Drawer/Drawer.tsx";
-import { appTitleStyles, headerSkeletonStyles, headerToolbarStyles } from "./styles";
+import { appTitleStyles, headerToolbarStyles } from "./styles";
 import UserActions from "./UserActions/UserActions.tsx";
 
 const Header = () => {
-  const {
-    userStore: { userProfile, isAuthLoading },
-  } = useRootStore();
-
   return (
     <AppBar position="sticky">
       <Toolbar>
@@ -43,29 +29,25 @@ const Header = () => {
           </Box>
 
           <Box sx={horizontallyCenteredStyles}>
-            {isAuthLoading ? (
-              <Skeleton animation="wave" variant="rectangular" sx={headerSkeletonStyles} />
-            ) : (
-              <>
-                <Link component={RouterLink} to={ROUTES.EVENTS}>
-                  <Tooltip title="View Event">
-                    <IconButton size="large">
-                      <StadiumIcon />
-                    </IconButton>
-                  </Tooltip>
-                </Link>
+            <>
+              <Link component={RouterLink} to={ROUTES.EVENTS}>
+                <Tooltip title="View Event">
+                  <IconButton size="large">
+                    <StadiumIcon />
+                  </IconButton>
+                </Tooltip>
+              </Link>
 
-                <Link component={RouterLink} to={ROUTES.NEW_EVENT}>
-                  <Tooltip title="Add Event">
-                    <IconButton size="large">
-                      <AddIcon />
-                    </IconButton>
-                  </Tooltip>
-                </Link>
+              <Link component={RouterLink} to={ROUTES.NEW_EVENT}>
+                <Tooltip title="Add Event">
+                  <IconButton size="large">
+                    <AddIcon />
+                  </IconButton>
+                </Tooltip>
+              </Link>
 
-                {userProfile && <UserActions />}
-              </>
-            )}
+              <UserActions />
+            </>
           </Box>
         </Box>
       </Toolbar>

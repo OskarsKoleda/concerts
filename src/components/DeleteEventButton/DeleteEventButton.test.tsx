@@ -70,7 +70,7 @@ describe.skip("DeleteEventButton", () => {
     expect(mockNavigate).toHaveBeenCalledWith("/events");
     expect(mockShowSnackbar).toHaveBeenCalledWith({
       message: "event-id was successfully deleted",
-      variant: SnackbarVariantType.SUCCESS,
+      variant: SnackbarVariantType.Success,
     });
   });
 });
