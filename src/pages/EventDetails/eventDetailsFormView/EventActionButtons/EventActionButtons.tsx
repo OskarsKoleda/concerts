@@ -20,6 +20,7 @@ export const EventActionButtons = ({ isEditMode }: EventActionButtonsProps) => {
   const navigate = useNavigate();
   const isFormReallyDirty = Object.keys(dirtyFields).length > 0;
 
+  // TODO: add loading
   const controls: ControlPayload[] = [
     {
       color: "primary",

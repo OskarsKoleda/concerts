@@ -23,7 +23,7 @@ const queryClient = new QueryClient({
   },
 });
 
-export const AppProviders: React.FC<PropsWithChildren> = ({ children }) => {
+const AppProviders: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <StoreProvider>
       <ThemeProvider theme={appTheme}>
@@ -36,3 +36,5 @@ export const AppProviders: React.FC<PropsWithChildren> = ({ children }) => {
     </StoreProvider>
   );
 };
+
+export default AppProviders;
