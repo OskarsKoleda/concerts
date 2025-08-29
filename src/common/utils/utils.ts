@@ -1,7 +1,8 @@
 import { format, parseISO } from "date-fns";
-import type { FieldError } from "react-hook-form";
 
 import { DATE_FORMAT, ERROR_TEXTS } from "../constants/appConstant";
+
+import type { FieldError } from "react-hook-form";
 
 export const getInputErrorText = (error: FieldError): string | null => {
   if (!error) {

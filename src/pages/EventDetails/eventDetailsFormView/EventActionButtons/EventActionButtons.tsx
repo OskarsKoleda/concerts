@@ -1,19 +1,17 @@
-import type { FC } from "react";
 import { memo } from "react";
 import { useFormContext } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
 import ButtonsLayout from "../../../../components/ButtonsLayout/ButtonsLayout.tsx";
+
+import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
 import type { ControlPayload } from "../../../../components/ButtonsLayout/types.ts";
 
-type ControlButtonsProps = {
+interface EventActionButtonsProps {
   isEditMode: boolean;
-};
+}
 
-export const EventDetailsButtons: FC<ControlButtonsProps> = memo(function EventDetailsButtons({
-  isEditMode,
-}: ControlButtonsProps) {
+export const EventActionButtons = ({ isEditMode }: EventActionButtonsProps) => {
   const {
     reset,
     formState: { dirtyFields },
@@ -22,6 +20,7 @@ export const EventDetailsButtons: FC<ControlButtonsProps> = memo(function EventD
   const navigate = useNavigate();
   const isFormReallyDirty = Object.keys(dirtyFields).length > 0;
 
+  // TODO: add loading
   const controls: ControlPayload[] = [
     {
       color: "primary",
@@ -49,4 +48,6 @@ export const EventDetailsButtons: FC<ControlButtonsProps> = memo(function EventD
   ];
 
   return <ButtonsLayout controls={controls} renderDeleteButton={isEditMode} />;
-});
+};
+
+export default memo(EventActionButtons);

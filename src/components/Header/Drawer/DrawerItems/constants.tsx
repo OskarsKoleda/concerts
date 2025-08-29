@@ -3,23 +3,24 @@ import HomeIcon from "@mui/icons-material/Home";
 import PortraitIcon from "@mui/icons-material/Portrait";
 import StadiumIcon from "@mui/icons-material/Stadium";
 
-import { ROUTE_LIST } from "../../../../router/routes.ts";
+import { ROUTES } from "../../../../router/routes.ts";
+
 import type { DrawerItem } from "../types.ts";
 
 export const drawerItems: DrawerItem[] = [
   {
     label: "Homepage",
-    path: ROUTE_LIST.HOMEPAGE,
+    path: ROUTES.HOMEPAGE,
     icon: <HomeIcon />,
   },
   {
     label: "View Events",
-    path: ROUTE_LIST.EVENTS,
+    path: ROUTES.EVENTS,
     icon: <StadiumIcon />,
   },
   {
     label: "Add Event",
-    path: ROUTE_LIST.NEW_EVENT,
+    path: ROUTES.NEW_EVENT,
     icon: <AddIcon />,
   },
   {

@@ -1,8 +1,6 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
-import type { ReactNode } from "react";
 import { memo, useCallback } from "react";
-import type { Control } from "react-hook-form";
 import { Controller } from "react-hook-form";
 
 import { DATE_FORMAT } from "../../common/constants/appConstant";
@@ -11,8 +9,11 @@ import SelectWithValidation from "../Inputs/reactHookForm/SelectWithValidation/S
 import TextFieldWithValidation from "../Inputs/reactHookForm/TextFieldWithValidation/TextFieldWithValidation.tsx";
 
 import { InputType } from "./constants";
-import type { FormContent, FormField } from "./types";
 import { isFormSection } from "./utils";
+
+import type { ReactNode } from "react";
+import type { Control } from "react-hook-form";
+import type { FormContent, FormField } from "./types";
 
 interface FormLayoutProps {
   content: FormContent;

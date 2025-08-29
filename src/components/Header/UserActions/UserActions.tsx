@@ -5,33 +5,23 @@ import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router-dom";
 
 import { AuthMode } from "../../../pages/Auth/constants.ts";
-import { ROUTE_LIST } from "../../../router/routes.ts";
-import { useRootStore } from "../../../store/StoreContext.tsx";
+import { ROUTES } from "../../../router/routes.ts";
 
 import { dividerStyles } from "./styles.ts";
 
 const UserActions = () => {
-  const {
-    userStore: { logoutUser, userProfile },
-  } = useRootStore();
-
   const navigation = useNavigate();
-  const redirectToLogin = () => navigation(`${ROUTE_LIST.AUTH}/?mode=${AuthMode.login}`);
-
-  const handleLogout = async () => {
-    await logoutUser();
-    redirectToLogin();
-  };
+  const redirectToLogin = () => navigation(`${ROUTES.AUTH}/?mode=${AuthMode.login}`);
 
   return (
     <>
       <Divider orientation="vertical" sx={dividerStyles} />
-      <Typography variant="body1">{userProfile?.username}</Typography>
+      <Typography variant="body1">Rogopop</Typography>
       <IconButton size="large">
         <PortraitIcon />
       </IconButton>
       <Divider orientation="vertical" sx={dividerStyles} />
-      <IconButton onClick={handleLogout} size="large">
+      <IconButton onClick={() => {}} size="large">
         <LogoutIcon />
       </IconButton>
     </>

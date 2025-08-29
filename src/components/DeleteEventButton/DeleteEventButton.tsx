@@ -1,41 +1,40 @@
 import { Box, Button, Tooltip } from "@mui/material";
-import { observer } from "mobx-react-lite";
 import { useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
+import { useDeleteEvent } from "../../api/useDeleteEvent.ts";
 import { SnackbarVariantType } from "../../common/enums/appEnums.ts";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar";
-import { ROUTE_LIST } from "../../router/routes.ts";
-import { useRootStore } from "../../store/StoreContext";
+import { ROUTES } from "../../router/routes.ts";
 import CustomDialog from "../CustomDialog/CustomDialog.tsx";
 
 const DeleteEventButton = () => {
   const [showDialog, setShowDialog] = useState(false);
-  const {
-    eventDetailsRequestStore: { deleteEvent },
-    eventDetailsUIStore: { currentEventId },
-  } = useRootStore();
+  const { slug } = useParams<{ slug: string }>();
+
+  const { mutate } = useDeleteEvent();
 
   const navigate = useNavigate();
   const { showSnackbar } = useCustomSnackbar();
 
   const handleEventDeletion = useCallback(
-    async (eventId: string) => {
-      const response = await deleteEvent(eventId);
-
-      setShowDialog(false);
-
-      if (!response) {
+    async (slug?: string) => {
+      if (!slug) {
         return;
       }
 
-      navigate(ROUTE_LIST.EVENTS);
-      showSnackbar({
-        message: `${response} was successfully deleted`,
-        variant: SnackbarVariantType.SUCCESS,
+      mutate(slug, {
+        onSuccess: () => {
+          setShowDialog(false);
+          navigate(ROUTES.EVENTS);
+          showSnackbar({
+            message: "Event was successfully deleted",
+            variant: SnackbarVariantType.Success,
+          });
+        },
       });
     },
-    [deleteEvent, navigate, showSnackbar],
+    [mutate, navigate, showSnackbar],
   );
 
   return (
@@ -46,7 +45,7 @@ const DeleteEventButton = () => {
         title="Are you sure?"
         proceedButtonColor="error"
         content="You are about to delete the event permanently. Proceed?"
-        onConfirm={() => handleEventDeletion(currentEventId)}
+        onConfirm={() => handleEventDeletion(slug)}
       />
       <Tooltip title="Delete Event">
         <Button
@@ -62,4 +61,4 @@ const DeleteEventButton = () => {
   );
 };
 
-export default observer(DeleteEventButton);
+export default DeleteEventButton;

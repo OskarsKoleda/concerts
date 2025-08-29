@@ -1,14 +1,13 @@
 import { Box } from "@mui/material";
-import { observer } from "mobx-react-lite";
 
 import posterMissing from "../../../../assets/poster-missing.jpg";
-import { useRootStore } from "../../../../store/StoreContext.tsx";
 
-export const EventPoster = observer(function EventPoster() {
-  const {
-    eventDetailsUIStore: { currentEventPosterURL, currentEventPosterTitle },
-  } = useRootStore();
+interface EventPosterProps {
+  posterURL?: string;
+  posterTitle?: string;
+}
 
+export const EventPoster = ({ posterURL, posterTitle }: EventPosterProps) => {
   return (
     <Box>
       <img
@@ -17,9 +16,11 @@ export const EventPoster = observer(function EventPoster() {
           maxWidth: "700px",
           boxShadow: "4px 4px 10px #52C7B8",
         }}
-        src={currentEventPosterURL ?? posterMissing}
-        alt={currentEventPosterTitle || "Poster"}
+        src={posterURL ?? posterMissing}
+        alt={posterTitle ?? "Poster"}
       />
     </Box>
   );
-});
+};
+
+export default EventPoster;

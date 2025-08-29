@@ -1,7 +1,7 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
 
 import NavLinkButton from "../../components/NavLinkButton/NavLinkButton.tsx";
-import { ROUTE_LIST } from "../../router/routes";
+import { ROUTES } from "../../router/routes";
 
 import { homepageTexts } from "./constants";
 import {
@@ -46,10 +46,10 @@ const Homepage = () => {
       </Box>
 
       <Box sx={buttonsContainerStyles}>
-        <NavLinkButton color="secondary" to={ROUTE_LIST.EVENTS}>
+        <NavLinkButton color="secondary" to={ROUTES.EVENTS}>
           {viewButton.label}
         </NavLinkButton>
-        <NavLinkButton color="secondary" to={ROUTE_LIST.NEW_EVENT}>
+        <NavLinkButton color="secondary" to={ROUTES.NEW_EVENT}>
           {addButton.label}
         </NavLinkButton>
       </Box>

@@ -1,6 +1,6 @@
-import type { SxProps, Theme } from "@mui/material";
-
 import { appTheme } from "../../../../AppProviders/theme.ts";
+
+import type { SxProps, Theme } from "@mui/material";
 
 export const navigationListItemStyles: SxProps<Theme> = {
   "&.Mui-selected": {

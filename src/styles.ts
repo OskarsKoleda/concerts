@@ -1,6 +1,6 @@
-import type { SxProps, Theme } from "@mui/material";
-
 import { appTheme } from "./components/AppProviders/theme.ts";
+
+import type { SxProps, Theme } from "@mui/material";
 
 export const appContainerStyles: SxProps = {
   height: "100vh",

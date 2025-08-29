@@ -1,58 +1,47 @@
-import { Box, Typography } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
-import { observer } from "mobx-react-lite";
-import { useEffect } from "react";
+import { Box, Button, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { SnackbarVariantType } from "../../../common/enums/appEnums.ts";
+import { useGetEventDetails } from "../../../api/useGetEventDetails.ts";
 import ContentLoader from "../../../components/ContentLoader/ContentLoader.tsx";
-import useCustomSnackbar from "../../../hooks/useCustomSnackbar.ts";
-import { ROUTE_LIST } from "../../../router/routes.ts";
-import { useRootStore } from "../../../store/StoreContext.tsx";
 
-import { EventArtistsSection } from "./eventArtistsSection/eventArtistsSection.tsx";
-import { EventDataSection } from "./eventDataSection/eventDataSection.tsx";
-import { EventPoster } from "./eventPoster/eventPoster.tsx";
-import { eventContainerStyles, eventHeaderStyles } from "./styles.ts";
+import { EventBandsSection } from "./EventBandsSection/EventBandsSection.tsx";
+import { EventDataSection } from "./EventDataSection/EventDataSection.tsx";
+import { EventPoster } from "./EventPoster/EventPoster.tsx";
+import { eventContainerStyles, eventHeaderStyles, eventNotFoundStyles } from "./styles.ts";
 
-export const EventDetailsView = observer(function EventDetailsView() {
-  const { id: eventId } = useParams();
+const EventDetailsView = () => {
+  const { slug } = useParams();
   const navigate = useNavigate();
-  const { showSnackbar } = useCustomSnackbar();
 
-  const {
-    eventDetailsRequestStore: { getEvent },
-    eventDetailsUIStore: { currentEvent, currentEventTitle, currentEventArtists },
-  } = useRootStore();
+  const { eventData, isLoading, isError } = useGetEventDetails(slug);
+  const { url, title, bands } = eventData || {};
 
-  const { isLoading, error } = useQuery({
-    queryKey: ["event", eventId],
-    queryFn: () => getEvent(eventId ?? ""),
-  });
-
-  useEffect(() => {
-    if (error) {
-      navigate(`/${ROUTE_LIST.EVENTS}`);
-      showSnackbar({
-        message: `Event ${eventId} not found!`,
-        variant: SnackbarVariantType.ERROR,
-      });
-    }
-  }, [error, eventId, navigate, showSnackbar]);
+  if (isError) {
+    return (
+      <Box sx={eventNotFoundStyles}>
+        <Typography variant="h3">Event Not Found! (╯°□°）╯︵ ┻━┻</Typography>
+        <Button size="large" variant="contained" onClick={() => navigate("/")}>
+          Go Back Home
+        </Button>
+      </Box>
+    );
+  }
 
   return (
-    <ContentLoader isLoading={isLoading || !currentEvent}>
+    <ContentLoader isLoading={isLoading}>
       <Box sx={eventContainerStyles}>
         <Box sx={eventHeaderStyles}>
-          <Typography variant="h2">{currentEventTitle}</Typography>
+          <Typography variant="h2">{title}</Typography>
         </Box>
 
         <Box display="flex" justifyContent="center">
-          <EventDataSection />
-          <EventPoster />
-          {currentEventArtists.length ? <EventArtistsSection /> : null}
+          <EventDataSection event={eventData} />
+          <EventPoster posterURL={url} posterTitle={title} />
+          {bands?.length ? <EventBandsSection bands={bands} /> : null}
         </Box>
       </Box>
     </ContentLoader>
   );
-});
+};
+
+export default EventDetailsView;

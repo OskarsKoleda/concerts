@@ -1,6 +1,6 @@
-import type { SxProps } from "@mui/material";
-
 import { appTheme } from "../../../components/AppProviders/theme.ts";
+
+import type { SxProps } from "@mui/material";
 
 export const filterContainerStyles: SxProps = {
   margin: "1.5rem 0 0.5rem 0",

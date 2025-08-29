@@ -10,7 +10,12 @@
       "version": "detect"
     }
   },
-  "plugins": ["@typescript-eslint", "react-hooks", "import", "react"],
+  "plugins": [
+    "@typescript-eslint",
+    "react-hooks",
+    "import",
+    "react"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -19,13 +24,23 @@
     "plugin:react/recommended",
     "plugin:prettier/recommended"
   ],
-  "ignorePatterns": ["lib"],
+  "ignorePatterns": [
+    "lib"
+  ],
   "rules": {
     // Import and module-related rules
     "import/order": [
       "error",
       {
-        "groups": ["external", "parent", ["sibling", "index"]],
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "type"
+        ],
         "newlines-between": "always"
       }
     ],
@@ -48,6 +63,13 @@
       }
     ],
     // TypeScript-specific rules
+    "no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "ignoreRestSiblings": true
+      }
+    ],
     "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/consistent-type-imports": "warn",
     "@typescript-eslint/naming-convention": [
@@ -60,13 +82,9 @@
       },
       {
         "selector": "typeLike",
-        "format": ["PascalCase"]
-      }
-    ],
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        "ignoreRestSiblings": true
+        "format": [
+          "PascalCase"
+        ]
       }
     ],
     // Code quality and formatting rules
@@ -89,11 +107,17 @@
         "ignorePattern": "^import |//|\"[^\"]{100,}\""
       }
     ],
-    "eqeqeq": ["error", "smart"],
+    "eqeqeq": [
+      "error",
+      "smart"
+    ],
     "no-console": [
       "warn",
       {
-        "allow": ["warn", "error"]
+        "allow": [
+          "warn",
+          "error"
+        ]
       }
     ],
     "no-empty": [
@@ -110,7 +134,9 @@
     ],
     "guard-for-in": "error",
     "keyword-spacing": "error",
-    "key-spacing": ["error"],
+    "key-spacing": [
+      "error"
+    ],
     "eol-last": "error",
     "no-trailing-spaces": "error",
     "no-var": "error",
@@ -121,11 +147,23 @@
         "maxBOF": 0
       }
     ],
-    "no-multi-spaces": ["error"],
-    "no-whitespace-before-property": ["error"],
-    "space-before-blocks": ["error", "always"],
-    "space-in-parens": ["error", "never"],
-    "arrow-spacing": ["error"],
+    "no-multi-spaces": [
+      "error"
+    ],
+    "no-whitespace-before-property": [
+      "error"
+    ],
+    "space-before-blocks": [
+      "error",
+      "always"
+    ],
+    "space-in-parens": [
+      "error",
+      "never"
+    ],
+    "arrow-spacing": [
+      "error"
+    ],
     // Spacing rules for code structure
     "padding-line-between-statements": [
       "error",

@@ -1,8 +1,9 @@
 import { Box, InputLabel, MenuItem, Select } from "@mui/material";
 import { Controller } from "react-hook-form";
 
-import type { SelectWithValidationProps } from "../../../FormLayout/types.ts";
 import ReadonlyField from "../../ReadonlyField/ReadonlyField.tsx";
+
+import type { SelectWithValidationProps } from "../../../FormLayout/types.ts";
 
 const SelectWithValidation = (props: SelectWithValidationProps) => {
   const { control, controlName, children = [], rules, readonly, label } = props;

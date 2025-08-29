@@ -1,6 +1,6 @@
-import type { SxProps } from "@mui/material";
-
 import { appTheme } from "../../../components/AppProviders/theme.ts";
+
+import type { SxProps } from "@mui/material";
 
 export const formContainerStyles: SxProps = {
   marginTop: "3rem",

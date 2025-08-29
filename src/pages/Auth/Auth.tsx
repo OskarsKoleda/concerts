@@ -2,13 +2,11 @@ import { Box, Typography } from "@mui/material";
 import { FirebaseError } from "firebase/app";
 import { observer } from "mobx-react-lite";
 import React, { useMemo, useState } from "react";
-import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import type { AuthUserProfile } from "../../common/types/eventTypes.ts";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar.ts";
-import { ROUTE_LIST } from "../../router/routes.ts";
+import { ROUTES } from "../../router/routes.ts";
 import { useRootStore } from "../../store/StoreContext.tsx";
 import { defaultUserValues } from "../EventDetails/constants.ts";
 
@@ -17,6 +15,9 @@ import AuthFormFields from "./AuthFormFields/AuthFormFields.tsx";
 import { AuthMode } from "./constants.ts";
 import { bottomCaptionStyles } from "./styles.ts";
 import { getFirebaseError } from "./utils.ts";
+
+import type { AuthUserProfile } from "../../common/types/eventTypes.ts";
+import type { SubmitHandler } from "react-hook-form";
 
 const Auth = () => {
   const [urlSearchParams, setUrlSearchParams] = useSearchParams();
@@ -67,7 +68,7 @@ const Auth = () => {
           variant: "success",
         });
 
-        navigate(ROUTE_LIST.HOMEPAGE);
+        navigate(ROUTES.HOMEPAGE);
       }
     } catch (error) {
       handleAuthError(error);
@@ -78,7 +79,7 @@ const Auth = () => {
     try {
       const response = await loginUser(data);
 
-      if (response) navigate(ROUTE_LIST.HOMEPAGE);
+      if (response) navigate(ROUTES.HOMEPAGE);
     } catch (error) {
       handleAuthError(error);
     }

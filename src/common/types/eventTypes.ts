@@ -1,25 +1,21 @@
 import type { EventCategoryType } from "../../pages/EventDetails/types.ts";
 
 export type LocalEventData = CommonEventData & {
-  posterImage?: FileList;
-  eventDate?: Date;
-  festivalEndDate?: Date;
+  image?: FileList;
 };
 
-export type ServerEventDataWithId = ServerEventData & { eventId: string };
-
 export type ServerEventData = CommonEventData & {
-  posterImageUrl?: string;
-  posterImageTitle?: string;
-  eventDate?: string;
-  festivalEndDate?: string;
+  slug: string;
+  url?: string;
 };
 
 interface CommonEventData {
-  eventCategory: EventCategoryType;
-  eventTitle: string;
+  title: string;
+  category: EventCategoryType;
+  bands: string[];
   city: string;
-  artists: string[];
+  date: string;
+  endDate?: string;
   location?: string;
   ticketPrice?: number;
 }

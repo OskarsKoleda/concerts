@@ -9,3 +9,12 @@ export const eventContainerStyles: SxProps = {
 export const eventHeaderStyles: SxProps = {
   margin: "1rem 0",
 };
+
+export const eventNotFoundStyles: SxProps = {
+  height: "100vh",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: 5,
+};

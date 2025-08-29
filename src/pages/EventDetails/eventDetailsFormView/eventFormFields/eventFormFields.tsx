@@ -7,41 +7,42 @@ import {
   TICKET_PRICE_RULES,
 } from "../../../../common/constants/validations.ts";
 import { EventCategory } from "../../../../common/enums/appEnums.ts";
-import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
 import { InputType } from "../../../../components/FormLayout/constants.ts";
 import FormLayout from "../../../../components/FormLayout/FormLayout.tsx";
+
+import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
 import type { FormFields } from "../../../../components/FormLayout/types.ts";
 
-export const EventFormFields = () => {
+const EventFormFields = () => {
   const { control } = useFormContext<LocalEventData>();
 
   const eventCategory = useWatch({
     control,
-    name: "eventCategory",
+    name: "category",
   });
 
   const getCommonEventFields = (): FormFields => {
     return [
       {
         inputType: InputType.select,
-        controlName: "eventCategory",
-        id: "eventCategory",
+        controlName: "category",
+        id: "category",
         label: "Event Category",
         children: eventCategoriesList,
       },
       {
         inputType: InputType.text,
-        controlName: "eventTitle",
-        id: "eventTitle",
+        controlName: "title",
+        id: "title",
         label: "Event Title",
         rules: EVENT_TITLE_RULES,
       },
       {
         inputType: InputType.autocompleteText,
-        controlName: "artists",
-        id: "artists",
-        label: "Artists",
-        hide: [EventCategory.theatre, EventCategory.creativeEvening].includes(eventCategory),
+        controlName: "bands",
+        id: "bands",
+        label: "Bands",
+        hide: [EventCategory.Theatre, EventCategory.CreativeEvening].includes(eventCategory),
       },
       {
         inputType: InputType.text,
@@ -73,3 +74,5 @@ export const EventFormFields = () => {
 
   return <FormLayout content={getCommonEventFields()} control={control} title="Event Details" />;
 };
+
+export default EventFormFields;
