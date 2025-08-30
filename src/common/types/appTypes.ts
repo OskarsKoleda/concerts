@@ -1,4 +1,4 @@
-import type { SxProps } from "@mui/material";
+import type { ButtonProps, SxProps } from "@mui/material";
 import type { Control, UseControllerProps } from "react-hook-form";
 
 export type Nullable<T> = T | null;
@@ -22,4 +22,11 @@ export type ReadonlyControl = {
 
 export type WithTooltip = {
   tooltipText?: string;
+};
+
+export type ControlPayload = ButtonProps & {
+  text: string;
+  id?: string;
+  visible?: boolean;
+  loading?: boolean;
 };

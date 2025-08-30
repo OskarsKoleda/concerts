@@ -1,11 +1,16 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { useFormContext } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
+import { useDeleteEvent } from "../../../../api/useDeleteEvent.ts";
+import { SnackbarVariantType } from "../../../../common/enums/appEnums.ts";
 import ButtonsLayout from "../../../../components/ButtonsLayout/ButtonsLayout.tsx";
+import ButtonWithConfirmDialog from "../../../../components/ButtonWithConfirmDialog/ButtonWithConfirmDialog.tsx";
+import useCustomSnackbar from "../../../../hooks/useCustomSnackbar.ts";
+import { ROUTES } from "../../../../router/routes.ts";
 
+import type { ControlPayload } from "../../../../common/types/appTypes.ts";
 import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
-import type { ControlPayload } from "../../../../components/ButtonsLayout/types.ts";
 
 interface EventActionButtonsProps {
   isEditMode: boolean;
@@ -18,7 +23,29 @@ export const EventActionButtons = ({ isEditMode }: EventActionButtonsProps) => {
   } = useFormContext<LocalEventData>();
 
   const navigate = useNavigate();
+  const { mutate } = useDeleteEvent();
+  const { slug } = useParams();
+  const { showSnackbar } = useCustomSnackbar();
   const isFormReallyDirty = Object.keys(dirtyFields).length > 0;
+
+  const deleteEvent = useCallback(
+    async (slug?: string) => {
+      if (!slug) {
+        return;
+      }
+
+      mutate(slug, {
+        onSuccess: () => {
+          navigate(ROUTES.EVENTS);
+          showSnackbar({
+            message: "Event was successfully deleted",
+            variant: SnackbarVariantType.Success,
+          });
+        },
+      });
+    },
+    [mutate, navigate, showSnackbar],
+  );
 
   // TODO: add loading
   const controls: ControlPayload[] = [
@@ -47,7 +74,20 @@ export const EventActionButtons = ({ isEditMode }: EventActionButtonsProps) => {
     },
   ];
 
-  return <ButtonsLayout controls={controls} renderDeleteButton={isEditMode} />;
+  return (
+    <ButtonsLayout controls={controls}>
+      <ButtonWithConfirmDialog
+        data-testid="delete-event"
+        variant="outlined"
+        color="error"
+        buttonTitle="Delete"
+        tooltip="Delete Event"
+        customDialogTitle="Confirm Deletion"
+        dialogContent="You are about to delete the event permanently. Proceed?"
+        onConfirm={() => deleteEvent(slug)}
+      />
+    </ButtonsLayout>
+  );
 };
 
 export default memo(EventActionButtons);

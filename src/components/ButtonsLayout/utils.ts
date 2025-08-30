@@ -1,4 +1,4 @@
-import type { ControlPayload } from "./types";
+import type { ControlPayload } from "../../common/types/appTypes";
 
 export function toVisibleControl({
   visible = true,

@@ -1,19 +1,17 @@
 import { LoadingButton } from "@mui/lab";
 import { Grid } from "@mui/material";
-import { memo } from "react";
-
-import DeleteEventButton from "../DeleteEventButton/DeleteEventButton.tsx";
+import { Children, memo } from "react";
 
 import { toVisibleControl } from "./utils.ts";
 
-import type { ControlPayload } from "./types.ts";
+import type { PropsWithChildren } from "react";
+import type { ControlPayload } from "../../common/types/appTypes.ts";
 
-interface ButtonLayoutProps {
+type ButtonLayoutProps = {
   controls: ControlPayload[];
-  renderDeleteButton: boolean;
-}
+} & PropsWithChildren;
 
-const ButtonsLayout = ({ controls, renderDeleteButton }: ButtonLayoutProps) => {
+const ButtonsLayout = ({ controls, children }: ButtonLayoutProps) => {
   return (
     <Grid container mt="1rem">
       <Grid item display="flex">
@@ -27,13 +25,13 @@ const ButtonsLayout = ({ controls, renderDeleteButton }: ButtonLayoutProps) => {
               </LoadingButton>
             </Grid>
           ))}
-      </Grid>
 
-      {renderDeleteButton && (
-        <Grid item>
-          <DeleteEventButton />
-        </Grid>
-      )}
+        {Children.toArray(children).map((child, index) => (
+          <Grid item mr={1} key={index}>
+            {child}
+          </Grid>
+        ))}
+      </Grid>
     </Grid>
   );
 };

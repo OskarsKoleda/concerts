@@ -11,8 +11,8 @@ import useCustomSnackbar from "../../../hooks/useCustomSnackbar.ts";
 import { defaultEventValues, eventDetailsText } from "../constants.ts";
 
 import { EventActionButtons } from "./EventActionButtons/EventActionButtons.tsx";
-import EventDatesForm from "./EventDatesForm/EventDatesForm.tsx";
-import EventFormFields from "./EventFormFields/EventFormFields.tsx";
+import EventDatesForm from "./EventDatesForm/eventDatesForm.tsx";
+import EventFormFields from "./EventFormFields/eventFormFields.tsx";
 import FileUpload from "./FileUpload/FileUpload.tsx";
 import { formContainerStyles } from "./styles.ts";
 import { convertServerEventToLocal, getChangedFields } from "./utils.ts";
