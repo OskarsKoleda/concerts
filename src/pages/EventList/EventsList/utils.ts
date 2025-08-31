@@ -1,4 +1,4 @@
-import { formatDateToDefault } from "../../common/utils/utils";
+import { formatDateToDefault } from "../../../common/utils/utils";
 
 export const formatEventDate = (eventDate?: string, festivalEndDate?: string) => {
   if (eventDate && festivalEndDate) {

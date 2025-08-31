@@ -6,10 +6,10 @@ import { generateFilterFields } from "./utils";
 
 import type { FilterInputsConfig, ToggleButtonFilterProps } from "./types";
 
-type DataGridFiltersProps = {
+interface DataGridFiltersProps {
   filterProps: FilterInputsConfig;
   filterToggles: ToggleButtonFilterProps;
-};
+}
 
 export const DataGridFilters = ({
   filterProps: { inputs, buttons },

@@ -7,7 +7,16 @@ import {
   DialogTitle,
 } from "@mui/material";
 
-import type { CustomDialogProps } from "./types";
+import type { ButtonOwnProps } from "@mui/material";
+
+interface CustomDialogProps {
+  show: boolean;
+  title: string;
+  content: string;
+  proceedButtonColor: ButtonOwnProps["color"];
+  setShow: (value: boolean) => void;
+  onConfirm: () => void;
+}
 
 export const CustomDialog = ({
   show,

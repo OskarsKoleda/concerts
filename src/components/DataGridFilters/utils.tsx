@@ -9,7 +9,7 @@ export function generateFilterFields(input: FilterInputsConfigItem): JSX.Element
   const { id, inputType, value, label, placeholder } = input;
 
   switch (inputType) {
-    case FilterInputType.text: {
+    case FilterInputType.Text: {
       const { onChange } = input;
 
       return (
@@ -25,7 +25,7 @@ export function generateFilterFields(input: FilterInputsConfigItem): JSX.Element
       );
     }
 
-    case FilterInputType.select: {
+    case FilterInputType.Select: {
       const { options } = input;
 
       return (
@@ -39,7 +39,7 @@ export function generateFilterFields(input: FilterInputsConfigItem): JSX.Element
       );
     }
 
-    case FilterInputType.toggleButton: {
+    case FilterInputType.ToggleButton: {
       const { options, onChange } = input;
 
       return (

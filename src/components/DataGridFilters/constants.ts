@@ -1,5 +1,5 @@
 export enum FilterInputType {
-  text = "text",
-  select = "select",
-  toggleButton = "toggleButton",
+  Text = "text",
+  Select = "select",
+  ToggleButton = "toggleButton",
 }

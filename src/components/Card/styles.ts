@@ -19,17 +19,15 @@ export const cardRightSideStyles: SxProps = {
   width: "100%",
 };
 
-export const chipStyles: SxProps = {
-  fontSize: "0.75rem",
-  marginBottom: "0.1rem",
-  marginRight: "0.1rem",
-  fontWeight: "450",
-  backgroundColor: "#B0A1BA",
-};
-
 export const cardActionsStyles: SxProps = {
-  ...horizontallyCenteredStyles,
-
   justifyContent: "space-between",
   padding: 0,
+
+  ...horizontallyCenteredStyles,
+};
+
+export const cardImageStyles: SxProps = {
+  flexShrink: 0,
+  width: "30%",
+  objectFit: "cover",
 };

@@ -2,12 +2,6 @@ import { appTheme } from "../AppProviders/theme.ts";
 
 import type { SxProps } from "@mui/material";
 
-export const filterFooterStyles: SxProps = {
-  display: "flex",
-  justifyContent: "space-between",
-  marginTop: "1rem",
-};
-
 export const toggleButtonGroupStyles: SxProps = {
   ".Mui-selected": {
     "&:hover": {
@@ -23,4 +17,10 @@ export const toggleButtonStyles: SxProps = {
   "&:hover": {
     backgroundColor: appTheme.palette.primary.light,
   },
+};
+
+export const filterFooterStyles: SxProps = {
+  display: "flex",
+  justifyContent: "space-between",
+  marginTop: "1rem",
 };

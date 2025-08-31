@@ -7,17 +7,17 @@ import type { FilterInputType } from "./constants";
 export type FilterInputsConfigItem = TextFilterProps | SelectFilterProps | ToggleButtonFilterProps;
 
 export type TextFilterProps = {
-  inputType: FilterInputType.text;
+  inputType: FilterInputType.Text;
   onChange: (_: React.ChangeEvent<HTMLInputElement>) => void;
 } & FilterInputProps;
 
 export type SelectFilterProps = {
-  inputType: FilterInputType.select;
+  inputType: FilterInputType.Select;
   options: string[];
 } & FilterInputProps;
 
 export type ToggleButtonFilterProps = {
-  inputType: FilterInputType.toggleButton;
+  inputType: FilterInputType.ToggleButton;
   options: string[];
   onChange: (_: React.MouseEvent<HTMLElement>, value: EventCategoryFilter) => void;
 } & FilterInputProps;
