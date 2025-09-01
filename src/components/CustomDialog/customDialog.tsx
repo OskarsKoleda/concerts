@@ -23,14 +23,14 @@ export const CustomDialog = ({
   setShow,
   title,
   proceedButtonColor,
-  content: description,
+  content,
   onConfirm,
 }: CustomDialogProps) => {
   return (
     <Dialog open={show}>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        <DialogContentText>{description}</DialogContentText>
+        <DialogContentText>{content}</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button color={proceedButtonColor} variant="outlined" onClick={onConfirm}>

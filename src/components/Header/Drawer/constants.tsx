@@ -3,9 +3,9 @@ import HomeIcon from "@mui/icons-material/Home";
 import PortraitIcon from "@mui/icons-material/Portrait";
 import StadiumIcon from "@mui/icons-material/Stadium";
 
-import { ROUTES } from "../../../../router/routes.ts";
+import { ROUTES } from "../../../router/routes.ts";
 
-import type { DrawerItem } from "../types.ts";
+import type { DrawerItem } from "./types";
 
 export const drawerItems: DrawerItem[] = [
   {
@@ -25,7 +25,7 @@ export const drawerItems: DrawerItem[] = [
   },
   {
     label: "Profile",
-    path: "/profile",
+    path: ROUTES.PROFILE,
     icon: <PortraitIcon />,
   },
 ];

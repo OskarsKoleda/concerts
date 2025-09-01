@@ -1,19 +1,20 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import { DatePicker } from "@mui/x-date-pickers";
 import { memo, useCallback } from "react";
 import { Controller } from "react-hook-form";
 
-import { DATE_FORMAT } from "../../common/constants/appConstant";
+import { DATE_FORMAT } from "../../common/constants/appConstant.ts";
 import AutocompleteTextField from "../Inputs/reactHookForm/AutocompleteTextField/AutocompleteTextField.tsx";
 import SelectWithValidation from "../Inputs/reactHookForm/SelectWithValidation/SelectWithValidation.tsx";
 import TextFieldWithValidation from "../Inputs/reactHookForm/TextFieldWithValidation/TextFieldWithValidation.tsx";
 
-import { InputType } from "./constants";
-import { isFormSection } from "./utils";
+import { InputType } from "./constants.ts";
+import { isFormSection } from "./utils.ts";
 
 import type { ReactNode } from "react";
 import type { Control } from "react-hook-form";
-import type { FormContent, FormField } from "./types";
+import type { FormContent, FormField } from "./types.ts";
 
 interface FormLayoutProps {
   content: FormContent;
@@ -34,7 +35,7 @@ const FormLayout = ({ content, control, disabled, readonly, title }: FormLayoutP
       };
 
       switch (field.inputType) {
-        case InputType.text: {
+        case InputType.Text: {
           return (
             <TextFieldWithValidation
               {...formFieldProps}
@@ -45,13 +46,13 @@ const FormLayout = ({ content, control, disabled, readonly, title }: FormLayoutP
           );
         }
 
-        case InputType.select:
+        case InputType.Select:
           return <SelectWithValidation {...formFieldProps} {...field} />;
 
-        case InputType.autocompleteText:
+        case InputType.AutocompleteText:
           return <AutocompleteTextField {...formFieldProps} {...field} />;
 
-        case InputType.number: {
+        case InputType.Number: {
           return (
             <TextFieldWithValidation
               {...formFieldProps}
@@ -62,7 +63,7 @@ const FormLayout = ({ content, control, disabled, readonly, title }: FormLayoutP
           );
         }
 
-        case InputType.date: {
+        case InputType.Date: {
           return (
             <Controller
               name={field.controlName}

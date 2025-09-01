@@ -2,7 +2,6 @@ import AddIcon from "@mui/icons-material/Add";
 import HomeIcon from "@mui/icons-material/Home";
 import StadiumIcon from "@mui/icons-material/Stadium";
 import { AppBar, Box, IconButton, Link, Toolbar, Tooltip, Typography } from "@mui/material";
-import { observer } from "mobx-react-lite";
 import { Link as RouterLink } from "react-router-dom";
 
 import { horizontallyCenteredStyles } from "../../common/styles.ts";
@@ -29,25 +28,23 @@ const Header = () => {
           </Box>
 
           <Box sx={horizontallyCenteredStyles}>
-            <>
-              <Link component={RouterLink} to={ROUTES.EVENTS}>
-                <Tooltip title="View Event">
-                  <IconButton size="large">
-                    <StadiumIcon />
-                  </IconButton>
-                </Tooltip>
-              </Link>
+            <Link component={RouterLink} to={ROUTES.EVENTS}>
+              <Tooltip title="View Event">
+                <IconButton size="large">
+                  <StadiumIcon />
+                </IconButton>
+              </Tooltip>
+            </Link>
 
-              <Link component={RouterLink} to={ROUTES.NEW_EVENT}>
-                <Tooltip title="Add Event">
-                  <IconButton size="large">
-                    <AddIcon />
-                  </IconButton>
-                </Tooltip>
-              </Link>
+            <Link component={RouterLink} to={ROUTES.NEW_EVENT}>
+              <Tooltip title="Add Event">
+                <IconButton size="large">
+                  <AddIcon />
+                </IconButton>
+              </Tooltip>
+            </Link>
 
-              <UserActions />
-            </>
+            <UserActions />
           </Box>
         </Box>
       </Toolbar>
@@ -55,4 +52,4 @@ const Header = () => {
   );
 };
 
-export default observer(Header);
+export default Header;

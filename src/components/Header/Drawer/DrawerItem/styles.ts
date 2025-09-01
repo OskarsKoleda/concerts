@@ -1,8 +1,8 @@
-import { appTheme } from "../../../../AppProviders/theme.ts";
+import { appTheme } from "../../../AppProviders/theme";
 
 import type { SxProps, Theme } from "@mui/material";
 
-export const navigationListItemStyles: SxProps<Theme> = {
+export const drawerItemStyles: SxProps<Theme> = {
   "&.Mui-selected": {
     backgroundColor: appTheme.palette.primary.light,
 

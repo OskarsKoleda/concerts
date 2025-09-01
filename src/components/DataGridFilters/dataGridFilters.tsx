@@ -11,6 +11,7 @@ interface DataGridFiltersProps {
   filterToggles: ToggleButtonFilterProps;
 }
 
+// TODO: Refactor prop types for DataGridFilters to ensure type safety and clarify the expected structure of filterProps and filterToggles.
 export const DataGridFilters = ({
   filterProps: { inputs, buttons },
   filterToggles,

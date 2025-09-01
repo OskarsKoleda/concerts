@@ -24,28 +24,28 @@ const EventFormFields = () => {
   const getCommonEventFields = (): FormFields => {
     return [
       {
-        inputType: InputType.select,
+        inputType: InputType.Select,
         controlName: "category",
         id: "category",
         label: "Event Category",
         children: eventCategoriesList,
       },
       {
-        inputType: InputType.text,
+        inputType: InputType.Text,
         controlName: "title",
         id: "title",
         label: "Event Title",
         rules: EVENT_TITLE_RULES,
       },
       {
-        inputType: InputType.autocompleteText,
+        inputType: InputType.AutocompleteText,
         controlName: "bands",
         id: "bands",
         label: "Bands",
         hide: [EventCategory.Theatre, EventCategory.CreativeEvening].includes(eventCategory),
       },
       {
-        inputType: InputType.text,
+        inputType: InputType.Text,
         controlName: "city",
         id: "city",
         label: "City",
@@ -53,14 +53,14 @@ const EventFormFields = () => {
         rules: CITY_RULES,
       },
       {
-        inputType: InputType.text,
+        inputType: InputType.Text,
         controlName: "location",
         id: "location",
         label: "Location",
         xs: 6,
       },
       {
-        inputType: InputType.number,
+        inputType: InputType.Number,
         controlName: "ticketPrice",
         id: "ticketPrice",
         label: "Ticket Price",

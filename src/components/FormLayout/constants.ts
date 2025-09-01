@@ -1,8 +1,8 @@
 export enum InputType {
-  text = "text",
-  number = "number",
-  switch = "switch",
-  select = "select",
-  autocompleteText = "autocompleteText",
-  date = "date",
+  Text = "text",
+  Number = "number",
+  Switch = "switch",
+  Select = "select",
+  AutocompleteText = "autocompleteText",
+  Date = "date",
 }

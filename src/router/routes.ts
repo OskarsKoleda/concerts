@@ -4,4 +4,5 @@ export const ROUTES = {
   EVENTS: "/events",
   EVENT_DETAILS: "/events/:slug",
   NEW_EVENT: "/events/new",
+  PROFILE: "/profile",
 } as const;

@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 
 import RootStore from "../../store/RootStore.ts";
 import { StoreProvider } from "../../store/StoreContext.tsx";
@@ -14,16 +14,11 @@ interface ExtendedRenderOptions<TFieldValues extends Record<string, any>>
   extends Omit<RenderOptions, "wrapper"> {
   rootStore?: RootStore | null;
   formConfig?: UseFormProps<TFieldValues> | null;
+  route?: string;
 }
 
-const WithRouter = (children: ReactNode) => {
-  return (
-    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-      <Routes>
-        <Route path="*" element={children} />
-      </Routes>
-    </BrowserRouter>
-  );
+const WithRouter = (route: string, children: ReactNode) => {
+  return <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>;
 };
 
 const WithStore = (store: RootStore, children: ReactNode) => {
@@ -44,6 +39,7 @@ export function renderWithProviders<TFieldValues extends Record<string, any> = a
   {
     rootStore = new RootStore(),
     formConfig = null,
+    route = "/",
     ...renderOptions
   }: ExtendedRenderOptions<TFieldValues> = {},
 ): RenderResult & { rootStore: RootStore | null } {
@@ -55,7 +51,7 @@ export function renderWithProviders<TFieldValues extends Record<string, any> = a
       <>{UIWithStore}</>
     );
 
-    const UIWithRouter = WithRouter(UIWithFormProvider);
+    const UIWithRouter = WithRouter(route, UIWithFormProvider);
 
     return UIWithRouter;
   };

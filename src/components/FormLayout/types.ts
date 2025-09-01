@@ -4,6 +4,9 @@ import type { ReadonlyControl, WithValidationWrapperProps } from "../../common/t
 import type { TextFieldWithValidationProps } from "../Inputs/reactHookForm/TextFieldWithValidation/TextFieldWithValidation.tsx";
 import type { InputType } from "./constants";
 
+type CommonInputFieldProps = Omit<TextFieldWithValidationProps, "type" | "control"> &
+  BaseFieldParams;
+
 interface BaseFieldParams {
   controlName: string;
   id: string;
@@ -13,43 +16,41 @@ interface BaseFieldParams {
   hide?: boolean;
 }
 
+export type FormContent = FormFields | FormSections;
+
+export type FormFields = Array<FormField>;
+export type FormSections = Array<FormSection>;
+
 interface FormSection {
-  fields: FormFields;
   id: string | number;
+  fields: FormFields;
   header?: ReactNode;
   footer?: ReactNode;
 }
 
-type CommonInputFieldProps = Omit<TextFieldWithValidationProps, "type" | "control"> &
-  BaseFieldParams;
-
-export type SelectWithValidationProps = ReadonlyControl & SelectProps & WithValidationWrapperProps;
+export type FormField = SelectField | TextField | AutocompleteTextField | NumberField | DateField;
 
 type SelectField = Omit<SelectWithValidationProps, "control"> &
   BaseFieldParams & {
-    inputType: InputType.select;
+    inputType: InputType.Select;
   };
 
-type TextField = CommonInputFieldProps & {
-  inputType: InputType.text;
-};
+export type SelectWithValidationProps = ReadonlyControl & SelectProps & WithValidationWrapperProps;
 
-type DateField = CommonInputFieldProps & {
-  inputType: InputType.date;
-  // value: Date | null;
-  // onChange: (date: Date | null) => void;
+type TextField = CommonInputFieldProps & {
+  inputType: InputType.Text;
 };
 
 type AutocompleteTextField = CommonInputFieldProps & {
-  inputType: InputType.autocompleteText;
+  inputType: InputType.AutocompleteText;
 };
 
 type NumberField = CommonInputFieldProps & {
-  inputType: InputType.number;
+  inputType: InputType.Number;
 };
 
-export type FormField = SelectField | TextField | AutocompleteTextField | NumberField | DateField;
-export type FormFields = Array<FormField>;
-
-export type FormSections = Array<FormSection>;
-export type FormContent = FormFields | FormSections;
+type DateField = CommonInputFieldProps & {
+  inputType: InputType.Date;
+  // value: Date | null;
+  // onChange: (date: Date | null) => void;
+};

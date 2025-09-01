@@ -24,11 +24,11 @@ const { title } = eventDetailsText["ENGLISH"].form;
 
 export const EventDetailsFormView = () => {
   const { slug } = useParams();
-  const url = useLocation();
+  const { pathname } = useLocation();
   const { showSnackbar } = useCustomSnackbar();
   const navigate = useNavigate();
 
-  const isEditMode = useMemo(() => url.pathname.includes("/edit"), [url.pathname]);
+  const isEditMode = useMemo(() => pathname.includes("/edit"), [pathname]);
   const formTitle = useMemo(() => (isEditMode ? title.editForm : title.newForm), [isEditMode]);
 
   const methods = useForm<LocalEventData>({

@@ -1,6 +1,6 @@
-import { appTheme } from "../../../AppProviders/theme.ts";
+import { appTheme } from "../../AppProviders/theme";
 
-import type { SxProps } from "@mui/material";
+import type { SxProps } from "@mui/system";
 
 export const drawerItemsStyles: SxProps = {
   height: "100%",
