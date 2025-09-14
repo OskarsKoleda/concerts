@@ -1,10 +1,10 @@
-export enum EventsPageIds {
-  eventTitleFilter = "eventTitleFilter",
-  cityFilter = "cityFilter",
-  bandFilter = "bandFilter",
-  filterButton = "filterButton",
-  resetButton = "resetButton",
-  eventTypeToggle = "eventTypeToggle",
+export enum EventsPageId {
+  EventTitleFilter = "eventTitleFilter",
+  CityFilter = "cityFilter",
+  BandFilter = "bandFilter",
+  FilterButton = "filterButton",
+  ResetButton = "resetButton",
+  EventTypeToggle = "eventTypeToggle",
 }
 
 export const eventsPageText = {

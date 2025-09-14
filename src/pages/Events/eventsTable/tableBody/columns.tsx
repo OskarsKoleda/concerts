@@ -47,6 +47,8 @@ const renderEventCategoryCell = (params: GridRenderCellParams) => {
           </Box>
         </Tooltip>
       );
+    default:
+      throw new Error("Unknown event category");
   }
 };
 
@@ -67,7 +69,7 @@ const renderDateCell = (params: GridRenderCellParams) => {
 };
 
 const renderTicketPriceCell = (params: GridRenderCellParams) => {
-  return +params.value;
+  return <span>{+params.value}</span>;
 };
 
 export const columns: GridColDef[] = [

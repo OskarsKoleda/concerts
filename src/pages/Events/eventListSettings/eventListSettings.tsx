@@ -1,14 +1,11 @@
 import TableRowsIcon from "@mui/icons-material/TableRows";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import React from "react";
 
 import { useRootStore } from "../../../store/StoreContext.tsx";
 
-export const EventListSettings: React.FC = observer(function EventListSettings() {
-  const {
-    applicationStore: { tableViewIsSelected, toggleEventsView },
-  } = useRootStore();
+const EventListSettings = () => {
+  const { tableViewIsSelected, toggleEventsView } = useRootStore().applicationStore;
 
   return (
     <Box width="100%" display="flex" justifyContent="right" mb="0.5rem">
@@ -23,4 +20,6 @@ export const EventListSettings: React.FC = observer(function EventListSettings()
       </Tooltip>
     </Box>
   );
-});
+};
+
+export default observer(EventListSettings);

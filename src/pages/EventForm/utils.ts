@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-import type { LocalEventData, ServerEventData } from "../../../common/types/eventTypes.ts";
+import type { LocalEventData, ServerEventData } from "../../common/types/eventTypes";
 
 // TODO: rework this. No poster name available
 export const convertServerEventToLocal = (serverEvent: ServerEventData): LocalEventData => {

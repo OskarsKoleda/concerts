@@ -8,7 +8,7 @@ import { EventListSettings } from "./eventListSettings/eventListSettings.tsx";
 import EventsList from "./EventsList/EventsList.tsx";
 import { EventsTable } from "./eventsTable/eventsTable.tsx";
 
-const EventList = () => {
+const Events = () => {
   const { tableViewIsSelected } = useRootStore().applicationStore;
 
   return (
@@ -20,4 +20,4 @@ const EventList = () => {
   );
 };
 
-export default observer(EventList);
+export default observer(Events);
