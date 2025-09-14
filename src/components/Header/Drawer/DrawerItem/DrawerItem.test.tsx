@@ -6,7 +6,7 @@ import { renderWithProviders } from "../../../../common/utils/testingUtils.tsx";
 import DrawerItem from "./DrawerItem.tsx";
 
 const mockedListItem = {
-  selected: false,
+  isSelected: false,
   label: "Concerts List",
   to: "/events",
   icon: <ListItemButton />,

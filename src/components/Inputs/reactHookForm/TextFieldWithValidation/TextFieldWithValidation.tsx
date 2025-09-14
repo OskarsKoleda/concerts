@@ -1,16 +1,16 @@
 import { Box, TextField, Tooltip } from "@mui/material";
 import { Controller } from "react-hook-form";
 
-import { getInputErrorText } from "../../../../common/utils/utils";
+import { getInputErrorText } from "../../../../common/utils/utils.ts";
 import ReadonlyField from "../../ReadonlyField/ReadonlyField.tsx";
 
+import type { TextFieldProps } from "@mui/material";
+import type { ChangeEvent } from "react";
 import type {
   ReadonlyControl,
   WithTooltip,
   WithValidationWrapperProps,
 } from "../../../../common/types/appTypes.ts";
-import type { ChangeEvent } from "react";
-import type { TextFieldProps } from "@mui/material";
 
 export type TextFieldWithValidationProps = Omit<
   TextFieldProps,

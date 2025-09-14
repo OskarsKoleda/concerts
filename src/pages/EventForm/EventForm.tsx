@@ -3,26 +3,26 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { useCreateEvent } from "../../../api/useCreateEvent.ts";
-import { useGetEventDetails } from "../../../api/useGetEventDetails.ts";
-import { useUpdateEvent } from "../../../api/useUpdateEvent.ts";
-import { SnackbarVariantType } from "../../../common/enums/appEnums.ts";
-import useCustomSnackbar from "../../../hooks/useCustomSnackbar.ts";
-import { defaultEventValues, eventDetailsText } from "../constants.ts";
+import { useCreateEvent } from "../../api/useCreateEvent.ts";
+import { useGetEventDetails } from "../../api/useGetEventDetails.ts";
+import { useUpdateEvent } from "../../api/useUpdateEvent.ts";
+import { SnackbarVariantType } from "../../common/enums/appEnums.ts";
+import useCustomSnackbar from "../../hooks/useCustomSnackbar.ts";
+import { defaultEventValues, eventDetailsText } from "../EventDetails/constants.ts";
 
-import { EventActionButtons } from "./EventActionButtons/EventActionButtons.tsx";
-import EventDatesForm from "./EventDatesForm/eventDatesForm.tsx";
-import EventFormFields from "./EventFormFields/eventFormFields.tsx";
+import CommonEventFields from "./CommonEventFields/CommonEventFields.tsx";
+import EventActionButtons from "./EventActionButtons/EventActionButtons.tsx";
+import EventDateFields from "./EventDateFields/EventDateFields.tsx";
 import FileUpload from "./FileUpload/FileUpload.tsx";
 import { formContainerStyles } from "./styles.ts";
 import { convertServerEventToLocal, getChangedFields } from "./utils.ts";
 
 import type { SubmitHandler } from "react-hook-form";
-import type { LocalEventData } from "../../../common/types/eventTypes.ts";
+import type { LocalEventData } from "../../common/types/eventTypes.ts";
 
 const { title } = eventDetailsText["ENGLISH"].form;
 
-export const EventDetailsFormView = () => {
+export const EventForm = () => {
   const { slug } = useParams();
   const { pathname } = useLocation();
   const { showSnackbar } = useCustomSnackbar();
@@ -44,10 +44,6 @@ export const EventDetailsFormView = () => {
   const { mutate: mutateCreateEvent } = useCreateEvent({
     onSuccess: (data) => {
       navigate(`/events/${data.slug}`);
-      showSnackbar({
-        message: "Event was successfully created",
-        variant: SnackbarVariantType.Success,
-      });
     },
     onError: (error: any) => {
       showSnackbar({
@@ -120,8 +116,8 @@ export const EventDetailsFormView = () => {
       <FormProvider {...methods}>
         <form onSubmit={submitFormHandler}>
           <Typography variant="h5">{formTitle}</Typography>
-          <EventFormFields />
-          <EventDatesForm />
+          <CommonEventFields />
+          <EventDateFields />
           <FileUpload buttonTitle="Add Poster" formFieldName="image" />
           <EventActionButtons isEditMode={isEditMode} />
         </form>
@@ -130,4 +126,4 @@ export const EventDetailsFormView = () => {
   );
 };
 
-export default EventDetailsFormView;
+export default EventForm;

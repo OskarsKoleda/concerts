@@ -6,15 +6,15 @@ import { drawerItemStyles } from "./styles.ts";
 import type { ReactNode } from "react";
 
 interface DrawerItemProps {
-  selected: boolean;
-  label: string;
   to: string;
+  label: string;
+  isSelected: boolean;
   icon: ReactNode;
 }
 
-const DrawerItem = ({ selected, label, to, icon }: DrawerItemProps) => {
+const DrawerItem = ({ isSelected, label, to, icon }: DrawerItemProps) => {
   return (
-    <ListItemButton component={RouterLink} selected={selected} to={to} sx={drawerItemStyles}>
+    <ListItemButton component={RouterLink} selected={isSelected} to={to} sx={drawerItemStyles}>
       <ListItemIcon>{icon}</ListItemIcon>
       <ListItemText primary={label} />
     </ListItemButton>

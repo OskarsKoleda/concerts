@@ -9,6 +9,7 @@ import { ROUTES } from "../../../router/routes.ts";
 
 import { dividerStyles } from "./styles.ts";
 
+// TODO: update needed
 const UserActions = () => {
   const navigation = useNavigate();
   const redirectToLogin = () => navigation(`${ROUTES.AUTH}/?mode=${AuthMode.login}`);

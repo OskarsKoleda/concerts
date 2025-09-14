@@ -11,9 +11,9 @@ type NavLinkButtonProps = {
 
 const NavLinkButton = ({
   to,
-  children,
   color = "primary",
   variant = "contained",
+  children,
   ...rest
 }: NavLinkButtonProps) => {
   return (

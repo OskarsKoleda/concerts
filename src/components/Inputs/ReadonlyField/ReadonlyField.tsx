@@ -3,8 +3,8 @@ import { Box } from "@mui/system";
 
 import { readonlyFieldStyle } from "./styles";
 
-import type { ReactNode } from "react";
 import type { SxProps } from "@mui/material";
+import type { ReactNode } from "react";
 
 interface ReadonlyFieldProps {
   label: ReactNode;

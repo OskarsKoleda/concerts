@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 
-import posterMissing from "../../../../assets/poster-missing.jpg";
+import posterMissing from "../../../assets/poster-missing.jpg";
 
 interface EventPosterProps {
   posterURL?: string;

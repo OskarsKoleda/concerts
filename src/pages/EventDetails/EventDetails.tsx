@@ -1,15 +1,15 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useGetEventDetails } from "../../../api/useGetEventDetails.ts";
-import ContentLoader from "../../../components/ContentLoader/ContentLoader.tsx";
+import { useGetEventDetails } from "../../api/useGetEventDetails.ts";
+import ContentLoader from "../../components/ContentLoader/ContentLoader.tsx";
 
 import { EventBandsSection } from "./EventBandsSection/EventBandsSection.tsx";
-import { EventDataSection } from "./EventDataSection/EventDataSection.tsx";
-import { EventPoster } from "./EventPoster/EventPoster.tsx";
+import EventDataSection from "./EventDataSection/EventDataSection.tsx";
+import EventPoster from "./EventPoster/EventPoster.tsx";
 import { eventContainerStyles, eventHeaderStyles, eventNotFoundStyles } from "./styles.ts";
 
-const EventDetailsView = () => {
+const EventDetails = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
 
@@ -44,4 +44,4 @@ const EventDetailsView = () => {
   );
 };
 
-export default EventDetailsView;
+export default EventDetails;

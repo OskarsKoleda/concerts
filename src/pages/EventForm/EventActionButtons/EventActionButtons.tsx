@@ -2,15 +2,15 @@ import { memo, useCallback } from "react";
 import { useFormContext } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useDeleteEvent } from "../../../../api/useDeleteEvent.ts";
-import { SnackbarVariantType } from "../../../../common/enums/appEnums.ts";
-import ButtonsLayout from "../../../../components/ButtonsLayout/ButtonsLayout.tsx";
-import ButtonWithConfirmDialog from "../../../../components/ButtonWithConfirmDialog/ButtonWithConfirmDialog.tsx";
-import useCustomSnackbar from "../../../../hooks/useCustomSnackbar.ts";
-import { ROUTES } from "../../../../router/routes.ts";
+import { useDeleteEvent } from "../../../api/useDeleteEvent";
+import { SnackbarVariantType } from "../../../common/enums/appEnums";
+import ButtonsLayout from "../../../components/ButtonsLayout/ButtonsLayout";
+import ButtonWithConfirmDialog from "../../../components/ButtonWithConfirmDialog/ButtonWithConfirmDialog";
+import useCustomSnackbar from "../../../hooks/useCustomSnackbar";
+import { ROUTES } from "../../../router/routes";
 
-import type { ControlPayload } from "../../../../common/types/appTypes.ts";
-import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
+import type { ControlPayload } from "../../../common/types/appTypes";
+import type { LocalEventData } from "../../../common/types/eventTypes";
 
 interface EventActionButtonsProps {
   isEditMode: boolean;

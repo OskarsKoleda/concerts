@@ -9,9 +9,7 @@ import EventsList from "./EventsList/EventsList.tsx";
 import { EventsTable } from "./eventsTable/eventsTable.tsx";
 
 const EventList = () => {
-  const {
-    applicationStore: { tableViewIsSelected },
-  } = useRootStore();
+  const { tableViewIsSelected } = useRootStore().applicationStore;
 
   return (
     <Box width="85%">

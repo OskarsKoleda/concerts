@@ -3,12 +3,12 @@ import { Controller } from "react-hook-form";
 
 import { ChipsReadonlyField } from "../../ChipsReadonlyField/ChipsReadonlyField.tsx";
 
+import type { TextFieldProps } from "@mui/material";
 import type {
   ReadonlyControl,
   WithTooltip,
   WithValidationWrapperProps,
-} from "../../../../common/types/appTypes";
-import type { TextFieldProps } from "@mui/material";
+} from "../../../../common/types/appTypes.ts";
 
 type AutocompleteTextFieldProps = Pick<
   TextFieldProps,

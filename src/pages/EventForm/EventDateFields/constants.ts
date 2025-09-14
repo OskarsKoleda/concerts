@@ -1,6 +1,6 @@
-import { InputType } from "../../../../components/FormLayout/constants.ts";
+import { InputType } from "../../../components/FormLayout/constants";
 
-import type { FormFields } from "../../../../components/FormLayout/types.ts";
+import type { FormFields } from "../../../components/FormLayout/types";
 
 export const eventDateFields: FormFields = [
   {

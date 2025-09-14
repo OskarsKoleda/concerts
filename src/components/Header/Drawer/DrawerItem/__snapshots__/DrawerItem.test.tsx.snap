@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`navigationListItem should be rendered correctly 1`] = `
+exports[`drawerItem should be rendered correctly 1`] = `
 <div>
   <a
     class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-u3m3ul-MuiButtonBase-root-MuiListItemButton-root"

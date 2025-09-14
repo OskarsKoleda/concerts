@@ -1,7 +1,7 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
 
-import NavLinkButton from "../../../../components/NavLinkButton/NavLinkButton.tsx";
-import { ROUTES } from "../../../../router/routes.ts";
+import NavLinkButton from "../../../components/NavLinkButton/NavLinkButton.tsx";
+import { ROUTES } from "../../../router/routes.ts";
 
 import {
   eventButtonContainerStyles,
@@ -10,7 +10,7 @@ import {
   eventDataStyles,
 } from "./styles.ts";
 
-import type { ServerEventData } from "../../../../common/types/eventTypes.ts";
+import type { ServerEventData } from "../../../common/types/eventTypes.ts";
 
 interface EventDataSectionProps {
   event: ServerEventData | undefined;

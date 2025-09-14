@@ -1,4 +1,4 @@
-import { appTheme } from "../../../components/AppProviders/theme.ts";
+import { appTheme } from "../../components/AppProviders/theme";
 
 import type { SxProps } from "@mui/material";
 

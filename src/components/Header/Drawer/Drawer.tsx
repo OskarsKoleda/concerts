@@ -23,7 +23,7 @@ const Drawer = () => {
             {drawerItems.map(({ label, path, icon }) => (
               <DrawerItem
                 key={label}
-                selected={pathname === path}
+                isSelected={pathname === path}
                 to={path}
                 label={label}
                 icon={icon}

@@ -1,14 +1,14 @@
 import { screen } from "@testing-library/react";
 
-import { renderWithProviders } from "../../../../common/utils/testingUtils.tsx";
-import { defaultEventValues } from "../../constants.ts";
+import { renderWithProviders } from "../../../common/utils/testingUtils.tsx";
+import { defaultEventValues } from "../../EventDetails/constants.ts";
 
 import FileUpload from "./FileUpload.tsx";
 
 import type { UseFormProps } from "react-hook-form";
-import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
+import type { LocalEventData } from "../../../common/types/eventTypes.ts";
 
-describe("UploadFileButton", () => {
+describe("FileUpload", () => {
   const formConfig: UseFormProps<LocalEventData> = {
     defaultValues: defaultEventValues,
     mode: "onChange",

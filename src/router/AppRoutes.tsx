@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 
 import Auth from "../pages/Auth/Auth.tsx";
-import { EventDetailsFormView } from "../pages/EventDetails/eventDetailsFormView/EventDetailsFormView.tsx";
-import EventDetailsView from "../pages/EventDetails/eventDetailsView/EventDetailsView.tsx";
+import EventDetails from "../pages/EventDetails/EventDetails.tsx";
+import EventForm from "../pages/EventForm/EventForm.tsx";
 import EventList from "../pages/EventList/EventList.tsx";
 import Homepage from "../pages/Homepage/Homepage.tsx";
 import Layout from "../pages/Layout/Layout.tsx";
@@ -16,9 +16,9 @@ const AppRoutes = () => {
         <Route index element={<Homepage />} />
         <Route path="auth" element={<Auth />} />
         <Route path="events" element={<EventList />} />
-        <Route path="events/new" element={<EventDetailsFormView />} />
-        <Route path="events/:slug/edit" element={<EventDetailsFormView />} />
-        <Route path="events/:slug" element={<EventDetailsView />} />
+        <Route path="events/new" element={<EventForm />} />
+        <Route path="events/:slug/edit" element={<EventForm />} />
+        <Route path="events/:slug" element={<EventDetails />} />
       </Route>
     </Routes>
   );
