@@ -1,8 +1,8 @@
 import type { SelectProps } from "@mui/material";
 import type { ReactNode } from "react";
 import type { ReadonlyControl, WithValidationWrapperProps } from "../../common/types/appTypes.ts";
-import type { TextFieldWithValidationProps } from "../Inputs/ReactHookForm/TextFieldWithValidation/TextFieldWithValidation.tsx";
-import type { InputType } from "./constants";
+import type { TextFieldWithValidationProps } from "../Inputs/reactHookForm/TextFieldWithValidation/TextFieldWithValidation.tsx";
+import type { InputType } from "./constants.ts";
 
 type CommonInputFieldProps = Omit<TextFieldWithValidationProps, "type" | "control"> &
   BaseFieldParams;

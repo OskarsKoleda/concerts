@@ -1,79 +1,131 @@
 import { Accordion, AccordionDetails, AccordionSummary, Paper, Typography } from "@mui/material";
-import { observer } from "mobx-react-lite";
-import React from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
+import { eventCategoriesList } from "../../../common/constants/appConstant";
+import DataGridFilters from "../../../components/DataGridFilters/DataGridFilters";
+import { InputType } from "../../../components/FormLayout/constants";
+import { eventsPageText } from "../constants";
 
 import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
 
-// const {
-//   inputs: { band, city, eventTitle },
-//   buttons,
-// } = eventsPageText["ENGLISH"].filters;
+import type {
+  FilterInputsConfig,
+  ToggleButtonFilterProps,
+} from "../../../components/DataGridFilters/types";
+import type { EventCategoryType } from "../../EventDetails/types";
 
-export const EventFilters: React.FC = observer(function EventFilters() {
-  // const eventFilterToggleButtons: ToggleButtonFilterProps = useMemo(() => {
-  //   return {
-  //     inputType: FilterInputType.toggleButton,
-  //     id: EventsPageIds.eventTypeToggle,
-  //     label: "Event Type",
-  //     value: currentEventType,
-  //     options: eventCategoriesList,
-  //     onChange: (_: React.MouseEvent<HTMLElement>, newFestivalType: EventCategoryFilter) => {
-  //       if (newFestivalType) {
-  //         setEventType(newFestivalType);
-  //       }
-  //     },
-  //   };
-  // }, [currentEventType, setEventType]);
+const {
+  inputs: { band, city: cityTexts, eventTitle: eventTitleTexts },
+  buttons,
+} = eventsPageText["ENGLISH"].filters;
 
-  // const eventFilterInputConfig: FilterInputsConfig = useMemo(() => {
-  //   return {
-  //     inputs: [
-  //       {
-  //         inputType: FilterInputType.text,
-  //         id: EventsPageIds.eventTitleFilter,
-  //         label: eventTitle.label,
-  //         placeholder: eventTitle.placeholder,
-  //         onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEventTitle(e.target.value),
-  //         value: currentEventTitle,
-  //       },
-  //       {
-  //         inputType: FilterInputType.text,
-  //         id: EventsPageIds.cityFilter,
-  //         label: city.label,
-  //         placeholder: city.placeholder,
-  //         onChange: (e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value),
-  //         value: currentCity,
-  //       },
-  //       {
-  //         inputType: FilterInputType.text,
-  //         id: EventsPageIds.bandFilter,
-  //         label: band.label,
-  //         placeholder: band.placeholder,
-  //         onChange: (e: React.ChangeEvent<HTMLInputElement>) => setBand(e.target.value),
-  //         value: currentBand,
-  //       },
-  //     ],
-  //     buttons: [
-  //       {
-  //         id: EventsPageIds.resetButton,
-  //         disabled: false, // isResetFiltersDisabled
-  //         label: buttons.reset.label,
-  //         onClick: resetFilters,
-  //         color: "primary",
-  //         size: "medium",
-  //         variant: "outlined",
-  //       },
-  //       {
-  //         id: "filterButton",
-  //         disabled: false,
-  //         label: "Filter",
-  //         color: "primary",
-  //         size: "medium",
-  //         variant: "contained",
-  //       },
-  //     ],
-  //   };
-  // }, [currentBand, currentCity, currentEventTitle, resetFilters, setBand, setCity, setEventTitle]);
+export const EventFilters = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [title, setTitle] = useState("");
+  const [city, setCity] = useState("");
+  const [category, setCategory] = useState<EventCategoryType | "All">("All");
+  // const [currentBand, setBand] = useState("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const newParams = { ...Object.fromEntries(searchParams.entries()) };
+
+      if (title) {
+        newParams.title = title;
+      } else {
+        delete newParams.title;
+      }
+
+      if (city) {
+        newParams.city = city;
+      } else {
+        delete newParams.city;
+      }
+
+      setSearchParams(newParams);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [city, searchParams, setSearchParams, title]);
+
+  const resetFilters = useCallback(() => {
+    setTitle("");
+    setCity("");
+    setCategory("All");
+
+    setSearchParams({});
+  }, [setSearchParams]);
+
+  const handleCategoryChange = useCallback(
+    (_: React.MouseEvent<HTMLElement>, newCategory: EventCategoryType | "All") => {
+      const newParams = { ...Object.fromEntries(searchParams.entries()) };
+
+      if (!newCategory || newCategory === "All") {
+        delete newParams.category;
+      } else {
+        newParams.category = newCategory;
+      }
+
+      setSearchParams(newParams);
+      setCategory(newCategory);
+    },
+    [searchParams, setSearchParams],
+  );
+
+  const eventFilterInputConfig: FilterInputsConfig = useMemo(() => {
+    return {
+      inputs: [
+        {
+          inputType: InputType.Text,
+          id: "titleFilter",
+          label: eventTitleTexts.label,
+          placeholder: eventTitleTexts.placeholder,
+          onChange: (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value),
+          value: title,
+        },
+        {
+          inputType: InputType.Text,
+          id: "cityFilter",
+          label: cityTexts.label,
+          placeholder: cityTexts.placeholder,
+          onChange: (e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value),
+          value: city,
+        },
+        // {
+        //   inputType: InputType.text,
+        //   id: EventsPageIds.bandFilter,
+        //   label: band.label,
+        //   placeholder: band.placeholder,
+        //   onChange: (e: React.ChangeEvent<HTMLInputElement>) => setBand(e.target.value),
+        //   value: currentBand,
+        // },
+      ],
+      buttons: [
+        {
+          id: "resetButton",
+          disabled: false,
+          label: buttons.reset.label,
+          color: "primary",
+          size: "medium",
+          variant: "outlined",
+          onClick: resetFilters,
+        },
+      ],
+    };
+  }, [title, city, resetFilters]);
+
+  const eventFilterToggleButtons: ToggleButtonFilterProps = useMemo(() => {
+    return {
+      inputType: InputType.ToggleButton,
+      id: "categoryToggleButtons",
+      label: "Event Type",
+      value: category,
+      options: eventCategoriesList,
+      onChange: handleCategoryChange,
+    };
+  }, [category, handleCategoryChange]);
 
   return (
     <Paper sx={filterContainerStyles}>
@@ -82,13 +134,12 @@ export const EventFilters: React.FC = observer(function EventFilters() {
           <Typography variant="h5">Event Filters</Typography>
         </AccordionSummary>
         <AccordionDetails sx={filterDetailsStyles}>
-          TO BE ADDED
-          {/* <DataGridFilters
+          <DataGridFilters
             filterProps={eventFilterInputConfig}
             filterToggles={eventFilterToggleButtons}
-          /> */}
+          />
         </AccordionDetails>
       </Accordion>
     </Paper>
   );
-});
+};

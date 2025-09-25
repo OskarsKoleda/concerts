@@ -18,7 +18,14 @@ interface ExtendedRenderOptions<TFieldValues extends Record<string, any>>
 }
 
 const WithRouter = (route: string, children: ReactNode) => {
-  return <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>;
+  return (
+    <MemoryRouter
+      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      initialEntries={[route]}
+    >
+      {children}
+    </MemoryRouter>
+  );
 };
 
 const WithStore = (store: RootStore, children: ReactNode) => {

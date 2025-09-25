@@ -22,5 +22,6 @@ export const filterSummaryStyles: SxProps = {
 };
 
 export const filterDetailsStyles: SxProps = {
+  padding: "1rem",
   backgroundColor: appTheme.palette.background.default,
 };

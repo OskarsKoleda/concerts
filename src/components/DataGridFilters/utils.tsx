@@ -1,15 +1,16 @@
 import { MenuItem, Select, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 
-import { FilterInputType } from "./constants";
-import { toggleButtonGroupStyles, toggleButtonStyles } from "./styles.ts";
+import { InputType } from "../FormLayout/constants.ts";
+
+import { toggleButtonStyles } from "./styles.ts";
 
 import type { FilterInputsConfigItem } from "./types";
 
-export function generateFilterFields(input: FilterInputsConfigItem): JSX.Element {
+export function generateFilterFields(input: FilterInputsConfigItem) {
   const { id, inputType, value, label, placeholder } = input;
 
   switch (inputType) {
-    case FilterInputType.Text: {
+    case InputType.Text: {
       const { onChange } = input;
 
       return (
@@ -25,7 +26,7 @@ export function generateFilterFields(input: FilterInputsConfigItem): JSX.Element
       );
     }
 
-    case FilterInputType.Select: {
+    case InputType.Select: {
       const { options } = input;
 
       return (
@@ -39,18 +40,11 @@ export function generateFilterFields(input: FilterInputsConfigItem): JSX.Element
       );
     }
 
-    case FilterInputType.ToggleButton: {
-      const { options, onChange } = input;
+    case InputType.ToggleButton: {
+      const { onChange, options } = input;
 
       return (
-        <ToggleButtonGroup
-          id={id}
-          onChange={onChange}
-          value={value}
-          size="small"
-          exclusive
-          sx={toggleButtonGroupStyles}
-        >
+        <ToggleButtonGroup id={id} onChange={onChange} value={value} size="small" exclusive>
           {options.map((option: string) => (
             <ToggleButton key={option} value={option} sx={toggleButtonStyles}>
               {option}

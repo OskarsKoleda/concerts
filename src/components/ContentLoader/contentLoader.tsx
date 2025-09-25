@@ -14,7 +14,7 @@ const ContentLoader = ({ isLoading, children }: ContentLoaderProps) => {
     <>
       {isLoading ? (
         <Box sx={contentLoaderStyles}>
-          <CircularProgress thickness={5} size={90} />
+          <CircularProgress thickness={5} size={50} />
         </Box>
       ) : (
         <Box>{children}</Box>

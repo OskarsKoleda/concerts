@@ -7,7 +7,7 @@ class ApplicationStore {
     makeAutoObservable(this);
   }
 
-  get tableViewIsSelected(): boolean {
+  get isTableView(): boolean {
     return this.tableView;
   }
 

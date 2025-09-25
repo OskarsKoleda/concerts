@@ -4,8 +4,8 @@ import MicIcon from "@mui/icons-material/Mic";
 import TheaterComedyIcon from "@mui/icons-material/TheaterComedy";
 import { Box, Tooltip } from "@mui/material";
 
-import { EventCategory } from "../../../../common/enums/appEnums.ts";
-import { formatDateToDefault } from "../../../../common/utils/utils.ts";
+import { EventCategory } from "../../../common/enums/appEnums.ts";
+import { formatDateToDefault } from "../../../common/utils/utils.ts";
 
 import { eventCardIconContainerStyles } from "./styles.ts";
 
@@ -48,12 +48,16 @@ const renderEventCategoryCell = (params: GridRenderCellParams) => {
         </Tooltip>
       );
     default:
-      throw new Error("Unknown event category");
+      throw new Error(
+        `Unknown event category: ${params.value}. Expected one of: MusicConcert, MusicFestival, Theatre, CreativeEvening`,
+      );
   }
 };
 
-const renderArtistsCell = (params: GridRenderCellParams) => {
-  if (!params.value) return "-";
+const renderBandsCell = (params: GridRenderCellParams) => {
+  if (!params.value) {
+    return "-";
+  }
 
   return (
     <Tooltip title={params.value.join(", ")}>
@@ -63,33 +67,36 @@ const renderArtistsCell = (params: GridRenderCellParams) => {
 };
 
 const renderDateCell = (params: GridRenderCellParams) => {
-  if (!params.value) return <span>-</span>;
+  if (!params.value) {
+    return <span>-</span>;
+  }
 
   return <span>{formatDateToDefault(params.value)}</span>;
 };
 
 const renderTicketPriceCell = (params: GridRenderCellParams) => {
-  return <span>{+params.value}</span>;
+  return <span>{params.value}</span>;
 };
 
 export const columns: GridColDef[] = [
   {
-    field: "eventCategory",
+    field: "category",
     headerName: "Event Type",
     disableColumnMenu: true,
     width: 120,
     renderCell: renderEventCategoryCell,
   },
   {
-    field: "eventTitle",
+    field: "title",
     headerName: "Title",
     flex: 1,
   },
   {
-    field: "artists",
-    headerName: "Artists",
+    field: "bands",
+    headerName: "Bands",
     flex: 1,
-    renderCell: renderArtistsCell,
+    renderCell: renderBandsCell,
+    sortable: false,
   },
   {
     field: "city",
@@ -97,13 +104,13 @@ export const columns: GridColDef[] = [
     width: 100,
   },
   {
-    field: "eventDate",
+    field: "date",
     headerName: "Date",
     width: 150,
     renderCell: renderDateCell,
   },
   {
-    field: "festivalEndDate",
+    field: "endDate",
     headerName: "End Date",
     width: 150,
     renderCell: renderDateCell,
@@ -113,6 +120,6 @@ export const columns: GridColDef[] = [
     headerName: "Ticket (€)",
     width: 100,
     renderCell: renderTicketPriceCell,
-    sortComparator: (a: string, b: string) => +a - +b,
+    sortComparator: (a: number, b: number) => a - b,
   },
 ];

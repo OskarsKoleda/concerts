@@ -9,7 +9,7 @@ export type ServerEventData = CommonEventData & {
   url?: string;
 };
 
-interface CommonEventData {
+export interface CommonEventData {
   title: string;
   category: EventCategoryType;
   bands: string[];

@@ -4,14 +4,16 @@ import { observer } from "mobx-react-lite";
 
 import { useRootStore } from "../../../store/StoreContext.tsx";
 
-const EventListSettings = () => {
-  const { tableViewIsSelected, toggleEventsView } = useRootStore().applicationStore;
+import { eventsSettingsContainerStyles } from "./styles.ts";
+
+const EventsSettings = () => {
+  const { isTableView: isTableViewSelected, toggleEventsView } = useRootStore().applicationStore;
 
   return (
-    <Box width="100%" display="flex" justifyContent="right" mb="0.5rem">
+    <Box sx={eventsSettingsContainerStyles}>
       <Tooltip title="Change to Table View">
         <IconButton
-          color={tableViewIsSelected ? "primary" : "default"}
+          color={isTableViewSelected ? "primary" : "default"}
           onClick={toggleEventsView}
           size="large"
         >
@@ -22,4 +24,4 @@ const EventListSettings = () => {
   );
 };
 
-export default observer(EventListSettings);
+export default observer(EventsSettings);

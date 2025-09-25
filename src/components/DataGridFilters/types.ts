@@ -1,24 +1,30 @@
 import type { ButtonProps } from "@mui/material";
 import type React from "react";
 import type { Maybe } from "../../common/types/appTypes";
-import type { FilterInputType } from "./constants";
+import type { EventCategoryType } from "../../pages/EventDetails/types";
+import type { InputType } from "../FormLayout/constants";
+
+export type FilterInputsConfig = {
+  inputs: Array<FilterInputsConfigItem>;
+  buttons: Array<FilterButtonProps>;
+};
 
 export type FilterInputsConfigItem = TextFilterProps | SelectFilterProps | ToggleButtonFilterProps;
 
 export type TextFilterProps = {
-  inputType: FilterInputType.Text;
+  inputType: InputType.Text;
   onChange: (_: React.ChangeEvent<HTMLInputElement>) => void;
 } & FilterInputProps;
 
 export type SelectFilterProps = {
-  inputType: FilterInputType.Select;
+  inputType: InputType.Select;
   options: string[];
 } & FilterInputProps;
 
 export type ToggleButtonFilterProps = {
-  inputType: FilterInputType.ToggleButton;
+  inputType: InputType.ToggleButton;
+  onChange: (_: React.MouseEvent<HTMLElement>, value: EventCategoryType) => void;
   options: string[];
-  // onChange: (_: React.MouseEvent<HTMLElement>, value: EventCategoryFilter) => void;
 } & FilterInputProps;
 
 export type FilterInputProps = {
@@ -31,8 +37,3 @@ export type FilterInputProps = {
 export type FilterButtonProps = {
   label: string;
 } & ButtonProps;
-
-export type FilterInputsConfig = {
-  inputs: Array<FilterInputsConfigItem>;
-  buttons: Array<FilterButtonProps>;
-};
