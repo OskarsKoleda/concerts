@@ -1,5 +1,5 @@
 import TableRowsIcon from "@mui/icons-material/TableRows";
-import { Box, IconButton, Tooltip } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
 import { useRootStore } from "../../../store/StoreContext.tsx";
@@ -11,15 +11,13 @@ const EventsSettings = () => {
 
   return (
     <Box sx={eventsSettingsContainerStyles}>
-      <Tooltip title="Change to Table View">
-        <IconButton
-          color={isTableViewSelected ? "primary" : "default"}
-          onClick={toggleEventsView}
-          size="large"
-        >
-          <TableRowsIcon />
-        </IconButton>
-      </Tooltip>
+      <IconButton
+        color={isTableViewSelected ? "primary" : "default"}
+        onClick={toggleEventsView}
+        size="large"
+      >
+        <TableRowsIcon />
+      </IconButton>
     </Box>
   );
 };

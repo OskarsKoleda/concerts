@@ -18,7 +18,6 @@ const EventsTable = ({ events }: EventsTableProps) => {
         getRowId={(row) => row.slug}
         columns={columns}
         rows={events}
-        disableRowSelectionOnClick={true}
         disableColumnMenu={true}
         initialState={{
           pagination: {

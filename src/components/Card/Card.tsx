@@ -19,9 +19,9 @@ interface CardProps {
   onCardActionClick: () => void;
   imageUrl?: string;
   imageTitle: string;
-  header?: ReactNode;
+  header: ReactNode;
   body: ReactNode;
-  footer?: ReactNode;
+  footer: ReactNode;
 }
 
 const Card = ({

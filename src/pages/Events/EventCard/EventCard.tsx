@@ -1,7 +1,7 @@
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Chip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { horizontallyCenteredStyles } from "../../../common/styles";
@@ -22,9 +22,9 @@ const EventCard = ({ event }: EventCardProps) => {
 
   const navigate = useNavigate();
 
-  const openEventDetails = () => {
+  const openEventDetails = useCallback(() => {
     navigate(`${ROUTES.EVENTS}/${slug}`);
-  };
+  }, [navigate, slug]);
 
   const formattedEventLocation = useMemo(() => {
     return location ? `${city} / ${location}` : city;
@@ -42,9 +42,11 @@ const EventCard = ({ event }: EventCardProps) => {
           <Typography variant="subtitle1">{formatEventDate(date, endDate)}</Typography>
         </Box>
       }
-      body={bands.map((band) => (
-        <Chip key={band} label={band} size="small" sx={chipStyles} />
-      ))}
+      body={
+        bands?.length > 0
+          ? bands.map((band) => <Chip key={band} label={band} size="small" sx={chipStyles} />)
+          : null
+      }
       footer={
         <Box sx={horizontallyCenteredStyles}>
           <LocationOnIcon fontSize="small" />

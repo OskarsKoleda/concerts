@@ -10,6 +10,7 @@ import { EventFilters } from "./EventFilters/EventFilters.tsx";
 import EventsList from "./EventsList/EventsList.tsx";
 import EventsSettings from "./EventsSettings/EventsSettings.tsx";
 import EventsTable from "./EventsTable/EventsTable.tsx";
+import { eventListStyles, eventsLayoutStyles } from "./styles.ts";
 
 const Events = () => {
   const { isTableView: isTableViewSelected } = useRootStore().applicationStore;
@@ -20,12 +21,15 @@ const Events = () => {
   const { events, isLoading } = useGetEvents(filters);
 
   return (
-    <Box width="85%">
+    <Box sx={eventsLayoutStyles}>
       <EventFilters />
       <EventsSettings />
-      <ContentLoader isLoading={isLoading}>
-        {isTableViewSelected ? <EventsTable events={events} /> : <EventsList events={events} />}
-      </ContentLoader>
+
+      <Box sx={eventListStyles}>
+        <ContentLoader isLoading={isLoading}>
+          {isTableViewSelected ? <EventsTable events={events} /> : <EventsList events={events} />}
+        </ContentLoader>
+      </Box>
     </Box>
   );
 };

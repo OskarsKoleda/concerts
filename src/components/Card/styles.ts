@@ -8,7 +8,6 @@ export const cardStyles: SxProps = {
   transition: "transform 0.1s ease-out, filter 0.2s ease-out",
 
   "&:hover": {
-    transform: "scale(1.03)",
     filter: "brightness(1.1)",
   },
 };

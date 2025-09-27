@@ -2,6 +2,8 @@ import { Box, Grid, Typography } from "@mui/material";
 
 import EventCard from "../EventCard/EventCard.tsx";
 
+import { nothingFoundStyles } from "./styles.ts";
+
 import type { ServerEventData } from "../../../common/types/eventTypes.ts";
 
 interface EventsListProps {
@@ -24,7 +26,7 @@ const EventsList = ({ events }: EventsListProps) => {
           {events.map(renderEventCard)}
         </Grid>
       ) : (
-        <Box display="flex" justifyContent="center">
+        <Box sx={nothingFoundStyles}>
           <Typography variant="h2">Nothing Found</Typography>
         </Box>
       )}
