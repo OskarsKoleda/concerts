@@ -1,12 +1,18 @@
 import { makeAutoObservable } from "mobx";
 
-import type { LocalUserProfile } from "../../common/types/eventTypes.ts";
+import type { UserProfile } from "../../common/types/userTypes";
 
-export class UserStore {
-  userProfile: LocalUserProfile | null = null;
+class UserStore {
+  userProfile: UserProfile | null = null;
   isAuthLoading: boolean = true;
 
   constructor() {
     makeAutoObservable(this);
   }
+
+  setUserProfile(userProfile: UserProfile) {
+    this.userProfile = userProfile;
+  }
 }
+
+export default UserStore;

@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useGetEventDetails } from "../../api/useGetEventDetails.ts";
+import { useGetEventDetails } from "../../api/events/useGetEventDetails.ts";
 import ContentLoader from "../../components/ContentLoader/ContentLoader.tsx";
 
 import { EventBandsSection } from "./EventBandsSection/EventBandsSection.tsx";

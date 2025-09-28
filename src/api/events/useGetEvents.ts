@@ -1,11 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-import type { ServerEventData } from "../common/types/eventTypes";
-import type { EventFilters } from "./types";
+import { getApiUrl } from "../utils";
+
+import type { ServerEventData } from "../../common/types/eventTypes";
+import type { EventFilters } from "../types";
 
 const getEvents = async (filters: EventFilters): Promise<ServerEventData[]> => {
-  const response = await axios.get<ServerEventData[]>("http://localhost:3000/events", {
+  const response = await axios.get<ServerEventData[]>(getApiUrl("/events"), {
     params: filters,
   });
 
@@ -20,8 +22,8 @@ export const useGetEvents = (filters: EventFilters) => {
 
   return {
     events: data ?? [],
-    isLoading: isLoading,
-    error: error,
-    isError: isError,
+    isLoading,
+    error,
+    isError,
   };
 };

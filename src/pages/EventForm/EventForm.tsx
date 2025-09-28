@@ -3,9 +3,9 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { useCreateEvent } from "../../api/useCreateEvent.ts";
-import { useGetEventDetails } from "../../api/useGetEventDetails.ts";
-import { useUpdateEvent } from "../../api/useUpdateEvent.ts";
+import { useCreateEvent } from "../../api/events/useCreateEvent.ts";
+import { useGetEventDetails } from "../../api/events/useGetEventDetails.ts";
+import { useUpdateEvent } from "../../api/events/useUpdateEvent.ts";
 import { SnackbarVariantType } from "../../common/enums/appEnums.ts";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar.ts";
 import { defaultEventValues, eventDetailsText } from "../EventDetails/constants.ts";

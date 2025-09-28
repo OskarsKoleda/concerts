@@ -19,16 +19,3 @@ export interface CommonEventData {
   location?: string;
   ticketPrice?: number;
 }
-
-export type AuthUserProfile = UserProfile & {
-  password: string;
-};
-
-export type LocalUserProfile = {
-  uid: string;
-} & UserProfile;
-
-interface UserProfile {
-  username: string;
-  email: string;
-}

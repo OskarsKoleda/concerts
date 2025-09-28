@@ -4,6 +4,9 @@ import type { SxProps } from "@mui/material";
 
 export const filterContainerStyles: SxProps = {
   margin: "1.5rem 0 0.5rem 0",
+  boxShadow: "none",
+  borderRadius: "0",
+  border: `1px solid ${appTheme.palette.divider}`,
 };
 
 export const filterSummaryStyles: SxProps = {

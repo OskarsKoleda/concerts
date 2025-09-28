@@ -4,14 +4,14 @@ import FormLayout from "../../../components/FormLayout/FormLayout.tsx";
 
 import { loginFields, signUpFields } from "./constants.ts";
 
-import type { AuthUserProfile } from "../../../common/types/eventTypes.ts";
+import type { UserProfile } from "../../../common/types/userTypes.ts";
 
 interface AuthFormFieldsProps {
   signUp: boolean;
 }
 
 const AuthFormFields = ({ signUp }: AuthFormFieldsProps) => {
-  const { control } = useFormContext<AuthUserProfile>();
+  const { control } = useFormContext<UserProfile>();
 
   return (
     <FormLayout

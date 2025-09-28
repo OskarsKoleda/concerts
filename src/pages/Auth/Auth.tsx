@@ -1,10 +1,10 @@
 import { Box, Typography } from "@mui/material";
-import { FirebaseError } from "firebase/app";
 import { observer } from "mobx-react-lite";
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
+import { useCreateUser } from "../../api/user/useCreateUser.ts";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar.ts";
 import { ROUTES } from "../../router/routes.ts";
 import { useRootStore } from "../../store/StoreContext.tsx";
@@ -12,96 +12,59 @@ import { defaultUserValues } from "../EventDetails/constants.ts";
 
 import AuthButtons from "./AuthButtons/AuthButtons.tsx";
 import AuthFormFields from "./AuthFormFields/AuthFormFields.tsx";
-import { AuthMode } from "./constants.ts";
+import { useAuthError } from "./hooks/useAuthError.ts";
+import { useAuthMode } from "./hooks/useAuthMode.ts";
 import { bottomCaptionStyles } from "./styles.ts";
-import { getFirebaseError } from "./utils.ts";
 
-import type { AuthUserProfile } from "../../common/types/eventTypes.ts";
-import type { SubmitHandler } from "react-hook-form";
+import type { CreateUserRequest } from "../../common/types/userTypes.ts";
 
 const Auth = () => {
-  const [urlSearchParams, setUrlSearchParams] = useSearchParams();
-  const [error, setError] = useState("");
-  const {
-    userStore: { createUser, loginUser, isLoginInProgress, isSignUpInProgress },
-  } = useRootStore();
+  const { setUserProfile, userProfile } = useRootStore().userStore;
 
   const navigate = useNavigate();
   const { showSnackbar } = useCustomSnackbar();
 
-  const methods = useForm<AuthUserProfile>({
+  const { isSignUpMode, toggleMode } = useAuthMode();
+  const { error, handleError } = useAuthError();
+
+  const methods = useForm<CreateUserRequest>({
     defaultValues: defaultUserValues,
     mode: "onChange",
     shouldUnregister: true,
   });
 
-  const mode = urlSearchParams.get("mode") ?? AuthMode.login;
-  const isSignUpMode = mode === AuthMode.signup;
-  const { handleSubmit } = methods;
+  const { mutate: createUser } = useCreateUser({
+    onSuccess: (data) => {
+      navigate(ROUTES.HOMEPAGE);
+      showSnackbar({
+        message: "Sign up successfully",
+        variant: "success",
+      });
 
-  const handleAuthModeChange = () => {
-    isSignUpMode
-      ? setUrlSearchParams({ mode: AuthMode.login })
-      : setUrlSearchParams({ mode: AuthMode.signup });
-  };
-
-  const submitHandlers = {
-    btnSignUp: () => handleSubmit(handleSignUp)(),
-    btnLogin: () => handleSubmit(handleLogin)(),
-  };
+      setUserProfile(data);
+    },
+    onError: (error) => handleError(error),
+  });
 
   const submitFormHandler = (event: React.SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-    event.preventDefault();
     const controlName = event.nativeEvent.submitter?.id;
-    if (controlName) {
-      submitHandlers[controlName as keyof typeof submitHandlers]?.();
-    }
-  };
 
-  const handleSignUp: SubmitHandler<AuthUserProfile> = async (data) => {
-    try {
-      const response = await createUser(data);
+    event.preventDefault();
 
-      if (response) {
-        showSnackbar({
-          message: "Sign up successfully",
-          variant: "success",
-        });
-
-        navigate(ROUTES.HOMEPAGE);
-      }
-    } catch (error) {
-      handleAuthError(error);
-    }
-  };
-
-  const handleLogin: SubmitHandler<AuthUserProfile> = async (data) => {
-    try {
-      const response = await loginUser(data);
-
-      if (response) navigate(ROUTES.HOMEPAGE);
-    } catch (error) {
-      handleAuthError(error);
-    }
-  };
-
-  const handleAuthError = (error: unknown) => {
-    if (error instanceof FirebaseError) {
-      setError(getFirebaseError(error));
-    } else {
-      throw error;
+    if (controlName === "btnSignUp") {
+      methods.handleSubmit((data) => createUser(data))();
     }
   };
 
   const bottomCaptionText = useMemo(() => {
     return isSignUpMode ? (
-      <>
+      <Typography variant="body2" color="textSecondary">
         Already have an account? <span>Log in</span>
-      </>
+      </Typography>
     ) : (
-      <>
+      <Typography variant="body2" color="textSecondary">
         Don&apos;t have an account? <span>Sign Up</span>
-      </>
+      </Typography>
     );
   }, [isSignUpMode]);
 
@@ -111,7 +74,7 @@ const Auth = () => {
         <form onSubmit={submitFormHandler}>
           <AuthFormFields signUp={isSignUpMode} />
           <Typography
-            onClick={handleAuthModeChange}
+            onClick={toggleMode}
             variant="body2"
             color="textSecondary"
             sx={bottomCaptionStyles}
@@ -123,7 +86,7 @@ const Auth = () => {
               {error}
             </Typography>
           )}
-          <AuthButtons signUp={isSignUpMode} loading={isLoginInProgress || isSignUpInProgress} />
+          <AuthButtons signUp={isSignUpMode} />
         </form>
       </FormProvider>
     </Box>

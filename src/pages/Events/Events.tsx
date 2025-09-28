@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useSearchParams } from "react-router-dom";
 
-import { useGetEvents } from "../../api/useGetEvents.ts";
+import { useGetEvents } from "../../api/events/useGetEvents.ts";
 import ContentLoader from "../../components/ContentLoader/ContentLoader.tsx";
 import { useRootStore } from "../../store/StoreContext.tsx";
 

@@ -1,8 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
+import { getApiUrl } from "../utils";
+
 const deleteEvent = async (slug: string) => {
-  const response = await axios.delete(`http://localhost:3000/events/${slug}`);
+  const response = await axios.delete(getApiUrl(`/events/${slug}`));
 
   if (response.status === 204) {
     return true;

@@ -1,6 +1,6 @@
 import { InputType } from "../../../components/FormLayout/constants.ts";
 
-import type { FormFields } from "../../../components/FormLayout/types.ts";
+import type { FormField, FormFields } from "../../../components/FormLayout/types.ts";
 
 // TODO: make password hidden
 export const loginFields: FormFields = [
@@ -18,14 +18,21 @@ export const loginFields: FormFields = [
   },
 ];
 
+const age: FormField = {
+  inputType: InputType.Text,
+  controlName: "age",
+  id: "age",
+  label: "Age",
+};
+
 export const signUpFields: FormFields = [
   {
     inputType: InputType.Text,
-    controlName: "username",
-    id: "username",
-    label: "Username",
+    controlName: "name",
+    id: "name",
+    label: "Name",
   },
-  ...loginFields,
+  ...[loginFields[0], age, loginFields[1]],
   {
     inputType: InputType.Text,
     controlName: "repeatPassword",

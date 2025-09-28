@@ -1,6 +1,6 @@
-import ButtonsLayout from "../../../components/ButtonsLayout/ButtonsLayout.tsx";
+import ButtonsLayout from "../../../components/ButtonsLayout/ButtonsLayout";
 
-import type { ControlPayload } from "../../../components/ButtonsLayout/types.ts";
+import type { ControlPayload } from "../../../common/types/appTypes";
 
 interface AuthButtonsProps {
   signUp: boolean;
@@ -19,7 +19,7 @@ const AuthButtons = ({ signUp, loading }: AuthButtonsProps) => {
     },
   ];
 
-  return <ButtonsLayout controls={controls} renderDeleteButton={false} />;
+  return <ButtonsLayout controls={controls} />;
 };
 
 export default AuthButtons;

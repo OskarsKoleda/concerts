@@ -12,7 +12,7 @@ import { dividerStyles } from "./styles.ts";
 // TODO: update needed
 const UserActions = () => {
   const navigation = useNavigate();
-  const redirectToLogin = () => navigation(`${ROUTES.AUTH}/?mode=${AuthMode.login}`);
+  const redirectToLogin = () => navigation(`${ROUTES.AUTH}/?mode=${AuthMode.Login}`);
 
   return (
     <>

@@ -1,4 +1,4 @@
 export enum AuthMode {
-  login = "login",
-  signup = "signup",
+  Login = "login",
+  Signup = "signup",
 }

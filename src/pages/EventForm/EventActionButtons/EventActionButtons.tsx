@@ -2,7 +2,7 @@ import { memo, useCallback } from "react";
 import { useFormContext } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useDeleteEvent } from "../../../api/useDeleteEvent";
+import { useDeleteEvent } from "../../../api/events/useDeleteEvent";
 import { SnackbarVariantType } from "../../../common/enums/appEnums";
 import ButtonsLayout from "../../../components/ButtonsLayout/ButtonsLayout";
 import ButtonWithConfirmDialog from "../../../components/ButtonWithConfirmDialog/ButtonWithConfirmDialog";

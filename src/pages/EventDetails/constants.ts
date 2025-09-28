@@ -1,6 +1,7 @@
 import { EventCategory } from "../../common/enums/appEnums.ts";
 
-import type { AuthUserProfile, LocalEventData } from "../../common/types/eventTypes.ts";
+import type { LocalEventData } from "../../common/types/eventTypes.ts";
+import type { CreateUserRequest } from "../../common/types/userTypes.ts";
 
 export const defaultEventValues: LocalEventData = {
   category: EventCategory.MusicConcert,
@@ -14,10 +15,10 @@ export const defaultEventValues: LocalEventData = {
   image: undefined,
 };
 
-export const defaultUserValues: AuthUserProfile = {
+export const defaultUserValues: Partial<CreateUserRequest> = {
   email: "",
   password: "",
-  username: "",
+  name: "",
 };
 
 export const eventDetailsText = {
