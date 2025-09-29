@@ -4,6 +4,7 @@ import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import { useLogin } from "../../api/auth/useLogin.ts";
 import { useCreateUser } from "../../api/user/useCreateUser.ts";
 import useCustomSnackbar from "../../hooks/useCustomSnackbar.ts";
 import { ROUTES } from "../../router/routes.ts";
@@ -19,7 +20,7 @@ import { bottomCaptionStyles } from "./styles.ts";
 import type { CreateUserRequest } from "../../common/types/userTypes.ts";
 
 const Auth = () => {
-  const { setUserProfile, userProfile } = useRootStore().userStore;
+  const { setUserProfile } = useRootStore().userStore;
 
   const navigate = useNavigate();
   const { showSnackbar } = useCustomSnackbar();
@@ -46,6 +47,14 @@ const Auth = () => {
     onError: (error) => handleError(error),
   });
 
+  const { mutate: login } = useLogin({
+    onSuccess: (data) => {
+      navigate(ROUTES.HOMEPAGE);
+      setUserProfile(data);
+    },
+    onError: (error) => handleError(error),
+  });
+
   const submitFormHandler = (event: React.SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
     const controlName = event.nativeEvent.submitter?.id;
 
@@ -53,19 +62,13 @@ const Auth = () => {
 
     if (controlName === "btnSignUp") {
       methods.handleSubmit((data) => createUser(data))();
+    } else if (controlName === "btnLogin") {
+      methods.handleSubmit((data) => login(data))();
     }
   };
 
   const bottomCaptionText = useMemo(() => {
-    return isSignUpMode ? (
-      <Typography variant="body2" color="textSecondary">
-        Already have an account? <span>Log in</span>
-      </Typography>
-    ) : (
-      <Typography variant="body2" color="textSecondary">
-        Don&apos;t have an account? <span>Sign Up</span>
-      </Typography>
-    );
+    return isSignUpMode ? "Already have an account? Log in" : "Don't have an account? Sign Up";
   }, [isSignUpMode]);
 
   return (

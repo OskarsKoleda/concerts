@@ -1,51 +1,23 @@
-import AddIcon from "@mui/icons-material/Add";
-import HomeIcon from "@mui/icons-material/Home";
-import StadiumIcon from "@mui/icons-material/Stadium";
-import { AppBar, Box, IconButton, Link, Toolbar, Tooltip, Typography } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import { AppBar, Box, Toolbar } from "@mui/material";
 
 import { horizontallyCenteredStyles } from "../../common/styles.ts";
-import { ROUTES } from "../../router/routes.ts";
 
-import Drawer from "./Drawer/Drawer.tsx";
-import { appTitleStyles, headerToolbarStyles } from "./styles";
-import UserActions from "./UserActions/UserActions.tsx";
+import { headerToolbarStyles } from "./styles";
 
-const Header = () => {
+import type { ReactNode } from "react";
+
+interface HeaderProps {
+  leftContent?: ReactNode;
+  rightContent?: ReactNode;
+}
+
+const Header = ({ leftContent, rightContent }: HeaderProps) => {
   return (
     <AppBar position="sticky">
       <Toolbar>
         <Box sx={headerToolbarStyles}>
-          <Box sx={horizontallyCenteredStyles}>
-            <Drawer />
-
-            <Link component={RouterLink} sx={horizontallyCenteredStyles} to={ROUTES.HOMEPAGE}>
-              <HomeIcon color="action" fontSize="large" />
-              <Typography variant="h3" sx={appTitleStyles}>
-                Event Tracker
-              </Typography>
-            </Link>
-          </Box>
-
-          <Box sx={horizontallyCenteredStyles}>
-            <Link component={RouterLink} to={ROUTES.EVENTS}>
-              <Tooltip title="View Event">
-                <IconButton size="large">
-                  <StadiumIcon />
-                </IconButton>
-              </Tooltip>
-            </Link>
-
-            <Link component={RouterLink} to={ROUTES.NEW_EVENT}>
-              <Tooltip title="Add Event">
-                <IconButton size="large">
-                  <AddIcon />
-                </IconButton>
-              </Tooltip>
-            </Link>
-
-            <UserActions />
-          </Box>
+          <Box sx={horizontallyCenteredStyles}>{leftContent}</Box>
+          <Box sx={horizontallyCenteredStyles}>{rightContent}</Box>
         </Box>
       </Toolbar>
     </AppBar>

@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { getApiUrl } from "../utils";
 
-import type { AxiosError } from "axios";
+import type { AxiosErrorResponse } from "../../common/types/appTypes";
 import type { CreateUserRequest, UserProfile } from "../../common/types/userTypes";
 
 const createUser = async (userData: CreateUserRequest): Promise<UserProfile> => {
@@ -14,9 +14,9 @@ const createUser = async (userData: CreateUserRequest): Promise<UserProfile> => 
 
 export const useCreateUser = (options?: {
   onSuccess?: (data: UserProfile) => void;
-  onError?: (error: AxiosError<{ message: string }>) => void;
+  onError?: (error: AxiosErrorResponse) => void;
 }) => {
-  return useMutation<UserProfile, AxiosError<{ message: string }>, CreateUserRequest>({
+  return useMutation<UserProfile, AxiosErrorResponse, CreateUserRequest>({
     mutationFn: createUser,
     ...options,
   });

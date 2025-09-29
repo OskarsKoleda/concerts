@@ -8,11 +8,7 @@ export const headerToolbarStyles: SxProps = {
   justifyContent: "space-between",
 };
 
-export const appTitleStyles: SxProps = {
-  marginLeft: "1rem",
-  color: appTheme.palette.primary.contrastText,
-};
-
+// TODO: remove or something
 export const headerSkeletonStyles: SxProps = {
   width: "16rem",
   height: "1.5rem",

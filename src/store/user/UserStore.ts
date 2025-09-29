@@ -10,9 +10,13 @@ class UserStore {
     makeAutoObservable(this);
   }
 
-  setUserProfile(userProfile: UserProfile) {
-    this.userProfile = userProfile;
+  get isAuthenticated(): boolean {
+    return !!this.userProfile;
   }
+
+  setUserProfile = (userProfile: UserProfile | null) => {
+    this.userProfile = userProfile;
+  };
 }
 
 export default UserStore;

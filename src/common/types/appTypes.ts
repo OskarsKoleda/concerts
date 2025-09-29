@@ -1,4 +1,5 @@
 import type { ButtonProps, SxProps } from "@mui/material";
+import type { AxiosError } from "axios";
 import type { Control, UseControllerProps } from "react-hook-form";
 
 export type Nullable<T> = T | null;
@@ -30,3 +31,5 @@ export type ControlPayload = ButtonProps & {
   visible?: boolean;
   loading?: boolean;
 };
+
+export type AxiosErrorResponse = AxiosError<{ message: string }>;
