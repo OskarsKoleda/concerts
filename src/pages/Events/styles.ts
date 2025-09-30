@@ -9,7 +9,7 @@ export const eventsLayoutStyles: SxProps = {
 };
 
 export const eventListStyles: SxProps = {
-  marginBottom: "1rem",
+  marginBottom: "5rem",
   overflowY: "auto",
   scrollbarGutter: "stable",
 };

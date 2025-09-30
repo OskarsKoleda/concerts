@@ -11,12 +11,14 @@ const ProtectedLayout = () => {
 
   return (
     <Box width="100%" overflow="hidden" mb="1rem">
-      <AppHeader />
       <ContentLoader isLoading={isLoading}>
         {isAuthenticated ? (
-          <Box display="flex" justifyContent="center">
-            <Outlet />
-          </Box>
+          <>
+            <AppHeader />
+            <Box display="flex" justifyContent="center">
+              <Outlet />
+            </Box>
+          </>
         ) : (
           <Navigate to="/auth" replace />
         )}
