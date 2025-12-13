@@ -9,3 +9,9 @@ export const chipStyles: SxProps = {
   fontWeight: "600",
   backgroundColor: appTheme.palette.primary.contrastText,
 };
+
+export const eventAuthorStyles: SxProps = {
+  position: "absolute",
+  fontStyle: "italic",
+  marginLeft: "0.5rem",
+};

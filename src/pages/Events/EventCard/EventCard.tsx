@@ -5,11 +5,11 @@ import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { horizontallyCenteredStyles } from "../../../common/styles";
+import { formatEventDate } from "../../../common/utils/utils";
 import Card from "../../../components/Card/Card";
 import { ROUTES } from "../../../router/routes";
 
-import { chipStyles } from "./styles";
-import { formatEventDate } from "./utils";
+import { chipStyles, eventAuthorStyles } from "./styles";
 
 import type { ServerEventData } from "../../../common/types/eventTypes";
 
@@ -18,7 +18,7 @@ interface EventCardProps {
 }
 
 const EventCard = ({ event }: EventCardProps) => {
-  const { title, date, endDate, bands, city, location, url, slug } = event;
+  const { title, date, endDate, bands, city, location, url, slug, owner } = event;
 
   const navigate = useNavigate();
 
@@ -48,9 +48,14 @@ const EventCard = ({ event }: EventCardProps) => {
           : null
       }
       footer={
-        <Box sx={horizontallyCenteredStyles}>
-          <LocationOnIcon fontSize="small" />
-          <Typography variant="subtitle1">{formattedEventLocation}</Typography>
+        <Box position="relative">
+          <Box sx={horizontallyCenteredStyles}>
+            <LocationOnIcon fontSize="small" />
+            <Typography variant="subtitle1">{formattedEventLocation}</Typography>
+          </Box>
+          <Typography variant="caption" sx={eventAuthorStyles}>
+            added by {owner.name}
+          </Typography>
         </Box>
       }
     />

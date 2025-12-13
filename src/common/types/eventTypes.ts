@@ -7,7 +7,13 @@ export type LocalEventData = CommonEventData & {
 export type ServerEventData = CommonEventData & {
   slug: string;
   url?: string;
+  owner: Owner;
 };
+
+interface Owner {
+  id: string;
+  name: string;
+}
 
 export interface CommonEventData {
   title: string;

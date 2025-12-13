@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect } from "vitest";
 
 import ButtonsLayout from "./ButtonsLayout";
 import { toVisibleControl } from "./utils";

@@ -18,3 +18,15 @@ export const getInputErrorText = (error: FieldError): string | null => {
 export const formatDateToDefault = (date: string): string => {
   return format(parseISO(date), DATE_FORMAT);
 };
+
+export const formatEventDate = (eventDate?: string, festivalEndDate?: string) => {
+  if (!eventDate) {
+    return "-";
+  }
+
+  if (festivalEndDate) {
+    return `${formatDateToDefault(eventDate)} - ${formatDateToDefault(festivalEndDate)}`;
+  }
+
+  return formatDateToDefault(eventDate);
+};

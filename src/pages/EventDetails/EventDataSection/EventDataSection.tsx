@@ -1,5 +1,6 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
 
+import { formatEventDate } from "../../../common/utils/utils.ts";
 import NavLinkButton from "../../../components/NavLinkButton/NavLinkButton.tsx";
 import { ROUTES } from "../../../router/routes.ts";
 
@@ -19,15 +20,13 @@ interface EventDataSectionProps {
 export const EventDataSection = ({ event }: EventDataSectionProps) => {
   const { slug, city, location, date, endDate, ticketPrice } = event || {};
 
-  const formattedDate = endDate ? `${date} - ${endDate}` : date;
-
   return (
     <Paper sx={eventDataContainerStyles}>
       <Box sx={eventDataStyles}>
         <Typography variant="h4">{city}</Typography>
         <Typography variant="h5">{location}</Typography>
         <Typography variant="subtitle1" mt="1.5rem">
-          {formattedDate}
+          {formatEventDate(date, endDate)}
         </Typography>
       </Box>
 
