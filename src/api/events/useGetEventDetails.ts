@@ -6,11 +6,12 @@ import { getApiUrl } from "../utils";
 import type { ServerEventData } from "../../common/types/eventTypes";
 
 const getEventDetails = async (slug: string): Promise<ServerEventData> => {
-  const response = await axios.get<ServerEventData>(getApiUrl(`/events/${slug}`));
+  const { data } = await axios.get<ServerEventData>(getApiUrl(`/events/${slug}`));
 
-  return response.data;
+  return data;
 };
 
+// TODO: why is this fetched twice when navigating from details to edit?
 export const useGetEventDetails = (slug: string | undefined) => {
   const { data, isLoading, isError } = useQuery<ServerEventData>({
     queryKey: ["eventDetails", slug],

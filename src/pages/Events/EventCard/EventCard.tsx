@@ -4,6 +4,7 @@ import { Box } from "@mui/system";
 import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
+import posterMissing from "../../../assets/poster-missing.jpg";
 import { horizontallyCenteredStyles } from "../../../common/styles";
 import { formatEventDate } from "../../../common/utils/utils";
 import Card from "../../../components/Card/Card";
@@ -32,8 +33,8 @@ const EventCard = ({ event }: EventCardProps) => {
 
   return (
     <Card
-      imageUrl={url}
-      imageTitle={title}
+      imageUrl={url || posterMissing}
+      imageTitle={url ? title : "poster-is-missing"}
       cardActionButtonTitle="View"
       onCardActionClick={openEventDetails}
       header={

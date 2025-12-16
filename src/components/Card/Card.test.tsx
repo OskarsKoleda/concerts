@@ -30,11 +30,6 @@ describe("Card (generic)", () => {
     expect(img).toHaveAttribute("alt", defaultProps.imageTitle);
   });
 
-  it("does not render image when imageUrl is not provided", () => {
-    renderWithProviders(<Card {...defaultProps} imageUrl={undefined} />);
-    expect(screen.queryByRole("img")).not.toBeInTheDocument();
-  });
-
   it("renders header, body, and footer", () => {
     renderWithProviders(<Card {...defaultProps} />);
     expect(screen.getByTestId("header")).toHaveTextContent("Header Content");
@@ -48,7 +43,10 @@ describe("Card (generic)", () => {
         cardActionButtonTitle="Click"
         onCardActionClick={mockOnClick}
         imageTitle="img"
+        imageUrl="https://example.com/image.jpg"
         body={<div data-testid="body">Body Only</div>}
+        header={undefined}
+        footer={undefined}
       />,
     );
     expect(screen.getByTestId("body")).toHaveTextContent("Body Only");

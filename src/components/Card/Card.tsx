@@ -17,7 +17,7 @@ import type { ReactNode } from "react";
 interface CardProps {
   cardActionButtonTitle: string;
   onCardActionClick: () => void;
-  imageUrl?: string;
+  imageUrl: string;
   imageTitle: string;
   header: ReactNode;
   body: ReactNode;
@@ -35,9 +35,7 @@ const Card = ({
 }: CardProps) => {
   return (
     <CardMui sx={cardStyles}>
-      {imageUrl && (
-        <CardMediaMui sx={cardImageStyles} component="img" image={imageUrl} alt={imageTitle} />
-      )}
+      <CardMediaMui sx={cardImageStyles} component="img" image={imageUrl} alt={imageTitle} />
       <Box sx={cardRightSideStyles}>
         {header}
         <CardContentMui sx={emptyPaddingStyles}>{body}</CardContentMui>

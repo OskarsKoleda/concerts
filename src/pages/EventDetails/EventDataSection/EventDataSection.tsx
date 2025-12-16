@@ -1,8 +1,10 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
+import { observer } from "mobx-react-lite";
 
 import { formatEventDate } from "../../../common/utils/utils.ts";
 import NavLinkButton from "../../../components/NavLinkButton/NavLinkButton.tsx";
 import { ROUTES } from "../../../router/routes.ts";
+import { useRootStore } from "../../../store/StoreContext.tsx";
 
 import {
   eventButtonContainerStyles,
@@ -14,11 +16,14 @@ import {
 import type { ServerEventData } from "../../../common/types/eventTypes.ts";
 
 interface EventDataSectionProps {
-  event: ServerEventData | undefined;
+  event?: ServerEventData;
 }
 
 export const EventDataSection = ({ event }: EventDataSectionProps) => {
-  const { slug, city, location, date, endDate, ticketPrice } = event || {};
+  const { slug, city, location, date, endDate, ticketPrice, owner } = event || {};
+  const { userProfile } = useRootStore().userStore;
+
+  const isEventOwner = owner?.name === userProfile?.name;
 
   return (
     <Paper sx={eventDataContainerStyles}>
@@ -36,10 +41,10 @@ export const EventDataSection = ({ event }: EventDataSectionProps) => {
       </Box>
       <Box sx={eventButtonContainerStyles}>
         <NavLinkButton to={ROUTES.EVENTS}>Back</NavLinkButton>
-        <NavLinkButton to={`${ROUTES.EVENTS}/${slug}/edit`}>Edit</NavLinkButton>
+        {isEventOwner && <NavLinkButton to={`${ROUTES.EVENTS}/${slug}/edit`}>Edit</NavLinkButton>}
       </Box>
     </Paper>
   );
 };
 
-export default EventDataSection;
+export default observer(EventDataSection);

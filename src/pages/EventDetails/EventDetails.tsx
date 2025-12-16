@@ -2,6 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useGetEventDetails } from "../../api/events/useGetEventDetails.ts";
+import posterMissing from "../../assets/poster-missing.jpg";
 import ContentLoader from "../../components/ContentLoader/ContentLoader.tsx";
 
 import { EventBandsSection } from "./EventBandsSection/EventBandsSection.tsx";
@@ -36,7 +37,10 @@ const EventDetails = () => {
 
         <Box display="flex" justifyContent="center">
           <EventDataSection event={eventData} />
-          <EventPoster posterURL={url} posterTitle={title} />
+          <EventPoster
+            posterURL={url || posterMissing}
+            posterTitle={url ? title : "poster-is-missing"}
+          />
           {bands?.length ? <EventBandsSection bands={bands} /> : null}
         </Box>
       </Box>

@@ -28,6 +28,7 @@ export const EventFilters = () => {
   const [category, setCategory] = useState<EventCategoryType | "All">("All");
   // const [currentBand, setBand] = useState("");
 
+  // TODO: there is a bug, when opening URL with filter
   useEffect(() => {
     const timer = setTimeout(() => {
       const newParams = { ...Object.fromEntries(searchParams.entries()) };
