@@ -8,9 +8,13 @@ import {
 import { Box } from "@mui/system";
 import { memo } from "react";
 
-import { emptyPaddingStyles } from "../../common/styles.ts";
-
-import { cardActionsStyles, cardImageStyles, cardRightSideStyles, cardStyles } from "./styles.ts";
+import {
+  cardActionsStyles,
+  cardContentStyles,
+  cardImageStyles,
+  cardRightSideStyles,
+  cardStyles,
+} from "./styles.ts";
 
 import type { ReactNode } from "react";
 
@@ -38,7 +42,7 @@ const Card = ({
       <CardMediaMui sx={cardImageStyles} component="img" image={imageUrl} alt={imageTitle} />
       <Box sx={cardRightSideStyles}>
         {header}
-        <CardContentMui sx={emptyPaddingStyles}>{body}</CardContentMui>
+        <CardContentMui sx={cardContentStyles}>{body}</CardContentMui>
         <CardActions sx={cardActionsStyles}>
           {footer}
           <Button variant="contained" onClick={cardAction}>

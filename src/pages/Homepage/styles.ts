@@ -1,5 +1,3 @@
-import { appTheme } from "../../components/AppProviders/theme.ts";
-
 import type { SxProps } from "@mui/material";
 
 export const homePageContainerStyles: SxProps = {
@@ -12,6 +10,7 @@ export const homePageContainerStyles: SxProps = {
 export const welcomeTextContainerStyles: SxProps = {
   margin: "1.5rem",
   padding: "1rem",
+  textAlign: "center",
 };
 
 export const dividerStyles: SxProps = {
@@ -28,7 +27,7 @@ export const homePageCardStyles: SxProps = {
   minWidth: "20rem",
   margin: "0 1rem",
   padding: "1rem",
-  backgroundColor: appTheme.palette.primary.light,
+  backgroundColor: "background.default",
 };
 
 export const buttonsContainerStyles: SxProps = {

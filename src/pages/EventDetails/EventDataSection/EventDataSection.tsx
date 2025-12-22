@@ -29,8 +29,10 @@ export const EventDataSection = ({ event }: EventDataSectionProps) => {
     <Paper sx={eventDataContainerStyles}>
       <Box sx={eventDataStyles}>
         <Typography variant="h4">{city}</Typography>
-        <Typography variant="h5">{location}</Typography>
-        <Typography variant="subtitle1" mt="1.5rem">
+        <Typography variant="h5" whiteSpace="nowrap">
+          {location}
+        </Typography>
+        <Typography variant="subtitle1" whiteSpace="nowrap">
           {formatEventDate(date, endDate)}
         </Typography>
       </Box>

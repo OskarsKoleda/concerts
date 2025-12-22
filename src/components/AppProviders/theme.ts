@@ -1,125 +1,107 @@
-import { createTheme } from "@mui/material";
+import { alpha, createTheme } from "@mui/material";
 
 export const appTheme = createTheme({
   palette: {
-    mode: "light",
+    mode: "dark",
     primary: {
-      main: "#009688",
-      light: "#52C7B8",
-      dark: "#00796B",
-      contrastText: "#e8f4e8",
+      main: "#7C4DFF",
+      light: "#B47CFF",
+      dark: "#3F1DCB",
+      contrastText: "#FFFFFF",
     },
+
     secondary: {
-      main: "#CDDC39",
-      light: "#E6EE9C",
-      dark: "#AFB42B",
-      contrastText: "#51514b",
+      main: "#FFAB40", // Warm Amber
+      light: "#FFD180",
+      dark: "#FF9100",
+      contrastText: "#000000",
     },
     error: {
-      main: "#D32F2F",
-    },
-    warning: {
-      main: "#FFEB3B",
-    },
-    info: {
-      main: "#1976D2",
-    },
-    success: {
-      main: "#4CAF50",
+      main: "#FF5252",
     },
     background: {
-      default: "#f0f4f7",
-      paper: "#e7efb5",
+      default: "#0A0A0B", // Deep Black/Near Black
+      paper: "#161618", // Slightly lighter for cards
     },
     text: {
-      primary: "#333",
-      secondary: "#757575",
+      primary: "#F5F5F7",
+      secondary: "#A1A1A6",
     },
+    divider: "rgba(255, 255, 255, 0.08)",
   },
   typography: {
-    // fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    // fontFamily: "Nunito",
-    fontFamily: "cursive",
+    fontFamily: '"Inter", "Outfit", "Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
-      fontSize: "2.5rem",
-      fontWeight: 700,
+      fontSize: "3rem",
+      fontWeight: 800,
+      letterSpacing: "-0.02em",
     },
     h2: {
-      fontSize: "2rem",
-      fontWeight: 600,
+      fontSize: "2.25rem",
+      fontWeight: 700,
+      letterSpacing: "-0.01em",
     },
     h3: {
-      fontSize: "1.75rem",
-      fontWeight: 600,
+      fontSize: "1.875rem",
+      fontWeight: 700,
     },
     h4: {
       fontSize: "1.5rem",
-      fontWeight: 600,
+      fontWeight: 700,
     },
     h5: {
       fontSize: "1.25rem",
       fontWeight: 600,
     },
     h6: {
-      fontSize: "1rem",
+      fontSize: "1.125rem",
       fontWeight: 600,
     },
     body1: {
       fontSize: "1rem",
+      lineHeight: 1.6,
     },
     body2: {
       fontSize: "0.875rem",
+      lineHeight: 1.57,
     },
     button: {
       fontSize: "0.875rem",
-      textTransform: "uppercase",
+      textTransform: "none", // Modern look: no ALL CAPS
       fontWeight: 600,
-    },
-    subtitle1: {
-      fontWeight: 400,
-      fontSize: "1rem",
-      color: "#757575",
-    },
-    subtitle2: {
-      fontWeight: 400,
-      fontSize: "0.875rem",
-      color: "#757575",
-    },
-    caption: {
-      fontSize: "0.75rem",
-      color: "#757575",
-    },
-    overline: {
-      fontSize: "0.75rem",
-      fontWeight: 500,
-      textTransform: "uppercase",
-      color: "#333",
     },
   },
   components: {
     MuiButton: {
       styleOverrides: {
-        root: {
-          borderRadius: "0",
-          textTransform: "none",
-        },
+        // Use a function that receives { theme }
+        root: ({ theme }) => ({
+          borderRadius: "0.5rem",
+          padding: "0.5rem 1.25rem",
+          boxShadow: "none",
+          "&:hover": {
+            // Refer to primary main and use alpha for transparency!
+            boxShadow: `0 4px 12px ${alpha(theme.palette.primary.main, 0.3)}`,
+          },
+        }),
+        containedPrimary: ({ theme }) => ({
+          // Refer to primary main and light directly!
+          background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.light} 100%)`,
+          "&:hover": {
+            // You can even flip the gradient or darken it on hover
+            background: `linear-gradient(135deg, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
+          },
+        }),
       },
     },
-    MuiPaper: {
+    MuiCard: {
       styleOverrides: {
-        root: {
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-        },
+        root: ({ theme }) => ({
+          borderRadius: "1rem",
+          // Refer to the divider or a custom opacity of the text
+          border: `1px solid ${theme.palette.divider}`,
+        }),
       },
-    },
-  },
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 960,
-      lg: 1280,
-      xl: 1920,
     },
   },
 });

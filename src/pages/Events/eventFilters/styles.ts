@@ -1,17 +1,12 @@
-import { appTheme } from "../../../components/AppProviders/theme.ts";
-
 import type { SxProps } from "@mui/material";
 
 export const filterContainerStyles: SxProps = {
-  margin: "1.5rem 0 0.5rem 0",
-  boxShadow: "none",
-  borderRadius: "0",
-  border: `1px solid ${appTheme.palette.divider}`,
+  margin: "2rem 0",
 };
 
 export const filterSummaryStyles: SxProps = {
   borderRadius: "0",
-  backgroundColor: appTheme.palette.secondary.light,
+  // backgroundColor: "secondary.dark",
 
   "&.Mui-expanded": {
     minHeight: "3rem",
@@ -26,5 +21,5 @@ export const filterSummaryStyles: SxProps = {
 
 export const filterDetailsStyles: SxProps = {
   padding: "1rem",
-  backgroundColor: appTheme.palette.background.default,
+  backgroundColor: "background.paper",
 };

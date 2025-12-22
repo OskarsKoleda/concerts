@@ -25,10 +25,14 @@ const Homepage = () => {
   return (
     <Box sx={homePageContainerStyles}>
       <Box sx={welcomeTextContainerStyles}>
-        <Box textAlign="center">
-          <Typography variant="h4">{titleSection.mainTitle}</Typography>
+        <Box>
+          <Typography variant="h4" color="text.primary">
+            {titleSection.mainTitle}
+          </Typography>
           <Divider sx={dividerStyles} />
-          <Typography variant="h5">{titleSection.subTitle}</Typography>
+          <Typography variant="h5" color="text.primary">
+            {titleSection.subTitle}
+          </Typography>
         </Box>
       </Box>
 
@@ -38,11 +42,12 @@ const Homepage = () => {
             {contentSection.mainContent}
           </Typography>
           <Divider sx={dividerStyles} />
+        </Paper>
+        <Paper sx={homePageCardStyles}>
           <Typography textAlign="justify" variant="body2">
             {contentSection.additionalContent}
           </Typography>
         </Paper>
-        <Paper sx={homePageCardStyles}>Statistics:</Paper>
       </Box>
 
       <Box sx={buttonsContainerStyles}>

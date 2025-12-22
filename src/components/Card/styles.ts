@@ -1,32 +1,35 @@
-import { horizontallyCenteredStyles } from "../../common/styles";
-
-import type { SxProps } from "@mui/system";
+import type { SxProps } from "@mui/material";
 
 export const cardStyles: SxProps = {
   display: "flex",
-  height: "15rem",
-  transition: "transform 0.1s ease-out, filter 0.2s ease-out",
+  height: "16rem",
+  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
 
   "&:hover": {
-    filter: "brightness(1.1)",
+    transform: "scale(0.98)",
   },
 };
 
 export const cardRightSideStyles: SxProps = {
-  display: "grid",
-  padding: "0.5rem",
-  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  padding: "1.25rem",
+  width: "70%",
+};
+
+export const cardContentStyles: SxProps = {
+  padding: 0,
 };
 
 export const cardActionsStyles: SxProps = {
+  display: "flex",
+  alignItems: "center",
   justifyContent: "space-between",
   padding: 0,
-
-  ...horizontallyCenteredStyles,
+  marginTop: "auto",
 };
 
 export const cardImageStyles: SxProps = {
-  flexShrink: 0,
   width: "30%",
   objectFit: "cover",
 };

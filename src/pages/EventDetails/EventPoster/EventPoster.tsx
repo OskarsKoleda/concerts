@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 
 import posterMissing from "../../../assets/poster-missing.jpg";
+import { eventPosterStyles } from "./styles.ts";
 
 interface EventPosterProps {
   posterURL?: string;
@@ -9,12 +10,12 @@ interface EventPosterProps {
 
 export const EventPoster = ({ posterURL, posterTitle }: EventPosterProps) => {
   return (
-    <Box>
+    <Box sx={eventPosterStyles}>
       <img
         style={{
-          height: "80vh",
-          maxWidth: "700px",
-          boxShadow: "4px 4px 10px #52C7B8",
+          display: "block",
+          maxHeight: "75vh",
+          maxWidth: "100%",
         }}
         src={posterURL ?? posterMissing}
         alt={posterTitle ?? "Poster"}

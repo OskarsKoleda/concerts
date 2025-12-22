@@ -1,35 +1,32 @@
-import { appTheme } from "../../../components/AppProviders/theme";
-
 import type { SxProps } from "@mui/material";
 
+// TODO: colors not from theme
 export const eventDataContainerStyles: SxProps = {
   display: "flex",
-  flex: "1 0 25%",
   flexDirection: "column",
-  alignItems: "center",
-  padding: "0.5rem",
-  marginRight: "1rem",
-  borderRadius: 0,
-  // background: "radial-gradient(circle, rgba(89,89,89,1) 0%, rgba(123,123,123,1) 100%)",
-  boxShadow: "2px 2px 10px #52C7B8",
-  backgroundColor: appTheme.palette.secondary.light,
+  padding: "2rem",
+  borderRadius: "24px",
+  background: "rgba(255, 255, 255, 0.03)",
+  border: "1px solid rgba(255, 255, 255, 0.08)",
+  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
 };
 
 export const eventDataStyles: SxProps = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  flex: " 3 0 auto",
+  gap: "1rem",
+  marginBottom: "2rem",
 };
 
 export const eventDataFooterStyles: SxProps = {
   display: "flex",
-  flex: "1 0 auto",
-  alignItems: "center",
+  justifyContent: "center",
+  padding: "1.5rem 0",
 };
 
 export const eventButtonContainerStyles: SxProps = {
   display: "flex",
   justifyContent: "space-between",
-  width: "100%",
+  gap: "1rem",
 };

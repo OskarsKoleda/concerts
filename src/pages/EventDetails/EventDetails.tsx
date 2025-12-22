@@ -3,12 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { useGetEventDetails } from "../../api/events/useGetEventDetails.ts";
 import posterMissing from "../../assets/poster-missing.jpg";
-import ContentLoader from "../../components/ContentLoader/ContentLoader.tsx";
 
+import ContentLoader from "../../components/ContentLoader/ContentLoader.tsx";
 import { EventBandsSection } from "./EventBandsSection/EventBandsSection.tsx";
 import EventDataSection from "./EventDataSection/EventDataSection.tsx";
 import EventPoster from "./EventPoster/EventPoster.tsx";
-import { eventContainerStyles, eventHeaderStyles, eventNotFoundStyles } from "./styles.ts";
+import { eventContainerStyles, eventDetailsStyles, eventNotFoundStyles } from "./styles.ts";
 
 const EventDetails = () => {
   const { slug } = useParams();
@@ -17,6 +17,8 @@ const EventDetails = () => {
   const { eventData, isLoading, isError } = useGetEventDetails(slug);
   const { url, title, bands } = eventData || {};
 
+  // TODO: improve not found page
+  // TODO: think of something for super big screens
   if (isError) {
     return (
       <Box sx={eventNotFoundStyles}>
@@ -31,11 +33,11 @@ const EventDetails = () => {
   return (
     <ContentLoader isLoading={isLoading}>
       <Box sx={eventContainerStyles}>
-        <Box sx={eventHeaderStyles}>
-          <Typography variant="h2">{title}</Typography>
-        </Box>
+        <Typography variant="h2" textAlign="center">
+          {title}
+        </Typography>
 
-        <Box display="flex" justifyContent="center">
+        <Box sx={eventDetailsStyles}>
           <EventDataSection event={eventData} />
           <EventPoster
             posterURL={url || posterMissing}

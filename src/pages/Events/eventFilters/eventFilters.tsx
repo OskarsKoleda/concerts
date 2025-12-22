@@ -3,12 +3,12 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { eventCategoriesList } from "../../../common/constants/appConstant";
-import DataGridFilters from "../../../components/DataGridFilters/DataGridFilters";
 import { InputType } from "../../../components/FormLayout/constants";
 import { eventsPageText } from "../constants";
 
 import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
 
+import DataGridFilters from "../../../components/DataGridFilters/dataGridFilters";
 import type {
   FilterInputsConfig,
   ToggleButtonFilterProps,

@@ -1,17 +1,31 @@
-import { appTheme } from "../../../components/AppProviders/theme";
+import type { SxProps } from "@mui/material";
 
-import type { SxProps } from "@mui/system";
+export const footerStyles: SxProps = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "0.5rem",
+};
 
 export const chipStyles: SxProps = {
-  fontSize: "1rem",
-  marginBottom: "0.1rem",
-  marginRight: "0.1rem",
+  fontSize: "0.75rem",
+  margin: "2px",
   fontWeight: "600",
-  backgroundColor: appTheme.palette.primary.contrastText,
+  background: "rgba(124, 77, 255, 0.1)",
+  color: "primary.light",
+};
+
+export const locationStyles: SxProps = {
+  display: "flex",
+  alignItems: "center",
+  gap: "0.5rem",
+};
+
+export const locationIconStyles: SxProps = {
+  color: "primary.main",
 };
 
 export const eventAuthorStyles: SxProps = {
-  position: "absolute",
   fontStyle: "italic",
-  marginLeft: "0.5rem",
+  opacity: 0.7,
+  fontSize: "0.75rem",
 };
