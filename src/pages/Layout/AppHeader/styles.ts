@@ -1,8 +1,13 @@
-import { appTheme } from "../../../components/AppProviders/theme";
-
 import type { SxProps } from "@mui/system";
 
-export const appTitleStyles: SxProps = {
-  marginLeft: "1rem",
-  color: appTheme.palette.primary.contrastText,
+export const leftContentStyles: SxProps = {
+  display: "flex",
+  alignItems: "center",
+  gap: "1rem",
+  color: "primary.contrastText",
+  textDecoration: "none",
+
+  "&:hover": {
+    color: "text.secondary",
+  },
 };

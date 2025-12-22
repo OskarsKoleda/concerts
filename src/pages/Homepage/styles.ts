@@ -4,34 +4,55 @@ export const homePageContainerStyles: SxProps = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  width: "70%",
+  maxWidth: "1200px",
 };
 
 export const welcomeTextContainerStyles: SxProps = {
-  margin: "1.5rem",
-  padding: "1rem",
+  margin: "4rem 0",
   textAlign: "center",
 };
 
-export const dividerStyles: SxProps = {
-  margin: "1rem 0",
-};
-
-export const informationContainerStyles: SxProps = {
-  display: "flex",
-  justifyContent: "center",
+export const sectionTitleStyles: SxProps = {
+  marginBottom: "2rem",
+  fontWeight: 800,
+  textAlign: "center",
+  background: "linear-gradient(90deg, #7C4DFF, #FFAB40)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
 };
 
 export const homePageCardStyles: SxProps = {
-  flex: 0,
-  minWidth: "20rem",
-  margin: "0 1rem",
-  padding: "1rem",
-  backgroundColor: "background.default",
+  flex: "1 1 300px",
+  padding: "2rem",
+  background: "rgba(255, 255, 255, 0.03)",
+  backdropFilter: "blur(10px)",
+  border: "1px solid rgba(255, 255, 255, 0.08)",
+  borderRadius: "24px",
+};
+
+export const dividerStyles: SxProps = {
+  margin: "1.5rem 0",
+  borderColor: "rgba(255, 255, 255, 0.1)",
 };
 
 export const buttonsContainerStyles: SxProps = {
   display: "flex",
-  margin: "2rem",
+  margin: "2rem 0",
   gap: "1.5rem",
+};
+
+export const footerContainerStyles: SxProps = {
+  display: "grid",
+  width: "100%",
+  padding: "4rem 2rem",
+  borderTop: "1px solid",
+  borderColor: "divider",
+  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+  gap: "3rem",
+};
+
+export const fakeLinkStyles: SxProps = {
+  cursor: "pointer",
+
+  "&:hover": { color: "primary.main" },
 };

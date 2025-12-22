@@ -7,7 +7,7 @@ export const bottomCaptionStyles: SxProps = {
     textDecoration: "underline",
     fontFamily: "inherit",
 
-    ":hover": {
+    "&:hover": {
       cursor: "pointer",
     },
   },

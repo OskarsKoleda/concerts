@@ -1,4 +1,4 @@
-import { Box, Divider, Paper, Typography } from "@mui/material";
+import { Box, Divider, Paper, Stack, Typography } from "@mui/material";
 
 import NavLinkButton from "../../components/NavLinkButton/NavLinkButton.tsx";
 import { ROUTES } from "../../router/routes";
@@ -7,9 +7,11 @@ import { homepageTexts } from "./constants";
 import {
   buttonsContainerStyles,
   dividerStyles,
+  fakeLinkStyles,
+  footerContainerStyles,
   homePageCardStyles,
   homePageContainerStyles,
-  informationContainerStyles,
+  sectionTitleStyles,
   welcomeTextContainerStyles,
 } from "./styles.ts";
 
@@ -25,38 +27,65 @@ const Homepage = () => {
   return (
     <Box sx={homePageContainerStyles}>
       <Box sx={welcomeTextContainerStyles}>
-        <Box>
-          <Typography variant="h4" color="text.primary">
-            {titleSection.mainTitle}
-          </Typography>
-          <Divider sx={dividerStyles} />
-          <Typography variant="h5" color="text.primary">
-            {titleSection.subTitle}
-          </Typography>
-        </Box>
+        <Typography variant="h1" sx={sectionTitleStyles}>
+          {titleSection.mainTitle}
+        </Typography>
+        <Typography variant="h5" color="text.secondary">
+          {titleSection.subTitle}
+        </Typography>
       </Box>
 
-      <Box sx={informationContainerStyles}>
+      <Box>
         <Paper sx={homePageCardStyles}>
           <Typography textAlign="justify" variant="body1">
             {contentSection.mainContent}
           </Typography>
           <Divider sx={dividerStyles} />
-        </Paper>
-        <Paper sx={homePageCardStyles}>
-          <Typography textAlign="justify" variant="body2">
+          <Typography textAlign="justify" variant="body2" color="text.secondary">
             {contentSection.additionalContent}
           </Typography>
         </Paper>
       </Box>
 
       <Box sx={buttonsContainerStyles}>
-        <NavLinkButton color="secondary" to={ROUTES.EVENTS}>
+        <NavLinkButton color="secondary" size="large" to={ROUTES.EVENTS}>
           {viewButton.label}
         </NavLinkButton>
-        <NavLinkButton color="secondary" to={ROUTES.NEW_EVENT}>
+        <NavLinkButton variant="outlined" color="primary" size="large" to={ROUTES.NEW_EVENT}>
           {addButton.label}
         </NavLinkButton>
+      </Box>
+
+      <Box sx={footerContainerStyles}>
+        <Stack spacing={2}>
+          <Typography variant="h6" color="primary.main">
+            Concerts
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            The ultimate platform for discovering and managing live music events.
+          </Typography>
+        </Stack>
+        <Stack spacing={2}>
+          <Typography variant="h6">Links</Typography>
+          <Typography variant="body2" sx={fakeLinkStyles}>
+            Browse Events
+          </Typography>
+          <Typography variant="body2" sx={fakeLinkStyles}>
+            Post Event
+          </Typography>
+          <Typography variant="body2" sx={fakeLinkStyles}>
+            Ticketing
+          </Typography>
+        </Stack>
+        <Stack spacing={2}>
+          <Typography variant="h6">Contact</Typography>
+          <Typography variant="body2" color="text.secondary">
+            support@concerts.io
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            +1 (555) 000-ROCK
+          </Typography>
+        </Stack>
       </Box>
     </Box>
   );

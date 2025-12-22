@@ -10,7 +10,7 @@ const ProtectedLayout = () => {
   const { isAuthenticated, isLoading } = useAuth();
 
   return (
-    <Box width="100%" overflow="hidden" mb="1rem">
+    <Box width="100%">
       <ContentLoader isLoading={isLoading}>
         {isAuthenticated ? (
           <>

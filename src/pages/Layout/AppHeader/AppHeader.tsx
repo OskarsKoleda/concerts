@@ -4,23 +4,20 @@ import StadiumIcon from "@mui/icons-material/Stadium";
 import { IconButton, Link, Tooltip, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 
-import { horizontallyCenteredStyles } from "../../../common/styles";
 import Drawer from "../../../components/Header/Drawer/Drawer";
 import Header from "../../../components/Header/Header";
 import UserActions from "../../../components/Header/UserActions/UserActions";
 import { ROUTES } from "../../../router/routes";
 
-import { appTitleStyles } from "./styles";
+import { leftContentStyles } from "./styles";
 
 const AppHeader = () => {
   const leftContent = (
     <>
       <Drawer />
-      <Link component={RouterLink} sx={horizontallyCenteredStyles} to={ROUTES.HOMEPAGE}>
-        <HomeIcon color="action" fontSize="large" />
-        <Typography variant="h3" sx={appTitleStyles}>
-          Event Tracker
-        </Typography>
+      <Link component={RouterLink} to={ROUTES.HOMEPAGE} sx={leftContentStyles}>
+        <HomeIcon fontSize="large" />
+        <Typography variant="h3">Event Tracker</Typography>
       </Link>
     </>
   );
