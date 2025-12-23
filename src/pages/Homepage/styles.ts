@@ -40,19 +40,3 @@ export const buttonsContainerStyles: SxProps = {
   margin: "2rem 0",
   gap: "1.5rem",
 };
-
-export const footerContainerStyles: SxProps = {
-  display: "grid",
-  width: "100%",
-  padding: "4rem 2rem",
-  borderTop: "1px solid",
-  borderColor: "divider",
-  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-  gap: "3rem",
-};
-
-export const fakeLinkStyles: SxProps = {
-  cursor: "pointer",
-
-  "&:hover": { color: "primary.main" },
-};

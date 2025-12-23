@@ -1,4 +1,4 @@
-import { Box, Divider, Paper, Stack, Typography } from "@mui/material";
+import { Box, Divider, Paper, Typography } from "@mui/material";
 
 import NavLinkButton from "../../components/NavLinkButton/NavLinkButton.tsx";
 import { ROUTES } from "../../router/routes";
@@ -7,13 +7,12 @@ import { homepageTexts } from "./constants";
 import {
   buttonsContainerStyles,
   dividerStyles,
-  fakeLinkStyles,
-  footerContainerStyles,
   homePageCardStyles,
   homePageContainerStyles,
   sectionTitleStyles,
   welcomeTextContainerStyles,
 } from "./styles.ts";
+import { Footer } from "./Footer/Footer.tsx";
 
 const {
   ENGLISH: {
@@ -56,37 +55,7 @@ const Homepage = () => {
         </NavLinkButton>
       </Box>
 
-      <Box sx={footerContainerStyles}>
-        <Stack spacing={2}>
-          <Typography variant="h6" color="primary.main">
-            Concerts
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            The ultimate platform for discovering and managing live music events.
-          </Typography>
-        </Stack>
-        <Stack spacing={2}>
-          <Typography variant="h6">Links</Typography>
-          <Typography variant="body2" sx={fakeLinkStyles}>
-            Browse Events
-          </Typography>
-          <Typography variant="body2" sx={fakeLinkStyles}>
-            Post Event
-          </Typography>
-          <Typography variant="body2" sx={fakeLinkStyles}>
-            Ticketing
-          </Typography>
-        </Stack>
-        <Stack spacing={2}>
-          <Typography variant="h6">Contact</Typography>
-          <Typography variant="body2" color="text.secondary">
-            support@concerts.io
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            +1 (555) 000-ROCK
-          </Typography>
-        </Stack>
-      </Box>
+      <Footer />
     </Box>
   );
 };

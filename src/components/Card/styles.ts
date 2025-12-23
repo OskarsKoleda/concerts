@@ -1,9 +1,10 @@
-import type { SxProps } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material";
 
-export const cardStyles: SxProps = {
+export const cardStyles: SxProps<Theme> = {
   display: "flex",
   height: "16rem",
   transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+  border: (theme) => `1px solid ${theme.palette.divider}`,
 
   "&:hover": {
     transform: "scale(0.98)",
