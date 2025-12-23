@@ -9,7 +9,7 @@ import { useRootStore } from "../../store/StoreContext.tsx";
 import { EventFilters } from "./EventFilters/EventFilters.tsx";
 import EventsList from "./EventsList/EventsList.tsx";
 import EventsSettings from "./EventsSettings/EventsSettings.tsx";
-import EventsTable from "./eventsTable/eventsTable.tsx";
+import EventsTable from "./EventsTable/EventsTable.tsx";
 import { eventListStyles, eventsLayoutStyles } from "./styles.ts";
 
 const Events = () => {

@@ -53,8 +53,9 @@ const TextFieldWithValidation = (props: TextFieldWithValidationProps) => {
           onChange(value);
         };
 
-        if (readonly)
+        if (readonly) {
           return <ReadonlyField label={label} value={value ?? ""} tooltipText={value ?? ""} />;
+        }
 
         return (
           <Tooltip title={tooltipText}>

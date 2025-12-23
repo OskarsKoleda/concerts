@@ -20,7 +20,6 @@ export function generateFilterFields(input: FilterInputsConfigItem) {
           onChange={onChange}
           placeholder={placeholder}
           value={value}
-          sx={{ backgroundColor: "#FFF" }}
           size="small"
         />
       );

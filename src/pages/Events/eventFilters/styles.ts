@@ -6,7 +6,6 @@ export const filterContainerStyles: SxProps = {
 
 export const filterSummaryStyles: SxProps = {
   borderRadius: "0",
-  // backgroundColor: "secondary.dark",
 
   "&.Mui-expanded": {
     minHeight: "3rem",

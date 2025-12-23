@@ -5,9 +5,6 @@ import { memo, useCallback } from "react";
 import { Controller } from "react-hook-form";
 
 import { DATE_FORMAT } from "../../common/constants/appConstant.ts";
-import AutocompleteTextField from "../Inputs/ReactHookForm/AutocompleteTextField/AutocompleteTextField.tsx";
-import SelectWithValidation from "../Inputs/ReactHookForm/SelectWithValidation/SelectWithValidation.tsx";
-import TextFieldWithValidation from "../Inputs/ReactHookForm/TextFieldWithValidation/TextFieldWithValidation.tsx";
 
 import { InputType } from "./constants.ts";
 import { isFormSection } from "./utils.ts";
@@ -15,6 +12,9 @@ import { isFormSection } from "./utils.ts";
 import type { ReactNode } from "react";
 import type { Control } from "react-hook-form";
 import type { FormContent, FormField } from "./types.ts";
+import SelectWithValidation from "../Inputs/reactHookForm/SelectWithValidation/SelectWithValidation.tsx";
+import TextFieldWithValidation from "../Inputs/reactHookForm/TextFieldWithValidation/TextFieldWithValidation.tsx";
+import AutocompleteTextField from "../Inputs/reactHookForm/AutocompleteTextField/AutocompleteTextField.tsx";
 
 interface FormLayoutProps {
   content: FormContent;

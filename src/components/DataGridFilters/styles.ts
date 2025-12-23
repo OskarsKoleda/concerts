@@ -1,22 +1,23 @@
-import { appTheme } from "../AppProviders/theme.ts";
-
 import type { SxProps } from "@mui/material";
-
-// export const toggleButtonGroupStyles: SxProps = {
-//   ".Mui-selected": {
-//     "&:hover": {
-//       cursor: "default",
-//     },
-//   },
-// };
 
 export const toggleButtonStyles: SxProps = {
   textTransform: "capitalize",
-  color: appTheme.palette.primary.contrastText,
-  backgroundColor: appTheme.palette.primary.main,
+  color: "primary.contrastText",
+  backgroundColor: "primary.main",
+  margin: "0 0.25rem",
+  border: "none",
+
+  "&.Mui-selected": {
+    color: "primary.contrastText",
+    backgroundColor: "primary.dark !important",
+
+    "&:hover": {
+      backgroundColor: "primary.dark",
+    },
+  },
 
   "&:hover": {
-    backgroundColor: appTheme.palette.primary.light,
+    backgroundColor: "primary.light",
   },
 };
 

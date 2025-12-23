@@ -9,7 +9,6 @@ export const appTheme = createTheme({
       dark: "#3F1DCB",
       contrastText: "#FFFFFF",
     },
-
     secondary: {
       main: "#FFAB40",
       light: "#FFD180",
