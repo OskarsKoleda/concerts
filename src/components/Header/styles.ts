@@ -9,4 +9,5 @@ export const headerToolbarStyles: SxProps = {
 export const headerContentStyles: SxProps = {
   display: "flex",
   alignItems: "center",
+  whiteSpace: "nowrap",
 };

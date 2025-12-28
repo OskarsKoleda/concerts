@@ -17,6 +17,14 @@ export const eventContainerStyles: SxProps = {
   gap: "3rem",
 };
 
+export const eventTitleStyles: SxProps = {
+  fontSize: "2rem",
+  fontWeight: "bold",
+  background: "linear-gradient(90deg, #7C4DFF, #FFAB40)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+};
+
 export const eventDetailsStyles: SxProps = {
   display: "flex",
   alignItems: "start",

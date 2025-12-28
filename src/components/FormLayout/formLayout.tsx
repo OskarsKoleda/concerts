@@ -19,13 +19,12 @@ import AutocompleteTextField from "../Inputs/reactHookForm/AutocompleteTextField
 interface FormLayoutProps {
   content: FormContent;
   control: Control<any, Record<string, unknown>>;
-  title: string;
   readonly?: boolean;
   disabled?: boolean; // TODO: is this needed?
   footer?: ReactNode;
 }
 
-const FormLayout = ({ content, control, disabled, readonly, title }: FormLayoutProps) => {
+const FormLayout = ({ content, control, disabled, readonly }: FormLayoutProps) => {
   const renderFieldInput = useCallback(
     (field: FormField) => {
       const formFieldProps = {
@@ -103,10 +102,6 @@ const FormLayout = ({ content, control, disabled, readonly, title }: FormLayoutP
 
   return (
     <>
-      <Typography mt={1} variant="body2">
-        {title}
-      </Typography>
-
       {isFormSection(content) ? (
         content.map((formSection) => (
           <Box key={formSection.id}>

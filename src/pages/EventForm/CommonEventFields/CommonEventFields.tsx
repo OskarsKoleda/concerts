@@ -23,19 +23,20 @@ const CommonEventFields = () => {
 
   const commonEventFields: FormFields = [
     {
-      inputType: InputType.Select,
-      controlName: "category",
-      id: "category",
-      label: "Event Category",
-      children: eventCategoriesList,
-    },
-    {
       inputType: InputType.Text,
       controlName: "title",
       id: "title",
       label: "Event Title",
       rules: EVENT_TITLE_RULES,
     },
+    {
+      inputType: InputType.Select,
+      controlName: "category",
+      id: "category",
+      label: "Event Category",
+      children: eventCategoriesList,
+    },
+
     {
       inputType: InputType.AutocompleteText,
       controlName: "bands",
@@ -68,8 +69,7 @@ const CommonEventFields = () => {
     },
   ];
 
-  // TODO: add more fields for specific event categories
-  return <FormLayout content={commonEventFields} control={control} title="Event Details" />;
+  return <FormLayout content={commonEventFields} control={control} />;
 };
 
 export default CommonEventFields;

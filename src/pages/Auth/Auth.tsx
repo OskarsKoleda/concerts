@@ -73,6 +73,9 @@ const Auth = () => {
 
   return (
     <Box width="35%" mt={10}>
+      <Typography color="primary" variant="h4">
+        {isSignUpMode ? "Sign Up" : "Login"}
+      </Typography>
       <FormProvider {...methods}>
         <form onSubmit={submitFormHandler}>
           <AuthFormFields signUp={isSignUpMode} />

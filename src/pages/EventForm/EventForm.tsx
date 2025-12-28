@@ -113,9 +113,11 @@ export const EventForm = () => {
 
   return (
     <Box sx={formContainerStyles}>
+      <Typography color="primary" variant="h4">
+        {formTitle}
+      </Typography>
       <FormProvider {...methods}>
         <form onSubmit={submitFormHandler}>
-          <Typography variant="h5">{formTitle}</Typography>
           <CommonEventFields />
           <EventDateFields />
           <FileUpload buttonTitle="Add Poster" formFieldName="image" />

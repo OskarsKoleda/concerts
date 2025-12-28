@@ -76,16 +76,18 @@ export const EventActionButtons = ({ isEditMode }: EventActionButtonsProps) => {
 
   return (
     <ButtonsLayout controls={controls}>
-      <ButtonWithConfirmDialog
-        data-testid="delete-event"
-        variant="outlined"
-        color="error"
-        buttonTitle="Delete"
-        tooltip="Delete Event"
-        customDialogTitle="Confirm Deletion"
-        dialogContent="You are about to delete the event permanently. Proceed?"
-        onConfirm={() => deleteEvent(slug)}
-      />
+      {isEditMode && (
+        <ButtonWithConfirmDialog
+          data-testid="delete-event"
+          variant="outlined"
+          color="error"
+          buttonTitle="Delete"
+          tooltip="Delete Event"
+          customDialogTitle="Confirm Deletion"
+          dialogContent="You are about to delete the event permanently. Proceed?"
+          onConfirm={() => deleteEvent(slug)}
+        />
+      )}
     </ButtonsLayout>
   );
 };

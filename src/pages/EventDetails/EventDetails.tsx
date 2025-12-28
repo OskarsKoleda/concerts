@@ -8,7 +8,12 @@ import ContentLoader from "../../components/ContentLoader/ContentLoader.tsx";
 import { EventBandsSection } from "./EventBandsSection/EventBandsSection.tsx";
 import EventDataSection from "./EventDataSection/EventDataSection.tsx";
 import EventPoster from "./EventPoster/EventPoster.tsx";
-import { eventContainerStyles, eventDetailsStyles, eventNotFoundStyles } from "./styles.ts";
+import {
+  eventContainerStyles,
+  eventDetailsStyles,
+  eventNotFoundStyles,
+  eventTitleStyles,
+} from "./styles.ts";
 
 const EventDetails = () => {
   const { slug } = useParams();
@@ -18,7 +23,7 @@ const EventDetails = () => {
   const { url, title, bands } = eventData || {};
 
   // TODO: improve not found page
-  // TODO: think of something for super big screens
+  // TODO: think of something for super big screens / small screens
   if (isError) {
     return (
       <Box sx={eventNotFoundStyles}>
@@ -33,7 +38,7 @@ const EventDetails = () => {
   return (
     <ContentLoader isLoading={isLoading}>
       <Box sx={eventContainerStyles}>
-        <Typography variant="h2" textAlign="center">
+        <Typography variant="h2" textAlign="center" sx={eventTitleStyles}>
           {title}
         </Typography>
 

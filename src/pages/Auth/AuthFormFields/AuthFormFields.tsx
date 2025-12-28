@@ -1,10 +1,9 @@
 import { useFormContext } from "react-hook-form";
 
-import FormLayout from "../../../components/FormLayout/FormLayout.tsx";
-
 import { loginFields, signUpFields } from "./constants.ts";
 
 import type { UserProfile } from "../../../common/types/userTypes.ts";
+import FormLayout from "../../../components/FormLayout/FormLayout.tsx";
 
 interface AuthFormFieldsProps {
   signUp: boolean;
@@ -13,13 +12,7 @@ interface AuthFormFieldsProps {
 const AuthFormFields = ({ signUp }: AuthFormFieldsProps) => {
   const { control } = useFormContext<UserProfile>();
 
-  return (
-    <FormLayout
-      content={signUp ? signUpFields : loginFields}
-      control={control}
-      title={signUp ? "Sign Up" : "Login"}
-    />
-  );
+  return <FormLayout content={signUp ? signUpFields : loginFields} control={control} />;
 };
 
 export default AuthFormFields;

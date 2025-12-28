@@ -40,7 +40,7 @@ const EventDateFields = () => {
       ? [...eventDateFields, ...musicFestivalDateFields]
       : eventDateFields;
 
-  return <FormLayout content={dateFields} control={control} title="Dates" />;
+  return <FormLayout content={dateFields} control={control} />;
 };
 
 export default EventDateFields;

@@ -15,7 +15,7 @@ export const EventPoster = ({ posterURL, posterTitle }: EventPosterProps) => {
         style={{
           display: "block",
           maxHeight: "75vh",
-          maxWidth: "100%",
+          minHeight: "30rem",
         }}
         src={posterURL ?? posterMissing}
         alt={posterTitle ?? "Poster"}

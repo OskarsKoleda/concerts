@@ -4,8 +4,9 @@ import type { SxProps } from "@mui/material";
 export const eventDataContainerStyles: SxProps = {
   display: "flex",
   flexDirection: "column",
+  minWidth: "15rem",
   padding: "2rem",
-  borderRadius: "24px",
+  borderRadius: "0.5rem",
   background: "rgba(255, 255, 255, 0.03)",
   border: "1px solid rgba(255, 255, 255, 0.08)",
   boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
