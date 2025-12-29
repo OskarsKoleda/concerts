@@ -28,7 +28,13 @@ interface FormSection {
   footer?: ReactNode;
 }
 
-export type FormField = SelectField | TextField | AutocompleteTextField | NumberField | DateField;
+export type FormField =
+  | SelectField
+  | TextField
+  | PasswordField
+  | AutocompleteTextField
+  | NumberField
+  | DateField;
 
 type SelectField = Omit<SelectWithValidationProps, "control"> &
   BaseFieldParams & {
@@ -39,6 +45,10 @@ export type SelectWithValidationProps = ReadonlyControl & SelectProps & WithVali
 
 type TextField = CommonInputFieldProps & {
   inputType: InputType.Text;
+};
+
+type PasswordField = CommonInputFieldProps & {
+  inputType: InputType.Password;
 };
 
 type AutocompleteTextField = CommonInputFieldProps & {

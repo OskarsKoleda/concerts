@@ -11,7 +11,7 @@ export const loginFields: FormFields = [
     label: "Email",
   },
   {
-    inputType: InputType.Text,
+    inputType: InputType.Password,
     controlName: "password",
     id: "password",
     label: "Password",
@@ -34,7 +34,7 @@ export const signUpFields: FormFields = [
   },
   ...[loginFields[0], age, loginFields[1]],
   {
-    inputType: InputType.Text,
+    inputType: InputType.Password,
     controlName: "repeatPassword",
     id: "repeatPassword",
     label: "Repeat Password",

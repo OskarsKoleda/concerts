@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import React, { useMemo } from "react";
+import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -15,9 +15,9 @@ import AuthButtons from "./AuthButtons/AuthButtons.tsx";
 import AuthFormFields from "./AuthFormFields/AuthFormFields.tsx";
 import { useAuthError } from "./hooks/useAuthError.ts";
 import { useAuthMode } from "./hooks/useAuthMode.ts";
-import { bottomCaptionStyles } from "./styles.ts";
 
 import type { CreateUserRequest } from "../../common/types/userTypes.ts";
+import AuthHelperCaption from "./AuthHelperCaption/AuthHelperCaption.tsx";
 
 const Auth = () => {
   const { setUserProfile } = useRootStore().userStore;
@@ -25,7 +25,7 @@ const Auth = () => {
   const navigate = useNavigate();
   const { showSnackbar } = useCustomSnackbar();
 
-  const { isSignUpMode, toggleMode } = useAuthMode();
+  const { isSignUpMode } = useAuthMode();
   const { error, handleError } = useAuthError();
 
   const methods = useForm<CreateUserRequest>({
@@ -67,26 +67,15 @@ const Auth = () => {
     }
   };
 
-  const bottomCaptionText = useMemo(() => {
-    return isSignUpMode ? "Already have an account? Log in" : "Don't have an account? Sign Up";
-  }, [isSignUpMode]);
-
   return (
-    <Box width="35%" mt={10}>
+    <Box sx={{ maxWidth: "25rem", margin: "auto" }}>
       <Typography color="primary" variant="h4">
         {isSignUpMode ? "Sign Up" : "Login"}
       </Typography>
       <FormProvider {...methods}>
         <form onSubmit={submitFormHandler}>
           <AuthFormFields signUp={isSignUpMode} />
-          <Typography
-            onClick={toggleMode}
-            variant="body2"
-            color="textSecondary"
-            sx={bottomCaptionStyles}
-          >
-            {bottomCaptionText}
-          </Typography>
+          <AuthHelperCaption resetForm={methods.reset} />
           {error && (
             <Typography variant="caption" color="red">
               {error}

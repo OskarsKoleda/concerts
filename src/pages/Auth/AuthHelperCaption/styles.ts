@@ -1,6 +1,6 @@
 import type { SxProps } from "@mui/material";
 
-export const bottomCaptionStyles: SxProps = {
+export const authHelperCaption: SxProps = {
   marginTop: "0.75rem",
 
   span: {
@@ -9,6 +9,7 @@ export const bottomCaptionStyles: SxProps = {
 
     "&:hover": {
       cursor: "pointer",
+      color: "text.primary",
     },
   },
 };

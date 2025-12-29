@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import { DatePicker } from "@mui/x-date-pickers";
 import { memo, useCallback } from "react";
@@ -41,6 +41,17 @@ const FormLayout = ({ content, control, disabled, readonly }: FormLayoutProps) =
               {...field}
               sx={{ width: "100%" }}
               type="text"
+            />
+          );
+        }
+
+        case InputType.Password: {
+          return (
+            <TextFieldWithValidation
+              {...formFieldProps}
+              {...field}
+              sx={{ width: "100%" }}
+              type="password"
             />
           );
         }
