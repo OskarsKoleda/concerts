@@ -27,7 +27,9 @@ const EventDetails = () => {
   if (isError) {
     return (
       <Box sx={eventNotFoundStyles}>
-        <Typography variant="h3">Event Not Found! (╯°□°）╯︵ ┻━┻</Typography>
+        <Typography color="primary.contrastText" variant="h3">
+          Event Not Found! (╯°□°）╯︵ ┻━┻
+        </Typography>
         <Button size="large" variant="contained" onClick={() => navigate("/")}>
           Go Back Home
         </Button>
@@ -36,22 +38,21 @@ const EventDetails = () => {
   }
 
   return (
-    <ContentLoader isLoading={isLoading}>
-      <Box sx={eventContainerStyles}>
-        <Typography variant="h2" textAlign="center" sx={eventTitleStyles}>
-          {title}
-        </Typography>
-
+    <Box sx={eventContainerStyles}>
+      <Typography variant="h2" textAlign="center" sx={eventTitleStyles}>
+        {title}
+      </Typography>
+      <ContentLoader isLoading={isLoading}>
         <Box sx={eventDetailsStyles}>
           <EventDataSection event={eventData} />
           <EventPoster
             posterURL={url || posterMissing}
-            posterTitle={url ? title : "poster-is-missing"}
+            posterTitle={url && title ? title : "poster-is-missing"}
           />
           {bands?.length ? <EventBandsSection bands={bands} /> : null}
         </Box>
-      </Box>
-    </ContentLoader>
+      </ContentLoader>
+    </Box>
   );
 };
 

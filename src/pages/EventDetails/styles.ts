@@ -1,7 +1,7 @@
 import type { SxProps } from "@mui/material";
 
 export const eventNotFoundStyles: SxProps = {
-  height: "100vh",
+  height: "90vh",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
