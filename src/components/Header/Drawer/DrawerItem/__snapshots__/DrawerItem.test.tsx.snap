@@ -3,7 +3,7 @@
 exports[`drawerItem should be rendered correctly 1`] = `
 <div>
   <a
-    class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-u3m3ul-MuiButtonBase-root-MuiListItemButton-root"
+    class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-1pd93y4-MuiButtonBase-root-MuiListItemButton-root"
     href="/events"
     tabindex="0"
   >

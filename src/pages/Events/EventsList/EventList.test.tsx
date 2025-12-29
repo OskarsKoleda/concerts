@@ -18,6 +18,10 @@ const mockEvents: ServerEventData[] = [
     ticketPrice: 89.99,
     slug: "metallica-world-tour-2025",
     url: "https://example.com/events/metallica-world-tour-2025",
+    owner: {
+      id: "1",
+      name: "admin",
+    },
   },
   {
     title: "Jazz Night Festival",
@@ -30,6 +34,10 @@ const mockEvents: ServerEventData[] = [
     ticketPrice: 45.0,
     slug: "jazz-night-festival-2025",
     url: "https://example.com/events/jazz-night-festival-2025",
+    owner: {
+      id: "2",
+      name: "admin",
+    },
   },
 ];
 

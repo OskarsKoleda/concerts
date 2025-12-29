@@ -6,9 +6,9 @@ import { renderWithProviders } from "../../../common/utils/testingUtils";
 import { ROUTES } from "../../../router/routes";
 
 import EventCard from "./EventCard";
-import { formatEventDate } from "./utils";
 
 import type { ServerEventData } from "../../../common/types/eventTypes";
+import { formatEventDate } from "../../../common/utils/utils";
 
 const navigateMock = vi.fn();
 
@@ -30,6 +30,10 @@ const mockEvent: ServerEventData = {
   url: "https://example.com/image.jpg",
   slug: "rock-concert-2024",
   category: EventCategory.MusicConcert,
+  owner: {
+    id: "2",
+    name: "admin",
+  },
 };
 
 describe("EventCard", () => {
