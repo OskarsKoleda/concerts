@@ -9,12 +9,14 @@ import { StoreProvider } from "../../store/StoreContext.tsx";
 import type { RenderOptions, RenderResult } from "@testing-library/react";
 import type { FC, ReactNode } from "react";
 import type { UseFormProps } from "react-hook-form";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 interface ExtendedRenderOptions<TFieldValues extends Record<string, any>>
   extends Omit<RenderOptions, "wrapper"> {
   rootStore?: RootStore | null;
   formConfig?: UseFormProps<TFieldValues> | null;
   route?: string;
+  queryClient?: boolean;
 }
 
 const WithRouter = (route: string, children: ReactNode) => {
@@ -41,12 +43,19 @@ const WithFormProvider = <TFieldValues extends Record<string, any>>(
   return <FormProvider {...formMethods}>{children}</FormProvider>;
 };
 
+const WithQueryClient = (children: ReactNode) => {
+  const queryClient = new QueryClient();
+
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+};
+
 export function renderWithProviders<TFieldValues extends Record<string, any> = any>(
   UI: React.ReactElement,
   {
     rootStore = new RootStore(),
     formConfig = null,
     route = "/",
+    queryClient = false,
     ...renderOptions
   }: ExtendedRenderOptions<TFieldValues> = {},
 ): RenderResult & { rootStore: RootStore | null } {
@@ -59,8 +68,9 @@ export function renderWithProviders<TFieldValues extends Record<string, any> = a
     );
 
     const UIWithRouter = WithRouter(route, UIWithFormProvider);
+    const UIWithQueryClient = WithQueryClient(UIWithRouter);
 
-    return UIWithRouter;
+    return UIWithQueryClient;
   };
 
   return {

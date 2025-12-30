@@ -17,12 +17,15 @@ const UserActions = () => {
   } = useRootStore();
 
   const navigation = useNavigate();
-  const { mutate: logout } = useLogout({
-    onSuccess: () => {
-      setUserProfile(null);
-      navigation(`${ROUTES.AUTH}/?mode=${AuthMode.Login}`);
-    },
-  });
+  const { mutate: logout } = useLogout();
+  const handleLogout = () => {
+    logout(undefined, {
+      onSuccess: () => {
+        setUserProfile(null);
+        navigation(`${ROUTES.AUTH}/?mode=${AuthMode.Login}`);
+      },
+    });
+  };
 
   return (
     <>
@@ -32,7 +35,7 @@ const UserActions = () => {
         <PortraitIcon />
       </IconButton>
       <Divider orientation="vertical" sx={dividerStyles} />
-      <IconButton onClick={() => logout()} size="large">
+      <IconButton onClick={handleLogout} size="large">
         <LogoutIcon />
       </IconButton>
     </>

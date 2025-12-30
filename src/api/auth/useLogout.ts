@@ -9,18 +9,13 @@ const logout = async (): Promise<void> => {
   await axios.post(getApiUrl("/auth/logout"));
 };
 
-export const useLogout = (options?: {
-  onSuccess?: () => void;
-  onError?: (error: AxiosErrorResponse) => void;
-}) => {
+export const useLogout = () => {
   const queryClient = useQueryClient();
 
   return useMutation<void, AxiosErrorResponse, void>({
     mutationFn: logout,
     onSuccess: () => {
       queryClient.removeQueries({ queryKey: ["currentUser"] });
-      options?.onSuccess?.();
     },
-    onError: options?.onError,
   });
 };
