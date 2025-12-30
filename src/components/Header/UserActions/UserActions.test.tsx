@@ -19,17 +19,19 @@ vi.mock("react-router-dom", async () => {
   };
 });
 
-test.skip("logout button logs out correctly", async () => {
-  const rootStore = new RootStore();
-  const user = userEvent.setup();
+describe("UserActions", () => {
+  it("logout button logs out correctly", async () => {
+    const rootStore = new RootStore();
+    const user = userEvent.setup();
 
-  // rootStore.userStore.logoutUser = mockedLogout;
+    // rootStore.userStore.logoutUser = mockedLogout;
 
-  renderWithProviders(<UserActions />, { rootStore });
+    renderWithProviders(<UserActions />, { rootStore });
 
-  const logoutButton = screen.getByTestId("LogoutIcon");
-  await user.click(logoutButton);
+    const logoutButton = screen.getByTestId("LogoutIcon");
+    await user.click(logoutButton);
 
-  expect(mockedLogout).toHaveBeenCalled();
-  expect(mockedNavigate).toHaveBeenCalledWith("/auth/?mode=login");
+    expect(mockedLogout).toHaveBeenCalled();
+    expect(mockedNavigate).toHaveBeenCalledWith("/auth/?mode=login");
+  });
 });

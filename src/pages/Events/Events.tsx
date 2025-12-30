@@ -13,7 +13,7 @@ import EventsTable from "./EventsTable/EventsTable.tsx";
 import { eventListStyles, eventsLayoutStyles } from "./styles.ts";
 
 const Events = () => {
-  const { isTableView: isTableViewSelected } = useRootStore().applicationStore;
+  const { isTableView } = useRootStore().applicationStore;
 
   const [searchParams] = useSearchParams();
   const filters = Object.fromEntries(searchParams.entries());
@@ -27,7 +27,7 @@ const Events = () => {
 
       <Box sx={eventListStyles}>
         <ContentLoader isLoading={isLoading}>
-          {isTableViewSelected ? <EventsTable events={events} /> : <EventsList events={events} />}
+          {isTableView ? <EventsTable events={events} /> : <EventsList events={events} />}
         </ContentLoader>
       </Box>
     </Box>

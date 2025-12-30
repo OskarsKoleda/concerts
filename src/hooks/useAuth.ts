@@ -1,12 +1,8 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
 import { useGetCurrentUser } from "../api/user/useGetCurrentUser";
-import { ROUTES } from "../router/routes";
 import { useRootStore } from "../store/StoreContext";
 
 const useAuth = () => {
-  const navigate = useNavigate();
   const { setUserProfile } = useRootStore().userStore;
   const { data: user, isLoading, isError } = useGetCurrentUser();
 
@@ -15,9 +11,8 @@ const useAuth = () => {
       setUserProfile(user);
     } else if (isError) {
       setUserProfile(null);
-      navigate(ROUTES.AUTH);
     }
-  }, [user, isError, navigate, setUserProfile]);
+  }, [user, isError, setUserProfile]);
 
   return {
     isLoading,

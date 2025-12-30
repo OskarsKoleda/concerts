@@ -4,7 +4,9 @@ import { Navigate, Outlet } from "react-router-dom";
 import ContentLoader from "../../components/ContentLoader/ContentLoader";
 import useAuth from "../../hooks/useAuth";
 
-import AppHeader from "./AppHeader/AppHeader";
+import Header from "../../components/Header/Header";
+import { ROUTES } from "../../router/routes";
+import { layoutContentStyles } from "./styles";
 
 const ProtectedLayout = () => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -14,13 +16,13 @@ const ProtectedLayout = () => {
       <ContentLoader isLoading={isLoading}>
         {isAuthenticated ? (
           <>
-            <AppHeader />
-            <Box display="flex" justifyContent="center">
+            <Header isAuthenticated={isAuthenticated} />
+            <Box sx={layoutContentStyles}>
               <Outlet />
             </Box>
           </>
         ) : (
-          <Navigate to="/auth" replace />
+          <Navigate to={ROUTES.AUTH} replace />
         )}
       </ContentLoader>
     </Box>

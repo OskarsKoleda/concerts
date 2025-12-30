@@ -18,6 +18,7 @@ import { useAuthMode } from "./hooks/useAuthMode.ts";
 
 import type { CreateUserRequest } from "../../common/types/userTypes.ts";
 import AuthHelperCaption from "./AuthHelperCaption/AuthHelperCaption.tsx";
+import { authFormStyles } from "./styles.ts";
 
 const Auth = () => {
   const { setUserProfile } = useRootStore().userStore;
@@ -68,23 +69,25 @@ const Auth = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: "25rem", margin: "auto" }}>
-      <Typography color="primary" variant="h4">
-        {isSignUpMode ? "Sign Up" : "Login"}
-      </Typography>
-      <FormProvider {...methods}>
-        <form onSubmit={submitFormHandler}>
-          <AuthFormFields signUp={isSignUpMode} />
-          <AuthHelperCaption resetForm={methods.reset} />
-          {error && (
-            <Typography variant="caption" color="red">
-              {error}
-            </Typography>
-          )}
-          <AuthButtons signUp={isSignUpMode} />
-        </form>
-      </FormProvider>
-    </Box>
+    <>
+      <Box sx={authFormStyles}>
+        <Typography color="primary" variant="h4">
+          {isSignUpMode ? "Sign Up" : "Login"}
+        </Typography>
+        <FormProvider {...methods}>
+          <form onSubmit={submitFormHandler}>
+            <AuthFormFields signUp={isSignUpMode} />
+            <AuthHelperCaption resetForm={methods.reset} />
+            {error && (
+              <Typography variant="caption" color="red">
+                {error}
+              </Typography>
+            )}
+            <AuthButtons signUp={isSignUpMode} />
+          </form>
+        </FormProvider>
+      </Box>
+    </>
   );
 };
 
