@@ -4,11 +4,11 @@ import { getAuthControls } from "./utils";
 
 interface AuthButtonsProps {
   signUp: boolean;
-  loading?: boolean;
+  isLoading?: boolean;
 }
 
-const AuthButtons = ({ signUp, loading }: AuthButtonsProps) => {
-  const controls = useMemo(() => getAuthControls(signUp, loading), [signUp, loading]);
+const AuthButtons = ({ signUp, isLoading }: AuthButtonsProps) => {
+  const controls = useMemo(() => getAuthControls(signUp, isLoading), [signUp, isLoading]);
 
   return <ButtonsLayout controls={controls} />;
 };

@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import React from "react";
+import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -13,21 +13,20 @@ import { defaultUserValues } from "../EventDetails/constants.ts";
 
 import AuthButtons from "./AuthButtons/AuthButtons.tsx";
 import AuthFormFields from "./AuthFormFields/AuthFormFields.tsx";
-import { useAuthError } from "./hooks/useAuthError.ts";
 import { useAuthMode } from "./hooks/useAuthMode.ts";
 
 import type { CreateUserRequest } from "../../common/types/userTypes.ts";
 import AuthHelperCaption from "./AuthHelperCaption/AuthHelperCaption.tsx";
 import { authFormStyles } from "./styles.ts";
+import { AxiosErrorResponse } from "../../common/types/appTypes.ts";
 
 const Auth = () => {
+  const [error, setError] = useState<string>("");
   const { setUserProfile } = useRootStore().userStore;
-
   const navigate = useNavigate();
   const { showSnackbar } = useCustomSnackbar();
 
   const { isSignUpMode } = useAuthMode();
-  const { error, handleError } = useAuthError();
 
   const methods = useForm<CreateUserRequest>({
     defaultValues: defaultUserValues,
@@ -35,36 +34,46 @@ const Auth = () => {
     shouldUnregister: true,
   });
 
-  const { mutate: createUser } = useCreateUser({
+  const handleError = (error: AxiosErrorResponse) => {
+    setError(error.response?.data?.message ?? error.message ?? "Something went wrong");
+  };
+
+  const { mutate: createUser, isPending: isCreateUserPending } = useCreateUser({
     onSuccess: (data) => {
-      navigate(ROUTES.HOMEPAGE);
+      setUserProfile(data);
       showSnackbar({
         message: "Sign up successfully",
         variant: "success",
       });
-
-      setUserProfile(data);
+      navigate(ROUTES.HOMEPAGE);
     },
-    onError: (error) => handleError(error),
   });
 
-  const { mutate: login } = useLogin({
+  const { mutate: login, isPending: isLoginPending } = useLogin({
     onSuccess: (data) => {
-      navigate(ROUTES.HOMEPAGE);
       setUserProfile(data);
+      navigate(ROUTES.HOMEPAGE);
     },
-    onError: (error) => handleError(error),
   });
 
   const submitFormHandler = (event: React.SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
     const controlName = event.nativeEvent.submitter?.id;
-
     event.preventDefault();
 
     if (controlName === "btnSignUp") {
-      methods.handleSubmit((data) => createUser(data))();
+      methods.handleSubmit((data) => {
+        setError("");
+        createUser(data, {
+          onError: handleError,
+        });
+      })();
     } else if (controlName === "btnLogin") {
-      methods.handleSubmit((data) => login(data))();
+      methods.handleSubmit((data) => {
+        setError("");
+        login(data, {
+          onError: handleError,
+        });
+      })();
     }
   };
 
@@ -83,7 +92,7 @@ const Auth = () => {
                 {error}
               </Typography>
             )}
-            <AuthButtons signUp={isSignUpMode} />
+            <AuthButtons signUp={isSignUpMode} isLoading={isLoginPending || isCreateUserPending} />
           </form>
         </FormProvider>
       </Box>

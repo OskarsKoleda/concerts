@@ -2,6 +2,7 @@ import { getAuthControls } from "./utils";
 import AuthButtons from "./AuthButtons";
 import { renderWithProviders } from "../../../common/utils/testingUtils";
 
+// TODO: add tests related to button loading state
 describe("AuthButtons", () => {
   it("should render Login button", () => {
     const { getByRole } = renderWithProviders(<AuthButtons signUp={false} />);

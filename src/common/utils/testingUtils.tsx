@@ -19,6 +19,36 @@ interface ExtendedRenderOptions<TFieldValues extends Record<string, any>>
   queryClient?: boolean;
 }
 
+export function renderWithProviders<TFieldValues extends Record<string, any> = any>(
+  UI: React.ReactElement,
+  {
+    rootStore = new RootStore(),
+    formConfig = null,
+    route = "/",
+    queryClient = false,
+    ...renderOptions
+  }: ExtendedRenderOptions<TFieldValues> = {},
+): RenderResult & { rootStore: RootStore | null } {
+  const WithProvidersWrapper: FC<{ children: ReactNode }> = ({ children }) => {
+    const UIWithStore = rootStore ? WithStore(rootStore, children) : <>{children}</>;
+    const UIWithFormProvider = formConfig ? (
+      WithFormProvider(UIWithStore, formConfig)
+    ) : (
+      <>{UIWithStore}</>
+    );
+
+    const UIWithRouter = WithRouter(route, UIWithFormProvider);
+    const UIWithQueryClient = WithQueryClient(UIWithRouter);
+
+    return UIWithQueryClient;
+  };
+
+  return {
+    rootStore,
+    ...render(UI, { wrapper: WithProvidersWrapper, ...renderOptions }),
+  };
+}
+
 const WithRouter = (route: string, children: ReactNode) => {
   return (
     <MemoryRouter
@@ -49,32 +79,15 @@ const WithQueryClient = (children: ReactNode) => {
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 };
 
-export function renderWithProviders<TFieldValues extends Record<string, any> = any>(
-  UI: React.ReactElement,
-  {
-    rootStore = new RootStore(),
-    formConfig = null,
-    route = "/",
-    queryClient = false,
-    ...renderOptions
-  }: ExtendedRenderOptions<TFieldValues> = {},
-): RenderResult & { rootStore: RootStore | null } {
-  const WithProvidersWrapper: FC<{ children: ReactNode }> = ({ children }) => {
-    const UIWithStore = rootStore ? WithStore(rootStore, children) : <>{children}</>;
-    const UIWithFormProvider = formConfig ? (
-      WithFormProvider(UIWithStore, formConfig)
-    ) : (
-      <>{UIWithStore}</>
-    );
+export const queryClientWrapper = () => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: { retry: false },
+      mutations: { retry: false },
+    },
+  });
 
-    const UIWithRouter = WithRouter(route, UIWithFormProvider);
-    const UIWithQueryClient = WithQueryClient(UIWithRouter);
-
-    return UIWithQueryClient;
-  };
-
-  return {
-    rootStore,
-    ...render(UI, { wrapper: WithProvidersWrapper, ...renderOptions }),
-  };
-}
+  return ({ children }: { children: React.ReactNode }) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+};
