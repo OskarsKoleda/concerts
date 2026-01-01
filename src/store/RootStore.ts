@@ -1,5 +1,5 @@
-import ApplicationStore from "./ApplicationStore";
-import UserStore from "./user/UserStore";
+import ApplicationStore from "./ApplicationStore/ApplicationStore";
+import UserStore from "./UserStore/UserStore";
 
 class RootStore {
   public readonly applicationStore: ApplicationStore;

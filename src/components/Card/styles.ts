@@ -7,7 +7,7 @@ export const cardStyles: SxProps<Theme> = {
   border: (theme) => `1px solid ${theme.palette.divider}`,
 
   "&:hover": {
-    transform: "scale(0.98)",
+    filter: "brightness(1.3)",
   },
 };
 

@@ -29,3 +29,10 @@ export const eventAuthorStyles: SxProps = {
   opacity: 0.7,
   fontSize: "0.75rem",
 };
+
+export const headerStyles: SxProps = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "flex-start",
+  width: "100%",
+};

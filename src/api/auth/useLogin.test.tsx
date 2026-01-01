@@ -17,7 +17,7 @@ describe("useLogin", () => {
     vi.clearAllMocks();
   });
 
-  it("should login user", async () => {
+  it("successfully authenticates and returns user data", async () => {
     vi.mocked(apiClient.post).mockResolvedValueOnce({ data: mockUserData });
 
     const { result } = renderHook(() => useLogin(), {
@@ -39,7 +39,7 @@ describe("useLogin", () => {
     expect(result.current.data).toEqual(mockUserData);
   });
 
-  it("should call onSuccess callback", async () => {
+  it("calls the onSuccess callback when authentication succeeds", async () => {
     vi.mocked(apiClient.post).mockResolvedValueOnce({ data: mockUserData });
 
     const onSuccessMock = vi.fn();
@@ -57,7 +57,7 @@ describe("useLogin", () => {
     expect(onSuccessMock).toHaveBeenCalledWith(mockUserData, expect.anything(), undefined);
   });
 
-  it("should call onError callback", async () => {
+  it("calls the onError callback when authentication fails", async () => {
     vi.mocked(apiClient.post).mockRejectedValueOnce(new Error("Something went wrong"));
 
     const onErrorMock = vi.fn();
@@ -77,7 +77,7 @@ describe("useLogin", () => {
 });
 
 describe("login", () => {
-  it("should login user", async () => {
+  it("performs a POST request to /auth/login and returns user data", async () => {
     vi.mocked(apiClient.post).mockResolvedValueOnce({ data: mockUserData });
 
     const result = await login({
@@ -88,7 +88,7 @@ describe("login", () => {
     expect(result).toEqual(mockUserData);
   });
 
-  it("should throw error", async () => {
+  it("throws an error when the API request fails", async () => {
     vi.mocked(apiClient.post).mockRejectedValueOnce(new Error("Something went wrong"));
 
     await expect(

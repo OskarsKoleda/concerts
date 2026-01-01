@@ -8,6 +8,7 @@ export type ServerEventData = CommonEventData & {
   slug: string;
   url?: string;
   owner: Owner;
+  isVisited: boolean;
 };
 
 interface Owner {
@@ -18,7 +19,7 @@ interface Owner {
 export interface CommonEventData {
   title: string;
   category: EventCategoryType;
-  bands: string[];
+  bands?: string[];
   city: string;
   date: string;
   endDate?: string;

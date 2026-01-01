@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import type { AxiosErrorResponse } from "../../common/types/appTypes";
 import type { AuthenticateUserRequest, UserProfile } from "../../common/types/userTypes";
 import apiClient from "../apiClient";
-import axios from "axios";
+import { isAxiosError } from "axios";
 
 export const login = async (userData: AuthenticateUserRequest): Promise<UserProfile> => {
   try {
@@ -11,7 +11,7 @@ export const login = async (userData: AuthenticateUserRequest): Promise<UserProf
 
     return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error) && !error.response) {
+    if (isAxiosError(error) && !error.response) {
       console.error("Network error");
     }
 
