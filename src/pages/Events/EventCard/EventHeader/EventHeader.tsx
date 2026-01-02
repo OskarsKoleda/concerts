@@ -10,6 +10,8 @@ import type { ServerEventData } from "../../../../common/types/eventTypes";
 import { visitButtonStyles } from "./styles";
 import { useRootStore } from "../../../../store/StoreContext";
 import { observer } from "mobx-react-lite";
+import { useUnvisitEvent } from "../../../../api/events/useUnvisitEvent";
+import { LoadingButton } from "@mui/lab";
 
 interface EventHeaderProps {
   event: ServerEventData;
@@ -17,13 +19,17 @@ interface EventHeaderProps {
 
 const EventHeader = ({ event }: EventHeaderProps) => {
   const { title, date, endDate, slug, isVisited } = event;
-  const { mutate: visitEvent } = useVisitEvent();
   const { userStore } = useRootStore();
+  const { mutate: visitEvent, isPending: visitPending } = useVisitEvent();
+  const { mutate: unvisitEvent, isPending: unvisitPending } = useUnvisitEvent();
 
   const toggleVisited = (e: React.MouseEvent) => {
     e.stopPropagation();
-    // TODO: Use unvisit mutation if isVisited is true and it's implemented on the backend
-    visitEvent(slug);
+    if (isVisited) {
+      unvisitEvent(slug);
+    } else {
+      visitEvent(slug);
+    }
   };
 
   return (
@@ -33,15 +39,16 @@ const EventHeader = ({ event }: EventHeaderProps) => {
         <Typography variant="subtitle1">{formatEventDate(date, endDate)}</Typography>
       </Box>
       {userStore.isAuthenticated && (
-        <Button
+        <LoadingButton
           onClick={toggleVisited}
           variant={isVisited ? "contained" : "outlined"}
           size="small"
           startIcon={isVisited ? <RemoveCircleOutlineIcon /> : <AddCircleOutlineIcon />}
           sx={visitButtonStyles}
+          loading={visitPending || unvisitPending}
         >
           {isVisited ? "I wasn't there" : "I was there"}
-        </Button>
+        </LoadingButton>
       )}
     </Box>
   );

@@ -13,7 +13,8 @@ const mockedEvent = {
   isVisited: false,
 } as ServerEventData;
 
-const mockedMutation = vi.fn();
+const mockedVisitMutation = vi.fn();
+const mockedUnvisitMutation = vi.fn();
 
 vi.mock("../../../../common/utils/utils", () => ({
   formatEventDate: vi.fn(),
@@ -21,7 +22,13 @@ vi.mock("../../../../common/utils/utils", () => ({
 
 vi.mock("../../../../api/events/useVisitEvent", () => ({
   useVisitEvent: vi.fn(() => ({
-    mutate: mockedMutation,
+    mutate: mockedVisitMutation,
+  })),
+}));
+
+vi.mock("../../../../api/events/useUnvisitEvent", () => ({
+  useUnvisitEvent: vi.fn(() => ({
+    mutate: mockedUnvisitMutation,
   })),
 }));
 
@@ -75,12 +82,21 @@ describe("EventHeader", () => {
     expect(container).toMatchSnapshot();
   });
 
-  it("calls visit event mutation when 'Visit' button is clicked", () => {
+  it("calls visit event mutation when 'Visit' button is clicked and event is not visited", () => {
     renderWithProviders(<EventHeader event={mockedEvent} />, { rootStore });
 
     const visitButton = screen.getByRole("button");
     fireEvent.click(visitButton);
 
-    expect(mockedMutation).toHaveBeenCalledWith(mockedEvent.slug);
+    expect(mockedVisitMutation).toHaveBeenCalledWith(mockedEvent.slug);
+  });
+
+  it("calls unvisit event mutation when 'Unvisit' button is clicked and event is visited", () => {
+    renderWithProviders(<EventHeader event={{ ...mockedEvent, isVisited: true }} />, { rootStore });
+
+    const unvisitButton = screen.getByRole("button");
+    fireEvent.click(unvisitButton);
+
+    expect(mockedUnvisitMutation).toHaveBeenCalledWith(mockedEvent.slug);
   });
 });

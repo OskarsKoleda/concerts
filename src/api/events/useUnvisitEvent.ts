@@ -1,13 +1,12 @@
-import { isAxiosError } from "axios";
+import { HttpStatusCode, isAxiosError } from "axios";
 import apiClient from "../apiClient";
-import { HttpStatusCode } from "axios";
-import { AxiosErrorResponse } from "../../common/types/appTypes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosErrorResponse } from "../../common/types/appTypes";
 import { ServerEventData } from "../../common/types/eventTypes";
 
-export const visitEvent = async (slug: string): Promise<boolean> => {
+export const unvisitEvent = async (slug: string): Promise<boolean> => {
   try {
-    const result = await apiClient.post(`/events/${slug}/visit`);
+    const result = await apiClient.delete(`/events/${slug}/visit`);
 
     if (result.status === HttpStatusCode.NoContent) {
       return true;
@@ -23,25 +22,21 @@ export const visitEvent = async (slug: string): Promise<boolean> => {
   }
 };
 
-/**
- * Alternatively, invalidate the "events" query to trigger a refetch:
- * onSuccess: () => queryClient.invalidateQueries({ queryKey: ["events"] })
- */
-export const useVisitEvent = () => {
+export const useUnvisitEvent = () => {
   const queryClient = useQueryClient();
 
   return useMutation<boolean, AxiosErrorResponse, string>({
-    mutationFn: visitEvent,
+    mutationFn: unvisitEvent,
     onSuccess: (_data, slug) => {
       queryClient.setQueriesData(
         { queryKey: ["events"] },
         (oldEvents: ServerEventData[] | undefined) =>
-          oldEvents?.map((event) => (event.slug === slug ? { ...event, isVisited: true } : event)),
+          oldEvents?.map((event) => (event.slug === slug ? { ...event, isVisited: false } : event)),
       );
       queryClient.setQueriesData(
         { queryKey: ["eventDetails", slug] },
         (oldEvent: ServerEventData | undefined) =>
-          oldEvent ? { ...oldEvent, isVisited: true } : oldEvent,
+          oldEvent ? { ...oldEvent, isVisited: false } : oldEvent,
       );
     },
   });
