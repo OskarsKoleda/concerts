@@ -1,7 +1,8 @@
 import { Typography } from "@mui/material";
 
-import { authHelperCaption } from "./styles.ts";
 import { useAuthMode } from "../hooks/useAuthMode.ts";
+
+import { authHelperCaption } from "./styles.ts";
 
 interface AuthHelperCaptionProps {
   resetForm: () => void;

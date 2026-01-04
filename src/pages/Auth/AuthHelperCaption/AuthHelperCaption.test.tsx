@@ -1,7 +1,9 @@
 import { screen } from "@testing-library/react";
+
 import { renderWithProviders } from "../../../common/utils/testingUtils";
 vi.mock("../hooks/useAuthMode.ts");
 import { useAuthMode } from "../hooks/useAuthMode";
+
 import AuthHelperCaption from "./AuthHelperCaption";
 
 describe("AuthHelperCaption", () => {

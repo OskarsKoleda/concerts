@@ -1,5 +1,7 @@
 import { AxiosError } from "axios";
+
 import apiClient from "../apiClient";
+
 import { visitEvent } from "./useVisitEvent";
 
 vi.mock("../apiClient");

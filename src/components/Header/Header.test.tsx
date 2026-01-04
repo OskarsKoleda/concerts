@@ -1,6 +1,8 @@
 import { screen } from "@testing-library/react";
-import Header from "./Header";
+
 import { renderWithProviders } from "../../common/utils/testingUtils";
+
+import Header from "./Header";
 
 describe("Header", () => {
   it("renders correctly when authenticated", () => {

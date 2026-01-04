@@ -5,10 +5,10 @@ import { useSearchParams } from "react-router-dom";
 import { eventCategoriesList } from "../../../common/constants/appConstant";
 import { InputType } from "../../../components/FormLayout/constants";
 import { eventsPageText } from "../constants";
+import DataGridFilters from "../../../components/DataGridFilters/dataGridFilters";
 
 import { filterContainerStyles, filterDetailsStyles, filterSummaryStyles } from "./styles";
 
-import DataGridFilters from "../../../components/DataGridFilters/dataGridFilters";
 import type {
   FilterInputsConfig,
   ToggleButtonFilterProps,

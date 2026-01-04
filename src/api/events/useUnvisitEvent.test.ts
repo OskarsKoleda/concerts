@@ -1,5 +1,7 @@
 import { AxiosError, HttpStatusCode } from "axios";
+
 import apiClient from "../apiClient";
+
 import { unvisitEvent } from "./useUnvisitEvent";
 
 vi.mock("../apiClient");

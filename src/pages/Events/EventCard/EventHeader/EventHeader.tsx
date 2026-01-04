@@ -1,17 +1,19 @@
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import { observer } from "mobx-react-lite";
+import { LoadingButton } from "@mui/lab";
+
 import { formatEventDate } from "../../../../common/utils/utils";
 import { useVisitEvent } from "../../../../api/events/useVisitEvent";
 import { headerStyles } from "../styles";
+import { useRootStore } from "../../../../store/StoreContext";
+import { useUnvisitEvent } from "../../../../api/events/useUnvisitEvent";
+
+import { visitButtonStyles } from "./styles";
 
 import type { ServerEventData } from "../../../../common/types/eventTypes";
-import { visitButtonStyles } from "./styles";
-import { useRootStore } from "../../../../store/StoreContext";
-import { observer } from "mobx-react-lite";
-import { useUnvisitEvent } from "../../../../api/events/useUnvisitEvent";
-import { LoadingButton } from "@mui/lab";
 
 interface EventHeaderProps {
   event: ServerEventData;

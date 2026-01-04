@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
+
 import EventFooter from "./EventFooter";
-import { ServerEventData } from "../../../../common/types/eventTypes";
+
+import type { ServerEventData } from "../../../../common/types/eventTypes";
 
 const mockedEvent = {
   city: "New York",

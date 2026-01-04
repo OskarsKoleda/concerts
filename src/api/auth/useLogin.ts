@@ -1,9 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
+import { isAxiosError } from "axios";
+
+import apiClient from "../apiClient";
 
 import type { AxiosErrorResponse } from "../../common/types/appTypes";
 import type { AuthenticateUserRequest, UserProfile } from "../../common/types/userTypes";
-import apiClient from "../apiClient";
-import { isAxiosError } from "axios";
 
 export const login = async (userData: AuthenticateUserRequest): Promise<UserProfile> => {
   try {

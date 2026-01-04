@@ -1,6 +1,9 @@
 import { Box, Grid, Typography } from "@mui/material";
+
 import EventCard from "../EventCard/EventCard.tsx";
+
 import { nothingFoundStyles } from "./styles.ts";
+
 import type { ServerEventData } from "../../../common/types/eventTypes.ts";
 
 interface EventsListProps {

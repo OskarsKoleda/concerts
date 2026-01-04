@@ -1,13 +1,14 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect } from "vitest";
-import { useLogout } from "../../../api/auth/useLogout.ts";
 
+import { useLogout } from "../../../api/auth/useLogout.ts";
 import { renderWithProviders } from "../../../common/utils/testingUtils.tsx";
 import RootStore from "../../../store/RootStore.ts";
-import type { UserProfile } from "../../../common/types/userTypes.ts";
 
 import UserActions from "./UserActions.tsx";
+
+import type { UserProfile } from "../../../common/types/userTypes.ts";
 
 const mockedUseNavigate = vi.fn();
 const mockedLogout = vi.fn((_variables, options) => {

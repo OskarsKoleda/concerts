@@ -2,6 +2,7 @@ import { render } from "@testing-library/react";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { MemoryRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import RootStore from "../../store/RootStore.ts";
 import { StoreProvider } from "../../store/StoreContext.tsx";
@@ -9,7 +10,6 @@ import { StoreProvider } from "../../store/StoreContext.tsx";
 import type { RenderOptions, RenderResult } from "@testing-library/react";
 import type { FC, ReactNode } from "react";
 import type { UseFormProps } from "react-hook-form";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 interface ExtendedRenderOptions<TFieldValues extends Record<string, any>>
   extends Omit<RenderOptions, "wrapper"> {

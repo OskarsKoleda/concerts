@@ -14,11 +14,11 @@ import { defaultUserValues } from "../EventDetails/constants.ts";
 import AuthButtons from "./AuthButtons/AuthButtons.tsx";
 import AuthFormFields from "./AuthFormFields/AuthFormFields.tsx";
 import { useAuthMode } from "./hooks/useAuthMode.ts";
-
-import type { CreateUserRequest } from "../../common/types/userTypes.ts";
 import AuthHelperCaption from "./AuthHelperCaption/AuthHelperCaption.tsx";
 import { authFormStyles } from "./styles.ts";
-import { AxiosErrorResponse } from "../../common/types/appTypes.ts";
+
+import type { AxiosErrorResponse } from "../../common/types/appTypes.ts";
+import type { CreateUserRequest } from "../../common/types/userTypes.ts";
 
 const Auth = () => {
   const [error, setError] = useState<string>("");

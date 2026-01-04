@@ -3,12 +3,12 @@ import PortraitIcon from "@mui/icons-material/Portrait";
 import { Divider, IconButton, Link, Tooltip, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 import { useLogout } from "../../../api/auth/useLogout.ts";
 import { AuthMode } from "../../../pages/Auth/constants.ts";
 import { ROUTES } from "../../../router/routes.ts";
 import { useRootStore } from "../../../store/StoreContext.tsx";
-import { Link as RouterLink } from "react-router-dom";
 
 import { dividerStyles } from "./styles.ts";
 

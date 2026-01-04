@@ -1,9 +1,10 @@
 import { useFormContext } from "react-hook-form";
 
+import FormLayout from "../../../components/FormLayout/FormLayout.tsx";
+
 import { loginFields, signUpFields } from "./constants.ts";
 
 import type { UserProfile } from "../../../common/types/userTypes.ts";
-import FormLayout from "../../../components/FormLayout/FormLayout.tsx";
 
 interface AuthFormFieldsProps {
   signUp: boolean;

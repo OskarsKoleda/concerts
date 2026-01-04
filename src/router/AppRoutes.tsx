@@ -6,10 +6,10 @@ import EventForm from "../pages/EventForm/EventForm.tsx";
 import Events from "../pages/Events/Events.tsx";
 import Homepage from "../pages/Homepage/Homepage.tsx";
 import ProtectedLayout from "../pages/Layouts/ProtectedLayout.tsx";
+import UnprotectedLayout from "../pages/Layouts/UnprotectedLayout.tsx";
 
 import EventOwnershipGuard from "./guards/EventOwnershipGuard.tsx";
 import { ROUTES } from "./routes.ts";
-import UnprotectedLayout from "../pages/Layouts/UnprotectedLayout.tsx";
 
 // TODO: Create Profile page, using Homepage for now
 const AppRoutes = () => {

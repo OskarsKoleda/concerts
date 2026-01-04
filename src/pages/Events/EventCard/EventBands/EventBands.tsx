@@ -1,5 +1,7 @@
 import { Chip } from "@mui/material";
+
 import { chipStyles } from "../styles";
+
 import type { ServerEventData } from "../../../../common/types/eventTypes";
 
 interface EventBandsProps {

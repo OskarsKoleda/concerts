@@ -3,14 +3,16 @@ import HomeIcon from "@mui/icons-material/Home";
 import AddIcon from "@mui/icons-material/Add";
 import StadiumIcon from "@mui/icons-material/Stadium";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { headerToolbarStyles, headerContentStyles, navLinkStyles } from "./styles";
-
 import { Link as RouterLink } from "react-router-dom";
-import { ROUTES } from "../../router/routes";
 import { IconButton, Link, Tooltip, Typography } from "@mui/material";
+
+import { ROUTES } from "../../router/routes";
+
+import { headerToolbarStyles, headerContentStyles, navLinkStyles } from "./styles";
 import Drawer from "./Drawer/Drawer";
 import UserActions from "./UserActions/UserActions";
-import { HeaderContent } from "./types";
+
+import type { HeaderContent } from "./types";
 
 interface HeaderProps {
   isAuthenticated: boolean;

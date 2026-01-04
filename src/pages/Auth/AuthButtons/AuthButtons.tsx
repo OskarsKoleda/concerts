@@ -1,5 +1,7 @@
 import { useMemo } from "react";
+
 import ButtonsLayout from "../../../components/ButtonsLayout/ButtonsLayout";
+
 import { getAuthControls } from "./utils";
 
 interface AuthButtonsProps {

@@ -1,9 +1,12 @@
 import { fireEvent, screen } from "@testing-library/react";
-import EventHeader from "./EventHeader";
-import { ServerEventData } from "../../../../common/types/eventTypes";
+
 import { renderWithProviders } from "../../../../common/utils/testingUtils";
 import { formatEventDate } from "../../../../common/utils/utils";
 import RootStore from "../../../../store/RootStore";
+
+import EventHeader from "./EventHeader";
+
+import type { ServerEventData } from "../../../../common/types/eventTypes";
 
 const mockedEvent = {
   title: "Event Title",

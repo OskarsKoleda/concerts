@@ -3,8 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { useGetEventDetails } from "../../api/events/useGetEventDetails.ts";
 import posterMissing from "../../assets/poster-missing.jpg";
-
 import ContentLoader from "../../components/ContentLoader/ContentLoader.tsx";
+
 import { EventBandsSection } from "./EventBandsSection/EventBandsSection.tsx";
 import EventDataSection from "./EventDataSection/EventDataSection.tsx";
 import EventPoster from "./EventPoster/EventPoster.tsx";

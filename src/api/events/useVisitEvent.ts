@@ -1,9 +1,11 @@
 import { isAxiosError } from "axios";
-import apiClient from "../apiClient";
 import { HttpStatusCode } from "axios";
-import { AxiosErrorResponse } from "../../common/types/appTypes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ServerEventData } from "../../common/types/eventTypes";
+
+import apiClient from "../apiClient";
+
+import type { AxiosErrorResponse } from "../../common/types/appTypes";
+import type { ServerEventData } from "../../common/types/eventTypes";
 
 export const visitEvent = async (slug: string): Promise<boolean> => {
   try {

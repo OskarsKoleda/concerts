@@ -1,8 +1,10 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+
 import posterMissing from "../../../assets/poster-missing.jpg";
 import Card from "../../../components/Card/Card";
 import { ROUTES } from "../../../router/routes";
+
 import EventHeader from "./EventHeader/EventHeader";
 import EventBands from "./EventBands/EventBands";
 import EventFooter from "./EventFooter/EventFooter";

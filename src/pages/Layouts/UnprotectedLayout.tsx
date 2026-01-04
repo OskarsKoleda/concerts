@@ -1,8 +1,10 @@
 import { Box } from "@mui/material";
+import { Outlet } from "react-router-dom";
+
 import useAuth from "../../hooks/useAuth";
 import Header from "../../components/Header/Header";
-import { Outlet } from "react-router-dom";
 import ContentLoader from "../../components/ContentLoader/ContentLoader";
+
 import { layoutContentStyles } from "./styles";
 
 const UnprotectedLayout = () => {

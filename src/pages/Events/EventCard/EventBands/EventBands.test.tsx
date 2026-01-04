@@ -1,5 +1,6 @@
-import EventBands from "./EventBands";
 import { render, screen } from "@testing-library/react";
+
+import EventBands from "./EventBands";
 
 const mockedEventBands = ["Band A", "Band B"];
 

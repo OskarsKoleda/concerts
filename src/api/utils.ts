@@ -17,7 +17,9 @@ export const composeEventFormData = (event: Partial<LocalEventData>): FormData =
     }
 
     if (key === "bands" && Array.isArray(value)) {
-      formData.append("bands", value.join(","));
+      value.forEach((band) => {
+        formData.append("bands", band);
+      });
     } else if (key === "ticketPrice") {
       formData.append("ticketPrice", String(value));
     } else if (key === "image" && value instanceof FileList && value.length > 0) {
