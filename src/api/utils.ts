@@ -1,13 +1,5 @@
 import type { LocalEventData } from "../common/types/eventTypes";
 
-// TODO: do something with this API URL
-// TODO: remove?
-export const getApiUrl = (path: string) => {
-  const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
-
-  return `${baseUrl}${path}`;
-};
-
 export const composeEventFormData = (event: Partial<LocalEventData>): FormData => {
   const formData = new FormData();
 

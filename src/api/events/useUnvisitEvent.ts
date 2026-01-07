@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import apiClient from "../apiClient";
 
+import type { QueryKey } from "@tanstack/react-query";
 import type { ServerEventData } from "../../common/types/eventTypes";
 import type { AxiosErrorResponse } from "../../common/types/appTypes";
 
@@ -27,19 +28,39 @@ export const unvisitEvent = async (slug: string): Promise<boolean> => {
 export const useUnvisitEvent = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<boolean, AxiosErrorResponse, string>({
+  return useMutation<
+    boolean,
+    AxiosErrorResponse,
+    string,
+    { previousEvents: [QueryKey, ServerEventData[] | undefined][] }
+  >({
     mutationFn: unvisitEvent,
-    onSuccess: (_data, slug) => {
-      queryClient.setQueriesData(
-        { queryKey: ["events"] },
-        (oldEvents: ServerEventData[] | undefined) =>
+    onMutate: async (slug) => {
+      await queryClient.cancelQueries({ queryKey: ["events"] });
+
+      const previousEvents = queryClient.getQueriesData<ServerEventData[]>({
+        queryKey: ["events"],
+      });
+
+      queryClient.setQueriesData<ServerEventData[]>(
+        {
+          queryKey: ["events"],
+        },
+        (oldEvents) =>
           oldEvents?.map((event) => (event.slug === slug ? { ...event, isVisited: false } : event)),
       );
-      queryClient.setQueriesData(
-        { queryKey: ["eventDetails", slug] },
-        (oldEvent: ServerEventData | undefined) =>
-          oldEvent ? { ...oldEvent, isVisited: false } : oldEvent,
-      );
+
+      return { previousEvents };
+    },
+    onError: (_err, _slug, context) => {
+      if (context?.previousEvents) {
+        context.previousEvents.forEach(([queryKey, data]) => {
+          queryClient.setQueryData(queryKey, data);
+        });
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["events"] });
     },
   });
 };

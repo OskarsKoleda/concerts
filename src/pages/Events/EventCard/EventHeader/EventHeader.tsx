@@ -1,9 +1,8 @@
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { observer } from "mobx-react-lite";
-import { LoadingButton } from "@mui/lab";
 
 import { formatEventDate } from "../../../../common/utils/utils";
 import { useVisitEvent } from "../../../../api/events/useVisitEvent";
@@ -22,8 +21,8 @@ interface EventHeaderProps {
 const EventHeader = ({ event }: EventHeaderProps) => {
   const { title, date, endDate, slug, isVisited } = event;
   const { userStore } = useRootStore();
-  const { mutate: visitEvent, isPending: visitPending } = useVisitEvent();
-  const { mutate: unvisitEvent, isPending: unvisitPending } = useUnvisitEvent();
+  const { mutate: visitEvent } = useVisitEvent();
+  const { mutate: unvisitEvent } = useUnvisitEvent();
 
   const toggleVisited = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -41,16 +40,15 @@ const EventHeader = ({ event }: EventHeaderProps) => {
         <Typography variant="subtitle1">{formatEventDate(date, endDate)}</Typography>
       </Box>
       {userStore.isAuthenticated && (
-        <LoadingButton
+        <Button
           onClick={toggleVisited}
           variant={isVisited ? "contained" : "outlined"}
           size="small"
           startIcon={isVisited ? <RemoveCircleOutlineIcon /> : <AddCircleOutlineIcon />}
           sx={visitButtonStyles}
-          loading={visitPending || unvisitPending}
         >
           {isVisited ? "I wasn't there" : "I was there"}
-        </LoadingButton>
+        </Button>
       )}
     </Box>
   );
