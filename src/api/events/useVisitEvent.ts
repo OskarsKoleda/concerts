@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import apiClient from "../apiClient";
 
+import type { QueryKey } from "@tanstack/react-query";
 import type { AxiosErrorResponse } from "../../common/types/appTypes";
 import type { ServerEventData } from "../../common/types/eventTypes";
 
@@ -25,26 +26,39 @@ export const visitEvent = async (slug: string): Promise<boolean> => {
   }
 };
 
-/**
- * Alternatively, invalidate the "events" query to trigger a refetch:
- * onSuccess: () => queryClient.invalidateQueries({ queryKey: ["events"] })
- */
 export const useVisitEvent = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<boolean, AxiosErrorResponse, string>({
+  // useMutation<TData, TError, TVariables, TContext>
+  return useMutation<
+    boolean,
+    AxiosErrorResponse,
+    string,
+    { previousEvents: [QueryKey, ServerEventData[] | undefined][] }
+  >({
     mutationFn: visitEvent,
-    onSuccess: (_data, slug) => {
-      queryClient.setQueriesData(
-        { queryKey: ["events"] },
-        (oldEvents: ServerEventData[] | undefined) =>
-          oldEvents?.map((event) => (event.slug === slug ? { ...event, isVisited: true } : event)),
+    onMutate: async (slug) => {
+      await queryClient.cancelQueries({ queryKey: ["events"] });
+
+      const previousEvents = queryClient.getQueriesData<ServerEventData[]>({
+        queryKey: ["events"],
+      });
+
+      queryClient.setQueriesData<ServerEventData[]>({ queryKey: ["events"] }, (old) =>
+        old?.map((event) => (event.slug === slug ? { ...event, isVisited: true } : event)),
       );
-      queryClient.setQueriesData(
-        { queryKey: ["eventDetails", slug] },
-        (oldEvent: ServerEventData | undefined) =>
-          oldEvent ? { ...oldEvent, isVisited: true } : oldEvent,
-      );
+
+      return { previousEvents };
+    },
+    onError: (_err, _slug, context) => {
+      if (context?.previousEvents) {
+        context.previousEvents.forEach(([queryKey, data]) => {
+          queryClient.setQueryData(queryKey, data);
+        });
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["events"] });
     },
   });
 };

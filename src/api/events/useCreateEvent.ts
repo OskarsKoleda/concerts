@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 
-import { composeEventFormData, getApiUrl } from "../utils";
+import { composeEventFormData } from "../utils";
+import apiClient from "../apiClient";
 
 import type { LocalEventData, ServerEventData } from "../../common/types/eventTypes";
 
 const createEvent = async (event: LocalEventData): Promise<ServerEventData> => {
   const formData = composeEventFormData(event);
-  const response = await axios.post(getApiUrl("/events"), formData, {
+  const response = await apiClient.post<ServerEventData>("/events", formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
 
