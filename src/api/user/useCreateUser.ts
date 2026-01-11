@@ -1,13 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 
-import { getApiUrl } from "../utils";
+import apiClient from "../apiClient";
 
 import type { AxiosErrorResponse } from "../../common/types/appTypes";
 import type { CreateUserRequest, UserProfile } from "../../common/types/userTypes";
 
 const createUser = async (userData: CreateUserRequest): Promise<UserProfile> => {
-  const response = await axios.post(getApiUrl("/user"), userData);
+  const response = await apiClient.post("/users", userData);
 
   return response.data;
 };

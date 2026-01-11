@@ -14,9 +14,10 @@ import type { LocalEventData } from "../../../common/types/eventTypes";
 
 interface EventActionButtonsProps {
   isEditMode: boolean;
+  isLoading: boolean;
 }
 
-export const EventActionButtons = ({ isEditMode }: EventActionButtonsProps) => {
+export const EventActionButtons = ({ isEditMode, isLoading }: EventActionButtonsProps) => {
   const {
     reset,
     formState: { dirtyFields },
@@ -55,7 +56,7 @@ export const EventActionButtons = ({ isEditMode }: EventActionButtonsProps) => {
       text: isEditMode ? "Update" : "Add",
       variant: "contained",
       type: "submit",
-      disabled: !isFormReallyDirty,
+      disabled: !isFormReallyDirty || isLoading,
     },
     {
       id: "newEvent.resetEventForm",
@@ -63,7 +64,7 @@ export const EventActionButtons = ({ isEditMode }: EventActionButtonsProps) => {
       onClick: () => reset(),
       text: "Reset",
       variant: "contained",
-      disabled: !isFormReallyDirty,
+      disabled: !isFormReallyDirty || isLoading,
     },
     {
       id: "event.cancelEventCreation",
@@ -71,6 +72,7 @@ export const EventActionButtons = ({ isEditMode }: EventActionButtonsProps) => {
       onClick: () => navigate(-1),
       text: "Cancel",
       variant: "outlined",
+      disabled: isLoading,
     },
   ];
 

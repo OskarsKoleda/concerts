@@ -38,10 +38,9 @@ export const EventForm = () => {
   });
 
   const { handleSubmit, reset } = methods;
-
   const { eventData } = useGetEventDetails(slug);
 
-  const { mutate: mutateCreateEvent } = useCreateEvent({
+  const { mutate: mutateCreateEvent, isPending: isCreatingEvent } = useCreateEvent({
     onSuccess: (data) => {
       navigate(`/events/${data.slug}`);
     },
@@ -53,7 +52,7 @@ export const EventForm = () => {
     },
   });
 
-  const { mutate: mutateUpdateEvent } = useUpdateEvent({
+  const { mutate: mutateUpdateEvent, isPending: isUpdatingEvent } = useUpdateEvent({
     onSuccess: (data) => {
       navigate(`/events/${data.slug}`);
       showSnackbar({
@@ -121,7 +120,10 @@ export const EventForm = () => {
           <CommonEventFields />
           <EventDateFields />
           <FileUpload buttonTitle="Add Poster" formFieldName="image" />
-          <EventActionButtons isEditMode={isEditMode} />
+          <EventActionButtons
+            isEditMode={isEditMode}
+            isLoading={isCreatingEvent || isUpdatingEvent}
+          />
         </form>
       </FormProvider>
     </Box>

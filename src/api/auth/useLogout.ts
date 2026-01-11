@@ -1,12 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 
-import { getApiUrl } from "../utils";
+import apiClient from "../apiClient";
 
 import type { AxiosErrorResponse } from "../../common/types/appTypes";
 
 const logout = async (): Promise<void> => {
-  await axios.post(getApiUrl("/auth/logout"));
+  await apiClient.post("/auth/logout");
 };
 
 export const useLogout = () => {

@@ -6,7 +6,7 @@ import type { AxiosErrorResponse } from "../../common/types/appTypes";
 import type { UserProfile } from "../../common/types/userTypes";
 
 const getCurrentUser = async (): Promise<UserProfile> => {
-  const response = await apiClient.get("/user/me");
+  const response = await apiClient.get("/users/me");
 
   return response.data;
 };

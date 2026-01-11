@@ -5,8 +5,8 @@ import { Controller, useFormContext } from "react-hook-form";
 
 import { fileUploadContainerStyles, uploadButtonStyles } from "./styles.ts";
 
+import type { LocalEventData } from "../../../common/types/eventTypes.ts";
 import type { Path } from "react-hook-form";
-import type { LocalEventData } from "../../../../common/types/eventTypes.ts";
 
 interface FileUploadProps {
   buttonTitle: string;
@@ -51,7 +51,9 @@ const FileUpload = ({ buttonTitle, formFieldName }: FileUploadProps) => {
               >
                 {buttonTitle}
               </Button>
-              <Typography variant="caption">{fileName}</Typography>
+              <Typography variant="caption" color="textSecondary">
+                {fileName}
+              </Typography>
               <input
                 type="file"
                 hidden
