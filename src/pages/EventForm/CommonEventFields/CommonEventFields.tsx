@@ -54,9 +54,9 @@ const CommonEventFields = () => {
     },
     {
       inputType: InputType.Text,
-      controlName: "location",
-      id: "location",
-      label: "Location",
+      controlName: "venue",
+      id: "venue",
+      label: "Venue",
       xs: 6,
     },
     {

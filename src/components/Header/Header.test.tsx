@@ -1,6 +1,7 @@
 import { screen } from "@testing-library/react";
 
 import { renderWithProviders } from "../../common/utils/testingUtils";
+import { ROUTES } from "../../router/routes";
 
 import Header from "./Header";
 
@@ -14,13 +15,13 @@ describe("Header", () => {
     expect(index).toHaveTextContent("Event Tracker");
 
     const viewEventsButton = screen.getByRole("button", { name: "View Events" });
-    expect(viewEventsButton.parentElement).toHaveAttribute("href", "/events");
+    expect(viewEventsButton.parentElement).toHaveAttribute("href", ROUTES.EVENTS);
 
     const createEventButton = screen.getByRole("button", { name: "Add Event" });
-    expect(createEventButton.parentElement).toHaveAttribute("href", "/events/new");
+    expect(createEventButton.parentElement).toHaveAttribute("href", ROUTES.NEW_EVENT);
 
     const profileButton = screen.getByRole("button", { name: "Profile" });
-    expect(profileButton.parentElement).toHaveAttribute("href", "/");
+    expect(profileButton.parentElement).toHaveAttribute("href", ROUTES.PROFILE);
 
     const logoutButton = screen.getByRole("button", { name: "Logout" });
     expect(logoutButton).toBeInTheDocument();
@@ -36,7 +37,7 @@ describe("Header", () => {
     expect(index).toHaveTextContent("Event Tracker");
 
     const viewEventsButton = screen.getByRole("button", { name: "View Events" });
-    expect(viewEventsButton.parentElement).toHaveAttribute("href", "/events");
+    expect(viewEventsButton.parentElement).toHaveAttribute("href", ROUTES.EVENTS);
 
     const createEventButton = screen.queryByRole("button", { name: "Add Event" });
     expect(createEventButton).toBeNull();

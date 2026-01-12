@@ -20,7 +20,7 @@ interface EventDataSectionProps {
 }
 
 export const EventDataSection = ({ event }: EventDataSectionProps) => {
-  const { slug, city, location, date, endDate, ticketPrice, owner } = event || {};
+  const { slug, city, venue, date, endDate, ticketPrice, owner } = event || {};
   const { userProfile } = useRootStore().userStore;
 
   const isEventOwner = owner?.name === userProfile?.name;
@@ -30,7 +30,7 @@ export const EventDataSection = ({ event }: EventDataSectionProps) => {
       <Box sx={eventDataStyles}>
         <Typography variant="h4">{city}</Typography>
         <Typography variant="h5" whiteSpace="nowrap">
-          {location}
+          {venue}
         </Typography>
         <Typography variant="subtitle1" whiteSpace="nowrap">
           {formatEventDate(date, endDate)}

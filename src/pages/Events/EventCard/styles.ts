@@ -14,13 +14,13 @@ export const chipStyles: SxProps = {
   color: "primary.light",
 };
 
-export const locationStyles: SxProps = {
+export const venueStyles: SxProps = {
   display: "flex",
   alignItems: "center",
   gap: "0.5rem",
 };
 
-export const locationIconStyles: SxProps = {
+export const venueIconStyles: SxProps = {
   color: "primary.main",
 };
 

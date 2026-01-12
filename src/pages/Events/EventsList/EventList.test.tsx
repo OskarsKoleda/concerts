@@ -14,7 +14,7 @@ const mockEvents: ServerEventData[] = [
     bands: ["Metallica", "Gojira"],
     city: "New York",
     date: "2025-10-15",
-    location: "Madison Square Garden",
+    venue: "Madison Square Garden",
     ticketPrice: 89.99,
     slug: "metallica-world-tour-2025",
     url: "https://example.com/events/metallica-world-tour-2025",
@@ -22,6 +22,7 @@ const mockEvents: ServerEventData[] = [
       id: "1",
       name: "admin",
     },
+    isVisited: false,
   },
   {
     title: "Jazz Night Festival",
@@ -30,7 +31,7 @@ const mockEvents: ServerEventData[] = [
     city: "Chicago",
     date: "2025-11-20",
     endDate: "2025-11-21",
-    location: "Chicago Jazz Club",
+    venue: "Chicago Jazz Club",
     ticketPrice: 45.0,
     slug: "jazz-night-festival-2025",
     url: "https://example.com/events/jazz-night-festival-2025",
@@ -38,6 +39,7 @@ const mockEvents: ServerEventData[] = [
       id: "2",
       name: "admin",
     },
+    isVisited: false,
   },
 ];
 

@@ -26,7 +26,7 @@ const mockEvent: ServerEventData = {
   date: "2024-12-30T19:00:00Z",
   bands: ["Band A", "Band B"],
   city: "New York",
-  location: "Madison Square Garden",
+  venue: "Madison Square Garden",
   url: "https://example.com/image.jpg",
   slug: "rock-concert-2024",
   category: EventCategory.MusicConcert,

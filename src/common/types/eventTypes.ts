@@ -23,6 +23,6 @@ export interface CommonEventData {
   city: string;
   date: string;
   endDate?: string;
-  location?: string;
+  venue?: string;
   ticketPrice?: number;
 }

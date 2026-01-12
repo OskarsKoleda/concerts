@@ -11,7 +11,7 @@ export const defaultEventValues: LocalEventData = {
   date: new Date().toISOString(),
   endDate: new Date().toISOString(),
   ticketPrice: 0,
-  location: "",
+  venue: "",
   image: undefined,
 };
 

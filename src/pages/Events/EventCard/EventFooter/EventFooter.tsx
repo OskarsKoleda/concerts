@@ -3,7 +3,7 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useMemo } from "react";
 
-import { eventAuthorStyles, footerStyles, locationIconStyles, locationStyles } from "../styles";
+import { eventAuthorStyles, footerStyles, venueIconStyles, venueStyles } from "../styles";
 
 import type { ServerEventData } from "../../../../common/types/eventTypes";
 
@@ -12,18 +12,18 @@ interface EventFooterProps {
 }
 
 const EventFooter = ({ event }: EventFooterProps) => {
-  const { city, location, owner } = event;
+  const { city, venue, owner } = event;
 
-  const formattedEventLocation = useMemo(() => {
-    return location ? `${city} / ${location}` : city;
-  }, [city, location]);
+  const formattedEventVenue = useMemo(() => {
+    return venue ? `${city} / ${venue}` : city;
+  }, [city, venue]);
 
   return (
     <Box sx={footerStyles}>
-      <Box sx={locationStyles}>
-        <LocationOnIcon fontSize="small" sx={locationIconStyles} />
+      <Box sx={venueStyles}>
+        <LocationOnIcon fontSize="small" sx={venueIconStyles} />
         <Typography variant="body2" color="text.secondary">
-          {formattedEventLocation}
+          {formattedEventVenue}
         </Typography>
       </Box>
       <Typography sx={eventAuthorStyles}>added by {owner.name}</Typography>
