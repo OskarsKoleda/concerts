@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@mui/material";
+import { ThemeProvider, CssBaseline } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -27,6 +27,7 @@ const AppProviders: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <StoreProvider>
       <ThemeProvider theme={appTheme}>
+        <CssBaseline />
         <SnackbarProvider>
           <QueryClientProvider client={queryClient}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>{children}</LocalizationProvider>

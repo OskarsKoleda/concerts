@@ -4,25 +4,22 @@ export const homePageContainerStyles: SxProps = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  maxWidth: "1200px",
 };
 
 export const welcomeTextContainerStyles: SxProps = {
-  margin: "4rem 0",
+  margin: "2rem",
   textAlign: "center",
 };
 
 export const sectionTitleStyles: SxProps = {
   marginBottom: "2rem",
-  fontWeight: 800,
-  textAlign: "center",
   background: "linear-gradient(90deg, #7C4DFF, #FFAB40)",
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
 };
 
 export const homePageCardStyles: SxProps = {
-  flex: "1 1 300px",
+  margin: "auto 2rem",
   padding: "2rem",
   background: "rgba(255, 255, 255, 0.03)",
   backdropFilter: "blur(10px)",

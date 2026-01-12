@@ -14,8 +14,10 @@ const UnprotectedLayout = () => {
     <Box width="100%">
       <ContentLoader isLoading={isLoading}>
         <Header isAuthenticated={isAuthenticated} />
-        <Box sx={layoutContentStyles}>
-          <Outlet />
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <Box sx={{ ...layoutContentStyles }}>
+            <Outlet />
+          </Box>
         </Box>
       </ContentLoader>
     </Box>

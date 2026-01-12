@@ -32,7 +32,7 @@ const UserActions = () => {
     <>
       <Divider orientation="vertical" sx={dividerStyles} />
       <Typography variant="body1">{userProfile?.name}</Typography>
-      <Link component={RouterLink} to={ROUTES.HOMEPAGE}>
+      <Link component={RouterLink} to={ROUTES.PROFILE}>
         <Tooltip title="Profile">
           <IconButton size="large">
             <PortraitIcon />

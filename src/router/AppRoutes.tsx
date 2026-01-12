@@ -7,11 +7,11 @@ import Events from "../pages/Events/Events.tsx";
 import Homepage from "../pages/Homepage/Homepage.tsx";
 import ProtectedLayout from "../pages/Layouts/ProtectedLayout.tsx";
 import UnprotectedLayout from "../pages/Layouts/UnprotectedLayout.tsx";
+import Profile from "../pages/Profile/Profile.tsx";
 
 import EventOwnershipGuard from "./guards/EventOwnershipGuard.tsx";
 import { ROUTES } from "./routes.ts";
 
-// TODO: Create Profile page, using Homepage for now
 const AppRoutes = () => {
   return (
     <Routes>
@@ -30,7 +30,7 @@ const AppRoutes = () => {
             </EventOwnershipGuard>
           }
         />
-        <Route path={ROUTES.PROFILE} element={<Homepage />} />
+        <Route path={ROUTES.PROFILE} element={<Profile />} />
       </Route>
 
       <Route element={<UnprotectedLayout />}>

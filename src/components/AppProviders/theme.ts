@@ -18,15 +18,11 @@ export const appTheme = createTheme({
     error: {
       main: "#FF5252",
     },
-    background: {
-      default: "#0A0A0B",
-      paper: "#161618",
-    },
-    text: {
-      primary: "#F5F5F7",
-      secondary: "#A1A1A6",
-    },
     divider: "rgba(255, 255, 255, 0.34)",
+    background: {
+      default: "#0d0d0eff",
+      paper: "#1d1d1dff",
+    },
   },
   typography: {
     fontFamily: '"Inter", "Outfit", "Roboto", "Helvetica", "Arial", sans-serif',

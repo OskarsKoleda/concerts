@@ -17,8 +17,10 @@ const ProtectedLayout = () => {
         {isAuthenticated ? (
           <>
             <Header isAuthenticated={isAuthenticated} />
-            <Box sx={layoutContentStyles}>
-              <Outlet />
+            <Box display="flex" alignItems="center" justifyContent="center">
+              <Box sx={layoutContentStyles}>
+                <Outlet />
+              </Box>
             </Box>
           </>
         ) : (
