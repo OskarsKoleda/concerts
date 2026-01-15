@@ -63,7 +63,7 @@ const Header = ({ isAuthenticated }: HeaderProps) => {
             ) : (
               <Link component={RouterLink} to={ROUTES.AUTH} sx={navLinkStyles}>
                 <PersonAddIcon />
-                <Typography variant="body1">Create Profile</Typography>
+                <Typography variant="body1">Log In</Typography>
               </Link>
             )}
           </Box>

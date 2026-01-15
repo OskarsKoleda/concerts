@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import apiClient from "../apiClient";
 
@@ -15,8 +15,14 @@ export const useCreateUser = (options?: {
   onSuccess?: (data: UserProfile) => void;
   onError?: (error: AxiosErrorResponse) => void;
 }) => {
+  const queryClient = useQueryClient();
+
   return useMutation<UserProfile, AxiosErrorResponse, CreateUserRequest>({
     mutationFn: createUser,
     ...options,
+    onSuccess: (data) => {
+      queryClient.setQueryData(["currentUser"], data);
+      options?.onSuccess?.(data);
+    },
   });
 };

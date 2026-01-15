@@ -10,7 +10,7 @@ const useAuth = () => {
   useEffect(() => {
     if (user) {
       setUserProfile(user);
-    } else if (isError) {
+    } else if (isError || !user) {
       setUserProfile(null);
     }
   }, [user, isError, setUserProfile]);

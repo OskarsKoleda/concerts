@@ -12,7 +12,7 @@ import { appTheme } from "./theme.ts";
 
 import type { PropsWithChildren } from "react";
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: DATA_STALE_TIME,
